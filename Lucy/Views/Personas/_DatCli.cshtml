@@ -1,0 +1,182 @@
+﻿@model Lucy.Models.Personas.DatCliViewModel
+
+@using (Html.BeginForm("_DatCli", "Personas", new { id = ViewBag.idPersona }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonaNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonaNombre, new { htmlAttributes = new { @class = "form-control", @maxlength = "20" } })
+                @Html.ValidationMessageFor(model => model.PersonaNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonaApellido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonaApellido, new { htmlAttributes = new { @class = "form-control", @maxlength = "20" } })
+                @Html.ValidationMessageFor(model => model.PersonaApellido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonaFchNac, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date datetimepicker" style="max-width: 280px">
+                    @Html.EditorFor(model => model.PersonaFchNac, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.PersonaFchNac, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SexoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SexoId, ViewBag.listaSexos as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SexoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatCliPeso, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatCliPeso, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.ValidationMessageFor(model => model.DatCliPeso, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatCliAltura, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatCliAltura, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.ValidationMessageFor(model => model.DatCliAltura, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @for (int i = 0; i < Model.Enfermedades.Count; i++)
+        {
+            <div class="form-group">
+                @Html.Label(Model.Enfermedades[i].Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.HiddenFor(model => model.Enfermedades[i].Id)
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.Enfermedades[i].Checked)
+                </div>
+            </div>
+        }
+
+        <div id="info_diabetes">
+            <h4>Diabetes</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DiabetesTipo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.DiabetesTipo, ViewBag.listaTiposDiabetes as SelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DiabetesTipo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div id="diabetes_tipo_1">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiabetesGlicemiaBaja, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiabetesGlicemiaBaja, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.DiabetesGlicemiaBaja, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiabetesGlicemiaAlta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiabetesGlicemiaAlta, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.DiabetesGlicemiaAlta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiabetesHidratosPorUniInsu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiabetesHidratosPorUniInsu, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.DiabetesHidratosPorUniInsu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InsulinaRetardadaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.InsulinaRetardadaId, ViewBag.listaInsulinasRetardadas as SelectList, "Seleccionar", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.InsulinaRetardadaId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InsulinaCorreccionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.InsulinaCorreccionId, ViewBag.listaInsulinasCorreccion as SelectList, "Seleccionar", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.InsulinaCorreccionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#Enfermedades_0__Checked").is(':checked')) {
+            $("#info_diabetes").show();
+        } else {
+            $("#info_diabetes").hide();
+        }
+
+        if ($("#DiabetesTipo").val() == 1) {
+            $("#diabetes_tipo_1").show();
+        } else {
+            $("#diabetes_tipo_1").hide();
+        }
+    });
+
+    $(function () {
+        var ln = x = window.navigator.language || navigator.browserLanguage;
+        $('.datetimepicker').datetimepicker({
+            locale: 'es',
+            viewMode: 'days',
+            locale: ln,
+            maxDate: 'now',
+            format: 'L'
+        });
+    });
+
+    $("#DiabetesTipo").change(function () {
+        if ($("#DiabetesTipo").val() == 1) {
+            $("#diabetes_tipo_1").show();
+        } else {
+            $("#diabetes_tipo_1").hide();
+        }
+    });
+
+    $("#Enfermedades_0__Checked").change(function () {
+        if ($("#Enfermedades_0__Checked").is(':checked')) {
+            $("#info_diabetes").show();
+        } else {
+            $("#info_diabetes").hide();
+        }
+    });
+</script>

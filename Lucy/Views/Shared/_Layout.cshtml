@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/ico.ico">
+    <title>@ViewBag.Title Lucy</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    @RenderSection("style", required: false)
+</head>
+<body>
+
+    <div id="out" onclick="closeNav()"></div>
+
+    <header>
+
+        <!-- sidenav -->
+        <nav id="mySidenav" class="sidenav" style="left: -250px; opacity: 0;">
+            <ul class="ul-sidenav">
+                @if (Request.Cookies["cookieUsu"] != null)
+                {
+                    <li class="liHi">
+                        <a disabled class="opSidnav typewrite" data-period="3000" data-type='[ "Hola @Request.Cookies["cookieUsu"]["UsuNom"]", "¿Cómo estás?", "¿En qué te ayudo?" ]'>
+                            <span class="wrap"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="liHi">
+                        <a disabled class="opSidnav typewrite" data-period="3000" data-type='[ "Hola, Soy Lucy", "¿Es tu primera vez aquí?", "Yo puedo cuidarte", "¿Por qué no te creas una cuenta?" ]'>
+                            <span class="wrap"></span>
+                        </a>
+                    </li>
+                }
+                <li>
+                    <a href="#" class="opSidnav">Noticias</a>
+                </li>
+                <li>
+                    <a href="/Alimentos/InfNut" class="opSidnav">Información Nutricional</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Dietas</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Recetas</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Mapas</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Ejercicios</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Calculadoras</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Calendario</a>
+                </li>
+                <li>
+                    <a href="#" class="opSidnav">Historial Clínico</a>
+                </li>
+                <li style="border: 0;">
+                    <div class="socialButton">
+                        <ul>
+                            <li><a href="#" class="fa fa-facebook"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-google"></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- nav -->
+        <nav id="menuContainer">
+            <div id="menu">
+                <ul id="myTopnav" class="topnav">
+                    <li class="topnavli">
+                        <a href="javascript:void(0)" class="cruz">
+                            <div class="barras">
+                                <div class="barra1"></div>
+                                <div class="barra2"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="topnavli"><a href="#">Noticias</a></li>
+                    <li class="topnavli"><a href="#">Mapa</a></li>
+                    <li class="topnavli"><a href="#">Calculadora</a></li>
+
+                    <li class="topnavli"><a href="/" class="logoBanner"></a></li>
+
+                    <li class="topnavli">
+
+                        <div class="dropdown arrow">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alimentos</a>
+                            <ul class="dropdown-menu">
+                                <li class="userLi"><a href="#">Comidas</a></li>
+                                <li class="userLi">
+                                    @Html.ActionLink("Información Nutricional", "InfNut", "Alimentos")
+                                </li>
+                                <li class="userLi"><a href="#">Recetas</a></li>
+                                <li class="userLi"><a href="#">Dietas</a></li>
+                            </ul>
+                        </div>
+
+                    </li>
+                    <li class="topnavli"><a href="#">Dieta</a></li>
+                    <li class="topnavli"><a href="#">Ejercicio</a></li>
+
+                    <li class="topnavli">
+
+                        <div class="dropdown arrow">
+                            <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
+                            <ul class="dropdown-menu">
+                                <li class="userLi"><a href="#">Notificaciones</a></li>
+                                <li class="userLi">
+                                    @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
+                                </li>
+                                <li class="userLi"><a href="#">Configuración</a></li>
+                                <li class="userLi">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        @Html.ActionLink("Salir", "Logout", "Usuarios")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Ingresar", "Login", "Usuarios")
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"></ul>
+                </div>
+            </div>
+        </div>*@
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Lucy</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/myScript")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

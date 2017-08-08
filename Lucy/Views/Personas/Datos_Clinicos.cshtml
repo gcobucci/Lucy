@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Datos clínicos -";
+}
+
+<h2>Datos Clinicos</h2>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="form-group">
+            <label class="control-label col-md-2">Personas</label>
+            <div class="col-md-10">
+
+                @Html.DropDownList("Personas", ViewBag.listaPersonas as SelectList, new { @class = "form-control" })
+            </div>
+        </div>
+        @*<div><button type="button" class="btn btn-default" onclick="nuevaPer()">+</button></div>*@
+        <hr style="border-top: 3px double #000000;">
+        <br />
+
+        <div id="DatCli">
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+
+    <script type="text/javascript">
+        window.onload = function cargar(){
+            var selectedID = $('#Personas').val();
+
+            //if (selectedID == "") {
+            //    selectedID = 0;
+            //}
+
+            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+
+                $('#DatCli').html(data);
+                $('#DatCli').fadeIn('fast');
+
+                $('form').removeData('validator');
+                $('form').removeData('unobtrusiveValidation');
+                $.validator.unobtrusive.parse('form');
+            });
+        }
+
+        //function nuevaPer() {
+        //    var selectedID = 0;
+
+        //    //$('#Personas').val = "Nuevo";
+
+        //    $.get('/Personas/_DatCli/' + selectedID, function (data) {
+
+        //        $('#DatCli').html(data);
+        //        $('#DatCli').fadeIn('fast');
+        //        $('form').removeData('validator');
+        //        $('form').removeData('unobtrusiveValidation');
+        //        $.validator.unobtrusive.parse('form');
+        //    });
+        //}
+
+        $('#Personas').change(function() {
+
+            var selectedID = $(this).val();
+
+            if (selectedID == ""){
+                selectedID = 0;
+            }
+
+            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+
+                $('#DatCli').html(data);
+                $('#DatCli').fadeIn('fast');
+
+                $('form').removeData('validator');
+                $('form').removeData('unobtrusiveValidation');
+                $.validator.unobtrusive.parse('form');
+            });
+
+        });
+    </script>
+}
+
+@section style {
+    @Styles.Render("~/Content/bootstrap-datetimepicker")
+}
