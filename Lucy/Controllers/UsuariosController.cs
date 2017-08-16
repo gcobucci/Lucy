@@ -128,7 +128,7 @@ namespace Lucy.Controllers
                     }
                     #endregion
 
-                    Usuario usu = new Usuario();
+                    ModelCL.Usuario usu = new ModelCL.Usuario();
 
                     #region Generate Activation Code
                     usu.UsuarioCodAct = Guid.NewGuid();
@@ -159,15 +159,27 @@ namespace Lucy.Controllers
                     using (AgustinaEntities db = new AgustinaEntities())
                     {
                         #region  Junto todo
-                        Rol rol = db.Rol.Where(r => r.RolNombre == "Free").FirstOrDefault();
+                        db.Usuario.Add(usu);
 
-                        usu.Persona.Add(per);
-                        //usu.Rol.Add(rol);
-                        per.Usuario.Add(usu);
+                        db.Persona.Add(per);
+
+                        ModelCL.RelUsuPer rup = new ModelCL.RelUsuPer();
+                        rup.Usuario = usu;
+                        rup.Persona = per;
+
+                        db.RelUsuPer.Add(rup);
+
+
+                        ModelCL.RelUsuRol rur = new ModelCL.RelUsuRol();
+
+                        ModelCL.Rol rol = db.Rol.Where(r => r.RolNombre == "Free").FirstOrDefault();
+
+                        rur.Usuario = usu;
+                        rur.Rol = rol;
+
+                        db.RelUsuRol.Add(rur);                                                            
                         #endregion
 
-                        db.Usuario.Add(usu);
-                        db.Persona.Add(per);
                         db.SaveChanges();
 
                         //Send Email to User

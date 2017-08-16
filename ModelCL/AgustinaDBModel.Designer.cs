@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'd:\documents\visual studio 2017\Projects\Lucy\ModelCL\AgustinaDBModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\gcobu\Dropbox\Cobucci\Proyectos\Lucy\ModelCL\AgustinaDBModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

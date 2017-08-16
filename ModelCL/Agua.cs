@@ -12,13 +12,13 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class HisDatCli
+    public partial class Agua
     {
-        public long HisDatCliId { get; set; }
-        public long DatCliId { get; set; }
+        public long AguaId { get; set; }
         public long PersonaId { get; set; }
-        public Nullable<double> DatCliPeso { get; set; }
-        public Nullable<double> DatCliAltura { get; set; }
-        public System.DateTime DatCliFchEnable { get; set; }
+        public short AguaCantidad { get; set; }
+        public string AguaCantidadTipo { get; set; }
+    
+        public virtual Registro Registro { get; set; }
     }
 }

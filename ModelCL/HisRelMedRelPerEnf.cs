@@ -15,7 +15,6 @@ namespace ModelCL
     public partial class HisRelMedRelPerEnf
     {
         public long HisRelMedRelPerEnfId { get; set; }
-        public long RelMedRelPerEnfId { get; set; }
         public long PersonaId { get; set; }
         public long EnfermedadId { get; set; }
         public long MedicinaId { get; set; }

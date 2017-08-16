@@ -25,25 +25,50 @@ namespace ModelCL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Actividad> Actividad { get; set; }
+        public virtual DbSet<Agua> Agua { get; set; }
         public virtual DbSet<Alimento> Alimento { get; set; }
+        public virtual DbSet<Articulo> Articulo { get; set; }
+        public virtual DbSet<Auditoria> Auditoria { get; set; }
+        public virtual DbSet<Comentario> Comentario { get; set; }
+        public virtual DbSet<Comida> Comida { get; set; }
+        public virtual DbSet<Contenido> Contenido { get; set; }
+        public virtual DbSet<Correccion> Correccion { get; set; }
         public virtual DbSet<DatCli> DatCli { get; set; }
+        public virtual DbSet<Dia> Dia { get; set; }
         public virtual DbSet<Diabetes> Diabetes { get; set; }
+        public virtual DbSet<Dieta> Dieta { get; set; }
+        public virtual DbSet<Ejercicio> Ejercicio { get; set; }
         public virtual DbSet<Enfermedad> Enfermedad { get; set; }
-        public virtual DbSet<HisDatCli> HisDatCli { get; set; }
+        public virtual DbSet<Error> Error { get; set; }
         public virtual DbSet<HisRelMedRelPerEnf> HisRelMedRelPerEnf { get; set; }
         public virtual DbSet<HisRelPerEnf> HisRelPerEnf { get; set; }
         public virtual DbSet<HisRelUsuRol> HisRelUsuRol { get; set; }
         public virtual DbSet<HisValorDiabetes> HisValorDiabetes { get; set; }
         public virtual DbSet<HisValorObesidad> HisValorObesidad { get; set; }
+        public virtual DbSet<Medicacion> Medicacion { get; set; }
         public virtual DbSet<Medicina> Medicina { get; set; }
         public virtual DbSet<Modulo> Modulo { get; set; }
+        public virtual DbSet<Multimedia> Multimedia { get; set; }
+        public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<Obesidad> Obesidad { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Peso> Peso { get; set; }
+        public virtual DbSet<Programa> Programa { get; set; }
+        public virtual DbSet<Receta> Receta { get; set; }
+        public virtual DbSet<Recordatorio> Recordatorio { get; set; }
+        public virtual DbSet<Registro> Registro { get; set; }
         public virtual DbSet<RelMedRelPerEnf> RelMedRelPerEnf { get; set; }
         public virtual DbSet<RelPerEnf> RelPerEnf { get; set; }
+        public virtual DbSet<RelUsuPer> RelUsuPer { get; set; }
         public virtual DbSet<RelUsuRol> RelUsuRol { get; set; }
+        public virtual DbSet<Repeticion> Repeticion { get; set; }
+        public virtual DbSet<Retardada> Retardada { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<Sesion> Sesion { get; set; }
         public virtual DbSet<Sexo> Sexo { get; set; }
+        public virtual DbSet<Tema> Tema { get; set; }
+        public virtual DbSet<TemaNot> TemaNot { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Valor> Valor { get; set; }
     }

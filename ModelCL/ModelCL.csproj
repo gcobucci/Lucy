@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actividad.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Agua.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AgustinaDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -67,16 +73,43 @@
     <Compile Include="Alimento.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Articulo.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Auditoria.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comentario.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comida.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contenido.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Correccion.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatCli.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dia.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Diabetes.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dieta.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ejercicio.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enfermedad.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HisDatCli.cs">
+    <Compile Include="Error.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="HisRelMedRelPerEnf.cs">
@@ -94,10 +127,19 @@
     <Compile Include="HisValorObesidad.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Medicacion.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Medicina.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Modulo.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Multimedia.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notificacion.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Obesidad.cs">
@@ -106,20 +148,53 @@
     <Compile Include="Persona.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Peso.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Programa.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receta.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Recordatorio.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Registro.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RelMedRelPerEnf.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RelPerEnf.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RelUsuPer.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RelUsuRol.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repeticion.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Retardada.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Rol.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sesion.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sexo.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tema.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemaNot.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">
@@ -134,8 +209,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AgustinaDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AgustinaDBModel.edmx.diagram">
       <DependentUpon>AgustinaDBModel.edmx</DependentUpon>
     </None>
@@ -143,19 +216,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="AgustinaDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AgustinaDBModel.Context.cs</LastGenOutput>
       <DependentUpon>AgustinaDBModel.edmx</DependentUpon>
+      <LastGenOutput>AgustinaDBModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="AgustinaDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AgustinaDBModel.edmx</DependentUpon>
       <LastGenOutput>AgustinaDBModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

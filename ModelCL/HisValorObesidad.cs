@@ -15,7 +15,7 @@ namespace ModelCL
     public partial class HisValorObesidad
     {
         public long HisValorObesidadId { get; set; }
-        public long ValorId { get; set; }
+        public long ObesidadId { get; set; }
         public long PersonaId { get; set; }
         public System.DateTime ValorFchEnable { get; set; }
         public double ObesidadPesoCorrecto { get; set; }

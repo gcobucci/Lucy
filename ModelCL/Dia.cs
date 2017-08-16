@@ -12,27 +12,18 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Alimento
+    public partial class Dia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Alimento()
+        public Dia()
         {
-            this.Comida = new HashSet<Comida>();
+            this.Recordatorio = new HashSet<Recordatorio>();
         }
     
-        public long AlimentoId { get; set; }
-        public string AlimentoNombre { get; set; }
-        public string AlimentoImagen { get; set; }
-        public string AlimentoPorcion { get; set; }
-        public Nullable<double> AlimentoCarbohidratos { get; set; }
-        public Nullable<double> AlimentoCalorias { get; set; }
-        public Nullable<double> AlimentoAzucar { get; set; }
-        public Nullable<double> AlimentoGrasa { get; set; }
-        public Nullable<double> AlimentoSodio { get; set; }
-        public Nullable<bool> AlimentoGluten { get; set; }
+        public short DiaId { get; set; }
+        public string DiaNombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comida> Comida { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Recordatorio> Recordatorio { get; set; }
     }
 }

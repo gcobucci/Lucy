@@ -14,7 +14,7 @@ namespace ModelCL
     
     public partial class Diabetes
     {
-        public long ValorId { get; set; }
+        public long DiabetesId { get; set; }
         public long PersonaId { get; set; }
         public string DiabetesTipo { get; set; }
         public Nullable<double> DiabetesGlicemiaBaja { get; set; }
