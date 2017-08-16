@@ -12,19 +12,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     @RenderSection("style", required: false)
 </head>
-<body>
+<body onshow="getUsuPos()" onresize="getUsuPos()">
 
     <div id="out" onclick="closeNav()"></div>
 
     <header>
 
         <!-- sidenav -->
-        <nav id="mySidenav" class="sidenav" style="left: -250px; opacity: 0;">
+        <nav id="mySidenav" class="sidenav">
             <ul class="ul-sidenav">
                 @if (Request.Cookies["cookieUsu"] != null)
                 {
                     <li class="liHi">
-                        <a disabled class="opSidnav typewrite" data-period="3000" data-type='[ "Hola @Request.Cookies["cookieUsu"]["UsuNom"]", "¿Cómo estás?", "¿En qué te ayudo?" ]'>
+                        <a disabled class="opSidnav typewrite" data-period="3000" data-type='[ "", "Hola @Request.Cookies["cookieUsu"]["UsuNom"]", "¿Cómo estás?", "¿Qué tal tu día?" ]'>
                             <span class="wrap"></span>
                         </a>
                     </li>
@@ -41,6 +41,9 @@
                     <a href="#" class="opSidnav">Noticias</a>
                 </li>
                 <li>
+                    <a href="#" class="opSidnav">Registro</a>
+                </li>
+                <li>
                     <a href="/Alimentos/InfNut" class="opSidnav">Información Nutricional</a>
                 </li>
                 <li>
@@ -53,7 +56,7 @@
                     <a href="#" class="opSidnav">Mapas</a>
                 </li>
                 <li>
-                    <a href="#" class="opSidnav">Ejercicios</a>
+                    <a href="#" class="opSidnav">Ejercicio</a>
                 </li>
                 <li>
                     <a href="#" class="opSidnav">Calculadoras</a>
@@ -76,10 +79,11 @@
             </ul>
         </nav>
 
-        <!-- nav -->
+        <!-- topnav -->
         <nav id="menuContainer">
             <div id="menu">
                 <ul id="myTopnav" class="topnav">
+                    @*Cruz*@
                     <li class="topnavli">
                         <a href="javascript:void(0)" class="cruz">
                             <div class="barras">
@@ -95,46 +99,56 @@
 
                     <li class="topnavli"><a href="/" class="logoBanner"></a></li>
 
-                    <li class="topnavli">
+                    @*Alimentos*@
+                    <li class="topnavli dropdown1 arrow">
 
-                        <div class="dropdown arrow">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alimentos</a>
-                            <ul class="dropdown-menu">
-                                <li class="userLi"><a href="#">Comidas</a></li>
-                                <li class="userLi">
-                                    @Html.ActionLink("Información Nutricional", "InfNut", "Alimentos")
-                                </li>
-                                <li class="userLi"><a href="#">Recetas</a></li>
-                                <li class="userLi"><a href="#">Dietas</a></li>
-                            </ul>
-                        </div>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdownS">Alimentos</a>
+                        <ul class="dropdown-menuS nav-list list-inline">
+                            <li class="userLi"><a href="#">Comidas</a></li>
+                            <li class="userLi">
+                                @Html.ActionLink("Inf. Nutricional", "InfNut", "Alimentos")
+                            </li>
+                            <li class="userLi"><a href="#">Recetas</a></li>
+                            <li class="userLi"><a href="#">Dietas</a></li>
+                        </ul>
 
                     </li>
+
                     <li class="topnavli"><a href="#">Dieta</a></li>
-                    <li class="topnavli"><a href="#">Ejercicio</a></li>
 
-                    <li class="topnavli">
+                    @*Ejercicio*@
+                    <li class="topnavli dropdown2 arrow">
+                        
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdownS">Ejercicio</a>
+                        <ul class="dropdown-menuS nav-list list-inline">
+                            <li class="userLi"><a href="#">Planes</a></li>
+                            <li class="userLi"><a href="#">Sesiones</a></li>
+                            <li class="userLi"><a href="#">Ejercicios</a></li>
+                        </ul>
 
-                        <div class="dropdown arrow">
-                            <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
-                            <ul class="dropdown-menu">
-                                <li class="userLi"><a href="#">Notificaciones</a></li>
-                                <li class="userLi">
-                                    @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
-                                </li>
-                                <li class="userLi"><a href="#">Configuración</a></li>
-                                <li class="userLi">
-                                    @if (Request.IsAuthenticated)
-                                    {
-                                        @Html.ActionLink("Salir", "Logout", "Usuarios")
-                                    }
-                                    else
-                                    {
-                                        @Html.ActionLink("Ingresar", "Login", "Usuarios")
-                                    }
-                                </li>
-                            </ul>
-                        </div>
+                    </li>
+
+                    @*UsuIco*@
+                    <li class="topnavli arrow" id="liUsu">
+
+                        <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
+                        <ul id="ulUsu" class="dropdown-menu">
+                            <li class="userLi"><a href="#">Notificaciones</a></li>
+                            <li class="userLi">
+                                @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
+                            </li>
+                            <li class="userLi"><a href="#">Configuración</a></li>
+                            <li class="userLi">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Salir", "Logout", "Usuarios")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Ingresar", "Login", "Usuarios")
+                                }
+                            </li>
+                        </ul>
 
                     </li>
                 </ul>
@@ -142,26 +156,35 @@
         </nav>
     </header>
 
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav"></ul>
-                </div>
+    <div class="sliderContainer">
+        <div class="slider single-item">
+            <div>Salud</div>
+            <div>Lucy</div>
+            <div>#Diabetes</div>
+            <div>•</div>
+        </div>
+        <div class="progressBarContainer">
+            <div>
+                <span data-slick-index="0" class="progressBar"></span>
             </div>
-        </div>*@
+            <div>
+                <span data-slick-index="1" class="progressBar"></span>
+            </div>
+            <div>
+                <span data-slick-index="2" class="progressBar"></span>
+            </div>
+            <div>
+                <span data-slick-index="3" class="progressBar"></span>
+            </div>
+        </div>
+    </div>
 
-
+    <!-- body -->
     <div class="container body-content">
+        
         @RenderBody()
+        
+        <!-- footer -->
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Lucy</p>
@@ -172,5 +195,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/myScript")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

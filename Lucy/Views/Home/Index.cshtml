@@ -3,5 +3,14 @@
     ViewBag.Title = null;
 }
 
-<h2>Home</h2>
+@section scripts {
 
+    @Scripts.Render("~/bundles/Slides")
+    
+}
+
+@section style {
+
+    @Styles.Render("~/Content/Slick")
+
+}

@@ -43,7 +43,24 @@ namespace Lucy
             bundles.Add(new ScriptBundle("~/bundles/myScript").Include(
                       "~/Scripts/slideRigth.js",
                       "~/Scripts/menuScroll.js",
+                      "~/Scripts/customDropdown.js",
                       "~/Scripts/sidebarMenuHi.js"));
+
+            // Tablas
+            bundles.Add(new ScriptBundle("~/bundles/Tablas").Include(
+                "~/Scripts/jquery.sortelements.js",
+                "~/Scripts/jquery.bdt.min.js"));
+
+            // Slides
+            bundles.Add(new ScriptBundle("~/bundles/Slides").Include(
+                "~/Scripts/jquery-ui-{version}.min.js",
+                "~/Scripts/slick.js",
+                "~/Scripts/SlickSlider.js"));
+
+            // Slick
+            bundles.Add(new StyleBundle("~/Content/Slick").Include(
+                      "~/Content/slick-theme.css",
+                      "~/Content/slick.css"));
         }
     }
 }

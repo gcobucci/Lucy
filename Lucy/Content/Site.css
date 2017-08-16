@@ -68,12 +68,13 @@ header {
     height: 100%;
     width: 250px;
     position: fixed;
+    left: -250px;
+    opacity: 0;
     z-index: 999;
     top: 0;
     background-color: #111;
     overflow: auto;
     transition: 0.5s;
-    padding-top: 60px;
     box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -135,6 +136,35 @@ li.liHi {
     }
 }
 
+/* Top Nav responsive */
+@media screen and (max-width: 360px) {
+    .topnav .topnavli {
+        margin: 0 0.7% !important;
+    }
+}
+@media screen and (max-width: 319px) {
+    .topnav .topnavli {
+        margin: 0 0 !important;
+    }
+
+    .topnavli > a {
+        width: 66px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .sidenav {
+        width: 100%;
+        height: 0;
+        top: 44px;
+        left: 0;
+    }
+
+    li.liHi {
+        padding: 9% 0;
+    }
+}
+
 #out {
     width: 100%;
     height: 100%;
@@ -143,7 +173,7 @@ li.liHi {
     z-index: -1;
 }
 
-/**********************************************   FIN MENU IZ   **********************************************/
+/**********************************************   TOP NAV   **********************************************/
 
 #menuContainer {
     position: fixed;
@@ -163,13 +193,13 @@ li.liHi {
     margin: 0 auto;
     max-width: 980px;
     padding: 0 22px;
-    position: relative;
+    position: static;
     text-align: center;
 }
 
 .topnav {
     list-style-type: none;
-    position: relative;
+    position: static;
     padding: 0;
     margin: 0 -10px;
     width: auto;
@@ -178,16 +208,20 @@ li.liHi {
 
     .topnav .topnavli {
         display: inline-block;
-        position: relative;
+        position: static;
         height: 44px;
-        margin: 0 2.8831619%;
+        margin: 0 1.3%;
+    }
+
+    .topnavli > a {
+        width: 77px;
+        text-align: center;
     }
 
     .topnav a {
         float: left;
         display: block;
         color: #fff;
-        text-align: left;
         padding: 12px 0;
         text-decoration: none;
         font-size: 10.5pt;
@@ -199,7 +233,7 @@ li.liHi {
         background-color: inherit;
     }    
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 964px) {
     .topnav a {
         display: none;
     }
@@ -210,20 +244,54 @@ li.liHi {
 }
 
 
+/************************************************************   SUB MENU   ************************************************************/
+
+.dropdown-menuS {
+    width: 100%;
+    position: absolute;
+    top: 43px;
+    left: 5px;
+    z-index: 1001;
+    float: left;
+    min-width: 100%;
+    padding: 5px 0;
+    font-size: 10.5pt;
+    text-align: center;
+    list-style: none;
+    background-color: #fbfbfb;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-right: 0;
+    border-left: 0;
+    box-shadow: rgba(0,0,0,.176) 0 6px 12px;
+    display: none;
+}
+
+.dropdown-menuS > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+
 /************************************************************   USER   ************************************************************/
 
 .user {
+    width: 77px;
     background-size: 14px 20px;
     background-repeat: no-repeat;
     background-image: url("../resource/image/user.svg");
     background-position: center center;
     height: 44px;
-    padding: 12px 7px !important;
 }
 
 .dropdown-menu {
-    left: -114px;
-    width: 240px;
+    position: absolute;
     border: 1px solid #d6d6d6;
     border-radius: 2px;
     margin-top: 3px;
@@ -238,10 +306,12 @@ li.liHi {
         width: 100%;
     }
 
+.arrow{
+    position: static;
+}
+
 .open.arrow:before {
-    left: 49%;
     top: 25px;
-    margin-left: -10px;
     border-width: 11px;
     position: absolute;
     border-color: transparent transparent #d6d6d6;
@@ -250,10 +320,8 @@ li.liHi {
 }
 
 .open.arrow:after {
-    left: 49%;
     top: 26.5px;
-    z-index: 1000;
-    margin-left: -10px;
+    z-index: 1001;
     border-width: 11px;
     position: absolute;
     border-color: transparent transparent #fff;
@@ -265,6 +333,7 @@ li.liHi {
     content: " ";
     opacity: 0;
     display: block;
+    margin-left: 28px;
     height: 0;
     width: 0;
     transition: opacity 0.3s;
@@ -278,12 +347,61 @@ li.liHi {
 }
 
 .logoBanner {
-    background-size: 20px;
+    background-size: 22px;
     background-repeat: no-repeat;
     background-image: url(../resource/image/logoBanner.svg);
     background-position: center center;
-    padding: 22px 10px !important;
+    padding: 22px 0 !important;
 }
+
+    .logoBanner:hover {
+        -webkit-animation-name: pampita; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 2.3s; /* Safari 4.0 - 8.0 */
+        -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+        animation-name: pampita;
+        animation-duration: 2.3s;
+        animation-iteration-count: infinite;
+    }
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes pampita {
+    0% {
+        background-size: 22px;
+    }
+
+    15% {
+        background-size: 26px
+    }
+
+    30% {
+        background-size: 22px
+    }
+
+    100% {
+        background-size: 22px
+    }
+}
+
+/* Standard syntax */
+@keyframes pampita {
+    0% {
+        background-size: 22px;
+
+    }
+
+    15% {
+        background-size: 26px
+    }
+
+    30% {
+        background-size: 22px
+    }
+
+    100% {
+        background-size: 22px
+    }
+}
+
 
 /****************************************************************   SOCIAL ICON   ****************************************************************/
 
@@ -356,15 +474,16 @@ li.liHi {
     position: relative;
     z-index: 800;
     cursor: default;
+    top: -50px;
 }
 
 .slider {
     width: 100%;
-    /*margin: 30px 50px 50px;*/
+    height: 540px;
 }
 
 .slick-track {
-    height: 500px;
+    height: 100%;
 }
 
 .slick-slide {
@@ -392,7 +511,7 @@ li.liHi {
 .progressBarContainer {
     position: relative;
     bottom: 20px;
-    width: 500px;
+    width: 235.3px;
     margin: 0 auto;
     display: flex;
 }
@@ -413,7 +532,7 @@ li.liHi {
 
         .progressBarContainer div span.progressBar {
             width: 100%;
-            height: 4px;
+            height: 2px;
             background-color: rgba(255, 255, 255, 0.4);
             display: block;
         }
@@ -421,5 +540,5 @@ li.liHi {
             .progressBarContainer div span.progressBar .inProgress {
                 background-color: rgba(255, 255, 255, 0.8);
                 width: 0%;
-                height: 4px;
+                height: 2px;
             }
