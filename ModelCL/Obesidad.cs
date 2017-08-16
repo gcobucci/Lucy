@@ -14,7 +14,7 @@ namespace ModelCL
     
     public partial class Obesidad
     {
-        public long ValorId { get; set; }
+        public long ObesidadId { get; set; }
         public long PersonaId { get; set; }
         public double ObesidadPesoCorrecto { get; set; }
     

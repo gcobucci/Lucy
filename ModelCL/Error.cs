@@ -12,16 +12,9 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class RelMedRelPerEnf
+    public partial class Error
     {
-        public long PersonaId { get; set; }
-        public long EnfermedadId { get; set; }
-        public long MedicinaId { get; set; }
-        public Nullable<double> RelMedRelPerEnfFrecuencia { get; set; }
-        public string RelMedRelPerEnfFrecuenciaTipo { get; set; }
-        public System.DateTime RelMedRelPerEnfFchEnable { get; set; }
-    
-        public virtual Medicina Medicina { get; set; }
-        public virtual RelPerEnf RelPerEnf { get; set; }
+        public long ErrorId { get; set; }
+        public string ErrorDesc { get; set; }
     }
 }

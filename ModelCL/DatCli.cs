@@ -16,10 +16,9 @@ namespace ModelCL
     {
         public long DatCliId { get; set; }
         public long PersonaId { get; set; }
-        public Nullable<double> DatCliPeso { get; set; }
         public Nullable<double> DatCliAltura { get; set; }
-        public System.DateTime DatCliFchEnable { get; set; }
+        public Nullable<double> DatCliColesterol { get; set; }
     
-        public virtual Persona Persona { get; set; }
+        public virtual Registro Registro { get; set; }
     }
 }

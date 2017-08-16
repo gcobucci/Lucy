@@ -15,7 +15,7 @@ namespace ModelCL
     public partial class HisValorDiabetes
     {
         public long HisValorDiabetesId { get; set; }
-        public long ValorId { get; set; }
+        public long DiabetesId { get; set; }
         public long PersonaId { get; set; }
         public System.DateTime ValorFchEnable { get; set; }
         public string DiabetesTipo { get; set; }

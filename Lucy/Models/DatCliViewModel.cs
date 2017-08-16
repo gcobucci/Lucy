@@ -36,14 +36,17 @@ namespace Lucy.Models.Personas
         public short SexoId { get; set; }
 
 
-        /////Datos clinicos/////
+        /////Peso/////
         [Display(Name = "Peso")]
         //Ver como restringir el float
-        public Nullable<double> DatCliPeso { get; set; }
+        public Nullable<double> PesoValor { get; set; }
 
+        /////DatCli/////
         [Display(Name = "Altura")]
         public Nullable<double> DatCliAltura { get; set; }
 
+        [Display(Name = "Colesterol")]
+        public Nullable<double> DatCliColesterol { get; set; }
 
         /////Enfermedades/////
         public List<ViewModelCheckBox> Enfermedades { get; set; }

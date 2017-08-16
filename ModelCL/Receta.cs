@@ -12,16 +12,15 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class RelMedRelPerEnf
+    public partial class Receta
     {
-        public long PersonaId { get; set; }
-        public long EnfermedadId { get; set; }
-        public long MedicinaId { get; set; }
-        public Nullable<double> RelMedRelPerEnfFrecuencia { get; set; }
-        public string RelMedRelPerEnfFrecuenciaTipo { get; set; }
-        public System.DateTime RelMedRelPerEnfFchEnable { get; set; }
+        public long RecetaId { get; set; }
+        public string RecetaDescripcion { get; set; }
+        public Nullable<double> RecetaCalorias { get; set; }
+        public Nullable<double> RecetaHidratos { get; set; }
+        public Nullable<bool> RecetaSodio { get; set; }
+        public Nullable<bool> RecetaGluten { get; set; }
     
-        public virtual Medicina Medicina { get; set; }
-        public virtual RelPerEnf RelPerEnf { get; set; }
+        public virtual Contenido Contenido { get; set; }
     }
 }

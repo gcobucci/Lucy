@@ -22,10 +22,15 @@ namespace Lucy.Controllers
             int idUsu = Convert.ToInt32(usu.Name);
 
             ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
-            List<ModelCL.Persona> lPersonas = Usuario.Persona.ToList();
+            List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
+            List<ModelCL.Persona> lPersonas = new List<ModelCL.Persona>();
+            foreach (ModelCL.RelUsuPer rup in lRelUsuPer)
+            {
+                lPersonas.Add(rup.Persona);
+            }
             ModelCL.Persona Persona = new Persona();
             Persona.PersonaId = 0;
-            Persona.PersonaApellido = ">> CREAR NUEVA PERSONA <<";
+            Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
             lPersonas.Add(Persona);
             ViewBag.listaPersonas = new SelectList(lPersonas, "PersonaId", "nombreCompleto");
             return View();
@@ -57,14 +62,26 @@ namespace Lucy.Controllers
                     newDatCli.PersonaFchNac = Persona.PersonaFchNac.ToString();
                     newDatCli.SexoId = Persona.SexoId;
 
-                    //ModelCL.DatCli DatCli = db.Persona.Where(dc => dc.PersonaId );
-                    ModelCL.DatCli DatCli = Persona.DatCli.FirstOrDefault();
 
-                    if (DatCli != null)
+
+                    ModelCL.Registro RegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();                     
+
+                    if (RegistroPeso != null)
                     {
-                        newDatCli.DatCliPeso = DatCli.DatCliPeso;
-                        newDatCli.DatCliAltura = DatCli.DatCliAltura;
+                        newDatCli.PesoValor = RegistroPeso.Peso.PesoValor;
                     }
+
+
+
+                    ModelCL.Registro RegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();              
+
+                    if (RegistroDatCli != null)
+                    {
+                        newDatCli.DatCliAltura = RegistroDatCli.DatCli.DatCliAltura;
+                        newDatCli.DatCliColesterol = RegistroDatCli.DatCli.DatCliColesterol;
+                    }
+
+
 
                     for (int i = 0; i < newDatCli.Enfermedades.Count; i++)
                     {
@@ -142,28 +159,55 @@ namespace Lucy.Controllers
                 Persona.PersonaFchNac = Convert.ToDateTime(Datos.PersonaFchNac);
                 Persona.Sexo = db.Sexo.Find(Datos.SexoId);
 
-
-                ModelCL.DatCli oldDatCli = Persona.DatCli.FirstOrDefault();
-
-                ModelCL.DatCli DatCli = new ModelCL.DatCli();
-
-                DatCli.Persona = Persona;
-                DatCli.DatCliPeso = Datos.DatCliPeso;
-                DatCli.DatCliAltura = Datos.DatCliAltura;
-
-                if (oldDatCli != null)
+                
+                if (Datos.PesoValor != null)
                 {
-                    if (oldDatCli.DatCliPeso != DatCli.DatCliPeso || oldDatCli.DatCliAltura != DatCli.DatCliAltura)
+                    ModelCL.Registro oldRegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+
+                    ModelCL.Registro RegistroPeso = new ModelCL.Registro();
+                    ModelCL.Peso Peso = new ModelCL.Peso();
+
+                    Peso.PesoValor = Datos.PesoValor;
+                    RegistroPeso.Peso = Peso;
+
+                    if (oldRegistroPeso != null)
                     {
-                        Persona.DatCli.Remove(oldDatCli);
-                        Persona.DatCli.Add(DatCli);
+                        if (oldRegistroPeso.Peso.PesoValor != Peso.PesoValor)
+                        {
+                            Persona.Registro.Add(RegistroPeso);
+                        }
+                    }
+                    else
+                    {
+                        Persona.Registro.Add(RegistroPeso);
                     }
                 }
-                else
+
+
+                if (Datos.DatCliAltura != null || Datos.DatCliColesterol != null)
                 {
-                    Persona.DatCli.Remove(oldDatCli);
-                    Persona.DatCli.Add(DatCli);
+                    ModelCL.Registro oldRegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+
+                    ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
+                    ModelCL.DatCli DatCli = new ModelCL.DatCli();
+
+                    DatCli.DatCliAltura = Datos.DatCliAltura;
+                    DatCli.DatCliColesterol = Datos.DatCliColesterol;
+                    RegistroDatCli.DatCli = DatCli;
+
+                    if (oldRegistroDatCli != null)
+                    {
+                        if (oldRegistroDatCli.DatCli.DatCliAltura != DatCli.DatCliAltura || oldRegistroDatCli.DatCli.DatCliColesterol != DatCli.DatCliColesterol)
+                        {
+                            Persona.Registro.Add(RegistroDatCli);
+                        }
+                    }
+                    else
+                    {
+                        Persona.Registro.Add(RegistroDatCli);
+                    }
                 }
+                
 
                 foreach (ViewModelCheckBox enf in Datos.Enfermedades)
                 {
@@ -188,7 +232,7 @@ namespace Lucy.Controllers
                         {
                             ModelCL.RelPerEnf oldRelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.EnfermedadId == enf.Id).FirstOrDefault();
 
-                            foreach (ModelCL.RelMedRelPerEnf oldrmrpe in oldRelPerEnf.RelMedRelPerEnf)
+                            foreach (ModelCL.RelMedRelPerEnf oldrmrpe in oldRelPerEnf.RelMedRelPerEnf.ToList())
                             {
                                 Persona.RelPerEnf.Where(rpe => rpe.EnfermedadId == enf.Id).FirstOrDefault().RelMedRelPerEnf.Remove(oldrmrpe);
                             }
@@ -306,6 +350,15 @@ namespace Lucy.Controllers
                                 Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
                             }
                         }
+                        else
+                        {
+                            ModelCL.RelPerEnf oldRelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
+
+                            foreach (ModelCL.RelMedRelPerEnf oldrmrpe in oldRelPerEnf.RelMedRelPerEnf.ToList())
+                            {
+                                Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Remove(oldrmrpe);
+                            }
+                        }
                     }
                     else
                     {
@@ -368,12 +421,7 @@ namespace Lucy.Controllers
                         Persona.Valor.Remove(oldValor);
                     }
                 }
-
-
-                //Hay que evaluar aca, si lo vemos desde el lado de bd primero deberiamos crear la persona y
-                //despues relacionar las tablas, pero actualmente estamos manejando objetos y es medio raro
-                //puede ser que mas adelante cuando agreguemos mas tablas se cree un "relusuper" y ahi nos cambie
-                //la forma de guardado    
+ 
 
                 if (id == 0)
                 {
@@ -383,10 +431,13 @@ namespace Lucy.Controllers
 
                     ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
 
-                    Usuario.Persona.Add(Persona);
-                    //Persona.Usuario.Add(Usuario);
+                    db.Persona.Add(Persona);
 
-                    //db.Persona.Add(Persona);
+                    ModelCL.RelUsuPer rup = new ModelCL.RelUsuPer();
+                    rup.Usuario = Usuario;
+                    rup.Persona = Persona;
+
+                    db.RelUsuPer.Add(rup);
                 }
 
                 db.SaveChanges();

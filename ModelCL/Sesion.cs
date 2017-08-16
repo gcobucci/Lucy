@@ -12,27 +12,22 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Alimento
+    public partial class Sesion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Alimento()
+        public Sesion()
         {
-            this.Comida = new HashSet<Comida>();
+            this.Programa = new HashSet<Programa>();
+            this.Ejercicio = new HashSet<Ejercicio>();
         }
     
-        public long AlimentoId { get; set; }
-        public string AlimentoNombre { get; set; }
-        public string AlimentoImagen { get; set; }
-        public string AlimentoPorcion { get; set; }
-        public Nullable<double> AlimentoCarbohidratos { get; set; }
-        public Nullable<double> AlimentoCalorias { get; set; }
-        public Nullable<double> AlimentoAzucar { get; set; }
-        public Nullable<double> AlimentoGrasa { get; set; }
-        public Nullable<double> AlimentoSodio { get; set; }
-        public Nullable<bool> AlimentoGluten { get; set; }
+        public long SesionId { get; set; }
+        public string SesionDescripcion { get; set; }
     
+        public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comida> Comida { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Programa> Programa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ejercicio> Ejercicio { get; set; }
     }
 }
