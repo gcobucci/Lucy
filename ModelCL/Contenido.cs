@@ -19,7 +19,7 @@ namespace ModelCL
         {
             this.Comentario = new HashSet<Comentario>();
             this.Multimedia = new HashSet<Multimedia>();
-            this.Usuario = new HashSet<Usuario>();
+            this.UsuariosFav = new HashSet<Usuario>();
         }
     
         public long ContenidoId { get; set; }
@@ -39,7 +39,7 @@ namespace ModelCL
         public virtual Receta Receta { get; set; }
         public virtual Sesion Sesion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
+        public virtual ICollection<Usuario> UsuariosFav { get; set; }
+        public virtual Usuario UsuarioAutor { get; set; }
     }
 }

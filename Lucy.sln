@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucy", "Lucy\Lucy.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelCL", "ModelCL\ModelCL.csproj", "{1BC34328-B271-4D56-BCDB-B2A72CD1D0D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{26376BEC-ADF0-4247-8280-1D4B8E00FADD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1BC34328-B271-4D56-BCDB-B2A72CD1D0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC34328-B271-4D56-BCDB-B2A72CD1D0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC34328-B271-4D56-BCDB-B2A72CD1D0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26376BEC-ADF0-4247-8280-1D4B8E00FADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26376BEC-ADF0-4247-8280-1D4B8E00FADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26376BEC-ADF0-4247-8280-1D4B8E00FADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26376BEC-ADF0-4247-8280-1D4B8E00FADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

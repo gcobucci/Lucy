@@ -17,7 +17,7 @@ namespace Lucy.Controllers
         {
             using (AgustinaEntities db = new AgustinaEntities())
             {
-                List<ModelCL.Alimento> Alimentos = null;
+                List<ModelCL.Alimento> alimentos = null;
 
                 if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                 {
@@ -27,14 +27,14 @@ namespace Lucy.Controllers
                     int idUsu = Convert.ToInt32(usu.Name);
                     #endregion
 
-                    Alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
+                    alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
                 }
                 else
                 {
-                    Alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
+                    alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
                 }
                 
-                return View(Alimentos);
+                return View(alimentos);
             }
         }
     }

@@ -2140,10 +2140,10 @@
           <Property Name="ComentarioCuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ComentarioFchHora" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Comentario_ContenidoId" FromRole="Comentario" ToRole="Contenido" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Comentario" ToRole="Usuario" />
-          <NavigationProperty Name="Comentario1" Relationship="Self.RelComCom" FromRole="Comentario" ToRole="Comentario1" />
-          <NavigationProperty Name="Comentario2" Relationship="Self.RelComCom" FromRole="Comentario1" ToRole="Comentario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.RelFavUsuCom" FromRole="Comentario" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioAutor" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Comentario" ToRole="Usuario" />
+          <NavigationProperty Name="ComentarioPadre" Relationship="Self.RelComCom" FromRole="Comentario" ToRole="Comentario1" />
+          <NavigationProperty Name="ComentarioHijo" Relationship="Self.RelComCom" FromRole="Comentario1" ToRole="Comentario" />
+          <NavigationProperty Name="UsuariosFav" Relationship="Self.RelFavUsuCom" FromRole="Comentario" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Comida">
           <Key>
@@ -2181,8 +2181,8 @@
           <NavigationProperty Name="Programa" Relationship="Self.FK_Programa_ProgramaId" FromRole="Contenido" ToRole="Programa" />
           <NavigationProperty Name="Receta" Relationship="Self.FK_Receta_RecetaId" FromRole="Contenido" ToRole="Receta" />
           <NavigationProperty Name="Sesion" Relationship="Self.FK_Sesion_SesionId" FromRole="Contenido" ToRole="Sesion" />
-          <NavigationProperty Name="Usuario" Relationship="Self.RelFavUsuCont" FromRole="Contenido" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.RelUsuCont" FromRole="Contenido" ToRole="Usuario" />
+          <NavigationProperty Name="UsuariosFav" Relationship="Self.RelFavUsuCont" FromRole="Contenido" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioAutor" Relationship="Self.RelUsuCont" FromRole="Contenido" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Correccion">
           <Key>
