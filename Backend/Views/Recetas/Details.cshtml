@@ -1,0 +1,66 @@
+﻿@model ModelCL.Receta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Receta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RecetaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecetaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecetaCalorias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecetaCalorias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecetaHidratos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecetaHidratos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecetaSodio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecetaSodio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecetaGluten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecetaGluten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contenido.ContenidoTitulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecetaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

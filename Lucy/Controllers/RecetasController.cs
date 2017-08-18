@@ -8,9 +8,11 @@ using System.Web.Security;
 
 namespace Lucy.Controllers
 {
+    [RoutePrefix("recetas")]
     public class RecetasController : Controller
     {
         [HttpGet]
+        [Route("asd")]
         public ActionResult List()
         {
             using (AgustinaEntities db = new AgustinaEntities())

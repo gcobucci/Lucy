@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ModelCL.Receta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetaDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetaCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetaHidratos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetaSodio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecetaGluten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecetaDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecetaCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecetaHidratos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecetaSodio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecetaGluten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecetaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecetaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecetaId })
+        </td>
+    </tr>
+}
+
+</table>
