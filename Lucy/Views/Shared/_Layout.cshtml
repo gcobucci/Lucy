@@ -38,7 +38,7 @@
                     </li>
                 }
                 <li>
-                    <a href="#" class="opSidnav">Noticias</a>
+                    <a href="/Articulos/Articulos" class="opSidnav">Noticias</a>
                 </li>
                 <li>
                     <a href="#" class="opSidnav">Registro</a>
@@ -156,28 +156,31 @@
         </nav>
     </header>
 
-    <div class="sliderContainer">
-        <div class="slider single-item">
-            <div>Salud</div>
-            <div>Lucy</div>
-            <div>#Diabetes</div>
-            <div>•</div>
+    @if (ViewBag.Title == null)
+    {
+        <div class="sliderContainer">
+            <div class="slider single-item">
+                <div>Salud</div>
+                <div>Lucy</div>
+                <div>#Diabetes</div>
+                <div>•</div>
+            </div>
+            <div class="progressBarContainer">
+                <div>
+                    <span data-slick-index="0" class="progressBar"></span>
+                </div>
+                <div>
+                    <span data-slick-index="1" class="progressBar"></span>
+                </div>
+                <div>
+                    <span data-slick-index="2" class="progressBar"></span>
+                </div>
+                <div>
+                    <span data-slick-index="3" class="progressBar"></span>
+                </div>
+            </div>
         </div>
-        <div class="progressBarContainer">
-            <div>
-                <span data-slick-index="0" class="progressBar"></span>
-            </div>
-            <div>
-                <span data-slick-index="1" class="progressBar"></span>
-            </div>
-            <div>
-                <span data-slick-index="2" class="progressBar"></span>
-            </div>
-            <div>
-                <span data-slick-index="3" class="progressBar"></span>
-            </div>
-        </div>
-    </div>
+    }
 
     <!-- body -->
     <div class="container body-content">

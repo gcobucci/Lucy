@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ModelCL.Articulo>
+
+@{
+    ViewBag.Title = "Artículos y Noticias -";
+}
+
+<h2>Articulos</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticuloDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArticuloDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticuloId })
+        </td>
+    </tr>
+}
+
+</table>
