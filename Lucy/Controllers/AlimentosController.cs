@@ -15,18 +15,19 @@ namespace Lucy.Controllers
         [HttpGet]
         public ActionResult InfNut()
         {
+            List<ModelCL.Alimento> Alimentos = null;
+
+            #region UsuarioId por cookie
+            HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
+            int idUsu = Convert.ToInt32(usu.Name);
+            #endregion
+
             using (AgustinaEntities db = new AgustinaEntities())
             {
-                List<ModelCL.Alimento> Alimentos = null;
 
                 if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                 {
-                    #region UsuarioId por cookie
-                    HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                    FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                    int idUsu = Convert.ToInt32(usu.Name);
-                    #endregion
-
                     Alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
                 }
                 else
@@ -34,8 +35,9 @@ namespace Lucy.Controllers
                     Alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
                 }
                 
-                return View(Alimentos);
             }
+
+            return View(Alimentos);
         }
     }
 }
