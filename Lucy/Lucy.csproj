@@ -307,6 +307,7 @@
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
@@ -326,6 +327,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Views\Articulos\Articulos.cshtml" />
+    <Content Include="Views\Recetas\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
