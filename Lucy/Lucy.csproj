@@ -290,6 +290,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\newWaterfall.js" />
     <Content Include="Scripts\sidebarMenuHi.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\SlickSlider.js" />
@@ -328,8 +329,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Views\Articulos\Articulos.cshtml" />
     <Content Include="Views\Recetas\List.cshtml" />
+    <Content Include="Views\Articulos\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
