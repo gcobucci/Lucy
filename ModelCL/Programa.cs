@@ -22,7 +22,6 @@ namespace ModelCL
         }
     
         public long ProgramaId { get; set; }
-        public string ProgramaDescripcion { get; set; }
     
         public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

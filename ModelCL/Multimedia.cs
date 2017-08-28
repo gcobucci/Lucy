@@ -18,6 +18,7 @@ namespace ModelCL
         public long ContenidoId { get; set; }
         public string MultimediaUrl { get; set; }
         public string MultimediaTipo { get; set; }
+        public short MultimediaOrden { get; set; }
     
         public virtual Contenido Contenido { get; set; }
     }

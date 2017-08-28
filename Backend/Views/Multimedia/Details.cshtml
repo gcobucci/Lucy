@@ -1,0 +1,42 @@
+﻿@model ModelCL.Multimedia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Multimedia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MultimediaTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultimediaTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultimediaImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultimediaImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contenido.ContenidoTitulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

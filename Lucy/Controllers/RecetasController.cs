@@ -12,7 +12,7 @@ namespace Lucy.Controllers
     public class RecetasController : Controller
     {
         [HttpGet]
-        [Route("asd")]
+        [Route("")]
         public ActionResult List()
         {
             using (AgustinaEntities db = new AgustinaEntities())

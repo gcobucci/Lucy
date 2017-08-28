@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Receta</h4>
+    <h4>Artículo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,52 +34,21 @@
             @Html.DisplayFor(model => model.ContenidoCuerpo)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaCalorias)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Receta.RecetaCalorias)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaHidratos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Receta.RecetaHidratos)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaGluten)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Receta.RecetaGluten)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaSodio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Receta.RecetaSodio)
-        </dd>
-
         @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
         {
             @*<dt>
-                @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>*@
+                    @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
+                </dt>*@
 
             <dd>
                 <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
             </dd>
         }
-        
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ContenidoId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+

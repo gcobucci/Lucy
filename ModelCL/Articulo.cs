@@ -21,7 +21,6 @@ namespace ModelCL
         }
     
         public long ArticuloId { get; set; }
-        public string ArticuloDescripcion { get; set; }
     
         public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

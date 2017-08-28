@@ -11,17 +11,17 @@ using System.IO;
 
 namespace Backend.Controllers
 {
-    [RoutePrefix("recetas")]
-    public class RecetasController : Controller
+    [RoutePrefix("articulos")]
+    public class ArticulosController : Controller
     {
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("index")]
         public ActionResult Index()
         {
-            var recetas = db.Contenido.Where(c => c.Receta != null).ToList();
+            var articulos = db.Contenido.Where(c => c.Articulo != null).ToList();
 
-            return View(recetas);
+            return View(articulos);
         }
 
         [Route("details")]
@@ -31,18 +31,17 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            if (contReceta.Receta == null)
+            ModelCL.Contenido contArticulo = db.Contenido.Find(id);
+            if (contArticulo.Articulo == null)
             {
                 return HttpNotFound();
             }
-            return View(contReceta);
+            return View(contArticulo);
         }
 
         [Route("create")]
         public ActionResult Create()
         {
-            //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo");
             return View();
         }
 
@@ -72,7 +71,7 @@ namespace Backend.Controllers
                         }
                         else
                         {
-                            
+
                             if (file.ContentLength > 0)
                             {
                                 //var fileName = Path.GetFileName(file.FileName);
@@ -91,11 +90,10 @@ namespace Backend.Controllers
                                 }
 
                                 string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Recetas", nombreArchivo);
+                                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Articulos", nombreArchivo);
 
                                 ModelCL.Multimedia m = new ModelCL.Multimedia();
-                                //m.MultimediaUrl = Path.Combine("Oficial", tipoArchivo, "Recetas", nombreArchivo);
-                                m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Recetas/" + nombreArchivo; //Ver cual es mejor entre estos 2
+                                m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Articulos/" + nombreArchivo;
                                 m.MultimediaTipo = file.ContentType.Split('/')[0];
                                 m.MultimediaOrden = cont;
 
@@ -104,28 +102,16 @@ namespace Backend.Controllers
                                 file.SaveAs(path);
                             }
                         }
-                    }                    
+                    }
                 }
-                
-                //ModelCL.Contenido newContenido = new ModelCL.Contenido();
-                //newContenido.ContenidoTitulo = contenido.ContenidoTitulo;
-                //newContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
 
-                //ModelCL.Receta newReceta = new ModelCL.Receta();
-
-                //newReceta.RecetaCalorias = contenido.Receta.RecetaCalorias;
-                //newReceta.RecetaHidratos = contenido.Receta.RecetaHidratos;
-                //newReceta.RecetaGluten = contenido.Receta.RecetaGluten;
-                //newReceta.RecetaSodio = contenido.Receta.RecetaSodio;              
-
-                //newContenido.Receta
-
+                ModelCL.Articulo newArticulo = new ModelCL.Articulo();
+                contenido.Articulo = newArticulo;
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo", receta.RecetaId);
             return View(contenido);
         }
 
@@ -137,13 +123,12 @@ namespace Backend.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            if (contReceta.Receta == null)
+            ModelCL.Contenido contArticulo = db.Contenido.Find(id);
+            if (contArticulo.Articulo == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo", receta.RecetaId);
-            return View(contReceta);
+            return View(contArticulo);
         }
 
         [HttpPost]
@@ -158,21 +143,13 @@ namespace Backend.Controllers
                 oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
                 oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
 
-                oldContenido.Receta.RecetaCalorias = contenido.Receta.RecetaCalorias;
-                oldContenido.Receta.RecetaHidratos = contenido.Receta.RecetaHidratos;
-                oldContenido.Receta.RecetaGluten = contenido.Receta.RecetaGluten;
-                oldContenido.Receta.RecetaSodio = contenido.Receta.RecetaSodio;
-
-                //db.Entry(contenido).State = EntityState.Modified;
-                //db.Entry(contenido.Receta).State = EntityState.Modified;
-
                 short cont = 0;
                 foreach (var file in files)
                 {
                     cont += 1;
 
                     if (file != null)
-                    {                      
+                    {
                         if (!Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
@@ -205,9 +182,9 @@ namespace Backend.Controllers
                                 ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == cont).FirstOrDefault();
 
                                 string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                                var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Recetas", nombreArchivo);
+                                var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Articulos", nombreArchivo);
 
-                                string newUrl = "Resources/Oficial/" + tipoArchivo + "/Recetas/" + nombreArchivo;
+                                string newUrl = "Resources/Oficial/" + tipoArchivo + "/Articulos/" + nombreArchivo;
 
                                 if (oldMult != null)
                                 {
@@ -250,28 +227,28 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            if (contReceta.Receta == null)
+            ModelCL.Contenido contArticulo = db.Contenido.Find(id);
+            if (contArticulo.Articulo == null)
             {
                 return HttpNotFound();
             }
-            return View(contReceta);
+            return View(contArticulo);
         }
 
         [HttpPost, ActionName("Delete")]
-        [Route("delete")]        
+        [Route("delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            foreach (ModelCL.Multimedia m in contReceta.Multimedia.ToList())
+            ModelCL.Contenido contArticulo = db.Contenido.Find(id);
+            foreach (ModelCL.Multimedia m in contArticulo.Multimedia.ToList())
             {
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
                 if (System.IO.File.Exists(path))
                     System.IO.File.Delete(path);
             }
 
-            db.Contenido.Remove(contReceta);     
+            db.Contenido.Remove(contArticulo);
             db.SaveChanges();
 
             return RedirectToAction("Index");

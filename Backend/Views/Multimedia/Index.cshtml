@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ModelCL.Multimedia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MultimediaTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MultimediaImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MultimediaTipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MultimediaImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -22,7 +22,6 @@ namespace ModelCL
         }
     
         public long SesionId { get; set; }
-        public string SesionDescripcion { get; set; }
     
         public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

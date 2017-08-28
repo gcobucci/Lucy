@@ -17,7 +17,7 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Comentario()
         {
-            this.ComentarioHijo = new HashSet<Comentario>();
+            this.ComentariosHijos = new HashSet<Comentario>();
             this.UsuariosFav = new HashSet<Usuario>();
         }
     
@@ -31,7 +31,7 @@ namespace ModelCL
         public virtual Usuario UsuarioAutor { get; set; }
         public virtual Comentario ComentarioPadre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentario> ComentarioHijo { get; set; }
+        public virtual ICollection<Comentario> ComentariosHijos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> UsuariosFav { get; set; }
     }

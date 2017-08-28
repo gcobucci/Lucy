@@ -21,7 +21,7 @@ namespace ModelCL
         }
     
         public short TemaNotId { get; set; }
-        public byte[] TemaNotImagen { get; set; }
+        public string TemaNotImagen { get; set; }
         public string TemaNotDescripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
