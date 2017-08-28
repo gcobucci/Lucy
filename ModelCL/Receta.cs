@@ -15,7 +15,6 @@ namespace ModelCL
     public partial class Receta
     {
         public long RecetaId { get; set; }
-        public string RecetaDescripcion { get; set; }
         public Nullable<double> RecetaCalorias { get; set; }
         public Nullable<double> RecetaHidratos { get; set; }
         public Nullable<bool> RecetaSodio { get; set; }

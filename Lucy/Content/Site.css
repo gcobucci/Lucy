@@ -285,7 +285,7 @@ li.liHi {
     width: 77px;
     background-size: 14px 20px;
     background-repeat: no-repeat;
-    background-image: url("../resource/image/user.svg");
+    background-image: url("../resource/images/user.svg");
     background-position: center center;
     height: 44px;
 }
@@ -349,7 +349,7 @@ li.liHi {
 .logoBanner {
     background-size: 22px;
     background-repeat: no-repeat;
-    background-image: url(../resource/image/logoBanner.svg);
+    background-image: url(../resource/images/logoBanner.svg);
     background-position: center center;
     padding: 22px 0 !important;
 }

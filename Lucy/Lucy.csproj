@@ -171,14 +171,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
-    <Content Include="Resource\Image\Alimentos\boniatos.png" />
-    <Content Include="Resource\Image\Alimentos\coco.png" />
-    <Content Include="Resource\Image\Alimentos\indis.png" />
-    <Content Include="Resource\Image\Alimentos\logoBanner.svg" />
-    <Content Include="Resource\Image\Alimentos\papa.png" />
-    <Content Include="Resource\Image\Alimentos\pera.png" />
-    <Content Include="Resource\Image\logoBanner.svg" />
-    <Content Include="Resource\Image\user.svg" />
+    <Content Include="Resource\Images\Alimentos\boniatos.png" />
+    <Content Include="Resource\Images\Alimentos\coco.png" />
+    <Content Include="Resource\Images\Alimentos\indis.png" />
+    <Content Include="Resource\Images\Alimentos\logoBanner.svg" />
+    <Content Include="Resource\Images\Alimentos\papa.png" />
+    <Content Include="Resource\Images\Alimentos\pera.png" />
+    <Content Include="Resource\Images\Articulos\test1.png" />
+    <Content Include="Resource\Images\logoBanner.svg" />
+    <Content Include="Resource\Images\user.svg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -288,6 +289,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\newWaterfall.js" />
     <Content Include="Scripts\sidebarMenuHi.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\SlickSlider.js" />
@@ -326,8 +328,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Views\Articulos\Articulos.cshtml" />
     <Content Include="Views\Recetas\List.cshtml" />
+    <Content Include="Views\Articulos\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -337,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resource\UsrImages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelCL\ModelCL.csproj">

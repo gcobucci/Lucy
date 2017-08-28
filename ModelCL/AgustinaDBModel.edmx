@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -46,7 +46,6 @@
             <PropertyRef Name="ArticuloId" />
           </Key>
           <Property Name="ArticuloId" Type="bigint" Nullable="false" />
-          <Property Name="ArticuloDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Auditoria">
           <Key>
@@ -68,7 +67,7 @@
           <Property Name="UsuarioId" Type="bigint" Nullable="false" />
           <Property Name="ContenidoId" Type="bigint" Nullable="false" />
           <Property Name="ComentarioCuerpo" Type="varchar(max)" Nullable="false" />
-          <Property Name="ComentarioFchHora" Type="datetime" Nullable="false" />
+          <Property Name="ComentarioFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Comida">
           <Key>
@@ -92,6 +91,7 @@
           </Key>
           <Property Name="ContenidoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContenidoTitulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ContenidoCuerpo" Type="varchar(max)" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="int" Nullable="false" />
@@ -140,7 +140,6 @@
             <PropertyRef Name="DietaId" />
           </Key>
           <Property Name="DietaId" Type="bigint" Nullable="false" />
-          <Property Name="DietaDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DietaDesayunoCalorias" Type="float" Nullable="false" />
           <Property Name="DietaDesayunoDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DietaAlmuerzoCalorias" Type="float" Nullable="false" />
@@ -157,7 +156,6 @@
             <PropertyRef Name="EjercicioId" />
           </Key>
           <Property Name="EjercicioId" Type="bigint" Nullable="false" />
-          <Property Name="EjercicioDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -317,14 +315,12 @@
             <PropertyRef Name="ProgramaId" />
           </Key>
           <Property Name="ProgramaId" Type="bigint" Nullable="false" />
-          <Property Name="ProgramaDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Receta">
           <Key>
             <PropertyRef Name="RecetaId" />
           </Key>
           <Property Name="RecetaId" Type="bigint" Nullable="false" />
-          <Property Name="RecetaDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="RecetaCalorias" Type="float" />
           <Property Name="RecetaHidratos" Type="float" />
           <Property Name="RecetaSodio" Type="bit" />
@@ -593,7 +589,6 @@
             <PropertyRef Name="SesionId" />
           </Key>
           <Property Name="SesionId" Type="bigint" Nullable="false" />
-          <Property Name="SesionDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Sexo">
           <Key>
@@ -615,7 +610,7 @@
             <PropertyRef Name="TemaNotId" />
           </Key>
           <Property Name="TemaNotId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TemaNotImagen" Type="image" Nullable="false" />
+          <Property Name="TemaNotImagen" Type="varchar(max)" Nullable="false" />
           <Property Name="TemaNotDescripcion" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -949,6 +944,20 @@
               <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Recordatorio">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registro_PersonaId">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Registro">
               <PropertyRef Name="PersonaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1855,6 +1864,10 @@
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Recordatorio" EntitySet="Recordatorio" />
           </AssociationSet>
+          <AssociationSet Name="FK_Registro_PersonaId" Association="Self.FK_Registro_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
           <AssociationSet Name="FK_RelComAli_AlimentoId" Association="Self.FK_RelComAli_AlimentoId">
             <End Role="Alimento" EntitySet="Alimento" />
             <End Role="RelComAli" EntitySet="RelComAli" />
@@ -2064,7 +2077,8 @@
             <End Role="Valor" EntitySet="Valor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2114,7 +2128,6 @@
             <PropertyRef Name="ArticuloId" />
           </Key>
           <Property Name="ArticuloId" Type="Int64" Nullable="false" />
-          <Property Name="ArticuloDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Articulo_ArticuloId" FromRole="Articulo" ToRole="Contenido" />
           <NavigationProperty Name="Tema" Relationship="Self.RelTemArt" FromRole="Articulo" ToRole="Tema" />
         </EntityType>
@@ -2125,7 +2138,7 @@
           <Property Name="AuditoriaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuditoriaTabla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AuditoriaUsuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AuditoriaFchHora" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="AuditoriaFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="AuditoriaTGOP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Comentario">
@@ -2138,11 +2151,11 @@
           <Property Name="UsuarioId" Type="Int64" Nullable="false" />
           <Property Name="ContenidoId" Type="Int64" Nullable="false" />
           <Property Name="ComentarioCuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ComentarioFchHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ComentarioFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Comentario_ContenidoId" FromRole="Comentario" ToRole="Contenido" />
           <NavigationProperty Name="UsuarioAutor" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Comentario" ToRole="Usuario" />
           <NavigationProperty Name="ComentarioPadre" Relationship="Self.RelComCom" FromRole="Comentario" ToRole="Comentario1" />
-          <NavigationProperty Name="ComentarioHijo" Relationship="Self.RelComCom" FromRole="Comentario1" ToRole="Comentario" />
+          <NavigationProperty Name="ComentariosHijos" Relationship="Self.RelComCom" FromRole="Comentario1" ToRole="Comentario" />
           <NavigationProperty Name="UsuariosFav" Relationship="Self.RelFavUsuCom" FromRole="Comentario" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Comida">
@@ -2170,6 +2183,7 @@
           </Key>
           <Property Name="ContenidoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContenidoTitulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContenidoCuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="Int32" Nullable="false" />
@@ -2233,7 +2247,6 @@
             <PropertyRef Name="DietaId" />
           </Key>
           <Property Name="DietaId" Type="Int64" Nullable="false" />
-          <Property Name="DietaDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaDesayunoCalorias" Type="Double" Nullable="false" />
           <Property Name="DietaDesayunoDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaAlmuerzoCalorias" Type="Double" Nullable="false" />
@@ -2252,7 +2265,6 @@
             <PropertyRef Name="EjercicioId" />
           </Key>
           <Property Name="EjercicioId" Type="Int64" Nullable="false" />
-          <Property Name="EjercicioDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_EjercicioId" FromRole="Ejercicio" ToRole="Actividad" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Ejercicio_EjercicioId" FromRole="Ejercicio" ToRole="Contenido" />
           <NavigationProperty Name="Sesion" Relationship="Self.RelSesEje" FromRole="Ejercicio" ToRole="Sesion" />
@@ -2441,7 +2453,6 @@
             <PropertyRef Name="ProgramaId" />
           </Key>
           <Property Name="ProgramaId" Type="Int64" Nullable="false" />
-          <Property Name="ProgramaDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Programa_ProgramaId" FromRole="Programa" ToRole="Contenido" />
           <NavigationProperty Name="Persona" Relationship="Self.RelPerProg" FromRole="Programa" ToRole="Persona" />
           <NavigationProperty Name="Sesion" Relationship="Self.RelProgSes" FromRole="Programa" ToRole="Sesion" />
@@ -2451,7 +2462,6 @@
             <PropertyRef Name="RecetaId" />
           </Key>
           <Property Name="RecetaId" Type="Int64" Nullable="false" />
-          <Property Name="RecetaDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RecetaCalorias" Type="Double" />
           <Property Name="RecetaHidratos" Type="Double" />
           <Property Name="RecetaSodio" Type="Boolean" />
@@ -2582,7 +2592,6 @@
             <PropertyRef Name="SesionId" />
           </Key>
           <Property Name="SesionId" Type="Int64" Nullable="false" />
-          <Property Name="SesionDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Sesion_SesionId" FromRole="Sesion" ToRole="Contenido" />
           <NavigationProperty Name="Programa" Relationship="Self.RelProgSes" FromRole="Sesion" ToRole="Programa" />
           <NavigationProperty Name="Ejercicio" Relationship="Self.RelSesEje" FromRole="Sesion" ToRole="Ejercicio" />
@@ -2610,7 +2619,7 @@
             <PropertyRef Name="TemaNotId" />
           </Key>
           <Property Name="TemaNotId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemaNotImagen" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="TemaNotImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TemaNotDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Notificacion" Relationship="Self.FK_Notificacion_TemaNotId" FromRole="TemaNot" ToRole="Notificacion" />
         </EntityType>
@@ -3572,7 +3581,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
                 <ScalarProperty Name="ArticuloId" ColumnName="ArticuloId" />
-                <ScalarProperty Name="ArticuloDescripcion" ColumnName="ArticuloDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3619,6 +3627,7 @@
               <MappingFragment StoreEntitySet="Contenido">
                 <ScalarProperty Name="ContenidoId" ColumnName="ContenidoId" />
                 <ScalarProperty Name="ContenidoTitulo" ColumnName="ContenidoTitulo" />
+                <ScalarProperty Name="ContenidoDescripcion" ColumnName="ContenidoDescripcion" />
                 <ScalarProperty Name="ContenidoCuerpo" ColumnName="ContenidoCuerpo" />
                 <ScalarProperty Name="ContenidoFchHora" ColumnName="ContenidoFchHora" />
                 <ScalarProperty Name="ContenidoCantVisitas" ColumnName="ContenidoCantVisitas" />
@@ -3668,7 +3677,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Dieta">
               <MappingFragment StoreEntitySet="Dieta">
                 <ScalarProperty Name="DietaId" ColumnName="DietaId" />
-                <ScalarProperty Name="DietaDescripcion" ColumnName="DietaDescripcion" />
                 <ScalarProperty Name="DietaDesayunoCalorias" ColumnName="DietaDesayunoCalorias" />
                 <ScalarProperty Name="DietaDesayunoDescripcion" ColumnName="DietaDesayunoDescripcion" />
                 <ScalarProperty Name="DietaAlmuerzoCalorias" ColumnName="DietaAlmuerzoCalorias" />
@@ -3686,7 +3694,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Ejercicio">
               <MappingFragment StoreEntitySet="Ejercicio">
                 <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
-                <ScalarProperty Name="EjercicioDescripcion" ColumnName="EjercicioDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3855,7 +3862,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Programa">
               <MappingFragment StoreEntitySet="Programa">
                 <ScalarProperty Name="ProgramaId" ColumnName="ProgramaId" />
-                <ScalarProperty Name="ProgramaDescripcion" ColumnName="ProgramaDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3863,7 +3869,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Receta">
               <MappingFragment StoreEntitySet="Receta">
                 <ScalarProperty Name="RecetaId" ColumnName="RecetaId" />
-                <ScalarProperty Name="RecetaDescripcion" ColumnName="RecetaDescripcion" />
                 <ScalarProperty Name="RecetaCalorias" ColumnName="RecetaCalorias" />
                 <ScalarProperty Name="RecetaHidratos" ColumnName="RecetaHidratos" />
                 <ScalarProperty Name="RecetaSodio" ColumnName="RecetaSodio" />
@@ -3968,7 +3973,6 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Sesion">
               <MappingFragment StoreEntitySet="Sesion">
                 <ScalarProperty Name="SesionId" ColumnName="SesionId" />
-                <ScalarProperty Name="SesionDescripcion" ColumnName="SesionDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

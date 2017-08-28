@@ -24,6 +24,7 @@ namespace ModelCL
     
         public long ContenidoId { get; set; }
         public string ContenidoTitulo { get; set; }
+        public string ContenidoDescripcion { get; set; }
         public string ContenidoCuerpo { get; set; }
         public System.DateTime ContenidoFchHora { get; set; }
         public int ContenidoCantVisitas { get; set; }

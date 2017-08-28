@@ -21,7 +21,6 @@ namespace ModelCL
         }
     
         public long DietaId { get; set; }
-        public string DietaDescripcion { get; set; }
         public double DietaDesayunoCalorias { get; set; }
         public string DietaDesayunoDescripcion { get; set; }
         public double DietaAlmuerzoCalorias { get; set; }

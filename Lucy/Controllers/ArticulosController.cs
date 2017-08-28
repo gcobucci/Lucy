@@ -10,21 +10,18 @@ namespace Lucy.Controllers
 {
     public class ArticulosController : Controller
     {
+        private AgustinaEntities db = new AgustinaEntities();
+
         // GET: Articulos
         [Authorize]
         [HttpGet]
-        public ActionResult Articulos()
+        public ActionResult List()
         {
+            
             List<ModelCL.Articulo> Articulos = null;
-
-            using (AgustinaEntities db = new AgustinaEntities())
-            {
-
-                Articulos = db.Articulo.ToList();
-
-            }
-
+            Articulos = db.Articulo.ToList();
             return View(Articulos);
+
         }
     }
 }

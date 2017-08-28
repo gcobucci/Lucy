@@ -1,0 +1,165 @@
+﻿@model IEnumerable<ModelCL.Articulo>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="Center">
+    <ul id="waterfall"></ul>
+</div>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoTitulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenido.ContenidoDescripcion)
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contenido.ContenidoDescripcion)
+        </td>
+        <td>
+            <img src="~/Resource/Image/@Html.DisplayFor(modelItem => item.Contenido.Multimedia.FirstOrDefault().MultimediaUrl)" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticuloId })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/newWaterfall.js"></script>
+    <script type="text/javascript">
+        // 文档加载完毕后执行 - Una vez cargado el documento, se ejecutará
+        $(document).ready(function () {
+            $('#waterfall').NewWaterfall({
+                width: 360,
+                delay: 100,
+            });
+        });
+
+        // 自动加载更多 - Cargar más
+        function random(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1))
+        }
+        var loading = false;
+        var dist = 500;
+        var num = 0;
+        var articulo = [];
+
+            @foreach (var item in Model) {
+
+                @:articulo.push('@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo) @Html.DisplayFor(modelItem => item.Contenido.ContenidoDescripcion) <img src="../Resource/Images/Articulos/@Html.DisplayFor(modelItem => item.Contenido.Multimedia.FirstOrDefault().MultimediaUrl)" />');
+
+            }
+
+
+        setInterval(function ()
+        {
+            var articuloExist = $.inArray(num, articulo);
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() - dist && !loading && articulo[num] != null)
+            {
+                // 表示开始加载 - La carga se está iniciando
+                loading = true;
+
+                // 加载内容 - Carga el contenido
+                $("#waterfall").append("<li><div style='height:" + random(150, 400) + "px'>" + articulo[num] + "</div></li>");
+                num++;
+
+                // 表示加载结束 - Finaliza la carga
+                loading = false;
+            }
+        }, 60);
+    </script>
+}
+
+@section style {
+<style type="text/css">
+    #waterfall {
+        margin: 10px;
+        overflow: hidden;
+    }
+
+        #waterfall.min {
+            margin: 0;
+        }
+
+        #waterfall li {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            opacity: 0;
+            z-index: 0;
+            transform: translateY(100px);
+        }
+
+            #waterfall li:hover {
+                z-index: 1;
+            }
+
+            #waterfall li.show {
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 0.3s, top 1s;
+            }
+
+            #waterfall li > div {
+                color: rgba(0, 0, 0, 0.6);
+                font-size: 32px;
+                border-radius: 3px;
+                margin: 10px;
+                padding: 15px;
+                background: #333;
+                border: 1px solid rgba(038, 191, 64, 0);
+                transition: all 0.5s;
+            }
+
+                #waterfall li > div:hover {
+                    transform: translateY(-10px);
+                    border: 1px solid #d6d6d6;
+                    -webkit-box-shadow: 0 6px 20px 3px rgba(0,0,0,.4);
+                    box-shadow: rgba(0,0,0,.4) 0 6px 20px 3px;
+                    transition: all 0.3s;
+                }
+
+            #waterfall li.min > div {
+                margin: 0;
+                transform: none;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+                #waterfall li.min > div:hover {
+                    transform: none;
+                    border: none;
+                    border-radius: 0;
+                    box-shadow: none;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                }
+</style>    
+}

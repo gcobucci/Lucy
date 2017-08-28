@@ -22,7 +22,6 @@ namespace ModelCL
         }
     
         public long EjercicioId { get; set; }
-        public string EjercicioDescripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actividad> Actividad { get; set; }
