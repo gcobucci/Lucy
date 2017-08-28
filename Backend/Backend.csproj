@@ -114,20 +114,6 @@
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\boniatos.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\coco.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\indis.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\logoBanner.svg" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\papa.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\pera.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\4ea7b30b-829e-48c7-96da-f890661f4786.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\6ee0cc1e-a414-43a8-954b-53312b7ffc74.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\9677d82f-b594-4fe9-8efe-6e4a810f9776.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\da3372c4-c112-44db-97c7-c6f6f0f073f0.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\e443b6dc-fea4-4995-b801-82cc4c213be6.png" />
-    <Content Include="Resources\Oficial\Imagenes\Recetas\papa.png" />
-    <Content Include="Resources\Oficial\logoBanner.svg" />
-    <Content Include="Resources\Oficial\user.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -182,11 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\Oficial\Alimentos\" />
-    <Folder Include="Resources\Oficial\Recetas\" />
-    <Folder Include="Resources\Oficial\Videos\" />
-    <Folder Include="Resources\Users\Alimentos\" />
-    <Folder Include="Resources\Users\Recetas\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelCL\ModelCL.csproj">

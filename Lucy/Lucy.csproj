@@ -171,12 +171,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
-    <Content Include="Resources\Oficial\Alimentos\boniatos.png" />
-    <Content Include="Resources\Oficial\Alimentos\coco.png" />
-    <Content Include="Resources\Oficial\Alimentos\indis.png" />
-    <Content Include="Resources\Oficial\Alimentos\logoBanner.svg" />
-    <Content Include="Resources\Oficial\Alimentos\papa.png" />
-    <Content Include="Resources\Oficial\Alimentos\pera.png" />
+    <Content Include="Resources\Oficial\Imagenes\Alimentos\boniatos.png" />
+    <Content Include="Resources\Oficial\Imagenes\Alimentos\coco.png" />
+    <Content Include="Resources\Oficial\Imagenes\Alimentos\indis.png" />
+    <Content Include="Resources\Oficial\Imagenes\Alimentos\papa.png" />
+    <Content Include="Resources\Oficial\Imagenes\Alimentos\pera.png" />
+    <Content Include="Resources\Oficial\Imagenes\Articulos\boniatos.png" />
+    <Content Include="Resources\Oficial\Imagenes\Articulos\coco.png" />
+    <Content Include="Resources\Oficial\Imagenes\Articulos\papa.png" />
+    <Content Include="Resources\Oficial\Imagenes\Articulos\pera.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
     <Content Include="Resources\Oficial\user.svg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -340,9 +343,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\Oficial\Recetas\" />
-    <Folder Include="Resources\Users\Alimentos\" />
-    <Folder Include="Resources\Users\Recetas\" />
+    <Folder Include="Resources\Oficial\Imagenes\Recetas\" />
+    <Folder Include="Resources\Oficial\Videos\" />
+    <Folder Include="Resources\Users\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelCL\ModelCL.csproj">
