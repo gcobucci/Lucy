@@ -133,6 +133,30 @@
             </div>
         </div>
 
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Temas</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var tema in ViewBag.lTemas)
+                    {
+                        var check = false;
+                        foreach (var t in Model.Articulo.Tema)
+                        {
+                            if (tema.TemaId == t.TemaId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="temas" value="@tema.TemaId" /> @tema.TemaNombre</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

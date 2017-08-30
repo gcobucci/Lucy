@@ -23,6 +23,7 @@ namespace ModelCL
     
         public long TemaId { get; set; }
         public string TemaNombre { get; set; }
+        public string TemaDescripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }

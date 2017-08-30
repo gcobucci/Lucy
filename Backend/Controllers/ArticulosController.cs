@@ -42,13 +42,23 @@ namespace Backend.Controllers
         [Route("create")]
         public ActionResult Create()
         {
+            List<ModelCL.Tema> lTemas = db.Tema.ToList();
+            //List<Fachada.ViewModelCheckBox> lista_temas = new List<Fachada.ViewModelCheckBox>();
+            //foreach (ModelCL.Tema tema in lTemas)
+            //{
+            //    lista_temas.Add(new Fachada.ViewModelCheckBox() { Id = tema.TemaId, Nombre = tema.TemaNombre });
+            //}
+
+            //ViewBag.lTemas = lista_temas;
+            ViewBag.lTemas = lTemas;
+
             return View();
         }
 
         [HttpPost]
         [Route("create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
+        public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
         {
             if (ModelState.IsValid)
             {
@@ -59,12 +69,12 @@ namespace Backend.Controllers
                     {
                         cont += 1;
 
-                        if (!Functions.isValidContentType(file.ContentType))
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
                             return View();
                         }
-                        else if (!Functions.isValidContentLength(file.ContentLength))
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.Error = "El archivo es muy pesado.";
                             return View();
@@ -106,6 +116,12 @@ namespace Backend.Controllers
                 }
 
                 ModelCL.Articulo newArticulo = new ModelCL.Articulo();
+
+                foreach (var t in temas)
+                {
+                    newArticulo.Tema.Add(db.Tema.Find(t));
+                }
+
                 contenido.Articulo = newArticulo;
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
@@ -128,13 +144,17 @@ namespace Backend.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<ModelCL.Tema> lTemas = db.Tema.ToList();
+            ViewBag.lTemas = lTemas;
+
             return View(contArticulo);
         }
 
         [HttpPost]
         [Route("edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
+        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
         {
             if (ModelState.IsValid)
             {
@@ -150,12 +170,12 @@ namespace Backend.Controllers
 
                     if (file != null)
                     {
-                        if (!Functions.isValidContentType(file.ContentType))
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
                             return View();
                         }
-                        else if (!Functions.isValidContentLength(file.ContentLength))
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.Error = "El archivo es muy pesado.";
                             return View();
@@ -212,6 +232,20 @@ namespace Backend.Controllers
                             }
                         }
                     }
+                }
+
+
+                List<ModelCL.Tema> bkTemas = oldContenido.Articulo.Tema.ToList();
+                foreach (ModelCL.Tema oldTema in bkTemas)
+                {
+                    oldContenido.Articulo.Tema.Remove(oldTema);
+                }
+                //bkTemas = null;
+
+
+                foreach (var t in temas)
+                {
+                    oldContenido.Articulo.Tema.Add(db.Tema.Find(t));
                 }
 
                 db.SaveChanges();

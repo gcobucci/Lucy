@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+
 }
 
 <h2>Create</h2>
@@ -41,6 +42,18 @@
         </div>
 
 
+        @*@foreach (var tema in ViewBag.lTemas)
+        {
+            <div class="form-group">
+                @Html.Label(tema.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.HiddenFor(model => tema.Id)
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.Enfermedades[i].Checked)
+                </div>
+            </div>
+        }*@
+
+
         <div class="form-group">
             @Html.Label("Imágen de portada", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -65,6 +78,21 @@
                 <div class="editor-field">
                     <input type="file" name="files" value="" />
                 </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Temas</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var tema in ViewBag.lTemas)
+                    {
+                        var check = false;
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="temas" value="@tema.TemaId" /> @tema.TemaNombre</label>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
 

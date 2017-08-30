@@ -60,12 +60,12 @@ namespace Backend.Controllers
                     {
                         cont += 1;
 
-                        if (!Functions.isValidContentType(file.ContentType))
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
                             return View();
                         }
-                        else if (!Functions.isValidContentLength(file.ContentLength))
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.Error = "El archivo es muy pesado.";
                             return View();
@@ -173,12 +173,12 @@ namespace Backend.Controllers
 
                     if (file != null)
                     {                      
-                        if (!Functions.isValidContentType(file.ContentType))
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
                             return View();
                         }
-                        else if (!Functions.isValidContentLength(file.ContentLength))
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.Error = "El archivo es muy pesado.";
                             return View();

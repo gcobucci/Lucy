@@ -49,7 +49,7 @@ namespace Lucy.Models.Personas
         public Nullable<double> DatCliColesterol { get; set; }
 
         /////Enfermedades/////
-        public List<ViewModelCheckBox> Enfermedades { get; set; }
+        public List<Fachada.ViewModelCheckBox> Enfermedades { get; set; }
 
         [Display(Name = "Tipo")]
         public string DiabetesTipo { get; set; }
@@ -80,18 +80,5 @@ namespace Lucy.Models.Personas
 
 
         /////Medicina/////
-    }
-
-    public class ViewModelCheckBox
-    {
-        public long Id { get; set; }
-        public string Nombre { get; set; }
-        public bool Checked { get; set; } = false;
-    }
-
-    public class ViewModelSelectList
-    {
-        public short Id { get; set; }
-        public string Valor { get; set; }
     }
 }

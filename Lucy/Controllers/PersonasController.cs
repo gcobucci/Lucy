@@ -44,10 +44,10 @@ namespace Lucy.Controllers
                 DatCliViewModel newDatCli = new DatCliViewModel();
 
                 List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();//Hay que filtrar por oficiales
-                List<ViewModelCheckBox> lEnf = new List<ViewModelCheckBox>();
+                List<Fachada.ViewModelCheckBox> lEnf = new List<Fachada.ViewModelCheckBox>();
                 foreach (ModelCL.Enfermedad enf in lEnfermedades)
                 {
-                    lEnf.Add(new ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
+                    lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
                 }
 
                 newDatCli.Enfermedades = lEnf;
@@ -120,10 +120,10 @@ namespace Lucy.Controllers
                 List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
                 ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
 
-                List<ViewModelSelectList> lTiposDiabetes = new List<ViewModelSelectList>()
+                List<Fachada.ViewModelSelectList> lTiposDiabetes = new List<Fachada.ViewModelSelectList>()
                 {
-                    new ViewModelSelectList { Id = 1, Valor = "1" },
-                    new ViewModelSelectList { Id = 2, Valor = "2" },
+                    new Fachada.ViewModelSelectList { Id = 1, Valor = "1" },
+                    new Fachada.ViewModelSelectList { Id = 2, Valor = "2" },
                 };
                 ViewBag.listaTiposDiabetes = new SelectList(lTiposDiabetes, "Id", "Valor");
 
@@ -209,7 +209,7 @@ namespace Lucy.Controllers
                 }
                 
 
-                foreach (ViewModelCheckBox enf in Datos.Enfermedades)
+                foreach (Fachada.ViewModelCheckBox enf in Datos.Enfermedades)
                 {
                     enf.Nombre = db.Enfermedad.Find(enf.Id).EnfermedadNombre;
 

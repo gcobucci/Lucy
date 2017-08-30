@@ -91,7 +91,7 @@
           </Key>
           <Property Name="ContenidoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContenidoTitulo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ContenidoDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="ContenidoCuerpo" Type="varchar(max)" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="int" Nullable="false" />
@@ -435,7 +435,7 @@
           <Property Name="MedicinaId" Type="bigint" Nullable="false" />
           <Property Name="RelMedRelPerEnfFrecuencia" Type="float" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="varchar" MaxLength="20" />
-          <Property Name="RelMedRelPerEnfFchEnable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="RelMedRelPerEnfFchEnable" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RelPerDie">
           <Key>
@@ -605,6 +605,7 @@
           </Key>
           <Property Name="TemaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TemaNombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TemaDescripcion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="TemaNot">
           <Key>
@@ -2184,7 +2185,7 @@
           </Key>
           <Property Name="ContenidoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContenidoTitulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ContenidoDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContenidoCuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="Int32" Nullable="false" />
@@ -2393,8 +2394,8 @@
           <Property Name="ContenidoId" Type="Int64" Nullable="false" />
           <Property Name="MultimediaUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MultimediaTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Contenido" Relationship="Self.FK_Multimedia_ContenidoId" FromRole="Multimedia" ToRole="Contenido" />
           <Property Name="MultimediaOrden" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Contenido" Relationship="Self.FK_Multimedia_ContenidoId" FromRole="Multimedia" ToRole="Contenido" />
         </EntityType>
         <EntityType Name="Notificacion">
           <Key>
@@ -2518,7 +2519,7 @@
           <Property Name="MedicinaId" Type="Int64" Nullable="false" />
           <Property Name="RelMedRelPerEnfFrecuencia" Type="Double" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RelMedRelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RelMedRelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Medicina" Relationship="Self.FK_RelMedRelPerEnf_MedicinaId" FromRole="RelMedRelPerEnf" ToRole="Medicina" />
           <NavigationProperty Name="RelPerEnf" Relationship="Self.FK_RelMedRelPerEnf_PersonaId_EnfermedadId" FromRole="RelMedRelPerEnf" ToRole="RelPerEnf" />
         </EntityType>
@@ -2613,6 +2614,7 @@
           </Key>
           <Property Name="TemaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TemaNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TemaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.RelFavUsuTem" FromRole="Tema" ToRole="Usuario" />
           <NavigationProperty Name="Articulo" Relationship="Self.RelTemArt" FromRole="Tema" ToRole="Articulo" />
         </EntityType>
@@ -3811,11 +3813,11 @@
           <EntitySetMapping Name="Multimedia">
             <EntityTypeMapping TypeName="AgustinaDBModel.Multimedia">
               <MappingFragment StoreEntitySet="Multimedia">
-                <ScalarProperty Name="MultimediaOrden" ColumnName="MultimediaOrden" />
                 <ScalarProperty Name="MultimediaId" ColumnName="MultimediaId" />
                 <ScalarProperty Name="ContenidoId" ColumnName="ContenidoId" />
                 <ScalarProperty Name="MultimediaUrl" ColumnName="MultimediaUrl" />
                 <ScalarProperty Name="MultimediaTipo" ColumnName="MultimediaTipo" />
+                <ScalarProperty Name="MultimediaOrden" ColumnName="MultimediaOrden" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3993,6 +3995,7 @@
               <MappingFragment StoreEntitySet="Tema">
                 <ScalarProperty Name="TemaId" ColumnName="TemaId" />
                 <ScalarProperty Name="TemaNombre" ColumnName="TemaNombre" />
+                <ScalarProperty Name="TemaDescripcion" ColumnName="TemaDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

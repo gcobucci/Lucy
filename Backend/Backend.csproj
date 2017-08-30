@@ -128,14 +128,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DietasController.cs" />
+    <Compile Include="Controllers\AlimentosController.cs" />
+    <Compile Include="Controllers\TemasController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
-    <Compile Include="Controllers\MultimediaController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\RecetasViewModel.cs" />
-    <Compile Include="Fachada\Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,16 +150,26 @@
     <Content Include="Views\Recetas\Edit.cshtml" />
     <Content Include="Views\Recetas\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Multimedia\Create.cshtml" />
-    <Content Include="Views\Multimedia\Delete.cshtml" />
-    <Content Include="Views\Multimedia\Details.cshtml" />
-    <Content Include="Views\Multimedia\Edit.cshtml" />
-    <Content Include="Views\Multimedia\Index.cshtml" />
     <Content Include="Views\Articulos\Create.cshtml" />
     <Content Include="Views\Articulos\Delete.cshtml" />
     <Content Include="Views\Articulos\Details.cshtml" />
     <Content Include="Views\Articulos\Edit.cshtml" />
     <Content Include="Views\Articulos\Index.cshtml" />
+    <Content Include="Views\Temas\Index.cshtml" />
+    <Content Include="Views\Temas\Details.cshtml" />
+    <Content Include="Views\Temas\Create.cshtml" />
+    <Content Include="Views\Temas\Edit.cshtml" />
+    <Content Include="Views\Temas\Delete.cshtml" />
+    <Content Include="Views\Dietas\Create.cshtml" />
+    <Content Include="Views\Dietas\Delete.cshtml" />
+    <Content Include="Views\Dietas\Details.cshtml" />
+    <Content Include="Views\Dietas\Edit.cshtml" />
+    <Content Include="Views\Dietas\Index.cshtml" />
+    <Content Include="Views\Alimentos\Index.cshtml" />
+    <Content Include="Views\Alimentos\Details.cshtml" />
+    <Content Include="Views\Alimentos\Create.cshtml" />
+    <Content Include="Views\Alimentos\Edit.cshtml" />
+    <Content Include="Views\Alimentos\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,6 +182,10 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fachada\Fachada.csproj">
+      <Project>{e6bf430e-cfaf-424d-b26f-d77404b9dd7e}</Project>
+      <Name>Fachada</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelCL\ModelCL.csproj">
       <Project>{1bc34328-b271-4d56-bcdb-b2a72cd1d0d1}</Project>
       <Name>ModelCL</Name>
