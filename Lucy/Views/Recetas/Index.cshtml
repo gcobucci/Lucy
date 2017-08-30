@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ModelCL.Contenido>
+
+@{
+    ViewBag.Title = "Recetas";
+}
+
+<h2>Recetas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="box clearfix">
+            <table class="table table-hover table-striped" id="bootstrap-table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ContenidoTitulo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ContenidoDescripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Receta.RecetaCalorias)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Receta.RecetaHidratos)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Receta.RecetaSodio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Receta.RecetaGluten)
+                        </th>
+                        <th>
+                            Imágen
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContenidoTitulo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Receta.RecetaCalorias)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Receta.RecetaHidratos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Receta.RecetaSodio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Receta.RecetaGluten)
+                            </td>
+                            <td>
+                                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/Tablas")
+
+    <script>
+        $(document).ready(function () {
+            $('#bootstrap-table').bdt({
+                showSearchForm: 1,
+                showEntriesPerPageField: 1
+            });
+        });
+    </script>
+
+}
