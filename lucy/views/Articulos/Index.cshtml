@@ -1,14 +1,10 @@
-﻿@model IEnumerable<ModelCL.Articulo>
+﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Artículos y Noticias -";
 }
 
-<h2>List</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Artículos y Noticias</h2>
 
 <div id="Center">
     <ul id="waterfall"></ul>
@@ -50,7 +46,6 @@
 </table>*@
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="~/Scripts/newWaterfall.js"></script>
     <script type="text/javascript">
         // 文档加载完毕后执行 - Una vez cargado el documento, se ejecutará
@@ -65,28 +60,27 @@
         function random(min, max) {
             return min + Math.floor(Math.random() * (max - min + 1))
         }
+
         var loading = false;
         var dist = 500;
         var num = 0;
         var articulo = [];
 
-            @foreach (var item in Model) {
+        @foreach (var item in Model) {
 
-                @:articulo.push('@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo) @Html.DisplayFor(modelItem => item.Contenido.ContenidoDescripcion) <img src="../Resource/Images/Articulos/@Html.DisplayFor(modelItem => item.Contenido.Multimedia.FirstOrDefault().MultimediaUrl)" />');
+            @:articulo.push('<a href="details?id=@item.ContenidoId"><img src="../Resource / Images / Articulos /@item.Multimedia.FirstOrDefault().MultimediaUrl)" /><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></a>');
 
-            }
-
+        }
 
         setInterval(function ()
         {
-            var articuloExist = $.inArray(num, articulo);
             if ($(window).scrollTop() >= $(document).height() - $(window).height() - dist && !loading && articulo[num] != null)
             {
                 // 表示开始加载 - La carga se está iniciando
                 loading = true;
 
                 // 加载内容 - Carga el contenido
-                $("#waterfall").append("<li><div style='height:" + random(150, 400) + "px'>" + articulo[num] + "</div></li>");
+                $("#waterfall").append("<li><div style='height:" + random(200, 600) + "px'>" + articulo[num] + "</div></li>");
                 num++;
 
                 // 表示加载结束 - Finaliza la carga
@@ -105,6 +99,11 @@
 
         #waterfall.min {
             margin: 0;
+        }
+
+        #waterfall li div img {
+            width: 100%;
+            height: 80%;
         }
 
         #waterfall li {
@@ -135,6 +134,7 @@
                 background: #333;
                 border: 1px solid rgba(038, 191, 64, 0);
                 transition: all 0.5s;
+                overflow: hidden;
             }
 
                 #waterfall li > div:hover {
