@@ -22,7 +22,7 @@ namespace Lucy.Models
         [Display(Name = "Contraseña")]
         public string LoginPass { get; set; }
 
-        [Display(Name = "Recordarme")]
+        [Display(Name = "Mantener sesión iniciada")]
         public bool Recordarme { get; set; }
     }
 }
