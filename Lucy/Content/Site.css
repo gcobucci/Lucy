@@ -16,6 +16,9 @@ textarea {
     max-width: 280px;
 }
 
+table>tbody>tr>td {
+    vertical-align: middle;
+}
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -254,7 +257,7 @@ li.liHi {
     z-index: 1001;
     float: left;
     min-width: 100%;
-    padding: 5px 0;
+    padding: 9px 0 0;
     font-size: 10.5pt;
     text-align: center;
     list-style: none;
@@ -276,7 +279,13 @@ li.liHi {
     line-height: 1.42857143;
     color: #333;
     white-space: nowrap;
+    width: 160px;
 }
+
+    .dropdown-menuS > li > a > p {
+        margin: 0;
+        padding: 10px 0 0;
+    }
 
 
 /************************************************************   USER   ************************************************************/
@@ -359,7 +368,7 @@ li.liHi {
         -webkit-animation-duration: 2.3s; /* Safari 4.0 - 8.0 */
         -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
         animation-name: pampita;
-        animation-duration: 2.3s;
+        animation-duration: 1.5s;
         animation-iteration-count: infinite;
     }
 
@@ -369,11 +378,19 @@ li.liHi {
         background-size: 22px;
     }
 
-    15% {
-        background-size: 26px
+    10% {
+        background-size: 23px
+    }
+
+    20% {
+        background-size: 24px
     }
 
     30% {
+        background-size: 23px
+    }
+
+    40% {
         background-size: 22px
     }
 
@@ -389,11 +406,19 @@ li.liHi {
 
     }
 
-    15% {
-        background-size: 26px
+    10% {
+        background-size: 23px
+    }
+
+    20% {
+        background-size: 24px
     }
 
     30% {
+        background-size: 23px
+    }
+
+    40% {
         background-size: 22px
     }
 
