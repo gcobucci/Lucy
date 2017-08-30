@@ -65,10 +65,15 @@
         var dist = 500;
         var num = 0;
         var articulo = [];
+        var articuloId = [];
+        var articuloImgId = [];
+        var articuloHeight = 0;
 
         @foreach (var item in Model) {
 
-            @:articulo.push('<a href="details?id=@item.ContenidoId"><img src="../Resource / Images / Articulos /@item.Multimedia.FirstOrDefault().MultimediaUrl)" /><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></a>');
+            @:articulo.push('<div id="@item.ContenidoId' + 'Div"><a href="details?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
+            @:articuloId.push('"@item.ContenidoId' + 'Div"');
+            @:articuloImgId.push('\'#@item.ContenidoId' + 'Img\'');
 
         }
 
@@ -80,7 +85,10 @@
                 loading = true;
 
                 // 加载内容 - Carga el contenido
-                $("#waterfall").append("<li><div style='height:" + random(200, 600) + "px'>" + articulo[num] + "</div></li>");
+                $("#waterfall").append("<li>" + articulo[num] + "</li>");
+                //articuloHeight = $(articuloImgId[num]).height();
+
+                //document.getElementById(articuloId[num]).style.height = random(250, 600) + "px";
                 num++;
 
                 // 表示加载结束 - Finaliza la carga
@@ -103,11 +111,35 @@
 
         #waterfall li div img {
             width: 100%;
-            height: 80%;
+        }
+
+        #waterfall li div > a {
+            text-decoration: none;
+        }
+
+        #waterfall li div a > div {
+            position: absolute;
+            padding: 15px;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #f3f3f3;
+            width: 100%;
+        }
+
+        #waterfall li div a p {
+            font-size: 12pt;
+            height: 0;
+            margin: 0;
+            overflow: hidden;
+            transition: .6s;
+        }
+
+        #waterfall li div a:hover p {
+            height: auto;
+            margin: 0 0 10px;
         }
 
         #waterfall li {
-            /*position: absolute;*/
             left: 0;
             top: 0;
             opacity: 0;
@@ -126,20 +158,18 @@
             }
 
             #waterfall li > div {
+                transform: translateY(0px);
                 color: rgba(0, 0, 0, 0.6);
                 font-size: 32px;
-                border-radius: 3px;
+                border-radius: 6px;
                 margin: 10px;
-                padding: 15px;
-                background: #333;
-                border: 1px solid rgba(038, 191, 64, 0);
+                background: #e6e6e6;
                 transition: all 0.5s;
                 overflow: hidden;
             }
 
                 #waterfall li > div:hover {
                     transform: translateY(-10px);
-                    border: 1px solid #d6d6d6;
                     -webkit-box-shadow: 0 6px 20px 3px rgba(0,0,0,.4);
                     box-shadow: rgba(0,0,0,.4) 0 6px 20px 3px;
                     transition: all 0.3s;
