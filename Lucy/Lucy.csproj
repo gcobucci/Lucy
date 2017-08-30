@@ -171,10 +171,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
+    <Content Include="ico.ico" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\boniatos.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\coco.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\indis.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\papa.png" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\pera.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test1.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test10.png" />
@@ -196,6 +194,7 @@
     <Content Include="Resources\Oficial\Imagenes\Articulos\test8_2.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test9.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test9_2.png" />
+    <Content Include="Resources\Oficial\Imagenes\indis.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
     <Content Include="Resources\Oficial\user.svg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -315,7 +314,7 @@
     <Content Include="Scripts\SlickSlider.js" />
     <Content Include="Scripts\slideRigth.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Alimentos\InfNut.cshtml" />
+    <Content Include="Views\Alimentos\Index.cshtml" />
     <Content Include="Views\Usuarios\Login.cshtml" />
     <Content Include="Views\Usuarios\Registro.cshtml" />
     <Content Include="Views\Usuarios\VerifyAccount.cshtml" />
@@ -327,6 +326,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
+    <Compile Include="Controllers\DietasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
@@ -348,9 +348,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Views\Recetas\List.cshtml" />
+    <Content Include="Views\Recetas\Index.cshtml" />
     <Content Include="Views\Articulos\Index.cshtml" />
     <Content Include="Views\Articulos\Details.cshtml" />
+    <Content Include="Views\Recetas\Details.cshtml" />
+    <Content Include="Views\Dietas\Details.cshtml" />
+    <Content Include="Views\Dietas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ModelCL.Contenido>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContenidoTitulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContenidoDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta.DietaDesayunoCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta.DietaAlmuerzoCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta.DietaMeriendaCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta.DietaCenaCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dieta.DietaIngestasCalorias)
+        </th>
+        <th>
+            Imágen
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dieta.DietaDesayunoCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dieta.DietaAlmuerzoCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dieta.DietaMeriendaCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dieta.DietaCenaCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dieta.DietaIngestasCalorias)
+        </td>
+        <td>
+            <img src="/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ContenidoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ContenidoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContenidoId })
+        </td>
+    </tr>
+}
+
+</table>

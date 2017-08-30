@@ -1,86 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCL;
+using System.IO;
 using System.Web.Security;
-using System.Net;
 
 namespace Lucy.Controllers
 {
-    [RoutePrefix("alimentos")]
-    public class AlimentosController : Controller
+    [RoutePrefix("dietas")]
+    public class DietasController : Controller
     {
-        //    // GET: InfoNutricional
-        //    [AllowAnonymous]
-        //    [HttpGet]
-        //    public ActionResult InfNut()
-        //    {
-        //        List<ModelCL.Alimento> Alimentos = null;
-
-        //        #region UsuarioId por cookie
-        //        HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-        //        FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-        //        int idUsu = Convert.ToInt32(usu.Name);
-        //        #endregion
-
-        //        using (AgustinaEntities db = new AgustinaEntities())
-        //        {
-
-        //            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-        //            {
-        //                Alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-        //            }
-        //            else
-        //            {
-        //                Alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
-        //            }
-
-        //        }
-
-        //        return View(Alimentos);
-        //    }
-
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("informacion_nutricional")]
+        [Route("index")]
         public ActionResult Index()
         {
-            List<ModelCL.Alimento> alimentos = null;
-
             #region UsuarioId por cookie
             HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
             int idUsu = Convert.ToInt32(usu.Name);
             #endregion
 
-            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-            {
-                alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-            }
-            else
-            {
-                alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
-            }
+            var dietas = db.Contenido.Where(c => c.Dieta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
-            return View(alimentos);
+            return View(dietas);
         }
 
-        //[Route("details")]
-        //public ActionResult Details(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(alimento);
-        //}
+        [Route("details")]
+        public ActionResult Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Contenido contDieta = db.Contenido.Find(id);
+            if (contDieta.Dieta == null)
+            {
+                return HttpNotFound();
+            }
+            return View(contDieta);
+        }
 
         //[Route("create")]
         //public ActionResult Create()
@@ -91,7 +55,7 @@ namespace Lucy.Controllers
         //[HttpPost]
         //[Route("create")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Create(ModelCL.Alimento alimento, HttpPostedFileBase file)
+        //public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase file)
         //{
         //    if (ModelState.IsValid)
         //    {
@@ -109,7 +73,7 @@ namespace Lucy.Controllers
         //            }
         //            else
         //            {
-
+                            
         //                if (file.ContentLength > 0)
         //                {
         //                    //var fileName = Path.GetFileName(file.FileName);
@@ -128,21 +92,26 @@ namespace Lucy.Controllers
         //                    }
 
         //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+        //                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
 
-        //                    alimento.AlimentoImagen = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+        //                    ModelCL.Multimedia m = new ModelCL.Multimedia();
+        //                    m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
+        //                    m.MultimediaTipo = file.ContentType.Split('/')[0];
+        //                    m.MultimediaOrden = 1;
+
+        //                    contenido.Multimedia.Add(m);
 
         //                    file.SaveAs(path);
         //                }
         //            }
-        //        }
+        //        }            
 
-        //        db.Alimento.Add(alimento);
+        //        db.Contenido.Add(contenido);
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(alimento);
+        //    return View(contenido);
         //}
 
         //[Route("edit")]
@@ -153,34 +122,45 @@ namespace Lucy.Controllers
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
 
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
+        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
+        //    if (contDieta.Dieta == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(alimento);
+
+        //    return View(contDieta);
         //}
 
         //[HttpPost]
         //[Route("edit")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(ModelCL.Alimento alimento, HttpPostedFileBase file)
+        //public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase file)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        ModelCL.Alimento newAli = db.Alimento.Find(alimento.AlimentoId);
+        //        ModelCL.Contenido oldContenido = db.Contenido.Find(contenido.ContenidoId);
+        //        oldContenido.ContenidoTitulo = contenido.ContenidoTitulo;
+        //        oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
+        //        oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
 
-        //        newAli.AlimentoNombre = alimento.AlimentoNombre;
-        //        newAli.AlimentoPorcion = alimento.AlimentoPorcion;
-        //        newAli.AlimentoCalorias = alimento.AlimentoCalorias;
-        //        newAli.AlimentoCarbohidratos = alimento.AlimentoCarbohidratos;
-        //        newAli.AlimentoAzucar = alimento.AlimentoAzucar;
-        //        newAli.AlimentoGrasa = alimento.AlimentoGrasa;
-        //        newAli.AlimentoSodio = alimento.AlimentoSodio;
-        //        newAli.AlimentoGluten = alimento.AlimentoGluten;
+
+        //        oldContenido.Dieta.DietaDesayunoCalorias = contenido.Dieta.DietaDesayunoCalorias;
+        //        oldContenido.Dieta.DietaDesayunoDescripcion = contenido.Dieta.DietaDesayunoDescripcion;
+
+        //        oldContenido.Dieta.DietaAlmuerzoCalorias = contenido.Dieta.DietaAlmuerzoCalorias;
+        //        oldContenido.Dieta.DietaAlmuerzoDescripcion = contenido.Dieta.DietaAlmuerzoDescripcion;
+
+        //        oldContenido.Dieta.DietaMeriendaCalorias= contenido.Dieta.DietaMeriendaCalorias;
+        //        oldContenido.Dieta.DietaMeriendaDescripcion = contenido.Dieta.DietaMeriendaDescripcion;
+
+        //        oldContenido.Dieta.DietaCenaCalorias = contenido.Dieta.DietaCenaCalorias;
+        //        oldContenido.Dieta.DietaCenaDescripcion = contenido.Dieta.DietaCenaDescripcion;
+
+        //        oldContenido.Dieta.DietaIngestasCalorias = contenido.Dieta.DietaIngestasCalorias;
+        //        oldContenido.Dieta.DietaIngestasDescripcion = contenido.Dieta.DietaIngestasDescripcion;
 
         //        if (file != null)
-        //        {
+        //        {                      
         //            if (!Fachada.Functions.isValidContentType(file.ContentType))
         //            {
         //                ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
@@ -210,16 +190,20 @@ namespace Lucy.Controllers
         //                        return View(); //Error inesperado
         //                    }
 
+        //                    ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault();
+
         //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+        //                    var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
 
-        //                    string newUrl = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+        //                    string newUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
 
-        //                    var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", newAli.AlimentoImagen);
+        //                    var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
         //                    if (System.IO.File.Exists(oldPath))
         //                        System.IO.File.Delete(oldPath);
 
-        //                    newAli.AlimentoImagen = newUrl;
+        //                    //oldContenido.Multimedia.Remove(oldMult);
+        //                    oldMult.MultimediaUrl = newUrl;
+        //                    oldMult.MultimediaTipo = file.ContentType.Split('/')[0];                           
 
         //                    file.SaveAs(newPath);
         //                }
@@ -229,7 +213,7 @@ namespace Lucy.Controllers
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(alimento);
+        //    return View(contenido);
         //}
 
         //[Route("delete")]
@@ -239,27 +223,30 @@ namespace Lucy.Controllers
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
+        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
+        //    if (contDieta.Dieta == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(alimento);
+        //    return View(contDieta);
         //}
 
         //[HttpPost, ActionName("Delete")]
-        //[Route("delete")]
+        //[Route("delete")]        
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(long id)
         //{
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
+        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
 
-        //    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", alimento.AlimentoImagen);
-        //    if (System.IO.File.Exists(path))
-        //        System.IO.File.Delete(path);
+        //    //Solo hay una imagen para las dietas actualmente pero es lo mismo
+        //    foreach (ModelCL.Multimedia m in contDieta.Multimedia.ToList())
+        //    {
+        //        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
+        //        if (System.IO.File.Exists(path))
+        //            System.IO.File.Delete(path);
+        //    }
 
-        //    db.Alimento.Remove(alimento);
+        //    db.Contenido.Remove(contDieta);     
         //    db.SaveChanges();
 
         //    return RedirectToAction("Index");
