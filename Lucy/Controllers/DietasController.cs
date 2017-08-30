@@ -17,6 +17,7 @@ namespace Lucy.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
+        [Authorize]
         [Route("index")]
         public ActionResult Index()
         {
@@ -31,6 +32,7 @@ namespace Lucy.Controllers
             return View(dietas);
         }
 
+        [Authorize]
         [Route("details")]
         public ActionResult Details(long? id)
         {
