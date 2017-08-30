@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Backend
+namespace Fachada
 {
     public class Functions
     {
@@ -9,6 +9,7 @@ namespace Backend
             return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
                 contentType.Equals("image/jpg") || contentType.Equals("image/jpeg");//Posiblemente agregar videos
         }
+
 
         public static bool isValidContentLength(int contentLenght)
         {

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ModelCL.Alimento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoImagen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoPorcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoCarbohidratos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoCalorias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoAzucar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoGrasa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoSodio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlimentoGluten)
+        </th>
+        <th>
+            @Html.Display("Usuario")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoNombre)
+        </td>
+        <td>
+            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.AlimentoImagen)" height="70" width="70" alt="Imágen no encontrada" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoPorcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoCarbohidratos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoAzucar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoGrasa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoSodio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlimentoGluten)
+        </td>
+        <td>
+            @if (item.Usuario != null)
+            {
+                @Html.DisplayFor(modelItem => item.Usuario.UsuarioNombre)
+            }
+            else
+            {
+                @Html.Display("Alimento Oficial")
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AlimentoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AlimentoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AlimentoId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -34,9 +34,9 @@ namespace Backend.Models
         public Nullable<double> RecetaHidratos { get; set; }
 
         [Display(Name = "Sodio")]
-        public Nullable<double> RecetaSodio { get; set; }
+        public bool RecetaSodio { get; set; }
 
         [Display(Name = "Gluten")]
-        public Nullable<double> RecetaGluten { get; set; }
+        public bool RecetaGluten { get; set; }
     }
 }
