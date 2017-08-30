@@ -49,14 +49,14 @@ namespace Lucy.Controllers
         {
             List<ModelCL.Alimento> alimentos = null;
 
-            #region UsuarioId por cookie
-            HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
-            #endregion
-
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
+                #region UsuarioId por cookie
+                HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
+                int idUsu = Convert.ToInt32(usu.Name);
+                #endregion
+
                 alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             }
             else
