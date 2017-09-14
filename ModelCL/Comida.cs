@@ -18,7 +18,6 @@ namespace ModelCL
         public Comida()
         {
             this.Alimento = new HashSet<Alimento>();
-            this.Correccion = new HashSet<Correccion>();
         }
     
         public long ComidaId { get; set; }
@@ -35,7 +34,5 @@ namespace ModelCL
         public virtual Registro Registro { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alimento> Alimento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Correccion> Correccion { get; set; }
     }
 }

@@ -12,13 +12,16 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Correccion
+    public partial class Dosis
     {
-        public long CorreccionId { get; set; }
-        public long PersonaId { get; set; }
+        public long DosisId { get; set; }
         public long MedicinaId { get; set; }
+        public long ValorId { get; set; }
+        public string DosisTipo { get; set; }
+        public double DosisCantidadMin { get; set; }
+        public string DosisMedida { get; set; }
+        public double DosisEfecto { get; set; }
     
-        public virtual Medicacion Medicacion { get; set; }
-        public virtual Comida Comida { get; set; }
+        public virtual RelMedVal RelMedVal { get; set; }
     }
 }

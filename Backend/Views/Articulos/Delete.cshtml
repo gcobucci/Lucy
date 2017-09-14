@@ -35,6 +35,19 @@
             @Html.DisplayFor(model => model.ContenidoCuerpo)
         </dd>
 
+        <dt>
+            @Html.Label("Temas")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Articulo.Tema.OrderBy(t => t.TemaNombre))
+                {
+                    <li>@Html.DisplayFor(modelItem => item.TemaNombre)</li>
+                }
+            </ul>
+        </dd>
+
         @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
         {
             @*<dt>

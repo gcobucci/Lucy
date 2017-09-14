@@ -12,6 +12,7 @@ using System.Web.Security;
 
 namespace Lucy.Controllers
 {
+    [Authorize]
     [RoutePrefix("recetas")]
     public class RecetasController : Controller
     {
@@ -35,22 +36,16 @@ namespace Lucy.Controllers
 
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Authorize]
         [Route("index")]
         public ActionResult Index()
         {
-            #region UsuarioId por cookie
-            HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
-            #endregion
+            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-            var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null ||c.UsuarioAutor.UsuarioId == idUsu)).ToList();
+            var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
             return View(recetas);
         }
 
-        [Authorize]
         [Route("details")]
         public ActionResult Details(long? id)
         {
@@ -58,8 +53,11 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
             ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            if (contReceta.Receta == null)
+            if (contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))
             {
                 return HttpNotFound();
             }

@@ -14,12 +14,21 @@ namespace ModelCL
     
     public partial class Valor
     {
-        public long ValorId { get; set; }
-        public long PersonaId { get; set; }
-        public System.DateTime ValorFchEnable { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Valor()
+        {
+            this.RelEnfVal = new HashSet<RelEnfVal>();
+            this.RelMedVal = new HashSet<RelMedVal>();
+        }
     
-        public virtual Diabetes Diabetes { get; set; }
-        public virtual Obesidad Obesidad { get; set; }
-        public virtual Persona Persona { get; set; }
+        public long ValorId { get; set; }
+        public string ValorNombre { get; set; }
+        public string ValorMedida { get; set; }
+        public string ValorDesc { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RelEnfVal> RelEnfVal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RelMedVal> RelMedVal { get; set; }
     }
 }

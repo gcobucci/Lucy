@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ModelCL.Medicina>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicinaNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicinaTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicinaDesc)
+        </th>
+        <th>
+            @Html.Label("Cantidad de enfermedades asociadas")
+        </th>
+        <th>
+            @Html.Label("Cantidad de valores asociados (y dosis)")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaTipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaDesc)
+        </td>
+        <td>
+            @item.Enfermedad.Count().ToString()
+        </td>
+        <td>
+            @{ int cantDosis = 0; }
+            @foreach (var rmv in item.RelMedVal) { cantDosis = cantDosis + rmv.Dosis.Count(); }
+
+            @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MedicinaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MedicinaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MedicinaId })
+        </td>
+    </tr>
+}
+
+</table>

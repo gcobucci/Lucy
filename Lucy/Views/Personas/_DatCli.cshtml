@@ -86,7 +86,7 @@
         <div id="info_diabetes">
             <h4>Diabetes</h4>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.DiabetesTipo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.DiabetesTipo, ViewBag.listaTiposDiabetes as SelectList, new { @class = "form-control" })
@@ -109,33 +109,32 @@
                         @Html.EditorFor(model => model.DiabetesGlicemiaAlta, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
                         @Html.ValidationMessageFor(model => model.DiabetesGlicemiaAlta, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DiabetesHidratosPorUniInsu, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DiabetesHidratosPorUniInsu, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                        @Html.ValidationMessageFor(model => model.DiabetesHidratosPorUniInsu, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DiabetesHidratosPorUniInsu, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DiabetesHidratosPorUniInsu, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    @Html.ValidationMessageFor(model => model.DiabetesHidratosPorUniInsu, "", new { @class = "text-danger" })
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InsulinaRetardadaId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.InsulinaRetardadaId, ViewBag.listaInsulinasRetardadas as SelectList, "Seleccionar", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.InsulinaRetardadaId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InsulinaCorreccionId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.InsulinaCorreccionId, ViewBag.listaInsulinasCorreccion as SelectList, "Seleccionar", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.InsulinaCorreccionId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InsulinaRetardadaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.InsulinaRetardadaId, ViewBag.listaInsulinasRetardadas as SelectList, "Seleccionar", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.InsulinaRetardadaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InsulinaCorreccionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.InsulinaCorreccionId, ViewBag.listaInsulinasCorreccion as SelectList, "Seleccionar", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.InsulinaCorreccionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        @*</div>*@
         </div>
 
         <div class="form-group">

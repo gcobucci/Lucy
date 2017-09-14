@@ -29,7 +29,7 @@ namespace ModelCL
     
         public virtual Contenido Contenido { get; set; }
         public virtual Usuario UsuarioAutor { get; set; }
-        public virtual Comentario ComentarioPadre { get; set; }
+        public virtual Comentario ComentarioAutor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> ComentariosHijos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

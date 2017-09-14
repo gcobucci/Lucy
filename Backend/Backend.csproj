@@ -128,8 +128,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\MedicinasController.cs" />
+    <Compile Include="Controllers\DosisController.cs" />
+    <Compile Include="Controllers\RelEnfValController.cs" />
+    <Compile Include="Controllers\ValoresController.cs" />
+    <Compile Include="Controllers\EnfermedadesController.cs" />
+    <Compile Include="Controllers\ProgramasController.cs" />
+    <Compile Include="Controllers\RutinasController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
+    <Compile Include="Controllers\EjerciciosController.cs" />
     <Compile Include="Controllers\TemasController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
@@ -166,10 +174,47 @@
     <Content Include="Views\Dietas\Edit.cshtml" />
     <Content Include="Views\Dietas\Index.cshtml" />
     <Content Include="Views\Alimentos\Index.cshtml" />
-    <Content Include="Views\Alimentos\Details.cshtml" />
     <Content Include="Views\Alimentos\Create.cshtml" />
     <Content Include="Views\Alimentos\Edit.cshtml" />
     <Content Include="Views\Alimentos\Delete.cshtml" />
+    <Content Include="Views\Ejercicios\Create.cshtml" />
+    <Content Include="Views\Ejercicios\Delete.cshtml" />
+    <Content Include="Views\Ejercicios\Details.cshtml" />
+    <Content Include="Views\Ejercicios\Edit.cshtml" />
+    <Content Include="Views\Ejercicios\Index.cshtml" />
+    <Content Include="Views\Rutinas\Create.cshtml" />
+    <Content Include="Views\Rutinas\Delete.cshtml" />
+    <Content Include="Views\Rutinas\Details.cshtml" />
+    <Content Include="Views\Rutinas\Edit.cshtml" />
+    <Content Include="Views\Rutinas\Index.cshtml" />
+    <Content Include="Views\Programas\Create.cshtml" />
+    <Content Include="Views\Programas\Delete.cshtml" />
+    <Content Include="Views\Programas\Details.cshtml" />
+    <Content Include="Views\Programas\Edit.cshtml" />
+    <Content Include="Views\Programas\Index.cshtml" />
+    <Content Include="Views\Valores\Index.cshtml" />
+    <Content Include="Views\Valores\Details.cshtml" />
+    <Content Include="Views\Valores\Create.cshtml" />
+    <Content Include="Views\Valores\Edit.cshtml" />
+    <Content Include="Views\Valores\Delete.cshtml" />
+    <Content Include="Views\Enfermedades\Index.cshtml" />
+    <Content Include="Views\Enfermedades\Details.cshtml" />
+    <Content Include="Views\Enfermedades\Create.cshtml" />
+    <Content Include="Views\Enfermedades\Edit.cshtml" />
+    <Content Include="Views\Enfermedades\Delete.cshtml" />
+    <Content Include="Views\RelEnfVal\Index.cshtml" />
+    <Content Include="Views\RelEnfVal\Create.cshtml" />
+    <Content Include="Views\RelEnfVal\Edit.cshtml" />
+    <Content Include="Views\RelEnfVal\Delete.cshtml" />
+    <Content Include="Views\Medicinas\Index.cshtml" />
+    <Content Include="Views\Medicinas\Details.cshtml" />
+    <Content Include="Views\Medicinas\Create.cshtml" />
+    <Content Include="Views\Medicinas\Edit.cshtml" />
+    <Content Include="Views\Medicinas\Delete.cshtml" />
+    <Content Include="Views\Dosis\Create.cshtml" />
+    <Content Include="Views\Dosis\Delete.cshtml" />
+    <Content Include="Views\Dosis\Edit.cshtml" />
+    <Content Include="Views\Dosis\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

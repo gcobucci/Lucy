@@ -17,11 +17,9 @@ namespace ModelCL
         public long MedicacionId { get; set; }
         public long PersonaId { get; set; }
         public long MedicinaId { get; set; }
-        public short TomaCantidad { get; set; }
-        public string TomaCantidadTipo { get; set; }
+        public short MedicacionCantidad { get; set; }
+        public string MedicacionCantidadTipo { get; set; }
     
-        public virtual Correccion Correccion { get; set; }
-        public virtual Retardada Retardada { get; set; }
         public virtual Registro Registro { get; set; }
         public virtual Medicina Medicina { get; set; }
     }

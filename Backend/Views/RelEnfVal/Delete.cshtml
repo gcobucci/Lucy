@@ -1,0 +1,54 @@
+﻿@model ModelCL.RelEnfVal
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Está seguro de que desea eliminar esta asociación entre enfermedad y valor?</h3>
+<div>
+    <h4>RelEnfVal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Enfermedad.EnfermedadNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Enfermedad.EnfermedadNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor.ValorNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor.ValorNombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RelEnfValMinimo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelEnfValMinimo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelEnfValMaximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelEnfValMaximo)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,143 @@
+﻿@model ModelCL.Medicina
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Medicina</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MedicinaId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicinaNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MedicinaNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MedicinaNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicinaTipo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MedicinaTipo, ViewBag.lMedTipos as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MedicinaTipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicinaDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MedicinaDesc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MedicinaDesc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Enfermedades</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var enfermedad in ViewBag.lEnfermedades)
+                    {
+                        var check = false;
+                        foreach (var e in Model.Enfermedad)
+                        {
+                            if (enfermedad.EnfermedadId == e.EnfermedadId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="enfermedades" value="@enfermedad.EnfermedadId" /> @enfermedad.EnfermedadNombre</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <dl>
+            <dt>
+                @Html.Label("Valores/Dosis")
+            </dt>
+
+            <dd>
+                <p>
+                    @Html.ActionLink("Create new", "Create", "Dosis", new { idMed = Model.MedicinaId }, null)
+                </p>
+
+                <ul>
+                    @foreach (var item in Model.RelMedVal.OrderBy(m => m.Valor.ValorNombre))
+                    {
+                        <li>
+                            @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
+
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.Label("Tipo")
+                                    </th>
+                                    <th>
+                                        @Html.Label("Medida")
+                                    </th>
+                                    <th>
+                                        @Html.Label("Cantidad mínima")
+                                    </th>
+                                    <th>
+                                        @Html.Label("Efecto")
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var d in item.Dosis)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => d.DosisTipo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => d.DosisMedida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => d.DosisCantidadMin)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => d.DosisEfecto)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", "Dosis", new { id = d.DosisId }, null) |
+                                            @Html.ActionLink("Delete", "Delete", "Dosis", new { id = d.DosisId }, null)
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

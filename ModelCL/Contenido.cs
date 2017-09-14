@@ -38,7 +38,7 @@ namespace ModelCL
         public virtual ICollection<Multimedia> Multimedia { get; set; }
         public virtual Programa Programa { get; set; }
         public virtual Receta Receta { get; set; }
-        public virtual Sesion Sesion { get; set; }
+        public virtual Rutina Rutina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> UsuariosFav { get; set; }
         public virtual Usuario UsuarioAutor { get; set; }

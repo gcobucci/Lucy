@@ -9,11 +9,11 @@ using System.Web.Security;
 
 namespace Lucy.Controllers
 {
+    [Authorize]
     public class PersonasController : Controller
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Authorize]
         [HttpGet]
         public ActionResult Datos_Clinicos()
         {
@@ -43,7 +43,7 @@ namespace Lucy.Controllers
             {
                 DatCliViewModel newDatCli = new DatCliViewModel();
 
-                List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();//Hay que filtrar por oficiales
+                List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();
                 List<Fachada.ViewModelCheckBox> lEnf = new List<Fachada.ViewModelCheckBox>();
                 foreach (ModelCL.Enfermedad enf in lEnfermedades)
                 {
@@ -93,25 +93,22 @@ namespace Lucy.Controllers
                         }
                     }
 
-                    ModelCL.Valor Valor = Persona.Valor.Where(v => v.Diabetes != null).FirstOrDefault();
 
-                    if (Valor != null)
+                    if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
                     {
-                        newDatCli.DiabetesTipo = Valor.Diabetes.DiabetesTipo;
-                        newDatCli.DiabetesGlicemiaBaja = Convert.ToDouble(Valor.Diabetes.DiabetesGlicemiaBaja);
-                        newDatCli.DiabetesGlicemiaAlta = Convert.ToDouble(Valor.Diabetes.DiabetesGlicemiaAlta);
-                        newDatCli.DiabetesHidratosPorUniInsu = Convert.ToInt16(Valor.Diabetes.DiabetesHidratosPorUniInsu);
+                        ModelCL.Datos Datos = Persona.Datos.Where(v => v.Diabetes != null).FirstOrDefault();
 
-                        if (Valor.Diabetes.DiabetesTipo == "1")
-                        {
-                            //Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
-                            ModelCL.Medicina InsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "retardada").FirstOrDefault().Medicina;
-                            newDatCli.InsulinaRetardadaId = InsulinaRetardada.MedicinaId;
+                        //if (Datos.Diabetes != null)
+                        //{
+                        newDatCli.DiabetesHidratosPorUniInsu = Datos.Diabetes.DiabetesHidratosPorUniInsu;
+                        //}
 
-                            ModelCL.Medicina InsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "correccion").FirstOrDefault().Medicina;
-                            newDatCli.InsulinaCorreccionId = InsulinaCorreccion.MedicinaId;
+                        //Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
+                        ModelCL.Medicina InsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Pasiva").FirstOrDefault().Medicina;
+                        newDatCli.InsulinaRetardadaId = InsulinaRetardada.MedicinaId;
 
-                        }
+                        ModelCL.Medicina InsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
+                        newDatCli.InsulinaCorreccionId = InsulinaCorreccion.MedicinaId;
                     }
                 }
 
@@ -120,18 +117,18 @@ namespace Lucy.Controllers
                 List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
                 ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
 
-                List<Fachada.ViewModelSelectList> lTiposDiabetes = new List<Fachada.ViewModelSelectList>()
-                {
-                    new Fachada.ViewModelSelectList { Id = 1, Valor = "1" },
-                    new Fachada.ViewModelSelectList { Id = 2, Valor = "2" },
-                };
-                ViewBag.listaTiposDiabetes = new SelectList(lTiposDiabetes, "Id", "Valor");
+                //List<Fachada.ViewModelSelectList> lTiposDiabetes = new List<Fachada.ViewModelSelectList>()
+                //{
+                //    new Fachada.ViewModelSelectList { Id = 1, Valor = "1" },
+                //    new Fachada.ViewModelSelectList { Id = 2, Valor = "2" },
+                //};
+                //ViewBag.listaTiposDiabetes = new SelectList(lTiposDiabetes, "Id", "Valor");
 
                 //Lo mismo que antes - Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
-                List<ModelCL.Medicina> lInsulinasRetardadas = db.Medicina.Where(m => m.MedicinaTipo == "retardada" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes").FirstOrDefault() != null).ToList();
+                List<ModelCL.Medicina> lInsulinasRetardadas = db.Medicina.Where(m => m.MedicinaTipo == "Pasiva" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
                 ViewBag.listaInsulinasRetardadas = new SelectList(lInsulinasRetardadas, "MedicinaId", "MedicinaNombre");
 
-                List<ModelCL.Medicina> lInsulinasCorreccion = db.Medicina.Where(m => m.MedicinaTipo == "correccion" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes").FirstOrDefault() != null).ToList();
+                List<ModelCL.Medicina> lInsulinasCorreccion = db.Medicina.Where(m => m.MedicinaTipo == "Activa" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
                 ViewBag.listaInsulinasCorreccion = new SelectList(lInsulinasCorreccion, "MedicinaId", "MedicinaNombre");
 
                 return PartialView("_DatCli", newDatCli);
@@ -243,182 +240,108 @@ namespace Lucy.Controllers
                 }
 
 
-                if (Datos.Enfermedades.Where(e => e.Nombre == "Diabetes").FirstOrDefault().Checked == true)
+                if (Datos.Enfermedades.Where(e => e.Nombre == "Diabetes tipo 1").FirstOrDefault().Checked == true)
                 {
-                    ModelCL.Valor oldValor = Persona.Valor.Where(v => v.Diabetes != null).FirstOrDefault();
-                    if (oldValor != null && oldValor.Diabetes != null)
+                    ModelCL.Datos oldDatos = Persona.Datos.Where(v => v.Diabetes != null).FirstOrDefault();
+                    if (oldDatos != null)
                     {
-                        if (oldValor.Diabetes.DiabetesTipo != Datos.DiabetesTipo ||
-                        oldValor.Diabetes.DiabetesGlicemiaAlta != Datos.DiabetesGlicemiaAlta ||
-                        oldValor.Diabetes.DiabetesGlicemiaBaja != Datos.DiabetesGlicemiaBaja ||
-                        oldValor.Diabetes.DiabetesHidratosPorUniInsu != Datos.DiabetesHidratosPorUniInsu)
+                        if (oldDatos.Diabetes.DiabetesHidratosPorUniInsu != Datos.DiabetesHidratosPorUniInsu)
                         {
-                            Persona.Valor.Remove(oldValor);
+                            Persona.Datos.Remove(oldDatos);
 
-                            ModelCL.Valor newValor = new ModelCL.Valor();
-                            newValor.Persona = Persona;
-                            //Persona.Valor.Add(newValor);
+                            ModelCL.Datos newDatos = new ModelCL.Datos();
+                            newDatos.Persona = Persona;
 
                             ModelCL.Diabetes newDiabetes = new ModelCL.Diabetes();
-                            newDiabetes.Valor = newValor;
-                            newDiabetes.DiabetesTipo = Datos.DiabetesTipo;
-
-                            if (Datos.DiabetesTipo == "1")
-                            {
-                                newDiabetes.DiabetesGlicemiaAlta = Datos.DiabetesGlicemiaAlta;
-                                newDiabetes.DiabetesGlicemiaBaja = Datos.DiabetesGlicemiaBaja;
-                                newDiabetes.DiabetesHidratosPorUniInsu = Datos.DiabetesHidratosPorUniInsu;
-                            }
-
-                            //db.Diabetes.Add(newDiabetes);
-                            newValor.Diabetes = newDiabetes;
-                            Persona.Valor.Add(newValor);
-                        }
-
-                        if (Datos.DiabetesTipo == "1")
-                        {
-                            ModelCL.RelMedRelPerEnf oldInsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "retardada").FirstOrDefault();
-                            if (oldInsulinaRetardada != null)
-                            {
-                                if (oldInsulinaRetardada.MedicinaId != Datos.InsulinaRetardadaId)
-                                {
-                                    //Probando si se puede cambiar a traves de la variable
-                                    Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Remove(oldInsulinaRetardada);
-
-                                    ModelCL.RelMedRelPerEnf newInsulinaRetardada = new ModelCL.RelMedRelPerEnf();
-
-                                    //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                                    newInsulinaRetardada.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
-                                    newInsulinaRetardada.Medicina = db.Medicina.Find(Datos.InsulinaRetardadaId);
-
-                                    //Frecuencia harcodeada, hay que agregar luego en la view//
-                                    newInsulinaRetardada.RelMedRelPerEnfFrecuencia = 1;
-                                    newInsulinaRetardada.RelMedRelPerEnfFrecuenciaTipo = "día";
-
-                                    Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaRetardada);
-                                }
-                            }
-                            else
-                            {
-                                ModelCL.RelMedRelPerEnf newInsulinaRetardada = new ModelCL.RelMedRelPerEnf();
-
-                                //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                                newInsulinaRetardada.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
-                                newInsulinaRetardada.Medicina = db.Medicina.Find(Datos.InsulinaRetardadaId);
-
-                                //Frecuencia harcodeada, hay que agregar luego en la view//
-                                newInsulinaRetardada.RelMedRelPerEnfFrecuencia = 1;
-                                newInsulinaRetardada.RelMedRelPerEnfFrecuenciaTipo = "día";
-
-                                Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaRetardada);
-                            }
-
-
-                            ModelCL.RelMedRelPerEnf oldInsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "correccion").FirstOrDefault();
-                            if (oldInsulinaCorreccion != null)
-                            {
-                                if (oldInsulinaCorreccion.MedicinaId != Datos.InsulinaCorreccionId)
-                                {
-                                    //Probando si se puede cambiar a traves de la variable
-                                    Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Remove(oldInsulinaCorreccion);
-
-                                    ModelCL.RelMedRelPerEnf newInsulinaCorreccion = new ModelCL.RelMedRelPerEnf();
-
-                                    //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                                    newInsulinaCorreccion.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
-                                    newInsulinaCorreccion.Medicina = db.Medicina.Find(Datos.InsulinaCorreccionId);
-
-                                    //Frecuencia harcodeada, hay que agregar luego en la view//
-                                    newInsulinaCorreccion.RelMedRelPerEnfFrecuencia = 1;
-                                    newInsulinaCorreccion.RelMedRelPerEnfFrecuenciaTipo = "día";
-
-                                    Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
-                                }
-                            }
-                            else
-                            {
-                                ModelCL.RelMedRelPerEnf newInsulinaCorreccion = new ModelCL.RelMedRelPerEnf();
-
-                                //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                                newInsulinaCorreccion.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
-                                newInsulinaCorreccion.Medicina = db.Medicina.Find(Datos.InsulinaCorreccionId);
-
-                                //Frecuencia harcodeada, hay que agregar luego en la view//
-                                newInsulinaCorreccion.RelMedRelPerEnfFrecuencia = 1;
-                                newInsulinaCorreccion.RelMedRelPerEnfFrecuenciaTipo = "día";
-
-                                Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
-                            }
-                        }
-                        else
-                        {
-                            ModelCL.RelPerEnf oldRelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
-
-                            foreach (ModelCL.RelMedRelPerEnf oldrmrpe in oldRelPerEnf.RelMedRelPerEnf.ToList())
-                            {
-                                Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Remove(oldrmrpe);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ModelCL.Valor newValor = new ModelCL.Valor();
-                        newValor.Persona = Persona;
-
-                        ModelCL.Diabetes newDiabetes = new ModelCL.Diabetes();
-                        newDiabetes.Valor = newValor;
-                        newDiabetes.DiabetesTipo = Datos.DiabetesTipo;
-
-                        if (Datos.DiabetesTipo == "1")
-                        {
-                            newDiabetes.DiabetesGlicemiaAlta = Datos.DiabetesGlicemiaAlta;
-                            newDiabetes.DiabetesGlicemiaBaja = Datos.DiabetesGlicemiaBaja;
+                            newDiabetes.Datos = newDatos;
                             newDiabetes.DiabetesHidratosPorUniInsu = Datos.DiabetesHidratosPorUniInsu;
+
+                            newDatos.Diabetes = newDiabetes;
+                            Persona.Datos.Add(newDatos);
                         }
 
-                        //db.Diabetes.Add(newDiabetes);
-                        newValor.Diabetes = newDiabetes;
-                        Persona.Valor.Add(newValor);
 
+                        ModelCL.RelMedRelPerEnf oldInsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Pasiva").FirstOrDefault();
 
-                        if (Datos.DiabetesTipo == "1")
+                        if (oldInsulinaRetardada.MedicinaId != Datos.InsulinaRetardadaId)
                         {
+                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Remove(oldInsulinaRetardada);
+
                             ModelCL.RelMedRelPerEnf newInsulinaRetardada = new ModelCL.RelMedRelPerEnf();
 
-                            //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                            newInsulinaRetardada.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
+                            newInsulinaRetardada.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
                             newInsulinaRetardada.Medicina = db.Medicina.Find(Datos.InsulinaRetardadaId);
 
                             //Frecuencia harcodeada, hay que agregar luego en la view//
                             newInsulinaRetardada.RelMedRelPerEnfFrecuencia = 1;
                             newInsulinaRetardada.RelMedRelPerEnfFrecuenciaTipo = "día";
 
-                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaRetardada);
+                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaRetardada);
+                        }
 
 
+                        ModelCL.RelMedRelPerEnf oldInsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault();
+
+                        if (oldInsulinaCorreccion.MedicinaId != Datos.InsulinaCorreccionId)
+                        {
+                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Remove(oldInsulinaCorreccion);
 
                             ModelCL.RelMedRelPerEnf newInsulinaCorreccion = new ModelCL.RelMedRelPerEnf();
 
-                            //Hay que ver si no falla si se acaba de agregar la relperenf a la persona
-                            newInsulinaCorreccion.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault();
+                            newInsulinaCorreccion.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
                             newInsulinaCorreccion.Medicina = db.Medicina.Find(Datos.InsulinaCorreccionId);
 
                             //Frecuencia harcodeada, hay que agregar luego en la view//
                             newInsulinaCorreccion.RelMedRelPerEnfFrecuencia = 1;
                             newInsulinaCorreccion.RelMedRelPerEnfFrecuenciaTipo = "día";
 
-                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
+                            Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
                         }
                     }
+                    else
+                    {
+                        ModelCL.Datos newDatos = new ModelCL.Datos();
+                        newDatos.Persona = Persona;
+
+                        ModelCL.Diabetes newDiabetes = new ModelCL.Diabetes();
+                        newDiabetes.Datos = newDatos;
+                        newDiabetes.DiabetesHidratosPorUniInsu = Datos.DiabetesHidratosPorUniInsu;
+
+                        newDatos.Diabetes = newDiabetes;
+                        Persona.Datos.Add(newDatos);
+                        
+
+                        ModelCL.RelMedRelPerEnf newInsulinaRetardada = new ModelCL.RelMedRelPerEnf();
+
+                        newInsulinaRetardada.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
+                        newInsulinaRetardada.Medicina = db.Medicina.Find(Datos.InsulinaRetardadaId);
+
+                        //Frecuencia harcodeada, hay que agregar luego en la view//
+                        newInsulinaRetardada.RelMedRelPerEnfFrecuencia = 1;
+                        newInsulinaRetardada.RelMedRelPerEnfFrecuenciaTipo = "día";
+
+                        Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaRetardada);
+
+
+                        ModelCL.RelMedRelPerEnf newInsulinaCorreccion = new ModelCL.RelMedRelPerEnf();
+
+                        newInsulinaCorreccion.RelPerEnf = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
+                        newInsulinaCorreccion.Medicina = db.Medicina.Find(Datos.InsulinaCorreccionId);
+
+                        //Frecuencia harcodeada, hay que agregar luego en la view//
+                        newInsulinaCorreccion.RelMedRelPerEnfFrecuencia = 1;
+                        newInsulinaCorreccion.RelMedRelPerEnfFrecuenciaTipo = "día";
+
+                        Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Add(newInsulinaCorreccion);
+                    }     
                 }
                 else
                 {
-                    ModelCL.Valor oldValor = Persona.Valor.Where(v => v.Diabetes != null).FirstOrDefault();
+                    ModelCL.Datos oldDatos = Persona.Datos.Where(v => v.Diabetes != null).FirstOrDefault();
 
-                    if (oldValor != null)
+                    if (oldDatos != null)
                     {
-                        //Ver si se puede borrar en cascada - supongo que si
-                        Persona.Valor.Remove(oldValor);
+                        Persona.Datos.Remove(oldDatos);
                     }
                 }
  

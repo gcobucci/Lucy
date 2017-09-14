@@ -1,0 +1,71 @@
+﻿@model ModelCL.Dosis
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Está seguro de que desea eliminar esta Dosis?</h3>
+<div>
+    <h4>Dosis</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RelMedVal.Medicina.MedicinaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelMedVal.Medicina.MedicinaNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelMedVal.Valor.ValorNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelMedVal.Valor.ValorNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DosisTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DosisTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DosisMedida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DosisMedida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DosisCantidadMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DosisCantidadMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DosisEfecto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DosisEfecto)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

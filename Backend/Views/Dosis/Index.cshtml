@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ModelCL.Dosis>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RelMedVal.Medicina.MedicinaNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelMedVal.Valor.ValorNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DosisTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DosisMedida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DosisCantidadMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DosisEfecto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelMedVal.Medicina.MedicinaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelMedVal.Valor.ValorNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosisTipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosisMedida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosisCantidadMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosisEfecto)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DosisId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DosisId })
+        </td>
+    </tr>
+}
+
+</table>

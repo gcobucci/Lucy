@@ -1,0 +1,87 @@
+﻿@model ModelCL.Enfermedad
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Enfermedad</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EnfermedadNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnfermedadNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnfermedadDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnfermedadDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Valores")
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.Label("Nombre")
+                    </th>
+                    <th>
+                        @Html.Label("Medida")
+                    </th>
+                    <th>
+                        @Html.Label("Valor mínimo")
+                    </th>
+                    <th>
+                        @Html.Label("Valor máximo")
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Valor.ValorNombre))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor.ValorMedida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dt>
+            @Html.Label("Medicinas")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Medicina.OrderBy(m => m.MedicinaNombre))
+                {
+                    <li>@Html.DisplayFor(modelItem => item.MedicinaNombre)</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EnfermedadId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

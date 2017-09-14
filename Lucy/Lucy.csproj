@@ -210,9 +210,9 @@
     <Content Include="Resources\Oficial\Imagenes\indis.png" />
     <Content Include="Resources\Oficial\infnut.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
-    <Content Include="Resources\Oficial\plan.png" />
+    <Content Include="Resources\Oficial\programa.png" />
     <Content Include="Resources\Oficial\receta.png" />
-    <Content Include="Resources\Oficial\sesion.png" />
+    <Content Include="Resources\Oficial\rutina.png" />
     <Content Include="Resources\Oficial\user.svg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -344,9 +344,12 @@
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
+    <Compile Include="Controllers\EjerciciosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
+    <Compile Include="Controllers\RutinasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
@@ -371,6 +374,12 @@
     <Content Include="Views\Recetas\Details.cshtml" />
     <Content Include="Views\Dietas\Details.cshtml" />
     <Content Include="Views\Dietas\Index.cshtml" />
+    <Content Include="Views\Rutinas\Details.cshtml" />
+    <Content Include="Views\Rutinas\Index.cshtml" />
+    <Content Include="Views\Programas\Details.cshtml" />
+    <Content Include="Views\Programas\Index.cshtml" />
+    <Content Include="Views\Ejercicios\Details.cshtml" />
+    <Content Include="Views\Ejercicios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
