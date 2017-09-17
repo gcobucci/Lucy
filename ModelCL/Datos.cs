@@ -12,13 +12,13 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class HisValorObesidad
+    public partial class Datos
     {
-        public long HisValorObesidadId { get; set; }
-        public long ObesidadId { get; set; }
+        public long DatosId { get; set; }
         public long PersonaId { get; set; }
-        public System.DateTime ValorFchEnable { get; set; }
-        public double ObesidadPesoCorrecto { get; set; }
-        public System.DateTime HisValorObesidadFchDisable { get; set; }
+        public System.DateTime DatosFchEnable { get; set; }
+    
+        public virtual Persona Persona { get; set; }
+        public virtual Diabetes Diabetes { get; set; }
     }
 }

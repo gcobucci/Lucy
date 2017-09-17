@@ -1,0 +1,167 @@
+﻿@model ModelCL.Contenido
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("edit", "ejercicios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Ejercicio</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContenidoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoTitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoTitulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoTitulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @Html.HiddenFor(model => model.Ejercicio.EjercicioId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ejercicio.EjercicioTipo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Ejercicio.EjercicioTipo, ViewBag.lEjTipos as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ejercicio.EjercicioTipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ejercicio.EjercicioCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Ejercicio.EjercicioCategoria, ViewBag.lEjCategorias as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ejercicio.EjercicioCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Portada", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 2", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 3", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 4", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 5", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

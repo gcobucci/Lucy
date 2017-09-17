@@ -1,0 +1,124 @@
+﻿@model ModelCL.Enfermedad
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Enfermedad</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EnfermedadId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnfermedadNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EnfermedadNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnfermedadNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnfermedadDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EnfermedadDesc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnfermedadDesc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.Label("Valores")
+            </dt>
+
+            <dd>
+                <p>
+                    @Html.ActionLink("Create new", "Create", "RelEnfVal", new { idEnf = Model.EnfermedadId }, null)
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.Label("Nombre")
+                        </th>
+                        <th>
+                            @Html.Label("Medida")
+                        </th>
+                        <th>
+                            @Html.Label("Valor mínimo")
+                        </th>
+                        <th>
+                            @Html.Label("Valor máximo")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Valor.ValorNombre))
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor.ValorMedida)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null) |
+                                @Html.ActionLink("Delete", "Delete", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </dd>
+        </dl>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Medicinas</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var medicina in ViewBag.lMedicinas)
+                    {
+                        var check = false;
+                        foreach (var m in Model.Medicina)
+                        {
+                            if (medicina.MedicinaId == m.MedicinaId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="medicinas" value="@medicina.MedicinaId" /> @medicina.MedicinaNombre</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

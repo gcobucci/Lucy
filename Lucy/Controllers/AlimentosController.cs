@@ -51,11 +51,7 @@ namespace Lucy.Controllers
 
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                #region UsuarioId por cookie
-                HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                int idUsu = Convert.ToInt32(usu.Name);
-                #endregion
+                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             }

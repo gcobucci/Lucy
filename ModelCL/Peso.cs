@@ -16,7 +16,7 @@ namespace ModelCL
     {
         public long PesoId { get; set; }
         public long PersonaId { get; set; }
-        public Nullable<double> PesoValor { get; set; }
+        public double PesoValor { get; set; }
     
         public virtual Registro Registro { get; set; }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web;
+using System.Web.Security;
 
 namespace Fachada
 {
@@ -14,6 +16,23 @@ namespace Fachada
         public static bool isValidContentLength(int contentLenght)
         {
             return ((contentLenght / 1024) / 1024) < 1; //1MB
+        }
+
+
+        public static int get_idUsu(HttpCookie cookie)
+        {
+            FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
+            int idUsu = Convert.ToInt32(usu.Name);
+
+            return idUsu;
+        }
+
+        public static int get_idPer(HttpCookie cookie)
+        {
+            FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
+            int idPer = Convert.ToInt32(per.Name);
+
+            return idPer;
         }
     }
 }

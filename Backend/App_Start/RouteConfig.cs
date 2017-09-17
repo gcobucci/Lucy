@@ -20,6 +20,12 @@ namespace Backend
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //routes.MapRoute(
+            //    "ItemDetailsWithSender",
+            //    "Products/Item/{id}/{sender}",
+            //    new { controller = "Products", action = "Item" }
+            //);
         }
     }
 }

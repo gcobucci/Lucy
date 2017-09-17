@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ModelCL.RelEnfVal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Enfermedad.EnfermedadNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor.ValorNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelEnfValMinimo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelEnfValMaximo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enfermedad.EnfermedadNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelEnfValMaximo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { idEnf=item.EnfermedadId, idVal=item.ValorId }) |
+            @Html.ActionLink("Delete", "Delete", new { idEnf=item.EnfermedadId, idVal=item.ValorId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,47 @@
+﻿@model ModelCL.Registro
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Esta seguro de que desea eliminar este registro de peso?</h3>
+<div>
+    <h4>Peso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Persona")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona.nombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha")
+        </dt>
+
+        <dd>
+            @Model.RegistroFchHora.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.Label("Valor (Kg)")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso.PesoValor)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

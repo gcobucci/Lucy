@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Lucy.Models.Personas
+namespace Lucy.Models
 {
     public class DatCliViewModel
     {
@@ -29,7 +29,7 @@ namespace Lucy.Models.Personas
 
         [Required]
         [Display(Name = "Fecha de nacimiento")]
-        public String PersonaFchNac { get; set; } = DateTime.Now.ToString();
+        public string PersonaFchNac { get; set; } = DateTime.Now.ToString();
 
         [Required]
         [Display(Name = "Sexo")]
@@ -37,44 +37,44 @@ namespace Lucy.Models.Personas
 
 
         /////Peso/////
-        [Display(Name = "Peso")]
-        //Ver como restringir el float
+        [Display(Name = "Peso (Kg)")]
+        [Range(typeof(double), "1", "600", ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<double> PesoValor { get; set; }
 
         /////DatCli/////
-        [Display(Name = "Altura")]
-        public Nullable<double> DatCliAltura { get; set; }
+        [Display(Name = "Altura (centimetros)")]
+        public Nullable<short> DatCliAltura { get; set; }
 
-        [Display(Name = "Colesterol")]
-        public Nullable<double> DatCliColesterol { get; set; }
+        [Display(Name = "Colesterol total (mg/dL)")]
+        public Nullable<short> DatCliColesterol { get; set; }
 
         /////Enfermedades/////
         public List<Fachada.ViewModelCheckBox> Enfermedades { get; set; }
 
-        [Display(Name = "Tipo")]
-        public string DiabetesTipo { get; set; }
+        //[Display(Name = "Tipo")]
+        //public string DiabetesTipo { get; set; }
 
         //Tipo 1//
-        [RequiredIf("DiabetesTipo", "1")]
-        [Range(typeof(double), "0,4", "1", ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        [Display(Name = "Valor normal mínimo de glicemia")]
-        public double DiabetesGlicemiaBaja { get; set; }
+        //[RequiredIf("DiabetesTipo", "1")]
+        //[Range(typeof(double), "0,4", "1", ErrorMessage = "El valor debe estar entre {1} y {2}")]
+        //[Display(Name = "Valor normal mínimo de glicemia")]
+        //public double DiabetesGlicemiaBaja { get; set; }
 
-        [RequiredIf("DiabetesTipo", "1")]
-        [Range(typeof(double), "1", "1,8", ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        [Display(Name = "Valor normal máximo de glicemia")]
-        public double DiabetesGlicemiaAlta { get; set; }
+        //[RequiredIf("DiabetesTipo", "1")]
+        //[Range(typeof(double), "1", "1,8", ErrorMessage = "El valor debe estar entre {1} y {2}")]
+        //[Display(Name = "Valor normal máximo de glicemia")]
+        //public double DiabetesGlicemiaAlta { get; set; }
 
-        [RequiredIf("DiabetesTipo", "1")]
+        //[RequiredIf("DiabetesTipo", "1")]
         [Range(5, 30, ErrorMessage = "El campo valor debe estar entre {1} y {2}")]
         [Display(Name = "Hidratos por unidad de insulina")]
         public short DiabetesHidratosPorUniInsu { get; set; }
 
-        [RequiredIf("DiabetesTipo", "1")]
+        //[RequiredIf("DiabetesTipo", "1")]
         [Display(Name = "Insulina retardada")]
         public long InsulinaRetardadaId { get; set; }
 
-        [RequiredIf("DiabetesTipo", "1")]
+        //[RequiredIf("DiabetesTipo", "1")]
         [Display(Name = "Insulina de corrección")]
         public long InsulinaCorreccionId { get; set; }
 

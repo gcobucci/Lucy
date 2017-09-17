@@ -1,0 +1,42 @@
+﻿@model ModelCL.Control
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Control</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ControlValor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ControlValor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registro.RegistroId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registro.RegistroId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelEnfVal.EnfermedadId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelEnfVal.EnfermedadId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

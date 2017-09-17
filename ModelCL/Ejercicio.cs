@@ -18,15 +18,17 @@ namespace ModelCL
         public Ejercicio()
         {
             this.Actividad = new HashSet<Actividad>();
-            this.Sesion = new HashSet<Sesion>();
+            this.Rutina = new HashSet<Rutina>();
         }
     
         public long EjercicioId { get; set; }
+        public string EjercicioTipo { get; set; }
+        public string EjercicioCategoria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actividad> Actividad { get; set; }
         public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sesion> Sesion { get; set; }
+        public virtual ICollection<Rutina> Rutina { get; set; }
     }
 }

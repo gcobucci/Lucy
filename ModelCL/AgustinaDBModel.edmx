@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -23,8 +23,7 @@
           </Key>
           <Property Name="AguaId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="AguaCantidad" Type="smallint" Nullable="false" />
-          <Property Name="AguaCantidadTipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AguaCantidad" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Alimento">
           <Key>
@@ -54,7 +53,7 @@
           <Property Name="AuditoriaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuditoriaTabla" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AuditoriaUsuario" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AuditoriaFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="AuditoriaFchHora" Type="datetime" Nullable="false" />
           <Property Name="AuditoriaTGOP" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Comentario">
@@ -96,15 +95,16 @@
           <Property Name="ContenidoFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Correccion">
+        <EntityType Name="Control">
           <Key>
-            <PropertyRef Name="CorreccionId" />
+            <PropertyRef Name="ControlId" />
             <PropertyRef Name="PersonaId" />
-            <PropertyRef Name="MedicinaId" />
           </Key>
-          <Property Name="CorreccionId" Type="bigint" Nullable="false" />
+          <Property Name="ControlId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="MedicinaId" Type="bigint" Nullable="false" />
+          <Property Name="EnfermedadId" Type="bigint" Nullable="false" />
+          <Property Name="ValorId" Type="bigint" Nullable="false" />
+          <Property Name="ControlValor" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="DatCli">
           <Key>
@@ -115,6 +115,15 @@
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="DatCliAltura" Type="float" />
           <Property Name="DatCliColesterol" Type="float" />
+        </EntityType>
+        <EntityType Name="Datos">
+          <Key>
+            <PropertyRef Name="DatosId" />
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="DatosId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="bigint" Nullable="false" />
+          <Property Name="DatosFchEnable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Dia">
           <Key>
@@ -130,10 +139,7 @@
           </Key>
           <Property Name="DiabetesId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="DiabetesTipo" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="float" />
-          <Property Name="DiabetesGlicemiaAlta" Type="float" />
-          <Property Name="DiabetesHidratosPorUniInsu" Type="smallint" />
+          <Property Name="DiabetesHidratosPorUniInsu" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Dieta">
           <Key>
@@ -141,21 +147,37 @@
           </Key>
           <Property Name="DietaId" Type="bigint" Nullable="false" />
           <Property Name="DietaDesayunoCalorias" Type="float" Nullable="false" />
-          <Property Name="DietaDesayunoDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DietaDesayunoDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="DietaAlmuerzoCalorias" Type="float" Nullable="false" />
-          <Property Name="DietaAlmuerzoDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DietaAlmuerzoDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="DietaMeriendaCalorias" Type="float" Nullable="false" />
-          <Property Name="DietaMeriendaDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DietaMeriendaDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="DietaCenaCalorias" Type="float" Nullable="false" />
-          <Property Name="DietaCenaDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DietaCenaDescripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="DietaIngestasCalorias" Type="float" Nullable="false" />
-          <Property Name="DietaIngestasDescripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DietaIngestasDescripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dosis">
+          <Key>
+            <PropertyRef Name="DosisId" />
+            <PropertyRef Name="MedicinaId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="DosisId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicinaId" Type="bigint" Nullable="false" />
+          <Property Name="ValorId" Type="bigint" Nullable="false" />
+          <Property Name="DosisTipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DosisCantidadMin" Type="float" Nullable="false" />
+          <Property Name="DosisMedida" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DosisEfecto" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
             <PropertyRef Name="EjercicioId" />
           </Key>
           <Property Name="EjercicioId" Type="bigint" Nullable="false" />
+          <Property Name="EjercicioTipo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EjercicioCategoria" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -170,7 +192,21 @@
             <PropertyRef Name="ErrorId" />
           </Key>
           <Property Name="ErrorId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ErrorDesc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ErrorDesc" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HisDatosDiabetes">
+          <Key>
+            <PropertyRef Name="HisDatosDiabetesId" />
+          </Key>
+          <Property Name="HisDatosDiabetesId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiabetesId" Type="bigint" Nullable="false" />
+          <Property Name="PersonaId" Type="bigint" Nullable="false" />
+          <Property Name="DatosFchEnable" Type="datetime" Nullable="false" />
+          <Property Name="DiabetesTipo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DiabetesGlicemiaBaja" Type="float" />
+          <Property Name="DiabetesGlicemiaAlta" Type="float" />
+          <Property Name="DiabetesHidratosPorUniInsu" Type="smallint" />
+          <Property Name="HisDatosDiabetesFchDisable" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="HisRelMedRelPerEnf">
           <Key>
@@ -183,7 +219,7 @@
           <Property Name="RelMedRelPerEnfFrecuencia" Type="float" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="varchar" MaxLength="20" />
           <Property Name="RelMedRelPerEnfFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="HisRelMedRelPerEnfFchDisable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelMedRelPerEnfFchDisable" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="HisRelPerEnf">
           <Key>
@@ -193,7 +229,7 @@
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="EnfermedadId" Type="bigint" Nullable="false" />
           <Property Name="RelPerEnfFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="HisRelPerEnfFchDisable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelPerEnfFchDisable" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="HisRelUsuRol">
           <Key>
@@ -203,32 +239,7 @@
           <Property Name="UsuarioId" Type="bigint" Nullable="false" />
           <Property Name="RolId" Type="smallint" Nullable="false" />
           <Property Name="RelUsuRolFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="HisRelUsuRolFchDisable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="HisValorDiabetes">
-          <Key>
-            <PropertyRef Name="HisValorDiabetesId" />
-          </Key>
-          <Property Name="HisValorDiabetesId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DiabetesId" Type="bigint" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="DiabetesTipo" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="float" />
-          <Property Name="DiabetesGlicemiaAlta" Type="float" />
-          <Property Name="DiabetesHidratosPorUniInsu" Type="smallint" />
-          <Property Name="HisValorDiabetesFchDisable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="HisValorObesidad">
-          <Key>
-            <PropertyRef Name="HisValorObesidadId" />
-          </Key>
-          <Property Name="HisValorObesidadId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ObesidadId" Type="bigint" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="ObesidadPesoCorrecto" Type="float" Nullable="false" />
-          <Property Name="HisValorObesidadFchDisable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelUsuRolFchDisable" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Medicacion">
           <Key>
@@ -239,8 +250,8 @@
           <Property Name="MedicacionId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="MedicinaId" Type="bigint" Nullable="false" />
-          <Property Name="TomaCantidad" Type="smallint" Nullable="false" />
-          <Property Name="TomaCantidadTipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MedicacionCantidad" Type="smallint" Nullable="false" />
+          <Property Name="MedicacionCantidadTipo" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Medicina">
           <Key>
@@ -248,7 +259,8 @@
           </Key>
           <Property Name="MedicinaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MedicinaNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="MedicinaTipo" Type="varchar" MaxLength="50" />
+          <Property Name="MedicinaTipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MedicinaDesc" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -256,7 +268,7 @@
           </Key>
           <Property Name="ModuloId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ModuloNombre" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="ModuloDesc" Type="varchar" MaxLength="100" />
+          <Property Name="ModuloDesc" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Multimedia">
           <Key>
@@ -282,15 +294,6 @@
           <Property Name="NotificacionTitulo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NotifiacionDescripcion" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="Obesidad">
-          <Key>
-            <PropertyRef Name="ObesidadId" />
-            <PropertyRef Name="PersonaId" />
-          </Key>
-          <Property Name="ObesidadId" Type="bigint" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="ObesidadPesoCorrecto" Type="float" Nullable="false" />
-        </EntityType>
         <EntityType Name="Persona">
           <Key>
             <PropertyRef Name="PersonaId" />
@@ -309,7 +312,7 @@
           </Key>
           <Property Name="PesoId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="PesoValor" Type="float" />
+          <Property Name="PesoValor" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Programa">
           <Key>
@@ -351,7 +354,7 @@
           </Key>
           <Property Name="RegistroId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="RegistroFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="RegistroFchHora" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RelComAli">
           <Key>
@@ -376,18 +379,6 @@
           <Property Name="UsuarioHijoId" Type="bigint" Nullable="false" />
           <Property Name="ContenidoHijoId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="RelCorCom">
-          <Key>
-            <PropertyRef Name="CorreccionId" />
-            <PropertyRef Name="CorreccionPersonaId" />
-            <PropertyRef Name="MedicinaId" />
-          </Key>
-          <Property Name="CorreccionId" Type="bigint" Nullable="false" />
-          <Property Name="CorreccionPersonaId" Type="bigint" Nullable="false" />
-          <Property Name="MedicinaId" Type="bigint" Nullable="false" />
-          <Property Name="ComidaId" Type="bigint" Nullable="false" />
-          <Property Name="ComidaPersonaId" Type="bigint" Nullable="false" />
-        </EntityType>
         <EntityType Name="RelEnfMed">
           <Key>
             <PropertyRef Name="EnfermedadId" />
@@ -395,6 +386,16 @@
           </Key>
           <Property Name="EnfermedadId" Type="bigint" Nullable="false" />
           <Property Name="MedicinaId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelEnfVal">
+          <Key>
+            <PropertyRef Name="EnfermedadId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="EnfermedadId" Type="bigint" Nullable="false" />
+          <Property Name="ValorId" Type="bigint" Nullable="false" />
+          <Property Name="RelEnfValMinimo" Type="float" Nullable="false" />
+          <Property Name="RelEnfValMaximo" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="RelFavUsuCom">
           <Key>
@@ -435,7 +436,15 @@
           <Property Name="MedicinaId" Type="bigint" Nullable="false" />
           <Property Name="RelMedRelPerEnfFrecuencia" Type="float" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="varchar" MaxLength="20" />
-          <Property Name="RelMedRelPerEnfFchEnable" Type="datetime" Nullable="false" />
+          <Property Name="RelMedRelPerEnfFchEnable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="RelMedVal">
+          <Key>
+            <PropertyRef Name="MedicinaId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="MedicinaId" Type="bigint" Nullable="false" />
+          <Property Name="ValorId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="RelPerDie">
           <Key>
@@ -460,13 +469,13 @@
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="ProgramaId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="RelProgSes">
+        <EntityType Name="RelProgRut">
           <Key>
             <PropertyRef Name="ProgramaId" />
-            <PropertyRef Name="SesionId" />
+            <PropertyRef Name="RutinaId" />
           </Key>
           <Property Name="ProgramaId" Type="bigint" Nullable="false" />
-          <Property Name="SesionId" Type="bigint" Nullable="false" />
+          <Property Name="RutinaId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="RelRecoDia">
           <Key>
@@ -495,12 +504,12 @@
           <Property Name="RolId" Type="smallint" Nullable="false" />
           <Property Name="ModuloId" Type="smallint" Nullable="false" />
         </EntityType>
-        <EntityType Name="RelSesEje">
+        <EntityType Name="RelRutEje">
           <Key>
-            <PropertyRef Name="SesionId" />
+            <PropertyRef Name="RutinaId" />
             <PropertyRef Name="EjercicioId" />
           </Key>
-          <Property Name="SesionId" Type="bigint" Nullable="false" />
+          <Property Name="RutinaId" Type="bigint" Nullable="false" />
           <Property Name="EjercicioId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="RelTemArt">
@@ -567,16 +576,6 @@
           <Property Name="RepeticionFchHora" Type="datetime" Nullable="false" />
           <Property Name="RepeticionNum" Type="smallint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Retardada">
-          <Key>
-            <PropertyRef Name="RetardadaId" />
-            <PropertyRef Name="PersonaId" />
-            <PropertyRef Name="MedicinaId" />
-          </Key>
-          <Property Name="RetardadaId" Type="bigint" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="MedicinaId" Type="bigint" Nullable="false" />
-        </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="RolId" />
@@ -585,11 +584,11 @@
           <Property Name="RolNombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="RolDesc" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="Sesion">
+        <EntityType Name="Rutina">
           <Key>
-            <PropertyRef Name="SesionId" />
+            <PropertyRef Name="RutinaId" />
           </Key>
-          <Property Name="SesionId" Type="bigint" Nullable="false" />
+          <Property Name="RutinaId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Sexo">
           <Key>
@@ -597,7 +596,7 @@
           </Key>
           <Property Name="SexoId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SexoNombre" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="SexoDesc" Type="varchar" MaxLength="100" />
+          <Property Name="SexoDesc" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Tema">
           <Key>
@@ -632,11 +631,11 @@
         <EntityType Name="Valor">
           <Key>
             <PropertyRef Name="ValorId" />
-            <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="ValorId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="ValorNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorMedida" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ValorDesc" Type="varchar(max)" />
         </EntityType>
         <Association Name="FK_Actividad_ActividadId_PersonaId">
           <End Role="Registro" Type="Self.Registro" Multiplicity="1">
@@ -742,21 +741,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Correccion_CorreccionId_PersonaId_MedicinaId">
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="1">
+        <Association Name="FK_ControlId_PersonaId">
+          <End Role="Registro" Type="Self.Registro" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Correccion" Type="Self.Correccion" Multiplicity="0..1" />
+          <End Role="Control" Type="Self.Control" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Medicacion">
-              <PropertyRef Name="MedicacionId" />
+            <Principal Role="Registro">
+              <PropertyRef Name="RegistroId" />
               <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
             </Principal>
-            <Dependent Role="Correccion">
-              <PropertyRef Name="CorreccionId" />
+            <Dependent Role="Control">
+              <PropertyRef Name="ControlId" />
               <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -776,14 +773,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Datos_PersonaId">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Datos" Type="Self.Datos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Datos">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Diabetes_DiabetesId_PersonaId">
-          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+          <End Role="Datos" Type="Self.Datos" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Diabetes" Type="Self.Diabetes" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Valor">
-              <PropertyRef Name="ValorId" />
+            <Principal Role="Datos">
+              <PropertyRef Name="DatosId" />
               <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Diabetes">
@@ -806,6 +817,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dosis_MedicinaId_ValorId">
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dosis" Type="Self.Dosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelMedVal">
+              <PropertyRef Name="MedicinaId" />
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="Dosis">
+              <PropertyRef Name="MedicinaId" />
+              <PropertyRef Name="ValorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Ejercicio_EjercicioId">
           <End Role="Contenido" Type="Self.Contenido" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -817,6 +844,52 @@
             </Principal>
             <Dependent Role="Ejercicio">
               <PropertyRef Name="EjercicioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnfermedadId_ValorId">
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Control" Type="Self.Control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelEnfVal">
+              <PropertyRef Name="EnfermedadId" />
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="Control">
+              <PropertyRef Name="EnfermedadId" />
+              <PropertyRef Name="ValorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medicacion_MedicacionId_PersonaId">
+          <End Role="Registro" Type="Self.Registro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registro">
+              <PropertyRef Name="RegistroId" />
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Medicacion">
+              <PropertyRef Name="MedicacionId" />
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medicacion_MedicinaId">
+          <End Role="Medicina" Type="Self.Medicina" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicina">
+              <PropertyRef Name="MedicinaId" />
+            </Principal>
+            <Dependent Role="Medicacion">
+              <PropertyRef Name="MedicinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -860,22 +933,6 @@
             </Principal>
             <Dependent Role="Notificacion">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Obesidad_ObesidadId_PersonaId">
-          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Obesidad" Type="Self.Obesidad" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Valor">
-              <PropertyRef Name="ValorId" />
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="Obesidad">
-              <PropertyRef Name="ObesidadId" />
               <PropertyRef Name="PersonaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1028,38 +1085,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelCorCom_ComidaId_ComidaPersonaId">
-          <End Role="Comida" Type="Self.Comida" Multiplicity="1" />
-          <End Role="RelCorCom" Type="Self.RelCorCom" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comida">
-              <PropertyRef Name="ComidaId" />
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="RelCorCom">
-              <PropertyRef Name="ComidaId" />
-              <PropertyRef Name="ComidaPersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelCorCom_CorreccionId_CorreccionPersonaId_MedicinaId">
-          <End Role="Correccion" Type="Self.Correccion" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="RelCorCom" Type="Self.RelCorCom" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Correccion">
-              <PropertyRef Name="CorreccionId" />
-              <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Principal>
-            <Dependent Role="RelCorCom">
-              <PropertyRef Name="CorreccionId" />
-              <PropertyRef Name="CorreccionPersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RelEnfMed_EnfermedadId">
           <End Role="Enfermedad" Type="Self.Enfermedad" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1085,6 +1110,34 @@
             </Principal>
             <Dependent Role="RelEnfMed">
               <PropertyRef Name="MedicinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelEnfVal_EnfermedadId">
+          <End Role="Enfermedad" Type="Self.Enfermedad" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enfermedad">
+              <PropertyRef Name="EnfermedadId" />
+            </Principal>
+            <Dependent Role="RelEnfVal">
+              <PropertyRef Name="EnfermedadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelEnfVal_ValorId">
+          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valor">
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="RelEnfVal">
+              <PropertyRef Name="ValorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1204,6 +1257,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RelMedVal_MedicinaId">
+          <End Role="Medicina" Type="Self.Medicina" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicina">
+              <PropertyRef Name="MedicinaId" />
+            </Principal>
+            <Dependent Role="RelMedVal">
+              <PropertyRef Name="MedicinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelMedVal_ValorId">
+          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valor">
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="RelMedVal">
+              <PropertyRef Name="ValorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RelPerDie_DietaId">
           <End Role="Dieta" Type="Self.Dieta" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1288,29 +1369,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelProgSes_ProgramaId">
+        <Association Name="FK_RelProgRut_ProgramaId">
           <End Role="Programa" Type="Self.Programa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RelProgSes" Type="Self.RelProgSes" Multiplicity="*" />
+          <End Role="RelProgRut" Type="Self.RelProgRut" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Programa">
               <PropertyRef Name="ProgramaId" />
             </Principal>
-            <Dependent Role="RelProgSes">
+            <Dependent Role="RelProgRut">
               <PropertyRef Name="ProgramaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelProgSes_SesionId">
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
-          <End Role="RelProgSes" Type="Self.RelProgSes" Multiplicity="*" />
+        <Association Name="FK_RelProgRut_RutinaId">
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="1" />
+          <End Role="RelProgRut" Type="Self.RelProgRut" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sesion">
-              <PropertyRef Name="SesionId" />
+            <Principal Role="Rutina">
+              <PropertyRef Name="RutinaId" />
             </Principal>
-            <Dependent Role="RelProgSes">
-              <PropertyRef Name="SesionId" />
+            <Dependent Role="RelProgRut">
+              <PropertyRef Name="RutinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1402,29 +1483,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelSesEje_EjercicioId">
+        <Association Name="FK_RelRutEje_EjercicioId">
           <End Role="Ejercicio" Type="Self.Ejercicio" Multiplicity="1" />
-          <End Role="RelSesEje" Type="Self.RelSesEje" Multiplicity="*" />
+          <End Role="RelRutEje" Type="Self.RelRutEje" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ejercicio">
               <PropertyRef Name="EjercicioId" />
             </Principal>
-            <Dependent Role="RelSesEje">
+            <Dependent Role="RelRutEje">
               <PropertyRef Name="EjercicioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelSesEje_SesionId">
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="1">
+        <Association Name="FK_RelRutEje_RutinaId">
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RelSesEje" Type="Self.RelSesEje" Multiplicity="*" />
+          <End Role="RelRutEje" Type="Self.RelRutEje" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sesion">
-              <PropertyRef Name="SesionId" />
+            <Principal Role="Rutina">
+              <PropertyRef Name="RutinaId" />
             </Principal>
-            <Dependent Role="RelSesEje">
-              <PropertyRef Name="SesionId" />
+            <Dependent Role="RelRutEje">
+              <PropertyRef Name="RutinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1640,79 +1721,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Retardada_RetardadaId_PersonaId_MedicinaId">
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Retardada" Type="Self.Retardada" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Medicacion">
-              <PropertyRef Name="MedicacionId" />
-              <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Principal>
-            <Dependent Role="Retardada">
-              <PropertyRef Name="RetardadaId" />
-              <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sesion_SesionId">
+        <Association Name="FK_Rutina_RutinaId">
           <End Role="Contenido" Type="Self.Contenido" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="0..1" />
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Contenido">
               <PropertyRef Name="ContenidoId" />
             </Principal>
-            <Dependent Role="Sesion">
-              <PropertyRef Name="SesionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Toma_MedicacionId_PersonaId">
-          <End Role="Registro" Type="Self.Registro" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Registro">
-              <PropertyRef Name="RegistroId" />
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="Medicacion">
-              <PropertyRef Name="MedicacionId" />
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Toma_MedicinaId">
-          <End Role="Medicina" Type="Self.Medicina" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Medicina">
-              <PropertyRef Name="MedicinaId" />
-            </Principal>
-            <Dependent Role="Medicacion">
-              <PropertyRef Name="MedicinaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Valor_PersonaId">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Valor" Type="Self.Valor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="Valor">
-              <PropertyRef Name="PersonaId" />
+            <Dependent Role="Rutina">
+              <PropertyRef Name="RutinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1725,25 +1744,25 @@
           <EntitySet Name="Comentario" EntityType="Self.Comentario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comida" EntityType="Self.Comida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contenido" EntityType="Self.Contenido" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Correccion" EntityType="Self.Correccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Control" EntityType="Self.Control" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatCli" EntityType="Self.DatCli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Datos" EntityType="Self.Datos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dia" EntityType="Self.Dia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diabetes" EntityType="Self.Diabetes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dieta" EntityType="Self.Dieta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dosis" EntityType="Self.Dosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ejercicio" EntityType="Self.Ejercicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enfermedad" EntityType="Self.Enfermedad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HisDatosDiabetes" EntityType="Self.HisDatosDiabetes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HisRelMedRelPerEnf" EntityType="Self.HisRelMedRelPerEnf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HisRelPerEnf" EntityType="Self.HisRelPerEnf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HisRelUsuRol" EntityType="Self.HisRelUsuRol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HisValorDiabetes" EntityType="Self.HisValorDiabetes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HisValorObesidad" EntityType="Self.HisValorObesidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medicacion" EntityType="Self.Medicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medicina" EntityType="Self.Medicina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Multimedia" EntityType="Self.Multimedia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notificacion" EntityType="Self.Notificacion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Obesidad" EntityType="Self.Obesidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Peso" EntityType="Self.Peso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Programa" EntityType="Self.Programa" Schema="dbo" store:Type="Tables" />
@@ -1752,20 +1771,21 @@
           <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelComAli" EntityType="Self.RelComAli" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelComCom" EntityType="Self.RelComCom" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelCorCom" EntityType="Self.RelCorCom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelEnfMed" EntityType="Self.RelEnfMed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelEnfVal" EntityType="Self.RelEnfVal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelFavUsuCom" EntityType="Self.RelFavUsuCom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelFavUsuCont" EntityType="Self.RelFavUsuCont" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelFavUsuTem" EntityType="Self.RelFavUsuTem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelMedRelPerEnf" EntityType="Self.RelMedRelPerEnf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelMedVal" EntityType="Self.RelMedVal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelPerDie" EntityType="Self.RelPerDie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelPerEnf" EntityType="Self.RelPerEnf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelPerProg" EntityType="Self.RelPerProg" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelProgSes" EntityType="Self.RelProgSes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelProgRut" EntityType="Self.RelProgRut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelRecoDia" EntityType="Self.RelRecoDia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelRecoMed" EntityType="Self.RelRecoMed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelRolMod" EntityType="Self.RelRolMod" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RelSesEje" EntityType="Self.RelSesEje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelRutEje" EntityType="Self.RelRutEje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelTemArt" EntityType="Self.RelTemArt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelUsuAli" EntityType="Self.RelUsuAli" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelUsuCont" EntityType="Self.RelUsuCont" Schema="dbo" store:Type="Tables" />
@@ -1774,9 +1794,8 @@
           <EntitySet Name="RelUsuPer" EntityType="Self.RelUsuPer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelUsuRol" EntityType="Self.RelUsuRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repeticion" EntityType="Self.Repeticion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Retardada" EntityType="Self.Retardada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rutina" EntityType="Self.Rutina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tema" EntityType="Self.Tema" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemaNot" EntityType="Self.TemaNot" Schema="dbo" store:Type="Tables" />
@@ -1810,25 +1829,45 @@
             <End Role="Registro" EntitySet="Registro" />
             <End Role="Comida" EntitySet="Comida" />
           </AssociationSet>
-          <AssociationSet Name="FK_Correccion_CorreccionId_PersonaId_MedicinaId" Association="Self.FK_Correccion_CorreccionId_PersonaId_MedicinaId">
-            <End Role="Medicacion" EntitySet="Medicacion" />
-            <End Role="Correccion" EntitySet="Correccion" />
+          <AssociationSet Name="FK_ControlId_PersonaId" Association="Self.FK_ControlId_PersonaId">
+            <End Role="Registro" EntitySet="Registro" />
+            <End Role="Control" EntitySet="Control" />
           </AssociationSet>
           <AssociationSet Name="FK_DatCli_DatCliId_PersonaId" Association="Self.FK_DatCli_DatCliId_PersonaId">
             <End Role="Registro" EntitySet="Registro" />
             <End Role="DatCli" EntitySet="DatCli" />
           </AssociationSet>
+          <AssociationSet Name="FK_Datos_PersonaId" Association="Self.FK_Datos_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Datos" EntitySet="Datos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Diabetes_DiabetesId_PersonaId" Association="Self.FK_Diabetes_DiabetesId_PersonaId">
-            <End Role="Valor" EntitySet="Valor" />
+            <End Role="Datos" EntitySet="Datos" />
             <End Role="Diabetes" EntitySet="Diabetes" />
           </AssociationSet>
           <AssociationSet Name="FK_Dieta_DietaId" Association="Self.FK_Dieta_DietaId">
             <End Role="Contenido" EntitySet="Contenido" />
             <End Role="Dieta" EntitySet="Dieta" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dosis_MedicinaId_ValorId" Association="Self.FK_Dosis_MedicinaId_ValorId">
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
+            <End Role="Dosis" EntitySet="Dosis" />
+          </AssociationSet>
           <AssociationSet Name="FK_Ejercicio_EjercicioId" Association="Self.FK_Ejercicio_EjercicioId">
             <End Role="Contenido" EntitySet="Contenido" />
             <End Role="Ejercicio" EntitySet="Ejercicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnfermedadId_ValorId" Association="Self.FK_EnfermedadId_ValorId">
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
+            <End Role="Control" EntitySet="Control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medicacion_MedicacionId_PersonaId" Association="Self.FK_Medicacion_MedicacionId_PersonaId">
+            <End Role="Registro" EntitySet="Registro" />
+            <End Role="Medicacion" EntitySet="Medicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medicacion_MedicinaId" Association="Self.FK_Medicacion_MedicinaId">
+            <End Role="Medicina" EntitySet="Medicina" />
+            <End Role="Medicacion" EntitySet="Medicacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Multimedia_ContenidoId" Association="Self.FK_Multimedia_ContenidoId">
             <End Role="Contenido" EntitySet="Contenido" />
@@ -1841,10 +1880,6 @@
           <AssociationSet Name="FK_Notificacion_UsuarioId_PersonaId" Association="Self.FK_Notificacion_UsuarioId_PersonaId">
             <End Role="RelUsuPer" EntitySet="RelUsuPer" />
             <End Role="Notificacion" EntitySet="Notificacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Obesidad_ObesidadId_PersonaId" Association="Self.FK_Obesidad_ObesidadId_PersonaId">
-            <End Role="Valor" EntitySet="Valor" />
-            <End Role="Obesidad" EntitySet="Obesidad" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_SexoId" Association="Self.FK_Persona_SexoId">
             <End Role="Sexo" EntitySet="Sexo" />
@@ -1886,14 +1921,6 @@
             <End Role="Comentario" EntitySet="Comentario" />
             <End Role="RelComCom" EntitySet="RelComCom" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelCorCom_ComidaId_ComidaPersonaId" Association="Self.FK_RelCorCom_ComidaId_ComidaPersonaId">
-            <End Role="Comida" EntitySet="Comida" />
-            <End Role="RelCorCom" EntitySet="RelCorCom" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelCorCom_CorreccionId_CorreccionPersonaId_MedicinaId" Association="Self.FK_RelCorCom_CorreccionId_CorreccionPersonaId_MedicinaId">
-            <End Role="Correccion" EntitySet="Correccion" />
-            <End Role="RelCorCom" EntitySet="RelCorCom" />
-          </AssociationSet>
           <AssociationSet Name="FK_RelEnfMed_EnfermedadId" Association="Self.FK_RelEnfMed_EnfermedadId">
             <End Role="Enfermedad" EntitySet="Enfermedad" />
             <End Role="RelEnfMed" EntitySet="RelEnfMed" />
@@ -1901,6 +1928,14 @@
           <AssociationSet Name="FK_RelEnfMed_MedicinaId" Association="Self.FK_RelEnfMed_MedicinaId">
             <End Role="Medicina" EntitySet="Medicina" />
             <End Role="RelEnfMed" EntitySet="RelEnfMed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelEnfVal_EnfermedadId" Association="Self.FK_RelEnfVal_EnfermedadId">
+            <End Role="Enfermedad" EntitySet="Enfermedad" />
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelEnfVal_ValorId" Association="Self.FK_RelEnfVal_ValorId">
+            <End Role="Valor" EntitySet="Valor" />
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
           </AssociationSet>
           <AssociationSet Name="FK_RelFavUsuCom_ComentarioId_UsuarioComentarioId_ContenidoComentarioId" Association="Self.FK_RelFavUsuCom_ComentarioId_UsuarioComentarioId_ContenidoComentarioId">
             <End Role="Comentario" EntitySet="Comentario" />
@@ -1934,6 +1969,14 @@
             <End Role="RelPerEnf" EntitySet="RelPerEnf" />
             <End Role="RelMedRelPerEnf" EntitySet="RelMedRelPerEnf" />
           </AssociationSet>
+          <AssociationSet Name="FK_RelMedVal_MedicinaId" Association="Self.FK_RelMedVal_MedicinaId">
+            <End Role="Medicina" EntitySet="Medicina" />
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelMedVal_ValorId" Association="Self.FK_RelMedVal_ValorId">
+            <End Role="Valor" EntitySet="Valor" />
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
+          </AssociationSet>
           <AssociationSet Name="FK_RelPerDie_DietaId" Association="Self.FK_RelPerDie_DietaId">
             <End Role="Dieta" EntitySet="Dieta" />
             <End Role="RelPerDie" EntitySet="RelPerDie" />
@@ -1958,13 +2001,13 @@
             <End Role="Programa" EntitySet="Programa" />
             <End Role="RelPerProg" EntitySet="RelPerProg" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelProgSes_ProgramaId" Association="Self.FK_RelProgSes_ProgramaId">
+          <AssociationSet Name="FK_RelProgRut_ProgramaId" Association="Self.FK_RelProgRut_ProgramaId">
             <End Role="Programa" EntitySet="Programa" />
-            <End Role="RelProgSes" EntitySet="RelProgSes" />
+            <End Role="RelProgRut" EntitySet="RelProgRut" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelProgSes_SesionId" Association="Self.FK_RelProgSes_SesionId">
-            <End Role="Sesion" EntitySet="Sesion" />
-            <End Role="RelProgSes" EntitySet="RelProgSes" />
+          <AssociationSet Name="FK_RelProgRut_RutinaId" Association="Self.FK_RelProgRut_RutinaId">
+            <End Role="Rutina" EntitySet="Rutina" />
+            <End Role="RelProgRut" EntitySet="RelProgRut" />
           </AssociationSet>
           <AssociationSet Name="FK_RelRecoDia_DiaId" Association="Self.FK_RelRecoDia_DiaId">
             <End Role="Dia" EntitySet="Dia" />
@@ -1990,13 +2033,13 @@
             <End Role="Rol" EntitySet="Rol" />
             <End Role="RelRolMod" EntitySet="RelRolMod" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelSesEje_EjercicioId" Association="Self.FK_RelSesEje_EjercicioId">
+          <AssociationSet Name="FK_RelRutEje_EjercicioId" Association="Self.FK_RelRutEje_EjercicioId">
             <End Role="Ejercicio" EntitySet="Ejercicio" />
-            <End Role="RelSesEje" EntitySet="RelSesEje" />
+            <End Role="RelRutEje" EntitySet="RelRutEje" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelSesEje_SesionId" Association="Self.FK_RelSesEje_SesionId">
-            <End Role="Sesion" EntitySet="Sesion" />
-            <End Role="RelSesEje" EntitySet="RelSesEje" />
+          <AssociationSet Name="FK_RelRutEje_RutinaId" Association="Self.FK_RelRutEje_RutinaId">
+            <End Role="Rutina" EntitySet="Rutina" />
+            <End Role="RelRutEje" EntitySet="RelRutEje" />
           </AssociationSet>
           <AssociationSet Name="FK_RelTemArt_ArticuloId" Association="Self.FK_RelTemArt_ArticuloId">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -2058,29 +2101,12 @@
             <End Role="Recordatorio" EntitySet="Recordatorio" />
             <End Role="Repeticion" EntitySet="Repeticion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Retardada_RetardadaId_PersonaId_MedicinaId" Association="Self.FK_Retardada_RetardadaId_PersonaId_MedicinaId">
-            <End Role="Medicacion" EntitySet="Medicacion" />
-            <End Role="Retardada" EntitySet="Retardada" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sesion_SesionId" Association="Self.FK_Sesion_SesionId">
+          <AssociationSet Name="FK_Rutina_RutinaId" Association="Self.FK_Rutina_RutinaId">
             <End Role="Contenido" EntitySet="Contenido" />
-            <End Role="Sesion" EntitySet="Sesion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Toma_MedicacionId_PersonaId" Association="Self.FK_Toma_MedicacionId_PersonaId">
-            <End Role="Registro" EntitySet="Registro" />
-            <End Role="Medicacion" EntitySet="Medicacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Toma_MedicinaId" Association="Self.FK_Toma_MedicinaId">
-            <End Role="Medicina" EntitySet="Medicina" />
-            <End Role="Medicacion" EntitySet="Medicacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Valor_PersonaId" Association="Self.FK_Valor_PersonaId">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Valor" EntitySet="Valor" />
+            <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2104,8 +2130,7 @@
           </Key>
           <Property Name="AguaId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="AguaCantidad" Type="Int16" Nullable="false" />
-          <Property Name="AguaCantidadTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AguaCantidad" Type="Double" Nullable="false" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_Agua_AguaId_PersonaId" FromRole="Agua" ToRole="Registro" />
         </EntityType>
         <EntityType Name="Alimento">
@@ -2140,7 +2165,7 @@
           <Property Name="AuditoriaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuditoriaTabla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AuditoriaUsuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AuditoriaFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="AuditoriaFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
           <Property Name="AuditoriaTGOP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Comentario">
@@ -2156,7 +2181,7 @@
           <Property Name="ComentarioFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Comentario_ContenidoId" FromRole="Comentario" ToRole="Contenido" />
           <NavigationProperty Name="UsuarioAutor" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Comentario" ToRole="Usuario" />
-          <NavigationProperty Name="ComentarioPadre" Relationship="Self.RelComCom" FromRole="Comentario" ToRole="Comentario1" />
+          <NavigationProperty Name="ComentarioAutor" Relationship="Self.RelComCom" FromRole="Comentario" ToRole="Comentario1" />
           <NavigationProperty Name="ComentariosHijos" Relationship="Self.RelComCom" FromRole="Comentario1" ToRole="Comentario" />
           <NavigationProperty Name="UsuariosFav" Relationship="Self.RelFavUsuCom" FromRole="Comentario" ToRole="Usuario" />
         </EntityType>
@@ -2177,7 +2202,6 @@
           <Property Name="ComidaGluten" Type="Int16" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_Comida_ComidaId_PersonaId" FromRole="Comida" ToRole="Registro" />
           <NavigationProperty Name="Alimento" Relationship="Self.RelComAli" FromRole="Comida" ToRole="Alimento" />
-          <NavigationProperty Name="Correccion" Relationship="Self.RelCorCom" FromRole="Comida" ToRole="Correccion" />
         </EntityType>
         <EntityType Name="Contenido">
           <Key>
@@ -2196,21 +2220,22 @@
           <NavigationProperty Name="Multimedia" Relationship="Self.FK_Multimedia_ContenidoId" FromRole="Contenido" ToRole="Multimedia" />
           <NavigationProperty Name="Programa" Relationship="Self.FK_Programa_ProgramaId" FromRole="Contenido" ToRole="Programa" />
           <NavigationProperty Name="Receta" Relationship="Self.FK_Receta_RecetaId" FromRole="Contenido" ToRole="Receta" />
-          <NavigationProperty Name="Sesion" Relationship="Self.FK_Sesion_SesionId" FromRole="Contenido" ToRole="Sesion" />
+          <NavigationProperty Name="Rutina" Relationship="Self.FK_Rutina_RutinaId" FromRole="Contenido" ToRole="Rutina" />
           <NavigationProperty Name="UsuariosFav" Relationship="Self.RelFavUsuCont" FromRole="Contenido" ToRole="Usuario" />
           <NavigationProperty Name="UsuarioAutor" Relationship="Self.RelUsuCont" FromRole="Contenido" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Correccion">
+        <EntityType Name="Control">
           <Key>
-            <PropertyRef Name="CorreccionId" />
+            <PropertyRef Name="ControlId" />
             <PropertyRef Name="PersonaId" />
-            <PropertyRef Name="MedicinaId" />
           </Key>
-          <Property Name="CorreccionId" Type="Int64" Nullable="false" />
+          <Property Name="ControlId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="MedicinaId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Correccion_CorreccionId_PersonaId_MedicinaId" FromRole="Correccion" ToRole="Medicacion" />
-          <NavigationProperty Name="Comida" Relationship="Self.RelCorCom" FromRole="Correccion" ToRole="Comida" />
+          <Property Name="EnfermedadId" Type="Int64" Nullable="false" />
+          <Property Name="ValorId" Type="Int64" Nullable="false" />
+          <Property Name="ControlValor" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Registro" Relationship="Self.FK_ControlId_PersonaId" FromRole="Control" ToRole="Registro" />
+          <NavigationProperty Name="RelEnfVal" Relationship="Self.FK_EnfermedadId_ValorId" FromRole="Control" ToRole="RelEnfVal" />
         </EntityType>
         <EntityType Name="DatCli">
           <Key>
@@ -2219,9 +2244,20 @@
           </Key>
           <Property Name="DatCliId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="DatCliAltura" Type="Double" />
-          <Property Name="DatCliColesterol" Type="Double" />
+          <Property Name="DatCliAltura" Type="Int16" />
+          <Property Name="DatCliColesterol" Type="Int16" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_DatCli_DatCliId_PersonaId" FromRole="DatCli" ToRole="Registro" />
+        </EntityType>
+        <EntityType Name="Datos">
+          <Key>
+            <PropertyRef Name="DatosId" />
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="DatosId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int64" Nullable="false" />
+          <Property Name="DatosFchEnable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Datos_PersonaId" FromRole="Datos" ToRole="Persona" />
+          <NavigationProperty Name="Diabetes" Relationship="Self.FK_Diabetes_DiabetesId_PersonaId" FromRole="Datos" ToRole="Diabetes" />
         </EntityType>
         <EntityType Name="Dia">
           <Key>
@@ -2238,11 +2274,8 @@
           </Key>
           <Property Name="DiabetesId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="DiabetesTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="Double" />
-          <Property Name="DiabetesGlicemiaAlta" Type="Double" />
-          <Property Name="DiabetesHidratosPorUniInsu" Type="Int16" />
-          <NavigationProperty Name="Valor" Relationship="Self.FK_Diabetes_DiabetesId_PersonaId" FromRole="Diabetes" ToRole="Valor" />
+          <Property Name="DiabetesHidratosPorUniInsu" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Datos" Relationship="Self.FK_Diabetes_DiabetesId_PersonaId" FromRole="Diabetes" ToRole="Datos" />
         </EntityType>
         <EntityType Name="Dieta">
           <Key>
@@ -2250,26 +2283,43 @@
           </Key>
           <Property Name="DietaId" Type="Int64" Nullable="false" />
           <Property Name="DietaDesayunoCalorias" Type="Double" Nullable="false" />
-          <Property Name="DietaDesayunoDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DietaDesayunoDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaAlmuerzoCalorias" Type="Double" Nullable="false" />
-          <Property Name="DietaAlmuerzoDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DietaAlmuerzoDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaMeriendaCalorias" Type="Double" Nullable="false" />
-          <Property Name="DietaMeriendaDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DietaMeriendaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaCenaCalorias" Type="Double" Nullable="false" />
-          <Property Name="DietaCenaDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DietaCenaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DietaIngestasCalorias" Type="Double" Nullable="false" />
-          <Property Name="DietaIngestasDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DietaIngestasDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Dieta_DietaId" FromRole="Dieta" ToRole="Contenido" />
           <NavigationProperty Name="Persona" Relationship="Self.RelPerDie" FromRole="Dieta" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Dosis">
+          <Key>
+            <PropertyRef Name="DosisId" />
+            <PropertyRef Name="MedicinaId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="DosisId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicinaId" Type="Int64" Nullable="false" />
+          <Property Name="ValorId" Type="Int64" Nullable="false" />
+          <Property Name="DosisTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DosisCantidadMin" Type="Double" Nullable="false" />
+          <Property Name="DosisMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DosisEfecto" Type="Double" Nullable="false" />
+          <NavigationProperty Name="RelMedVal" Relationship="Self.FK_Dosis_MedicinaId_ValorId" FromRole="Dosis" ToRole="RelMedVal" />
         </EntityType>
         <EntityType Name="Ejercicio">
           <Key>
             <PropertyRef Name="EjercicioId" />
           </Key>
           <Property Name="EjercicioId" Type="Int64" Nullable="false" />
+          <Property Name="EjercicioTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EjercicioCategoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_EjercicioId" FromRole="Ejercicio" ToRole="Actividad" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Ejercicio_EjercicioId" FromRole="Ejercicio" ToRole="Contenido" />
-          <NavigationProperty Name="Sesion" Relationship="Self.RelSesEje" FromRole="Ejercicio" ToRole="Sesion" />
+          <NavigationProperty Name="Rutina" Relationship="Self.RelRutEje" FromRole="Ejercicio" ToRole="Rutina" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -2278,6 +2328,7 @@
           <Property Name="EnfermedadId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EnfermedadNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EnfermedadDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RelEnfVal" Relationship="Self.FK_RelEnfVal_EnfermedadId" FromRole="Enfermedad" ToRole="RelEnfVal" />
           <NavigationProperty Name="RelPerEnf" Relationship="Self.FK_RelPerEnf_EnfermedadId" FromRole="Enfermedad" ToRole="RelPerEnf" />
           <NavigationProperty Name="Medicina" Relationship="Self.RelEnfMed" FromRole="Enfermedad" ToRole="Medicina" />
           <NavigationProperty Name="Usuario" Relationship="Self.RelUsuEnf" FromRole="Enfermedad" ToRole="Usuario" />
@@ -2287,7 +2338,21 @@
             <PropertyRef Name="ErrorId" />
           </Key>
           <Property Name="ErrorId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ErrorDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ErrorDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HisDatosDiabetes">
+          <Key>
+            <PropertyRef Name="HisDatosDiabetesId" />
+          </Key>
+          <Property Name="HisDatosDiabetesId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiabetesId" Type="Int64" Nullable="false" />
+          <Property Name="PersonaId" Type="Int64" Nullable="false" />
+          <Property Name="DatosFchEnable" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiabetesTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DiabetesGlicemiaBaja" Type="Double" />
+          <Property Name="DiabetesGlicemiaAlta" Type="Double" />
+          <Property Name="DiabetesHidratosPorUniInsu" Type="Int16" />
+          <Property Name="HisDatosDiabetesFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="HisRelMedRelPerEnf">
           <Key>
@@ -2300,7 +2365,7 @@
           <Property Name="RelMedRelPerEnfFrecuencia" Type="Double" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RelMedRelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HisRelMedRelPerEnfFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelMedRelPerEnfFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="HisRelPerEnf">
           <Key>
@@ -2310,7 +2375,7 @@
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="EnfermedadId" Type="Int64" Nullable="false" />
           <Property Name="RelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HisRelPerEnfFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelPerEnfFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="HisRelUsuRol">
           <Key>
@@ -2320,32 +2385,7 @@
           <Property Name="UsuarioId" Type="Int64" Nullable="false" />
           <Property Name="RolId" Type="Int16" Nullable="false" />
           <Property Name="RelUsuRolFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HisRelUsuRolFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="HisValorDiabetes">
-          <Key>
-            <PropertyRef Name="HisValorDiabetesId" />
-          </Key>
-          <Property Name="HisValorDiabetesId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DiabetesId" Type="Int64" Nullable="false" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DiabetesTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="Double" />
-          <Property Name="DiabetesGlicemiaAlta" Type="Double" />
-          <Property Name="DiabetesHidratosPorUniInsu" Type="Int16" />
-          <Property Name="HisValorDiabetesFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="HisValorObesidad">
-          <Key>
-            <PropertyRef Name="HisValorObesidadId" />
-          </Key>
-          <Property Name="HisValorObesidadId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ObesidadId" Type="Int64" Nullable="false" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ObesidadPesoCorrecto" Type="Double" Nullable="false" />
-          <Property Name="HisValorObesidadFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HisRelUsuRolFchDisable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Medicacion">
           <Key>
@@ -2356,12 +2396,10 @@
           <Property Name="MedicacionId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="MedicinaId" Type="Int64" Nullable="false" />
-          <Property Name="TomaCantidad" Type="Int16" Nullable="false" />
-          <Property Name="TomaCantidadTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Correccion" Relationship="Self.FK_Correccion_CorreccionId_PersonaId_MedicinaId" FromRole="Medicacion" ToRole="Correccion" />
-          <NavigationProperty Name="Retardada" Relationship="Self.FK_Retardada_RetardadaId_PersonaId_MedicinaId" FromRole="Medicacion" ToRole="Retardada" />
-          <NavigationProperty Name="Registro" Relationship="Self.FK_Toma_MedicacionId_PersonaId" FromRole="Medicacion" ToRole="Registro" />
-          <NavigationProperty Name="Medicina" Relationship="Self.FK_Toma_MedicinaId" FromRole="Medicacion" ToRole="Medicina" />
+          <Property Name="MedicacionCantidad" Type="Int16" Nullable="false" />
+          <Property Name="MedicacionCantidadTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Registro" Relationship="Self.FK_Medicacion_MedicacionId_PersonaId" FromRole="Medicacion" ToRole="Registro" />
+          <NavigationProperty Name="Medicina" Relationship="Self.FK_Medicacion_MedicinaId" FromRole="Medicacion" ToRole="Medicina" />
         </EntityType>
         <EntityType Name="Medicina">
           <Key>
@@ -2369,12 +2407,14 @@
           </Key>
           <Property Name="MedicinaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MedicinaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MedicinaTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Toma_MedicinaId" FromRole="Medicina" ToRole="Medicacion" />
+          <Property Name="MedicinaTipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Medicacion_MedicinaId" FromRole="Medicina" ToRole="Medicacion" />
           <NavigationProperty Name="RelMedRelPerEnf" Relationship="Self.FK_RelMedRelPerEnf_MedicinaId" FromRole="Medicina" ToRole="RelMedRelPerEnf" />
+          <NavigationProperty Name="RelMedVal" Relationship="Self.FK_RelMedVal_MedicinaId" FromRole="Medicina" ToRole="RelMedVal" />
           <NavigationProperty Name="Enfermedad" Relationship="Self.RelEnfMed" FromRole="Medicina" ToRole="Enfermedad" />
           <NavigationProperty Name="Recordatorio" Relationship="Self.RelRecoMed" FromRole="Medicina" ToRole="Recordatorio" />
           <NavigationProperty Name="Usuario" Relationship="Self.RelUsuMed" FromRole="Medicina" ToRole="Usuario" />
+          <Property Name="MedicinaDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -2382,7 +2422,7 @@
           </Key>
           <Property Name="ModuloId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ModuloNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ModuloDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModuloDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Rol" Relationship="Self.RelRolMod" FromRole="Modulo" ToRole="Rol" />
         </EntityType>
         <EntityType Name="Multimedia">
@@ -2412,16 +2452,6 @@
           <NavigationProperty Name="TemaNot" Relationship="Self.FK_Notificacion_TemaNotId" FromRole="Notificacion" ToRole="TemaNot" />
           <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_Notificacion_UsuarioId_PersonaId" FromRole="Notificacion" ToRole="RelUsuPer" />
         </EntityType>
-        <EntityType Name="Obesidad">
-          <Key>
-            <PropertyRef Name="ObesidadId" />
-            <PropertyRef Name="PersonaId" />
-          </Key>
-          <Property Name="ObesidadId" Type="Int64" Nullable="false" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="ObesidadPesoCorrecto" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Valor" Relationship="Self.FK_Obesidad_ObesidadId_PersonaId" FromRole="Obesidad" ToRole="Valor" />
-        </EntityType>
         <EntityType Name="Persona">
           <Key>
             <PropertyRef Name="PersonaId" />
@@ -2429,15 +2459,15 @@
           <Property Name="PersonaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PersonaApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PersonaFchNac" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PersonaFchNac" Type="DateTime" Nullable="false" Precision="0" annotation:StoreGeneratedPattern="None" />
           <Property Name="PersonaFchIng" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="SexoId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Datos" Relationship="Self.FK_Datos_PersonaId" FromRole="Persona" ToRole="Datos" />
           <NavigationProperty Name="Sexo" Relationship="Self.FK_Persona_SexoId" FromRole="Persona" ToRole="Sexo" />
           <NavigationProperty Name="Recordatorio" Relationship="Self.FK_Recordatorio_PersonaId" FromRole="Persona" ToRole="Recordatorio" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_Registro_PersonaId" FromRole="Persona" ToRole="Registro" />
           <NavigationProperty Name="RelPerEnf" Relationship="Self.FK_RelPerEnf_PersonaId" FromRole="Persona" ToRole="RelPerEnf" />
           <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_RelUsuPer_PersonaId" FromRole="Persona" ToRole="RelUsuPer" />
-          <NavigationProperty Name="Valor" Relationship="Self.FK_Valor_PersonaId" FromRole="Persona" ToRole="Valor" />
           <NavigationProperty Name="Dieta" Relationship="Self.RelPerDie" FromRole="Persona" ToRole="Dieta" />
           <NavigationProperty Name="Programa" Relationship="Self.RelPerProg" FromRole="Persona" ToRole="Programa" />
         </EntityType>
@@ -2448,7 +2478,7 @@
           </Key>
           <Property Name="PesoId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="PesoValor" Type="Double" />
+          <Property Name="PesoValor" Type="Double" Nullable="false" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_Peso_PesoId_PersonaId" FromRole="Peso" ToRole="Registro" />
         </EntityType>
         <EntityType Name="Programa">
@@ -2458,7 +2488,7 @@
           <Property Name="ProgramaId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Programa_ProgramaId" FromRole="Programa" ToRole="Contenido" />
           <NavigationProperty Name="Persona" Relationship="Self.RelPerProg" FromRole="Programa" ToRole="Persona" />
-          <NavigationProperty Name="Sesion" Relationship="Self.RelProgSes" FromRole="Programa" ToRole="Sesion" />
+          <NavigationProperty Name="Rutina" Relationship="Self.RelProgRut" FromRole="Programa" ToRole="Rutina" />
         </EntityType>
         <EntityType Name="Receta">
           <Key>
@@ -2499,14 +2529,28 @@
           </Key>
           <Property Name="RegistroId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="RegistroFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="RegistroFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_ActividadId_PersonaId" FromRole="Registro" ToRole="Actividad" />
           <NavigationProperty Name="Agua" Relationship="Self.FK_Agua_AguaId_PersonaId" FromRole="Registro" ToRole="Agua" />
           <NavigationProperty Name="Comida" Relationship="Self.FK_Comida_ComidaId_PersonaId" FromRole="Registro" ToRole="Comida" />
+          <NavigationProperty Name="Control" Relationship="Self.FK_ControlId_PersonaId" FromRole="Registro" ToRole="Control" />
           <NavigationProperty Name="DatCli" Relationship="Self.FK_DatCli_DatCliId_PersonaId" FromRole="Registro" ToRole="DatCli" />
-          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Toma_MedicacionId_PersonaId" FromRole="Registro" ToRole="Medicacion" />
+          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Medicacion_MedicacionId_PersonaId" FromRole="Registro" ToRole="Medicacion" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Registro_PersonaId" FromRole="Registro" ToRole="Persona" />
           <NavigationProperty Name="Peso" Relationship="Self.FK_Peso_PesoId_PersonaId" FromRole="Registro" ToRole="Peso" />
+        </EntityType>
+        <EntityType Name="RelEnfVal">
+          <Key>
+            <PropertyRef Name="EnfermedadId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="EnfermedadId" Type="Int64" Nullable="false" />
+          <Property Name="ValorId" Type="Int64" Nullable="false" />
+          <Property Name="RelEnfValMinimo" Type="Double" Nullable="false" />
+          <Property Name="RelEnfValMaximo" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Control" Relationship="Self.FK_EnfermedadId_ValorId" FromRole="RelEnfVal" ToRole="Control" />
+          <NavigationProperty Name="Enfermedad" Relationship="Self.FK_RelEnfVal_EnfermedadId" FromRole="RelEnfVal" ToRole="Enfermedad" />
+          <NavigationProperty Name="Valor" Relationship="Self.FK_RelEnfVal_ValorId" FromRole="RelEnfVal" ToRole="Valor" />
         </EntityType>
         <EntityType Name="RelMedRelPerEnf">
           <Key>
@@ -2519,9 +2563,20 @@
           <Property Name="MedicinaId" Type="Int64" Nullable="false" />
           <Property Name="RelMedRelPerEnfFrecuencia" Type="Double" />
           <Property Name="RelMedRelPerEnfFrecuenciaTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RelMedRelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RelMedRelPerEnfFchEnable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Medicina" Relationship="Self.FK_RelMedRelPerEnf_MedicinaId" FromRole="RelMedRelPerEnf" ToRole="Medicina" />
           <NavigationProperty Name="RelPerEnf" Relationship="Self.FK_RelMedRelPerEnf_PersonaId_EnfermedadId" FromRole="RelMedRelPerEnf" ToRole="RelPerEnf" />
+        </EntityType>
+        <EntityType Name="RelMedVal">
+          <Key>
+            <PropertyRef Name="MedicinaId" />
+            <PropertyRef Name="ValorId" />
+          </Key>
+          <Property Name="MedicinaId" Type="Int64" Nullable="false" />
+          <Property Name="ValorId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Dosis" Relationship="Self.FK_Dosis_MedicinaId_ValorId" FromRole="RelMedVal" ToRole="Dosis" />
+          <NavigationProperty Name="Medicina" Relationship="Self.FK_RelMedVal_MedicinaId" FromRole="RelMedVal" ToRole="Medicina" />
+          <NavigationProperty Name="Valor" Relationship="Self.FK_RelMedVal_ValorId" FromRole="RelMedVal" ToRole="Valor" />
         </EntityType>
         <EntityType Name="RelPerEnf">
           <Key>
@@ -2569,17 +2624,6 @@
           <Property Name="RepeticionNum" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Recordatorio" Relationship="Self.FK_Repeticion_RecordatorioId_PersonaId" FromRole="Repeticion" ToRole="Recordatorio" />
         </EntityType>
-        <EntityType Name="Retardada">
-          <Key>
-            <PropertyRef Name="RetardadaId" />
-            <PropertyRef Name="PersonaId" />
-            <PropertyRef Name="MedicinaId" />
-          </Key>
-          <Property Name="RetardadaId" Type="Int64" Nullable="false" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="MedicinaId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Medicacion" Relationship="Self.FK_Retardada_RetardadaId_PersonaId_MedicinaId" FromRole="Retardada" ToRole="Medicacion" />
-        </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="RolId" />
@@ -2590,14 +2634,14 @@
           <NavigationProperty Name="RelUsuRol" Relationship="Self.FK_RelUsuRol_RolId" FromRole="Rol" ToRole="RelUsuRol" />
           <NavigationProperty Name="Modulo" Relationship="Self.RelRolMod" FromRole="Rol" ToRole="Modulo" />
         </EntityType>
-        <EntityType Name="Sesion">
+        <EntityType Name="Rutina">
           <Key>
-            <PropertyRef Name="SesionId" />
+            <PropertyRef Name="RutinaId" />
           </Key>
-          <Property Name="SesionId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Contenido" Relationship="Self.FK_Sesion_SesionId" FromRole="Sesion" ToRole="Contenido" />
-          <NavigationProperty Name="Programa" Relationship="Self.RelProgSes" FromRole="Sesion" ToRole="Programa" />
-          <NavigationProperty Name="Ejercicio" Relationship="Self.RelSesEje" FromRole="Sesion" ToRole="Ejercicio" />
+          <Property Name="RutinaId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Contenido" Relationship="Self.FK_Rutina_RutinaId" FromRole="Rutina" ToRole="Contenido" />
+          <NavigationProperty Name="Programa" Relationship="Self.RelProgRut" FromRole="Rutina" ToRole="Programa" />
+          <NavigationProperty Name="Ejercicio" Relationship="Self.RelRutEje" FromRole="Rutina" ToRole="Ejercicio" />
         </EntityType>
         <EntityType Name="Sexo">
           <Key>
@@ -2605,7 +2649,7 @@
           </Key>
           <Property Name="SexoId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SexoNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SexoDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SexoDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Persona_SexoId" FromRole="Sexo" ToRole="Persona" />
         </EntityType>
         <EntityType Name="Tema">
@@ -2654,14 +2698,13 @@
         <EntityType Name="Valor">
           <Key>
             <PropertyRef Name="ValorId" />
-            <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="ValorId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="ValorFchEnable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Diabetes" Relationship="Self.FK_Diabetes_DiabetesId_PersonaId" FromRole="Valor" ToRole="Diabetes" />
-          <NavigationProperty Name="Obesidad" Relationship="Self.FK_Obesidad_ObesidadId_PersonaId" FromRole="Valor" ToRole="Obesidad" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Valor_PersonaId" FromRole="Valor" ToRole="Persona" />
+          <Property Name="ValorNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValorMedida" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValorDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RelEnfVal" Relationship="Self.FK_RelEnfVal_ValorId" FromRole="Valor" ToRole="RelEnfVal" />
+          <NavigationProperty Name="RelMedVal" Relationship="Self.FK_RelMedVal_ValorId" FromRole="Valor" ToRole="RelMedVal" />
         </EntityType>
         <Association Name="FK_Actividad_ActividadId_PersonaId">
           <End Role="Registro" Type="Self.Registro" Multiplicity="1">
@@ -2837,35 +2880,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sesion_SesionId">
+        <Association Name="FK_Rutina_RutinaId">
           <End Role="Contenido" Type="Self.Contenido" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="0..1" />
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Contenido">
               <PropertyRef Name="ContenidoId" />
             </Principal>
-            <Dependent Role="Sesion">
-              <PropertyRef Name="SesionId" />
+            <Dependent Role="Rutina">
+              <PropertyRef Name="RutinaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Correccion_CorreccionId_PersonaId_MedicinaId">
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="1">
+        <Association Name="FK_ControlId_PersonaId">
+          <End Role="Registro" Type="Self.Registro" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Correccion" Type="Self.Correccion" Multiplicity="0..1" />
+          <End Role="Control" Type="Self.Control" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Medicacion">
-              <PropertyRef Name="MedicacionId" />
+            <Principal Role="Registro">
+              <PropertyRef Name="RegistroId" />
               <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
             </Principal>
-            <Dependent Role="Correccion">
-              <PropertyRef Name="CorreccionId" />
+            <Dependent Role="Control">
+              <PropertyRef Name="ControlId" />
               <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnfermedadId_ValorId">
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Control" Type="Self.Control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelEnfVal">
+              <PropertyRef Name="EnfermedadId" />
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="Control">
+              <PropertyRef Name="EnfermedadId" />
+              <PropertyRef Name="ValorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2885,19 +2942,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Datos_PersonaId">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Datos" Type="Self.Datos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Datos">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Diabetes_DiabetesId_PersonaId">
-          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+          <End Role="Datos" Type="Self.Datos" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Diabetes" Type="Self.Diabetes" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Valor">
-              <PropertyRef Name="ValorId" />
+            <Principal Role="Datos">
+              <PropertyRef Name="DatosId" />
               <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Diabetes">
               <PropertyRef Name="DiabetesId" />
               <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dosis_MedicinaId_ValorId">
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dosis" Type="Self.Dosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelMedVal">
+              <PropertyRef Name="MedicinaId" />
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="Dosis">
+              <PropertyRef Name="MedicinaId" />
+              <PropertyRef Name="ValorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelEnfVal_EnfermedadId">
+          <End Role="Enfermedad" Type="Self.Enfermedad" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enfermedad">
+              <PropertyRef Name="EnfermedadId" />
+            </Principal>
+            <Dependent Role="RelEnfVal">
+              <PropertyRef Name="EnfermedadId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2915,25 +3016,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Retardada_RetardadaId_PersonaId_MedicinaId">
-          <End Role="Medicacion" Type="Self.Medicacion" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Retardada" Type="Self.Retardada" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Medicacion">
-              <PropertyRef Name="MedicacionId" />
-              <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Principal>
-            <Dependent Role="Retardada">
-              <PropertyRef Name="RetardadaId" />
-              <PropertyRef Name="PersonaId" />
-              <PropertyRef Name="MedicinaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Toma_MedicacionId_PersonaId">
+        <Association Name="FK_Medicacion_MedicacionId_PersonaId">
           <End Role="Registro" Type="Self.Registro" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2949,7 +3032,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Toma_MedicinaId">
+        <Association Name="FK_Medicacion_MedicinaId">
           <End Role="Medicina" Type="Self.Medicina" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -2973,6 +3056,20 @@
               <PropertyRef Name="MedicinaId" />
             </Principal>
             <Dependent Role="RelMedRelPerEnf">
+              <PropertyRef Name="MedicinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelMedVal_MedicinaId">
+          <End Role="Medicina" Type="Self.Medicina" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicina">
+              <PropertyRef Name="MedicinaId" />
+            </Principal>
+            <Dependent Role="RelMedVal">
               <PropertyRef Name="MedicinaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3003,22 +3100,6 @@
             </Principal>
             <Dependent Role="Notificacion">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Obesidad_ObesidadId_PersonaId">
-          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Obesidad" Type="Self.Obesidad" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Valor">
-              <PropertyRef Name="ValorId" />
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="Obesidad">
-              <PropertyRef Name="ObesidadId" />
               <PropertyRef Name="PersonaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3091,20 +3172,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Valor_PersonaId">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Valor" Type="Self.Valor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="Valor">
-              <PropertyRef Name="PersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Peso_PesoId_PersonaId">
           <End Role="Registro" Type="Self.Registro" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3137,6 +3204,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RelEnfVal_ValorId">
+          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelEnfVal" Type="Self.RelEnfVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valor">
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="RelEnfVal">
+              <PropertyRef Name="ValorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RelMedRelPerEnf_PersonaId_EnfermedadId">
           <End Role="RelPerEnf" Type="Self.RelPerEnf" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3150,6 +3231,20 @@
             <Dependent Role="RelMedRelPerEnf">
               <PropertyRef Name="PersonaId" />
               <PropertyRef Name="EnfermedadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelMedVal_ValorId">
+          <End Role="Valor" Type="Self.Valor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelMedVal" Type="Self.RelMedVal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valor">
+              <PropertyRef Name="ValorId" />
+            </Principal>
+            <Dependent Role="RelMedVal">
+              <PropertyRef Name="ValorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3203,10 +3298,6 @@
           <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
           <End Role="Comentario1" Type="Self.Comentario" Multiplicity="0..1" />
         </Association>
-        <Association Name="RelCorCom">
-          <End Role="Comida" Type="Self.Comida" Multiplicity="0..1" />
-          <End Role="Correccion" Type="Self.Correccion" Multiplicity="*" />
-        </Association>
         <Association Name="RelEnfMed">
           <End Role="Enfermedad" Type="Self.Enfermedad" Multiplicity="*" />
           <End Role="Medicina" Type="Self.Medicina" Multiplicity="*" />
@@ -3231,9 +3322,9 @@
           <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
           <End Role="Programa" Type="Self.Programa" Multiplicity="0..1" />
         </Association>
-        <Association Name="RelProgSes">
+        <Association Name="RelProgRut">
           <End Role="Programa" Type="Self.Programa" Multiplicity="*" />
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="*" />
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="*" />
         </Association>
         <Association Name="RelRecoDia">
           <End Role="Dia" Type="Self.Dia" Multiplicity="*" />
@@ -3247,9 +3338,9 @@
           <End Role="Modulo" Type="Self.Modulo" Multiplicity="*" />
           <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
         </Association>
-        <Association Name="RelSesEje">
+        <Association Name="RelRutEje">
           <End Role="Ejercicio" Type="Self.Ejercicio" Multiplicity="*" />
-          <End Role="Sesion" Type="Self.Sesion" Multiplicity="*" />
+          <End Role="Rutina" Type="Self.Rutina" Multiplicity="*" />
         </Association>
         <Association Name="RelTemArt">
           <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
@@ -3280,39 +3371,40 @@
           <EntitySet Name="Comentario" EntityType="Self.Comentario" />
           <EntitySet Name="Comida" EntityType="Self.Comida" />
           <EntitySet Name="Contenido" EntityType="Self.Contenido" />
-          <EntitySet Name="Correccion" EntityType="Self.Correccion" />
+          <EntitySet Name="Control" EntityType="Self.Control" />
           <EntitySet Name="DatCli" EntityType="Self.DatCli" />
+          <EntitySet Name="Datos" EntityType="Self.Datos" />
           <EntitySet Name="Dia" EntityType="Self.Dia" />
           <EntitySet Name="Diabetes" EntityType="Self.Diabetes" />
           <EntitySet Name="Dieta" EntityType="Self.Dieta" />
+          <EntitySet Name="Dosis" EntityType="Self.Dosis" />
           <EntitySet Name="Ejercicio" EntityType="Self.Ejercicio" />
           <EntitySet Name="Enfermedad" EntityType="Self.Enfermedad" />
           <EntitySet Name="Error" EntityType="Self.Error" />
+          <EntitySet Name="HisDatosDiabetes" EntityType="Self.HisDatosDiabetes" />
           <EntitySet Name="HisRelMedRelPerEnf" EntityType="Self.HisRelMedRelPerEnf" />
           <EntitySet Name="HisRelPerEnf" EntityType="Self.HisRelPerEnf" />
           <EntitySet Name="HisRelUsuRol" EntityType="Self.HisRelUsuRol" />
-          <EntitySet Name="HisValorDiabetes" EntityType="Self.HisValorDiabetes" />
-          <EntitySet Name="HisValorObesidad" EntityType="Self.HisValorObesidad" />
           <EntitySet Name="Medicacion" EntityType="Self.Medicacion" />
           <EntitySet Name="Medicina" EntityType="Self.Medicina" />
           <EntitySet Name="Modulo" EntityType="Self.Modulo" />
           <EntitySet Name="Multimedia" EntityType="Self.Multimedia" />
           <EntitySet Name="Notificacion" EntityType="Self.Notificacion" />
-          <EntitySet Name="Obesidad" EntityType="Self.Obesidad" />
           <EntitySet Name="Persona" EntityType="Self.Persona" />
           <EntitySet Name="Peso" EntityType="Self.Peso" />
           <EntitySet Name="Programa" EntityType="Self.Programa" />
           <EntitySet Name="Receta" EntityType="Self.Receta" />
           <EntitySet Name="Recordatorio" EntityType="Self.Recordatorio" />
           <EntitySet Name="Registro" EntityType="Self.Registro" />
+          <EntitySet Name="RelEnfVal" EntityType="Self.RelEnfVal" />
           <EntitySet Name="RelMedRelPerEnf" EntityType="Self.RelMedRelPerEnf" />
+          <EntitySet Name="RelMedVal" EntityType="Self.RelMedVal" />
           <EntitySet Name="RelPerEnf" EntityType="Self.RelPerEnf" />
           <EntitySet Name="RelUsuPer" EntityType="Self.RelUsuPer" />
           <EntitySet Name="RelUsuRol" EntityType="Self.RelUsuRol" />
           <EntitySet Name="Repeticion" EntityType="Self.Repeticion" />
-          <EntitySet Name="Retardada" EntityType="Self.Retardada" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
-          <EntitySet Name="Sesion" EntityType="Self.Sesion" />
+          <EntitySet Name="Rutina" EntityType="Self.Rutina" />
           <EntitySet Name="Sexo" EntityType="Self.Sexo" />
           <EntitySet Name="Tema" EntityType="Self.Tema" />
           <EntitySet Name="TemaNot" EntityType="Self.TemaNot" />
@@ -3366,41 +3458,57 @@
             <End Role="Contenido" EntitySet="Contenido" />
             <End Role="Receta" EntitySet="Receta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sesion_SesionId" Association="Self.FK_Sesion_SesionId">
+          <AssociationSet Name="FK_Rutina_RutinaId" Association="Self.FK_Rutina_RutinaId">
             <End Role="Contenido" EntitySet="Contenido" />
-            <End Role="Sesion" EntitySet="Sesion" />
+            <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
-          <AssociationSet Name="FK_Correccion_CorreccionId_PersonaId_MedicinaId" Association="Self.FK_Correccion_CorreccionId_PersonaId_MedicinaId">
-            <End Role="Medicacion" EntitySet="Medicacion" />
-            <End Role="Correccion" EntitySet="Correccion" />
+          <AssociationSet Name="FK_ControlId_PersonaId" Association="Self.FK_ControlId_PersonaId">
+            <End Role="Registro" EntitySet="Registro" />
+            <End Role="Control" EntitySet="Control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnfermedadId_ValorId" Association="Self.FK_EnfermedadId_ValorId">
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
+            <End Role="Control" EntitySet="Control" />
           </AssociationSet>
           <AssociationSet Name="FK_DatCli_DatCliId_PersonaId" Association="Self.FK_DatCli_DatCliId_PersonaId">
             <End Role="Registro" EntitySet="Registro" />
             <End Role="DatCli" EntitySet="DatCli" />
           </AssociationSet>
+          <AssociationSet Name="FK_Datos_PersonaId" Association="Self.FK_Datos_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Datos" EntitySet="Datos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Diabetes_DiabetesId_PersonaId" Association="Self.FK_Diabetes_DiabetesId_PersonaId">
-            <End Role="Valor" EntitySet="Valor" />
+            <End Role="Datos" EntitySet="Datos" />
             <End Role="Diabetes" EntitySet="Diabetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dosis_MedicinaId_ValorId" Association="Self.FK_Dosis_MedicinaId_ValorId">
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
+            <End Role="Dosis" EntitySet="Dosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelEnfVal_EnfermedadId" Association="Self.FK_RelEnfVal_EnfermedadId">
+            <End Role="Enfermedad" EntitySet="Enfermedad" />
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
           </AssociationSet>
           <AssociationSet Name="FK_RelPerEnf_EnfermedadId" Association="Self.FK_RelPerEnf_EnfermedadId">
             <End Role="Enfermedad" EntitySet="Enfermedad" />
             <End Role="RelPerEnf" EntitySet="RelPerEnf" />
           </AssociationSet>
-          <AssociationSet Name="FK_Retardada_RetardadaId_PersonaId_MedicinaId" Association="Self.FK_Retardada_RetardadaId_PersonaId_MedicinaId">
-            <End Role="Medicacion" EntitySet="Medicacion" />
-            <End Role="Retardada" EntitySet="Retardada" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Toma_MedicacionId_PersonaId" Association="Self.FK_Toma_MedicacionId_PersonaId">
+          <AssociationSet Name="FK_Medicacion_MedicacionId_PersonaId" Association="Self.FK_Medicacion_MedicacionId_PersonaId">
             <End Role="Registro" EntitySet="Registro" />
             <End Role="Medicacion" EntitySet="Medicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Toma_MedicinaId" Association="Self.FK_Toma_MedicinaId">
+          <AssociationSet Name="FK_Medicacion_MedicinaId" Association="Self.FK_Medicacion_MedicinaId">
             <End Role="Medicina" EntitySet="Medicina" />
             <End Role="Medicacion" EntitySet="Medicacion" />
           </AssociationSet>
           <AssociationSet Name="FK_RelMedRelPerEnf_MedicinaId" Association="Self.FK_RelMedRelPerEnf_MedicinaId">
             <End Role="Medicina" EntitySet="Medicina" />
             <End Role="RelMedRelPerEnf" EntitySet="RelMedRelPerEnf" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelMedVal_MedicinaId" Association="Self.FK_RelMedVal_MedicinaId">
+            <End Role="Medicina" EntitySet="Medicina" />
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
           </AssociationSet>
           <AssociationSet Name="FK_Notificacion_TemaNotId" Association="Self.FK_Notificacion_TemaNotId">
             <End Role="TemaNot" EntitySet="TemaNot" />
@@ -3409,10 +3517,6 @@
           <AssociationSet Name="FK_Notificacion_UsuarioId_PersonaId" Association="Self.FK_Notificacion_UsuarioId_PersonaId">
             <End Role="RelUsuPer" EntitySet="RelUsuPer" />
             <End Role="Notificacion" EntitySet="Notificacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Obesidad_ObesidadId_PersonaId" Association="Self.FK_Obesidad_ObesidadId_PersonaId">
-            <End Role="Valor" EntitySet="Valor" />
-            <End Role="Obesidad" EntitySet="Obesidad" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_SexoId" Association="Self.FK_Persona_SexoId">
             <End Role="Sexo" EntitySet="Sexo" />
@@ -3434,10 +3538,6 @@
             <End Role="Persona" EntitySet="Persona" />
             <End Role="RelUsuPer" EntitySet="RelUsuPer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Valor_PersonaId" Association="Self.FK_Valor_PersonaId">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Valor" EntitySet="Valor" />
-          </AssociationSet>
           <AssociationSet Name="FK_Peso_PesoId_PersonaId" Association="Self.FK_Peso_PesoId_PersonaId">
             <End Role="Registro" EntitySet="Registro" />
             <End Role="Peso" EntitySet="Peso" />
@@ -3446,9 +3546,17 @@
             <End Role="Recordatorio" EntitySet="Recordatorio" />
             <End Role="Repeticion" EntitySet="Repeticion" />
           </AssociationSet>
+          <AssociationSet Name="FK_RelEnfVal_ValorId" Association="Self.FK_RelEnfVal_ValorId">
+            <End Role="Valor" EntitySet="Valor" />
+            <End Role="RelEnfVal" EntitySet="RelEnfVal" />
+          </AssociationSet>
           <AssociationSet Name="FK_RelMedRelPerEnf_PersonaId_EnfermedadId" Association="Self.FK_RelMedRelPerEnf_PersonaId_EnfermedadId">
             <End Role="RelPerEnf" EntitySet="RelPerEnf" />
             <End Role="RelMedRelPerEnf" EntitySet="RelMedRelPerEnf" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelMedVal_ValorId" Association="Self.FK_RelMedVal_ValorId">
+            <End Role="Valor" EntitySet="Valor" />
+            <End Role="RelMedVal" EntitySet="RelMedVal" />
           </AssociationSet>
           <AssociationSet Name="FK_RelUsuPer_UsuarioId" Association="Self.FK_RelUsuPer_UsuarioId">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -3469,10 +3577,6 @@
           <AssociationSet Name="RelComCom" Association="Self.RelComCom">
             <End Role="Comentario" EntitySet="Comentario" />
             <End Role="Comentario1" EntitySet="Comentario" />
-          </AssociationSet>
-          <AssociationSet Name="RelCorCom" Association="Self.RelCorCom">
-            <End Role="Comida" EntitySet="Comida" />
-            <End Role="Correccion" EntitySet="Correccion" />
           </AssociationSet>
           <AssociationSet Name="RelEnfMed" Association="Self.RelEnfMed">
             <End Role="Enfermedad" EntitySet="Enfermedad" />
@@ -3498,9 +3602,9 @@
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Programa" EntitySet="Programa" />
           </AssociationSet>
-          <AssociationSet Name="RelProgSes" Association="Self.RelProgSes">
+          <AssociationSet Name="RelProgRut" Association="Self.RelProgRut">
             <End Role="Programa" EntitySet="Programa" />
-            <End Role="Sesion" EntitySet="Sesion" />
+            <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
           <AssociationSet Name="RelRecoDia" Association="Self.RelRecoDia">
             <End Role="Dia" EntitySet="Dia" />
@@ -3514,9 +3618,9 @@
             <End Role="Modulo" EntitySet="Modulo" />
             <End Role="Rol" EntitySet="Rol" />
           </AssociationSet>
-          <AssociationSet Name="RelSesEje" Association="Self.RelSesEje">
+          <AssociationSet Name="RelRutEje" Association="Self.RelRutEje">
             <End Role="Ejercicio" EntitySet="Ejercicio" />
-            <End Role="Sesion" EntitySet="Sesion" />
+            <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
           <AssociationSet Name="RelTemArt" Association="Self.RelTemArt">
             <End Role="Articulo" EntitySet="Articulo" />
@@ -3561,7 +3665,6 @@
                 <ScalarProperty Name="AguaId" ColumnName="AguaId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="AguaCantidad" ColumnName="AguaCantidad" />
-                <ScalarProperty Name="AguaCantidadTipo" ColumnName="AguaCantidadTipo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3638,12 +3741,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Correccion">
-            <EntityTypeMapping TypeName="AgustinaDBModel.Correccion">
-              <MappingFragment StoreEntitySet="Correccion">
-                <ScalarProperty Name="CorreccionId" ColumnName="CorreccionId" />
+          <EntitySetMapping Name="Control">
+            <EntityTypeMapping TypeName="AgustinaDBModel.Control">
+              <MappingFragment StoreEntitySet="Control">
+                <ScalarProperty Name="ControlId" ColumnName="ControlId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
+                <ScalarProperty Name="EnfermedadId" ColumnName="EnfermedadId" />
+                <ScalarProperty Name="ValorId" ColumnName="ValorId" />
+                <ScalarProperty Name="ControlValor" ColumnName="ControlValor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3654,6 +3759,15 @@
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="DatCliAltura" ColumnName="DatCliAltura" />
                 <ScalarProperty Name="DatCliColesterol" ColumnName="DatCliColesterol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Datos">
+            <EntityTypeMapping TypeName="AgustinaDBModel.Datos">
+              <MappingFragment StoreEntitySet="Datos">
+                <ScalarProperty Name="DatosId" ColumnName="DatosId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="DatosFchEnable" ColumnName="DatosFchEnable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3670,9 +3784,6 @@
               <MappingFragment StoreEntitySet="Diabetes">
                 <ScalarProperty Name="DiabetesId" ColumnName="DiabetesId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="DiabetesTipo" ColumnName="DiabetesTipo" />
-                <ScalarProperty Name="DiabetesGlicemiaBaja" ColumnName="DiabetesGlicemiaBaja" />
-                <ScalarProperty Name="DiabetesGlicemiaAlta" ColumnName="DiabetesGlicemiaAlta" />
                 <ScalarProperty Name="DiabetesHidratosPorUniInsu" ColumnName="DiabetesHidratosPorUniInsu" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3694,10 +3805,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Dosis">
+            <EntityTypeMapping TypeName="AgustinaDBModel.Dosis">
+              <MappingFragment StoreEntitySet="Dosis">
+                <ScalarProperty Name="DosisId" ColumnName="DosisId" />
+                <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
+                <ScalarProperty Name="ValorId" ColumnName="ValorId" />
+                <ScalarProperty Name="DosisTipo" ColumnName="DosisTipo" />
+                <ScalarProperty Name="DosisCantidadMin" ColumnName="DosisCantidadMin" />
+                <ScalarProperty Name="DosisMedida" ColumnName="DosisMedida" />
+                <ScalarProperty Name="DosisEfecto" ColumnName="DosisEfecto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Ejercicio">
             <EntityTypeMapping TypeName="AgustinaDBModel.Ejercicio">
               <MappingFragment StoreEntitySet="Ejercicio">
                 <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
+                <ScalarProperty Name="EjercicioTipo" ColumnName="EjercicioTipo" />
+                <ScalarProperty Name="EjercicioCategoria" ColumnName="EjercicioCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3715,6 +3841,21 @@
               <MappingFragment StoreEntitySet="Error">
                 <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
                 <ScalarProperty Name="ErrorDesc" ColumnName="ErrorDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HisDatosDiabetes">
+            <EntityTypeMapping TypeName="AgustinaDBModel.HisDatosDiabetes">
+              <MappingFragment StoreEntitySet="HisDatosDiabetes">
+                <ScalarProperty Name="HisDatosDiabetesId" ColumnName="HisDatosDiabetesId" />
+                <ScalarProperty Name="DiabetesId" ColumnName="DiabetesId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="DatosFchEnable" ColumnName="DatosFchEnable" />
+                <ScalarProperty Name="DiabetesTipo" ColumnName="DiabetesTipo" />
+                <ScalarProperty Name="DiabetesGlicemiaBaja" ColumnName="DiabetesGlicemiaBaja" />
+                <ScalarProperty Name="DiabetesGlicemiaAlta" ColumnName="DiabetesGlicemiaAlta" />
+                <ScalarProperty Name="DiabetesHidratosPorUniInsu" ColumnName="DiabetesHidratosPorUniInsu" />
+                <ScalarProperty Name="HisDatosDiabetesFchDisable" ColumnName="HisDatosDiabetesFchDisable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3754,47 +3895,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HisValorDiabetes">
-            <EntityTypeMapping TypeName="AgustinaDBModel.HisValorDiabetes">
-              <MappingFragment StoreEntitySet="HisValorDiabetes">
-                <ScalarProperty Name="HisValorDiabetesId" ColumnName="HisValorDiabetesId" />
-                <ScalarProperty Name="DiabetesId" ColumnName="DiabetesId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="ValorFchEnable" ColumnName="ValorFchEnable" />
-                <ScalarProperty Name="DiabetesTipo" ColumnName="DiabetesTipo" />
-                <ScalarProperty Name="DiabetesGlicemiaBaja" ColumnName="DiabetesGlicemiaBaja" />
-                <ScalarProperty Name="DiabetesGlicemiaAlta" ColumnName="DiabetesGlicemiaAlta" />
-                <ScalarProperty Name="DiabetesHidratosPorUniInsu" ColumnName="DiabetesHidratosPorUniInsu" />
-                <ScalarProperty Name="HisValorDiabetesFchDisable" ColumnName="HisValorDiabetesFchDisable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HisValorObesidad">
-            <EntityTypeMapping TypeName="AgustinaDBModel.HisValorObesidad">
-              <MappingFragment StoreEntitySet="HisValorObesidad">
-                <ScalarProperty Name="HisValorObesidadId" ColumnName="HisValorObesidadId" />
-                <ScalarProperty Name="ObesidadId" ColumnName="ObesidadId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="ValorFchEnable" ColumnName="ValorFchEnable" />
-                <ScalarProperty Name="ObesidadPesoCorrecto" ColumnName="ObesidadPesoCorrecto" />
-                <ScalarProperty Name="HisValorObesidadFchDisable" ColumnName="HisValorObesidadFchDisable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Medicacion">
             <EntityTypeMapping TypeName="AgustinaDBModel.Medicacion">
               <MappingFragment StoreEntitySet="Medicacion">
                 <ScalarProperty Name="MedicacionId" ColumnName="MedicacionId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
-                <ScalarProperty Name="TomaCantidad" ColumnName="TomaCantidad" />
-                <ScalarProperty Name="TomaCantidadTipo" ColumnName="TomaCantidadTipo" />
+                <ScalarProperty Name="MedicacionCantidad" ColumnName="MedicacionCantidad" />
+                <ScalarProperty Name="MedicacionCantidadTipo" ColumnName="MedicacionCantidadTipo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Medicina">
             <EntityTypeMapping TypeName="AgustinaDBModel.Medicina">
               <MappingFragment StoreEntitySet="Medicina">
+                <ScalarProperty Name="MedicinaDesc" ColumnName="MedicinaDesc" />
                 <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
                 <ScalarProperty Name="MedicinaNombre" ColumnName="MedicinaNombre" />
                 <ScalarProperty Name="MedicinaTipo" ColumnName="MedicinaTipo" />
@@ -3830,15 +3945,6 @@
                 <ScalarProperty Name="TemaNotId" ColumnName="TemaNotId" />
                 <ScalarProperty Name="NotificacionTitulo" ColumnName="NotificacionTitulo" />
                 <ScalarProperty Name="NotifiacionDescripcion" ColumnName="NotifiacionDescripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Obesidad">
-            <EntityTypeMapping TypeName="AgustinaDBModel.Obesidad">
-              <MappingFragment StoreEntitySet="Obesidad">
-                <ScalarProperty Name="ObesidadId" ColumnName="ObesidadId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="ObesidadPesoCorrecto" ColumnName="ObesidadPesoCorrecto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3907,6 +4013,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RelEnfVal">
+            <EntityTypeMapping TypeName="AgustinaDBModel.RelEnfVal">
+              <MappingFragment StoreEntitySet="RelEnfVal">
+                <ScalarProperty Name="EnfermedadId" ColumnName="EnfermedadId" />
+                <ScalarProperty Name="ValorId" ColumnName="ValorId" />
+                <ScalarProperty Name="RelEnfValMinimo" ColumnName="RelEnfValMinimo" />
+                <ScalarProperty Name="RelEnfValMaximo" ColumnName="RelEnfValMaximo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RelMedRelPerEnf">
             <EntityTypeMapping TypeName="AgustinaDBModel.RelMedRelPerEnf">
               <MappingFragment StoreEntitySet="RelMedRelPerEnf">
@@ -3916,6 +4032,14 @@
                 <ScalarProperty Name="RelMedRelPerEnfFrecuencia" ColumnName="RelMedRelPerEnfFrecuencia" />
                 <ScalarProperty Name="RelMedRelPerEnfFrecuenciaTipo" ColumnName="RelMedRelPerEnfFrecuenciaTipo" />
                 <ScalarProperty Name="RelMedRelPerEnfFchEnable" ColumnName="RelMedRelPerEnfFchEnable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelMedVal">
+            <EntityTypeMapping TypeName="AgustinaDBModel.RelMedVal">
+              <MappingFragment StoreEntitySet="RelMedVal">
+                <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
+                <ScalarProperty Name="ValorId" ColumnName="ValorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3956,15 +4080,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Retardada">
-            <EntityTypeMapping TypeName="AgustinaDBModel.Retardada">
-              <MappingFragment StoreEntitySet="Retardada">
-                <ScalarProperty Name="RetardadaId" ColumnName="RetardadaId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Rol">
             <EntityTypeMapping TypeName="AgustinaDBModel.Rol">
               <MappingFragment StoreEntitySet="Rol">
@@ -3974,10 +4089,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sesion">
-            <EntityTypeMapping TypeName="AgustinaDBModel.Sesion">
-              <MappingFragment StoreEntitySet="Sesion">
-                <ScalarProperty Name="SesionId" ColumnName="SesionId" />
+          <EntitySetMapping Name="Rutina">
+            <EntityTypeMapping TypeName="AgustinaDBModel.Rutina">
+              <MappingFragment StoreEntitySet="Rutina">
+                <ScalarProperty Name="RutinaId" ColumnName="RutinaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4027,8 +4142,9 @@
             <EntityTypeMapping TypeName="AgustinaDBModel.Valor">
               <MappingFragment StoreEntitySet="Valor">
                 <ScalarProperty Name="ValorId" ColumnName="ValorId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="ValorFchEnable" ColumnName="ValorFchEnable" />
+                <ScalarProperty Name="ValorNombre" ColumnName="ValorNombre" />
+                <ScalarProperty Name="ValorMedida" ColumnName="ValorMedida" />
+                <ScalarProperty Name="ValorDesc" ColumnName="ValorDesc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4051,17 +4167,6 @@
               <ScalarProperty Name="ComentarioId" ColumnName="ComentarioPadreId" />
               <ScalarProperty Name="UsuarioId" ColumnName="UsuarioPadreId" />
               <ScalarProperty Name="ContenidoId" ColumnName="ContenidoPadreId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="RelCorCom" TypeName="AgustinaDBModel.RelCorCom" StoreEntitySet="RelCorCom">
-            <EndProperty Name="Comida">
-              <ScalarProperty Name="ComidaId" ColumnName="ComidaId" />
-              <ScalarProperty Name="PersonaId" ColumnName="ComidaPersonaId" />
-            </EndProperty>
-            <EndProperty Name="Correccion">
-              <ScalarProperty Name="CorreccionId" ColumnName="CorreccionId" />
-              <ScalarProperty Name="PersonaId" ColumnName="CorreccionPersonaId" />
-              <ScalarProperty Name="MedicinaId" ColumnName="MedicinaId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="RelEnfMed" TypeName="AgustinaDBModel.RelEnfMed" StoreEntitySet="RelEnfMed">
@@ -4114,12 +4219,12 @@
               <ScalarProperty Name="ProgramaId" ColumnName="ProgramaId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="RelProgSes" TypeName="AgustinaDBModel.RelProgSes" StoreEntitySet="RelProgSes">
+          <AssociationSetMapping Name="RelProgRut" TypeName="AgustinaDBModel.RelProgRut" StoreEntitySet="RelProgRut">
             <EndProperty Name="Programa">
               <ScalarProperty Name="ProgramaId" ColumnName="ProgramaId" />
             </EndProperty>
-            <EndProperty Name="Sesion">
-              <ScalarProperty Name="SesionId" ColumnName="SesionId" />
+            <EndProperty Name="Rutina">
+              <ScalarProperty Name="RutinaId" ColumnName="RutinaId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="RelRecoDia" TypeName="AgustinaDBModel.RelRecoDia" StoreEntitySet="RelRecoDia">
@@ -4148,12 +4253,12 @@
               <ScalarProperty Name="RolId" ColumnName="RolId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="RelSesEje" TypeName="AgustinaDBModel.RelSesEje" StoreEntitySet="RelSesEje">
+          <AssociationSetMapping Name="RelRutEje" TypeName="AgustinaDBModel.RelRutEje" StoreEntitySet="RelRutEje">
             <EndProperty Name="Ejercicio">
               <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
             </EndProperty>
-            <EndProperty Name="Sesion">
-              <ScalarProperty Name="SesionId" ColumnName="SesionId" />
+            <EndProperty Name="Rutina">
+              <ScalarProperty Name="RutinaId" ColumnName="RutinaId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="RelTemArt" TypeName="AgustinaDBModel.RelTemArt" StoreEntitySet="RelTemArt">

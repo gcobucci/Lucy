@@ -1,0 +1,62 @@
+﻿@model ModelCL.Contenido
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Está seguro de que desea eliminar esta rutina?</h3>
+<div>
+    <h4>Rutina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContenidoTitulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoTitulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContenidoDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContenidoCuerpo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoCuerpo)
+        </dd>
+
+        <dt>
+            @Html.Label("Ejercicios")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Rutina.Ejercicio.OrderBy(e => e.Contenido.ContenidoTitulo))
+                {
+                    <li>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)</li>
+                }
+            </ul>
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

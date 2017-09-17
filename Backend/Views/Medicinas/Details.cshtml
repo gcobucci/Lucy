@@ -1,0 +1,105 @@
+﻿@model ModelCL.Medicina
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Medicina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinaNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinaTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinaTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicinaDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicinaDesc)
+        </dd>
+
+        <dt>
+            @Html.Label("Enfermedades asociadas")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Enfermedad.OrderBy(e => e.EnfermedadNombre))
+                {
+                    <li>@Html.DisplayFor(modelItem => item.EnfermedadNombre)</li>
+                }
+            </ul>
+        </dd>
+
+
+        <dt>
+            @Html.Label("Valores/Dosis")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.RelMedVal.OrderBy(m => m.Valor.ValorNombre))
+                {
+                    <li>
+                        @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.Label("Tipo")
+                                </th>
+                                <th>
+                                    @Html.Label("Medida")
+                                </th>
+                                <th>
+                                    @Html.Label("Cantidad mínima")
+                                </th>
+                                <th>
+                                    @Html.Label("Efecto")
+                                </th>
+                            </tr>
+
+                            @foreach (var d in item.Dosis)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisTipo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisMedida)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisCantidadMin)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisEfecto)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MedicinaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -18,7 +18,7 @@ namespace ModelCL
         public Programa()
         {
             this.Persona = new HashSet<Persona>();
-            this.Sesion = new HashSet<Sesion>();
+            this.Rutina = new HashSet<Rutina>();
         }
     
         public long ProgramaId { get; set; }
@@ -27,6 +27,6 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Persona> Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sesion> Sesion { get; set; }
+        public virtual ICollection<Rutina> Rutina { get; set; }
     }
 }

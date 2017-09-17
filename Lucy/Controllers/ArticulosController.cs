@@ -19,9 +19,6 @@ using System.IO;
 
         //}
 
-
-
-
 namespace Lucy.Controllers
 {
     [RoutePrefix("articulos")]

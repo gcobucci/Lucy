@@ -88,10 +88,13 @@
     <Compile Include="Contenido.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Correccion.cs">
+    <Compile Include="Control.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatCli.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Dia.cs">
@@ -103,6 +106,9 @@
     <Compile Include="Dieta.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dosis.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ejercicio.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
@@ -112,6 +118,9 @@
     <Compile Include="Error.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HisDatosDiabetes.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="HisRelMedRelPerEnf.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
@@ -119,12 +128,6 @@
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="HisRelUsuRol.cs">
-      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HisValorDiabetes.cs">
-      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HisValorObesidad.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Medicacion.cs">
@@ -140,9 +143,6 @@
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Notificacion.cs">
-      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Obesidad.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -164,7 +164,13 @@
     <Compile Include="Registro.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RelEnfVal.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RelMedRelPerEnf.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelMedVal.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RelPerEnf.cs">
@@ -179,13 +185,10 @@
     <Compile Include="Repeticion.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Retardada.cs">
-      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Rol.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sesion.cs">
+    <Compile Include="Rutina.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sexo.cs">

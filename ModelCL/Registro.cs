@@ -29,6 +29,7 @@ namespace ModelCL
         public virtual ICollection<Actividad> Actividad { get; set; }
         public virtual Agua Agua { get; set; }
         public virtual Comida Comida { get; set; }
+        public virtual Control Control { get; set; }
         public virtual DatCli DatCli { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medicacion> Medicacion { get; set; }

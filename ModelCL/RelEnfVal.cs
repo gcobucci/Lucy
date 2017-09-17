@@ -12,21 +12,22 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Sesion
+    public partial class RelEnfVal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sesion()
+        public RelEnfVal()
         {
-            this.Programa = new HashSet<Programa>();
-            this.Ejercicio = new HashSet<Ejercicio>();
+            this.Control = new HashSet<Control>();
         }
     
-        public long SesionId { get; set; }
+        public long EnfermedadId { get; set; }
+        public long ValorId { get; set; }
+        public double RelEnfValMinimo { get; set; }
+        public double RelEnfValMaximo { get; set; }
     
-        public virtual Contenido Contenido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Programa> Programa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ejercicio> Ejercicio { get; set; }
+        public virtual ICollection<Control> Control { get; set; }
+        public virtual Enfermedad Enfermedad { get; set; }
+        public virtual Valor Valor { get; set; }
     }
 }

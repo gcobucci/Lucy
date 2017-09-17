@@ -12,16 +12,15 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class HisValorDiabetes
+    public partial class Control
     {
-        public long HisValorDiabetesId { get; set; }
-        public long DiabetesId { get; set; }
+        public long ControlId { get; set; }
         public long PersonaId { get; set; }
-        public System.DateTime ValorFchEnable { get; set; }
-        public string DiabetesTipo { get; set; }
-        public Nullable<double> DiabetesGlicemiaBaja { get; set; }
-        public Nullable<double> DiabetesGlicemiaAlta { get; set; }
-        public Nullable<short> DiabetesHidratosPorUniInsu { get; set; }
-        public System.DateTime HisValorDiabetesFchDisable { get; set; }
+        public long EnfermedadId { get; set; }
+        public long ValorId { get; set; }
+        public double ControlValor { get; set; }
+    
+        public virtual Registro Registro { get; set; }
+        public virtual RelEnfVal RelEnfVal { get; set; }
     }
 }

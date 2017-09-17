@@ -12,12 +12,16 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Retardada
+    public partial class HisDatosDiabetes
     {
-        public long RetardadaId { get; set; }
+        public long HisDatosDiabetesId { get; set; }
+        public long DiabetesId { get; set; }
         public long PersonaId { get; set; }
-        public long MedicinaId { get; set; }
-    
-        public virtual Medicacion Medicacion { get; set; }
+        public System.DateTime DatosFchEnable { get; set; }
+        public string DiabetesTipo { get; set; }
+        public Nullable<double> DiabetesGlicemiaBaja { get; set; }
+        public Nullable<double> DiabetesGlicemiaAlta { get; set; }
+        public Nullable<short> DiabetesHidratosPorUniInsu { get; set; }
+        public System.DateTime HisDatosDiabetesFchDisable { get; set; }
     }
 }

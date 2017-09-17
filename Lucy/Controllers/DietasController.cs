@@ -12,27 +12,22 @@ using System.Web.Security;
 
 namespace Lucy.Controllers
 {
+    [Authorize]
     [RoutePrefix("dietas")]
     public class DietasController : Controller
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Authorize]
         [Route("index")]
         public ActionResult Index()
         {
-            #region UsuarioId por cookie
-            HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
-            #endregion
+            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             var dietas = db.Contenido.Where(c => c.Dieta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
             return View(dietas);
         }
 
-        [Authorize]
         [Route("details")]
         public ActionResult Details(long? id)
         {
@@ -40,8 +35,11 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
             ModelCL.Contenido contDieta = db.Contenido.Find(id);
-            if (contDieta.Dieta == null)
+            if (contDieta.Dieta == null || (contDieta.UsuarioAutor != null && contDieta.UsuarioAutor.UsuarioId != idUsu))
             {
                 return HttpNotFound();
             }

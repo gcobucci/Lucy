@@ -12,12 +12,20 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class Obesidad
+    public partial class RelMedVal
     {
-        public long ObesidadId { get; set; }
-        public long PersonaId { get; set; }
-        public double ObesidadPesoCorrecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RelMedVal()
+        {
+            this.Dosis = new HashSet<Dosis>();
+        }
     
+        public long MedicinaId { get; set; }
+        public long ValorId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dosis> Dosis { get; set; }
+        public virtual Medicina Medicina { get; set; }
         public virtual Valor Valor { get; set; }
     }
 }

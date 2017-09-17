@@ -16,11 +16,8 @@ namespace ModelCL
     {
         public long DiabetesId { get; set; }
         public long PersonaId { get; set; }
-        public string DiabetesTipo { get; set; }
-        public Nullable<double> DiabetesGlicemiaBaja { get; set; }
-        public Nullable<double> DiabetesGlicemiaAlta { get; set; }
-        public Nullable<short> DiabetesHidratosPorUniInsu { get; set; }
+        public short DiabetesHidratosPorUniInsu { get; set; }
     
-        public virtual Valor Valor { get; set; }
+        public virtual Datos Datos { get; set; }
     }
 }

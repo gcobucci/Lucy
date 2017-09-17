@@ -1,0 +1,69 @@
+﻿@model ModelCL.Contenido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ejercicio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoTitulo)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoDescripcion)
+        </dd>
+
+        <dt>
+            @Html.Label("Contenido")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContenidoCuerpo)
+        </dd>
+
+        <dt>
+            @Html.Label("Tipo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ejercicio.EjercicioTipo)
+        </dd>
+
+        <dt>
+            @Html.Label("Categoría")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ejercicio.EjercicioCategoria)
+        </dd>
+
+        @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
+        {
+            @*<dt>
+                @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
+            </dt>*@
+
+            <dd>
+                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+            </dd>
+        }
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ContenidoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

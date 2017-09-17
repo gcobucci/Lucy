@@ -24,20 +24,20 @@ namespace Backend.Controllers
             return View(alimentos);
         }
 
-        [Route("details")]
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ModelCL.Alimento alimento = db.Alimento.Find(id);
-            if (alimento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(alimento);
-        }
+        //[Route("details")]
+        //public ActionResult Details(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
+        //    if (alimento == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(alimento);
+        //}
 
         [Route("create")]
         public ActionResult Create()

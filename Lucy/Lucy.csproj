@@ -210,9 +210,9 @@
     <Content Include="Resources\Oficial\Imagenes\indis.png" />
     <Content Include="Resources\Oficial\infnut.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
-    <Content Include="Resources\Oficial\plan.png" />
+    <Content Include="Resources\Oficial\programa.png" />
     <Content Include="Resources\Oficial\receta.png" />
-    <Content Include="Resources\Oficial\sesion.png" />
+    <Content Include="Resources\Oficial\rutina.png" />
     <Content Include="Resources\Oficial\user.svg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -343,15 +343,25 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
+    <Compile Include="Controllers\RegControlController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
+    <Compile Include="Controllers\EjerciciosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\RegAguaController.cs" />
+    <Compile Include="Controllers\RegDatCliController.cs" />
+    <Compile Include="Controllers\RegPesoController.cs" />
+    <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
+    <Compile Include="Controllers\RutinasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegDatCliViewModel.cs" />
+    <Compile Include="Models\RegAguaViewModel.cs" />
+    <Compile Include="Models\RegPesoViewModel.cs" />
     <Compile Include="Models\DatCliViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistroViewModel.cs" />
@@ -371,6 +381,29 @@
     <Content Include="Views\Recetas\Details.cshtml" />
     <Content Include="Views\Dietas\Details.cshtml" />
     <Content Include="Views\Dietas\Index.cshtml" />
+    <Content Include="Views\Rutinas\Details.cshtml" />
+    <Content Include="Views\Rutinas\Index.cshtml" />
+    <Content Include="Views\Programas\Details.cshtml" />
+    <Content Include="Views\Programas\Index.cshtml" />
+    <Content Include="Views\Ejercicios\Details.cshtml" />
+    <Content Include="Views\Ejercicios\Index.cshtml" />
+    <Content Include="Views\RegControl\Create.cshtml" />
+    <Content Include="Views\RegControl\Delete.cshtml" />
+    <Content Include="Views\RegControl\Details.cshtml" />
+    <Content Include="Views\RegControl\Edit.cshtml" />
+    <Content Include="Views\RegControl\Index.cshtml" />
+    <Content Include="Views\RegPeso\Create.cshtml" />
+    <Content Include="Views\RegPeso\Delete.cshtml" />
+    <Content Include="Views\RegPeso\Edit.cshtml" />
+    <Content Include="Views\RegPeso\Index.cshtml" />
+    <Content Include="Views\RegAgua\Create.cshtml" />
+    <Content Include="Views\RegAgua\Delete.cshtml" />
+    <Content Include="Views\RegAgua\Edit.cshtml" />
+    <Content Include="Views\RegAgua\Index.cshtml" />
+    <Content Include="Views\RegDatCli\Create.cshtml" />
+    <Content Include="Views\RegDatCli\Delete.cshtml" />
+    <Content Include="Views\RegDatCli\Edit.cshtml" />
+    <Content Include="Views\RegDatCli\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

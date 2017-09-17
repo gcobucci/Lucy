@@ -1,0 +1,82 @@
+﻿@model ModelCL.Contenido
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("edit", "rutinas", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Rutina</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContenidoId)
+        @Html.HiddenFor(model => model.Rutina.RutinaId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoTitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoTitulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoTitulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Ejercicios</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var ejercicio in ViewBag.lEjercicios)
+                    {
+                        var check = false;
+                        foreach (var e in Model.Rutina.Ejercicio)
+                        {
+                            if (ejercicio.EjercicioId == e.EjercicioId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="ejercicios" value="@ejercicio.EjercicioId" /> @ejercicio.Contenido.ContenidoTitulo</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

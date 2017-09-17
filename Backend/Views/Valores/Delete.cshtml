@@ -1,0 +1,134 @@
+﻿@model ModelCL.Valor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Está seguro de que desea eliminar este valor?</h3>
+<div>
+    <h4>Valor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMedida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMedida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorDesc)
+        </dd>
+
+        
+        <dt>
+            @Html.Label("Enfermedades")
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.Label("Nombre")
+                    </th>
+                    <th>
+                        @Html.Label("Valor mínimo")
+                    </th>
+                    <th>
+                        @Html.Label("Valor máximo")
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Enfermedad.EnfermedadNombre))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Enfermedad.EnfermedadNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dt>
+            @Html.Label("Medicinas/Dosis")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.RelMedVal.OrderBy(m => m.Medicina.MedicinaNombre))
+                {
+                    <li>
+                        @Html.DisplayFor(modelItem => item.Medicina.MedicinaNombre)
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.Label("Tipo")
+                                </th>
+                                <th>
+                                    @Html.Label("Medida")
+                                </th>
+                                <th>
+                                    @Html.Label("Cantidad mínima")
+                                </th>
+                                <th>
+                                    @Html.Label("Efecto")
+                                </th>
+                            </tr>
+
+                            @foreach (var d in item.Dosis)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisTipo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisMedida)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisCantidadMin)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DosisEfecto)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </li>
+                }
+            </ul>
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
