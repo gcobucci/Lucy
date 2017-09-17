@@ -4,9 +4,32 @@
     ViewBag.Title = "Recetas";
 }
 
-<h2>Recetas</h2>
+@section subnav{
 
-<p>
+    <div id="subTopNav" style="background-image:url(/Resources/Oficial/bannerRecetas.jpg);">
+        <div class="container body-content">
+            <h3>Recetas</h3>
+        </div>
+    </div>
+
+}
+
+<div class="MLfiltros col-sm-3">
+    <h2>Filtros</h2>
+</div>
+
+<div class="MLcontenedor col-sm-9">
+    @foreach (var item in Model)
+    {
+        <div class="MLitem">
+            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@Html.DisplayFor(modelItem => item.ContenidoTitulo)" />
+            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
+            <a class="btn btn-default" href="/details?id=@item.ContenidoId">Ver más</a>
+        </div>
+    }
+</div>
+
+<!--<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
@@ -78,7 +101,7 @@
             </table>
         </div>
     </div>
-</div>
+</div>-->
 
 @section scripts{
 
@@ -89,7 +112,7 @@
             $('#bootstrap-table').bdt({
                 showSearchForm: 1,
                 showEntriesPerPageField: 1
-            });
+            }); 
         });
     </script>
 

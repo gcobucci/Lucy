@@ -30,7 +30,9 @@ namespace ModelCL
         public System.DateTime PersonaFchNac { get; set; }
         public System.DateTime PersonaFchIng { get; set; }
         public short SexoId { get; set; }
-    
+
+        public string nombreCompleto { get { return PersonaNombre + " " + PersonaApellido; } }
+
         public virtual Sexo Sexo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recordatorio> Recordatorio { get; set; }
