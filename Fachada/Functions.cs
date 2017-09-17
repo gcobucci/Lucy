@@ -26,5 +26,13 @@ namespace Fachada
 
             return idUsu;
         }
+
+        public static int get_idPer(HttpCookie cookie)
+        {
+            FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
+            int idPer = Convert.ToInt32(per.Name);
+
+            return idPer;
+        }
     }
 }

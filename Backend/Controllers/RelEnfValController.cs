@@ -92,12 +92,6 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
-            ViewBag.lEnfermedades = new SelectList(lEnfermedades, "EnfermedadId", "EnfermedadNombre");
-
-            List<ModelCL.Valor> lValores = db.Valor.ToList();
-            ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
-
             return View(relenfval);
         }
 

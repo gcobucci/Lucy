@@ -16,8 +16,7 @@ namespace ModelCL
     {
         public long AguaId { get; set; }
         public long PersonaId { get; set; }
-        public short AguaCantidad { get; set; }
-        public string AguaCantidadTipo { get; set; }
+        public double AguaCantidad { get; set; }
     
         public virtual Registro Registro { get; set; }
     }

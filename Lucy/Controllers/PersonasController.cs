@@ -1,4 +1,4 @@
-﻿using Lucy.Models.Personas;
+﻿using Lucy.Models;
 using ModelCL;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace Lucy.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult _DatCli(int id)
+        public PartialViewResult _DatCli(long id)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace Lucy.Controllers
                     ModelCL.Registro RegistroPeso = new ModelCL.Registro();
                     ModelCL.Peso Peso = new ModelCL.Peso();
 
-                    Peso.PesoValor = Datos.PesoValor;
+                    Peso.PesoValor = Convert.ToDouble(Datos.PesoValor);
                     RegistroPeso.Peso = Peso;
 
                     if (oldRegistroPeso != null)
