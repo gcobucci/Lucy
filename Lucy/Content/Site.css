@@ -36,6 +36,11 @@ header {
     font-weight: 300;
 }
 
+.display-for {
+    display: block;
+    padding-top: 7px;
+}
+
 .barras {
     display: inline-block;
     cursor: pointer;

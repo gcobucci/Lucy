@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Lucy.Models
 {
-    public class RegDatCliViewModel
+    public class RegActividadViewModel
     {
         [Key]
         public long RegistroId { get; set; }
@@ -19,17 +19,17 @@ namespace Lucy.Models
         //public long PersonaId { get; set; }
 
         [Required]
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         [Display(Name = "Fecha")]
         public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
 
-        //[RequiredIf("DatCliColesterol", null)]
-        [Display(Name = "Altura (centimetros)")]
-        [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        public Nullable<short> DatCliAltura { get; set; }
+        [Required]
+        [Display(Name = "Actividad/Ejercicio")]
+        public long EjercicioId { get; set; }
 
-        //[RequiredIf("DatCliAltura", null)]
-        [Display(Name = "Colesterol total (mg/dL)")]
-        [Range(50, 400, ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        public Nullable<short> DatCliColesterol { get; set; }
+        [Required]
+        [Display(Name = "Tiempo (minutos)")]
+        [Range(1, 720, ErrorMessage = "El valor debe estar entre {1} y {2}")]
+        public short ActividadTiempo { get; set; }
     }
 }

@@ -178,6 +178,7 @@ namespace Backend.Controllers
 
                 oldContenido.Ejercicio.EjercicioTipo = contenido.Ejercicio.EjercicioTipo;
                 oldContenido.Ejercicio.EjercicioCategoria = contenido.Ejercicio.EjercicioCategoria;
+                oldContenido.Ejercicio.EjercicioCaloriasPorMinuto = contenido.Ejercicio.EjercicioCaloriasPorMinuto;
 
                 short cont = 0;
                 foreach (var file in files)

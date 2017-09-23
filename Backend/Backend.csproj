@@ -130,7 +130,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MedicinasController.cs" />
     <Compile Include="Controllers\DosisController.cs" />
-    <Compile Include="Controllers\RelEnfValController.cs" />
     <Compile Include="Controllers\ValoresController.cs" />
     <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
@@ -144,7 +143,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\RecetasViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,10 +200,6 @@
     <Content Include="Views\Enfermedades\Create.cshtml" />
     <Content Include="Views\Enfermedades\Edit.cshtml" />
     <Content Include="Views\Enfermedades\Delete.cshtml" />
-    <Content Include="Views\RelEnfVal\Index.cshtml" />
-    <Content Include="Views\RelEnfVal\Create.cshtml" />
-    <Content Include="Views\RelEnfVal\Edit.cshtml" />
-    <Content Include="Views\RelEnfVal\Delete.cshtml" />
     <Content Include="Views\Medicinas\Index.cshtml" />
     <Content Include="Views\Medicinas\Details.cshtml" />
     <Content Include="Views\Medicinas\Create.cshtml" />
@@ -224,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>

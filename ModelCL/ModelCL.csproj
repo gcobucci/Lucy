@@ -151,6 +151,9 @@
     <Compile Include="Peso.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Programa.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
@@ -162,9 +165,6 @@
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Registro.cs">
-      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RelEnfVal.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RelMedRelPerEnf.cs">

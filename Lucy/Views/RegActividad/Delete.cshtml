@@ -6,7 +6,7 @@
 
 <h2>Delete</h2>
 
-<h3>¿Esta seguro/a de que desea eliminar este registro de peso?</h3>
+<h3>¿Esta seguro/a de que desea eliminar este registro de actividad?</h3>
 <div>
     <h4>Peso</h4>
     <hr />
@@ -28,11 +28,19 @@
         </dd>
 
         <dt>
-            @Html.Label("Valor (Kg)")
+            @Html.Label("Actividad/Ejercicio")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Peso.PesoValor)
+            @Html.DisplayFor(model => model.Actividad.Ejercicio.Contenido.ContenidoTitulo)
+        </dd>
+
+        <dt>
+            @Html.Label("Tiempo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Actividad.ActividadTiempo)
         </dd>
     </dl>
 

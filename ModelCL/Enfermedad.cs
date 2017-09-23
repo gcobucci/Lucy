@@ -17,9 +17,10 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Enfermedad()
         {
-            this.RelEnfVal = new HashSet<RelEnfVal>();
+            this.Medicacion = new HashSet<Medicacion>();
             this.RelPerEnf = new HashSet<RelPerEnf>();
             this.Medicina = new HashSet<Medicina>();
+            this.Valor = new HashSet<Valor>();
         }
     
         public long EnfermedadId { get; set; }
@@ -27,11 +28,13 @@ namespace ModelCL
         public string EnfermedadDesc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelEnfVal> RelEnfVal { get; set; }
+        public virtual ICollection<Medicacion> Medicacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RelPerEnf> RelPerEnf { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medicina> Medicina { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Valor> Valor { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

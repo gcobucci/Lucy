@@ -17,18 +17,31 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Valor()
         {
-            this.RelEnfVal = new HashSet<RelEnfVal>();
+            this.Control = new HashSet<Control>();
             this.RelMedVal = new HashSet<RelMedVal>();
+            this.Enfermedad = new HashSet<Enfermedad>();
         }
     
         public long ValorId { get; set; }
         public string ValorNombre { get; set; }
-        public string ValorMedida { get; set; }
         public string ValorDesc { get; set; }
+        public bool ValorGeneral { get; set; }
+        public string ValorMedida { get; set; }
+        public Nullable<double> ValorBajoMinimo { get; set; }
+        public double ValorNormalMinimo { get; set; }
+        public double ValorNormalMaximo { get; set; }
+        public Nullable<double> ValorAltoMaximo { get; set; }
+        public string ValorMsgMuyBajo { get; set; }
+        public string ValorMsgBajo { get; set; }
+        public string ValorMsgNormal { get; set; }
+        public string ValorMsgAlto { get; set; }
+        public string ValorMsgMuyAlto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelEnfVal> RelEnfVal { get; set; }
+        public virtual ICollection<Control> Control { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RelMedVal> RelMedVal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Enfermedad> Enfermedad { get; set; }
     }
 }

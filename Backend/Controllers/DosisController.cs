@@ -59,9 +59,8 @@ namespace Backend.Controllers
             {
                 ModelCL.Dosis dosis = new ModelCL.Dosis();
 
-                dosis.DosisTipo = datos.DosisTipo;
+                dosis.PresentacionId = datos.PresentacionId;
                 dosis.DosisCantidadMin = datos.DosisCantidadMin;
-                dosis.DosisMedida = datos.DosisMedida;
                 dosis.DosisEfecto = datos.DosisEfecto;
 
 

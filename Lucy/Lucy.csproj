@@ -343,6 +343,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
+    <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
     <Compile Include="Controllers\EjerciciosController.cs" />
@@ -350,6 +351,7 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\RegAguaController.cs" />
     <Compile Include="Controllers\RegDatCliController.cs" />
+    <Compile Include="Controllers\RegActividadController.cs" />
     <Compile Include="Controllers\RegPesoController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
@@ -359,8 +361,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegMedicacionViewModel.cs" />
     <Compile Include="Models\RegDatCliViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
+    <Compile Include="Models\RegActividadViewModel.cs" />
     <Compile Include="Models\RegPesoViewModel.cs" />
     <Compile Include="Models\DatCliViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -404,6 +408,15 @@
     <Content Include="Views\RegDatCli\Delete.cshtml" />
     <Content Include="Views\RegDatCli\Edit.cshtml" />
     <Content Include="Views\RegDatCli\Index.cshtml" />
+    <Content Include="Views\RegActividad\Create.cshtml" />
+    <Content Include="Views\RegActividad\Delete.cshtml" />
+    <Content Include="Views\RegActividad\Edit.cshtml" />
+    <Content Include="Views\RegActividad\Index.cshtml" />
+    <Content Include="Views\RegMedicacion\Delete.cshtml" />
+    <Content Include="Views\RegMedicacion\Edit.cshtml" />
+    <Content Include="Views\RegMedicacion\Index.cshtml" />
+    <Content Include="Views\RegMedicacion\Create.cshtml" />
+    <Content Include="Views\RegMedicacion\_Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
