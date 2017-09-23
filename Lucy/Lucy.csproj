@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +62,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -122,6 +129,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\slick-theme.css" />
     <Content Include="Content\slick.css" />
@@ -172,6 +180,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
     <Content Include="ico.ico" />
+    <Content Include="Resources\Oficial\almuerzo.jpg" />
+    <Content Include="Resources\Oficial\bannerRecetas.jpg" />
+    <Content Include="Resources\Oficial\cena.jpg" />
+    <Content Include="Resources\Oficial\desayuno.jpg" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\atun.png" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\boniato.png" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\carne.png" />
@@ -184,7 +196,6 @@
     <Content Include="Resources\Oficial\Imagenes\Alimentos\pasta.png" />
     <Content Include="Resources\Oficial\dieta.png" />
     <Content Include="Resources\Oficial\ejercicio.png" />
-    <Content Include="Resources\Oficial\Imagenes\Alimentos\boniatos.png" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\pera.png" />
     <Content Include="Resources\Oficial\Imagenes\Alimentos\uvas.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test1.png" />
@@ -207,13 +218,21 @@
     <Content Include="Resources\Oficial\Imagenes\Articulos\test8_2.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test9.png" />
     <Content Include="Resources\Oficial\Imagenes\Articulos\test9_2.png" />
+    <Content Include="Resources\Oficial\Imagenes\Ejercicios\7b1fbded-17c7-4b46-b14a-f2b03373b5dd.png" />
+    <Content Include="Resources\Oficial\Imagenes\Ejercicios\8a42b474-1450-471d-91b0-d7c4501c9f0a.png" />
+    <Content Include="Resources\Oficial\Imagenes\Ejercicios\965ce5b1-8c4a-45f2-b53f-d712dfc43073.png" />
+    <Content Include="Resources\Oficial\Imagenes\Ejercicios\a8c454c6-533d-4f4c-aae7-fd99890d74f9.png" />
+    <Content Include="Resources\Oficial\Imagenes\Ejercicios\ada911c9-49c9-4923-add7-e2fddda422ce.png" />
     <Content Include="Resources\Oficial\Imagenes\indis.png" />
     <Content Include="Resources\Oficial\infnut.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
+    <Content Include="Resources\Oficial\mantel.jpg" />
+    <Content Include="Resources\Oficial\merienda.jpg" />
     <Content Include="Resources\Oficial\programa.png" />
     <Content Include="Resources\Oficial\receta.png" />
     <Content Include="Resources\Oficial\rutina.png" />
     <Content Include="Resources\Oficial\user.svg" />
+    <Content Include="Resources\Oficial\yotecuido.jpg" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -444,6 +463,25 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

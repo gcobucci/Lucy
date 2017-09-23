@@ -1,5 +1,5 @@
-﻿$(".slider").slick({
-    infinite: true,
+﻿    $(".slider").slick({
+        infinite: true,
         arrows: false,
         dots: false,
         autoplay: false,
@@ -20,43 +20,53 @@
     });
 
     function startProgressbar() {
-    resetProgressbar();
-percentTime = 0;
+        resetProgressbar();
+        percentTime = 0;
         tick = setInterval(interval, 10);
     }
 
+    $(document).ready(function () {
+        $(".sliderContainer").hover(function () {
+            clearInterval(tick);
+        }, function () {
+            clearInterval(tick);
+            tick = setInterval(interval, 10);
+        });
+    });
+
     function interval() {
         if (($('.slider .slick-track div[data-slick-index="' + progressBarIndex + '"]').attr("aria-hidden")) === "true") {
-    progressBarIndex = $('.slider .slick-track div[aria-hidden="false"]').data("slickIndex");
-startProgressbar();
+            progressBarIndex = $('.slider .slick-track div[aria-hidden="false"]').data("slickIndex");
+            startProgressbar();
         } else {
-    percentTime += 1 / (time + 3);
-$('.inProgress' + progressBarIndex).css({
-    width: percentTime + "%"
+            percentTime += 1 / (time + 3);
+            $('.inProgress' + progressBarIndex).css({
+                width: percentTime + "%"
             });
             if (percentTime >= 100) {
-    $('.single-item').slick('slickNext');
-progressBarIndex++;
+                $('.single-item').slick('slickNext');
+                progressBarIndex++;
                 if (progressBarIndex > 2) {
-    progressBarIndex = 0;
-}
+                    progressBarIndex = 0;
+                }
                 startProgressbar();
             }
         }
     }
 
     function resetProgressbar() {
-    $('.inProgress').css({
-        width: 0 + '%'
-    });
-clearInterval(tick);
+        $('.inProgress').css({
+            width: 0 + '%'
+        });
+            clearInterval(tick);
     }
+
     startProgressbar();
     // End ticking machine
 
     $('.progressBarContainer div').click(function () {
-    clearInterval(tick);
-var goToThisIndex = $(this).find("span").data("slickIndex");
+        clearInterval(tick);
+        var goToThisIndex = $(this).find("span").data("slickIndex");
         $('.single-item').slick('slickGoTo', goToThisIndex, false);
         startProgressbar();
     });

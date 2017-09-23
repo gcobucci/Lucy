@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
     @RenderSection("style", required: false)
 </head>
 <body onshow="getUsuPos()" onresize="getUsuPos()">
@@ -130,6 +131,16 @@
 
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
                         <ul id="ulUsu" class="dropdown-menu">
+                            <li class="userLi">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <h4>@Request.Cookies["cookieUsu"]["UsuNom"]</h4>
+                                }
+                                else
+                                {
+                                    <h4>Hola</h4>
+                                }
+                            </li>
                             <li class="userLi"><a href="#">Notificaciones</a></li>
                             <li class="userLi">
                                 @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
@@ -157,10 +168,57 @@
     {
         <div class="sliderContainer">
             <div class="slider single-item">
-                <div>Salud</div>
-                <div>Lucy</div>
-                <div>#Diabetes</div>
-                <div>•</div>
+                <div><h1>Lucy</h1></div>
+                <div class="slideAccordian">
+                    <div class="comidasSlide">
+                        <div class="auxContAccordianAlt">
+                            <div class="ContAccordianAlt">
+                                <h1>¡Disfruta las 4 comidas del día!</h1>
+                                <h4>Esencial para una buena alimentación.</h4>
+                            </div>
+                        </div>
+                        <div class="accordian">
+                            <ul>
+                                <li class="firstLiAccordian">
+                                    <a href="#" style="background-image:url(resources/oficial/yotecuido.jpg);"></a>
+                                </li>
+                                <li>
+                                    <div class="image_title">
+                                        <a href="#">Desayuno</a>
+                                    </div>
+                                    <a href="#" style="background-image:url(resources/oficial/desayuno.jpg)"></a>
+                                </li>
+                                <li>
+                                    <div class="image_title">
+                                        <a href="#">Almuerzo</a>
+                                    </div>
+                                    <a href="#" style="background-image:url(resources/oficial/almuerzo.jpg)"></a>
+                                </li>
+                                <li>
+                                    <div class="image_title">
+                                        <a href="#">Merienda</a>
+                                    </div>
+                                    <a href="#" style="background-image:url(resources/oficial/merienda.jpg)"></a>
+                                </li>
+                                <li>
+                                    <div class="image_title">
+                                        <a href="#">Cena</a>
+                                    </div>
+                                    <a href="#" style="background-image:url(resources/oficial/cena.jpg)"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <script type="text/javascript">
+                            var x = document.getElementsByClassName("image_title");
+                            var i;
+                            for (i = 0; i < x.length; i++) {
+                                x[i].style.width = window.innerWidth + "px";
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div><h1>#Diabetes</h1></div>
+                <div><h1>•</h1></div>
             </div>
             <div class="progressBarContainer">
                 <div>
@@ -178,6 +236,8 @@
             </div>
         </div>
     }
+
+    @RenderSection("subnav", required: false)
 
     <!-- body -->
     <div class="container body-content">

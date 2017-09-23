@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using ModelCL;
 using System.IO;
 using System.Web.Security;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Lucy.Controllers
 {
@@ -37,13 +39,14 @@ namespace Lucy.Controllers
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("index")]
-        public ActionResult Index()
+        public ActionResult Index(int? page, string search)
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-            var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
+            //var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
-            return View(recetas);
+            return View(db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) && 
+            (c.ContenidoTitulo.StartsWith(search) || c.ContenidoTitulo.EndsWith(search) || search == null)).ToList().ToPagedList(page ?? 1, 2));
         }
 
         [Route("details")]
