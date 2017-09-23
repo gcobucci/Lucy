@@ -14,17 +14,45 @@
 
 }
 
-<div class="MLfiltros col-sm-3">
+<div class="MLfiltros col-xs-12 col-sm-3">
     <h2>Filtros</h2>
 </div>
 
-<div class="MLcontenedor col-sm-9">
+<div class="MLcontenedor col-xs-12 col-sm-9">
     @foreach (var item in Model)
     {
         <div class="MLitem">
-            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@Html.DisplayFor(modelItem => item.ContenidoTitulo)" />
-            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-            <a class="btn btn-default" href="/details?id=@item.ContenidoId">Ver más</a>
+            <div class="MLitemLeft col-sm-9">
+                <div class="sinPadding col-sm-4">
+                    <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" />
+                </div>
+                <div class="sinPadding col-sm-8">
+                    <div class="MLitemTitulo col-sm-12">@item.ContenidoTitulo</div>
+                    <div class="col-sm-6">Calorías: @item.Receta.RecetaCalorias</div>
+                    <div class="col-sm-6">Hidratos: @item.Receta.RecetaHidratos</div>
+                    <div class="col-sm-6">
+                        Gluten: @if (item.Receta.RecetaGluten == true)
+                        { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                        else
+                        {
+                            <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                        }
+                    </div>
+
+                    <div class="col-sm-6">
+                        Sodio: @if (item.Receta.RecetaSodio == true)
+                        { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                        else
+                        {
+                            <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="MLitemRight col-sm-3">
+                <a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a> 
+            </div>
         </div>
     }
 </div>
