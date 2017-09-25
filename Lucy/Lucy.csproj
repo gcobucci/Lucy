@@ -362,8 +362,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
-    <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
+    <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
     <Compile Include="Controllers\EjerciciosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -380,6 +380,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegControlViewModel.cs" />
     <Compile Include="Models\RegMedicacionViewModel.cs" />
     <Compile Include="Models\RegDatCliViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
@@ -410,11 +411,6 @@
     <Content Include="Views\Programas\Index.cshtml" />
     <Content Include="Views\Ejercicios\Details.cshtml" />
     <Content Include="Views\Ejercicios\Index.cshtml" />
-    <Content Include="Views\RegControl\Create.cshtml" />
-    <Content Include="Views\RegControl\Delete.cshtml" />
-    <Content Include="Views\RegControl\Details.cshtml" />
-    <Content Include="Views\RegControl\Edit.cshtml" />
-    <Content Include="Views\RegControl\Index.cshtml" />
     <Content Include="Views\RegPeso\Create.cshtml" />
     <Content Include="Views\RegPeso\Delete.cshtml" />
     <Content Include="Views\RegPeso\Edit.cshtml" />
@@ -436,6 +432,11 @@
     <Content Include="Views\RegMedicacion\Index.cshtml" />
     <Content Include="Views\RegMedicacion\Create.cshtml" />
     <Content Include="Views\RegMedicacion\_Create.cshtml" />
+    <Content Include="Views\RegControl\_Create.cshtml" />
+    <Content Include="Views\RegControl\Create.cshtml" />
+    <Content Include="Views\RegControl\Delete.cshtml" />
+    <Content Include="Views\RegControl\Edit.cshtml" />
+    <Content Include="Views\RegControl\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

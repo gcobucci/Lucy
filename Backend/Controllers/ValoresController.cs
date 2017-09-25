@@ -42,20 +42,31 @@ namespace Backend.Controllers
         [Route("create")]
         public ActionResult Create()
         {
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
+
             return View();
         }
 
         [HttpPost]
         [Route("create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ModelCL.Valor valor)
+        public ActionResult Create(ModelCL.Valor valor, int[] enfermedades)
         {
             if (ModelState.IsValid)
             {
+                foreach (var e in enfermedades)
+                {
+                    valor.Enfermedad.Add(db.Enfermedad.Find(e));
+                }
+
                 db.Valor.Add(valor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);
         }
@@ -73,13 +84,17 @@ namespace Backend.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
+
             return View(valor);
         }
 
         [HttpPost]
         [Route("edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Valor valor)
+        public ActionResult Edit(ModelCL.Valor valor, int[] enfermedades)
         {
             if (ModelState.IsValid)
             {
@@ -87,11 +102,36 @@ namespace Backend.Controllers
 
                 val.ValorNombre = valor.ValorNombre;
                 val.ValorDesc = valor.ValorDesc;
+                val.ValorGeneral = valor.ValorGeneral;
                 val.ValorMedida = valor.ValorMedida;
+                val.ValorBajoMinimo = valor.ValorBajoMinimo;
+                val.ValorNormalMinimo = valor.ValorNormalMinimo;
+                val.ValorNormalMaximo = valor.ValorNormalMaximo;
+                val.ValorAltoMaximo = valor.ValorAltoMaximo;
+                val.ValorMsgMuyBajo = valor.ValorMsgMuyBajo;
+                val.ValorMsgBajo = valor.ValorMsgBajo;
+                val.ValorMsgNormal = valor.ValorMsgNormal;
+                val.ValorMsgAlto = valor.ValorMsgAlto;
+                val.ValorMsgMuyAlto = valor.ValorMsgMuyAlto;
+
+                List<ModelCL.Enfermedad> bkEnfermedades = val.Enfermedad.ToList();
+                foreach (ModelCL.Enfermedad oldEnfermedad in bkEnfermedades)
+                {
+                    val.Enfermedad.Remove(oldEnfermedad);
+                }
+
+                foreach (var e in enfermedades)
+                {
+                    val.Enfermedad.Add(db.Enfermedad.Find(e));
+                }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
+
             return View(valor);
         }
 

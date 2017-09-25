@@ -19,6 +19,29 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.ValorDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorDesc)
+        </dd>
+                
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorGeneral)
+        </dt>
+
+        <dd>
+            @if (Model.ValorGeneral == true)
+            {
+                <text>Si</text>
+            }
+            else
+            { 
+                <text>No</text>
+            }
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ValorMedida)
         </dt>
 
@@ -27,51 +50,92 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ValorDesc)
+            @Html.DisplayNameFor(model => model.ValorBajoMinimo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ValorDesc)
+            @Html.DisplayFor(model => model.ValorBajoMinimo)
         </dd>
 
-
         <dt>
-            @Html.Label("Enfermedades")
+            @Html.DisplayNameFor(model => model.ValorNormalMinimo)
         </dt>
 
         <dd>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.Label("Nombre")
-                    </th>
-                    <th>
-                        @Html.Label("Valor mínimo")
-                    </th>
-                    <th>
-                        @Html.Label("Valor máximo")
-                    </th>
-                </tr>
+            @Html.DisplayFor(model => model.ValorNormalMinimo)
+        </dd>
 
-                @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Enfermedad.EnfermedadNombre))
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorNormalMaximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorNormalMaximo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorAltoMaximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorAltoMaximo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMsgMuyBajo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMsgMuyBajo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMsgBajo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMsgBajo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMsgNormal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMsgNormal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMsgAlto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMsgAlto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMsgMuyAlto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMsgMuyAlto)
+        </dd>
+
+        <dt>
+            @Html.Label("Enfermedades relacionadas")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Enfermedad.OrderBy(m => m.EnfermedadNombre))
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Enfermedad.EnfermedadNombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                        </td>
-                    </tr>
+                    <li>@Html.DisplayFor(modelItem => item.EnfermedadNombre)</li>
                 }
-            </table>
+            </ul>
         </dd>
 
         <dt>
-            @Html.Label("Medicinas/Dosis")
+            @Html.Label("Medicinas/Dosis asociadas")
         </dt>
 
         <dd>
@@ -84,10 +148,7 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.Label("Tipo")
-                                </th>
-                                <th>
-                                    @Html.Label("Medida")
+                                    @Html.Label("Presentación")
                                 </th>
                                 <th>
                                     @Html.Label("Cantidad mínima")
@@ -101,10 +162,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => d.DosisTipo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => d.DosisMedida)
+                                        @Html.DisplayFor(modelItem => d.Presentacion.PresentacionNombre)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => d.DosisCantidadMin)

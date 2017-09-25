@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -89,7 +89,7 @@
           </Key>
           <Property Name="ContenidoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContenidoTitulo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ContenidoDescripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="varchar" MaxLength="150" />
           <Property Name="ContenidoCuerpo" Type="varchar(max)" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="int" Nullable="false" />
@@ -175,6 +175,7 @@
           <Property Name="EjercicioId" Type="bigint" Nullable="false" />
           <Property Name="EjercicioTipo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="EjercicioCategoria" Type="varchar" MaxLength="100" />
+          <Property Name="EjercicioCaloriasPorMinuto" Type="int" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -2172,8 +2173,7 @@
             <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2275,7 +2275,7 @@
           </Key>
           <Property Name="ContenidoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContenidoTitulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ContenidoDescripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContenidoDescripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ContenidoCuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ContenidoFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ContenidoCantVisitas" Type="Int32" Nullable="false" />
@@ -2385,7 +2385,7 @@
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_EjercicioId" FromRole="Ejercicio" ToRole="Actividad" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Ejercicio_EjercicioId" FromRole="Ejercicio" ToRole="Contenido" />
           <NavigationProperty Name="Rutina" Relationship="Self.RelRutEje" FromRole="Ejercicio" ToRole="Rutina" />
-          <Property Name="EjercicioCaloriasPorMinuto" Type="Int32" Nullable="true" />
+          <Property Name="EjercicioCaloriasPorMinuto" Type="Int32" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -3920,6 +3920,7 @@
           <EntitySetMapping Name="Ejercicio">
             <EntityTypeMapping TypeName="AgustinaDBModel.Ejercicio">
               <MappingFragment StoreEntitySet="Ejercicio">
+                <ScalarProperty Name="EjercicioCaloriasPorMinuto" ColumnName="EjercicioCaloriasPorMinuto" />
                 <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
                 <ScalarProperty Name="EjercicioTipo" ColumnName="EjercicioTipo" />
                 <ScalarProperty Name="EjercicioCategoria" ColumnName="EjercicioCategoria" />

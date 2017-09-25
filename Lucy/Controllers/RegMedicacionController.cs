@@ -92,10 +92,7 @@ namespace Lucy.Controllers
         {
             if (ModelState.IsValid)
             {
-                //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-                long idPer = 1;
-
-                ModelCL.Persona Persona = db.Persona.Find(idPer);
+                ModelCL.Persona persona = db.Persona.Find(datos.PersonaId);
 
                 ModelCL.Registro regMedicacion = new ModelCL.Registro();
                 regMedicacion.RegistroFchHora = Convert.ToDateTime(datos.RegistroFchHora);
@@ -113,7 +110,7 @@ namespace Lucy.Controllers
                 
                 regMedicacion.Medicacion = medicacion;
 
-                Persona.Registro.Add(regMedicacion);
+                persona.Registro.Add(regMedicacion);
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

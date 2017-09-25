@@ -2,7 +2,7 @@ $(document).ready(function($){
     if (document.body.clientWidth > 380) {
         $(".cruz").click(function () {
             var div_left = $("#mySidenav").position();
-            if (div_left.left == -250) {
+            if (div_left.left > -251 && div_left.left < -249) {
                 document.getElementById("mySidenav").style.opacity = "1";
                 document.getElementById("mySidenav").style.left = "0";
                 document.getElementById("out").style.opacity = "1";

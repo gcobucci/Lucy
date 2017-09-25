@@ -1,139 +1,201 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Data;
-//using System.Data.Entity;
-//using System.Linq;
-//using System.Net;
-//using System.Web;
-//using System.Web.Mvc;
-//using ModelCL;
-//using System.Web.Security;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using ModelCL;
+using Lucy.Models;
+using System.Web.Security;
 
-//namespace Lucy.Controllers
-//{
-//    [Authorize]
-//    [RoutePrefix("registros/controles")]
-//    public class RegControlController : Controller
-//    {
-//        private AgustinaEntities db = new AgustinaEntities();
+namespace Lucy.Controllers
+{
+    [Authorize]
+    [RoutePrefix("registros/control")]
+    public class RegControlController : Controller
+    {
+        private AgustinaEntities db = new AgustinaEntities();
 
-//        [Route("index")]
-//        public ActionResult Index()
-//        {
-//            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-//            long idPer = 1;
+        [Route("index")]
+        public ActionResult Index()
+        {
+            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idPer = 1;
 
-//            List<ModelCL.Registro> registrosControl = db.Registro.Where(r => r.Control != null && (r.Persona.PersonaId == idPer)).ToList();
+            List<ModelCL.Registro> regControl = db.Registro.Where(r => r.Control != null && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();
 
-//            return View(registrosControl);
-//        }
+            return View(regControl);
+        }
 
-//        //[Route("details")]
-//        //public ActionResult Details(long? id)
-//        //{
-//        //    if (id == null)
-//        //    {
-//        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//        //    }
-//        //    Control control = db.Control.Find(id);
-//        //    if (control == null)
-//        //    {
-//        //        return HttpNotFound();
-//        //    }
-//        //    return View(control);
-//        //}
+        [Route("create")]
+        public ActionResult Create()
+        {
+            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idPer = 1;
 
-//        [Route("create")]
-//        public ActionResult Create()
-//        {
-//            ViewBag.ControlId = new SelectList(db.Registro, "RegistroId", "RegistroId");
-//            ViewBag.EnfermedadId = new SelectList(db.RelEnfVal, "EnfermedadId", "EnfermedadId");
-//            return View();
-//        }
+            ModelCL.Persona persona = db.Persona.Find(idPer);
+            List<ModelCL.RelPerEnf> lrpe = persona.RelPerEnf.ToList();
 
-//        [HttpPost]
-//        [Route("create")]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Create([Bind(Include = "ControlId,PersonaId,EnfermedadId,ValorId,ControlValor")] Control control)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                db.Control.Add(control);
-//                db.SaveChanges();
-//                return RedirectToAction("Index");
-//            }
+            List<ModelCL.Enfermedad> lEnfermedades = new List<ModelCL.Enfermedad>();
 
-//            ViewBag.ControlId = new SelectList(db.Registro, "RegistroId", "RegistroId", control.ControlId);
-//            ViewBag.EnfermedadId = new SelectList(db.RelEnfVal, "EnfermedadId", "EnfermedadId", control.EnfermedadId);
-//            return View(control);
-//        }
+            foreach (var rpe in lrpe)
+            {
+                lEnfermedades.Add(rpe.Enfermedad);
+            }
 
-//        [Route("edit")]
-//        public ActionResult Edit(long? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            Control control = db.Control.Find(id);
-//            if (control == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            ViewBag.ControlId = new SelectList(db.Registro, "RegistroId", "RegistroId", control.ControlId);
-//            ViewBag.EnfermedadId = new SelectList(db.RelEnfVal, "EnfermedadId", "EnfermedadId", control.EnfermedadId);
-//            return View(control);
-//        }
+            ModelCL.Enfermedad enfermedad = new ModelCL.Enfermedad();
+            enfermedad.EnfermedadId = 0;
+            enfermedad.EnfermedadNombre = ">> Mostrar todos <<";
 
-//        [HttpPost]
-//        [Route("edit")]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Edit([Bind(Include = "ControlId,PersonaId,EnfermedadId,ValorId,ControlValor")] Control control)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                db.Entry(control).State = EntityState.Modified;
-//                db.SaveChanges();
-//                return RedirectToAction("Index");
-//            }
-//            ViewBag.ControlId = new SelectList(db.Registro, "RegistroId", "RegistroId", control.ControlId);
-//            ViewBag.EnfermedadId = new SelectList(db.RelEnfVal, "EnfermedadId", "EnfermedadId", control.EnfermedadId);
-//            return View(control);
-//        }
+            lEnfermedades.Add(enfermedad);
+            ViewBag.lEnfermedades = new SelectList(lEnfermedades/*.OrderByDescending(e => e.EnfermedadId)*/, "EnfermedadId", "EnfermedadNombre");
+            return View();
+        }
 
-//        [Route("delete")]
-//        public ActionResult Delete(long? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            Control control = db.Control.Find(id);
-//            if (control == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(control);
-//        }
+        [Route("_create")]
+        public PartialViewResult _Create(long idEnf)
+        {
+            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-//        [Route("delete")]
-//        [HttpPost, ActionName("Delete")]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult DeleteConfirmed(long id)
-//        {
-//            Control control = db.Control.Find(id);
-//            db.Control.Remove(control);
-//            db.SaveChanges();
-//            return RedirectToAction("Index");
-//        }
+            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idPer = 1;
 
-//        protected override void Dispose(bool disposing)
-//        {
-//            if (disposing)
-//            {
-//                db.Dispose();
-//            }
-//            base.Dispose(disposing);
-//        }
-//    }
-//}
+
+            RegControlViewModel newRegControl = new RegControlViewModel();
+            newRegControl.PersonaId = idPer;
+            newRegControl.EnfermedadId = idEnf;
+
+            if (idEnf == 0)
+            {
+                List<ModelCL.Valor> lValores = db.Valor.ToList();
+                ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+            }
+            else
+            {
+                List<ModelCL.Valor> lValores = db.Valor.Where(v => v.Enfermedad.Where(e => e.EnfermedadId == newRegControl.EnfermedadId).FirstOrDefault() != null).ToList();
+                ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+            }
+                        
+            return PartialView(newRegControl);
+        }
+
+        [HttpPost]
+        [Route("_create")]
+        [ValidateAntiForgeryToken]
+        public ActionResult _Create(RegControlViewModel datos)
+        {
+            if (ModelState.IsValid)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(datos.PersonaId);
+
+                ModelCL.Registro regControl = new ModelCL.Registro();
+                regControl.RegistroFchHora = Convert.ToDateTime(datos.RegistroFchHora);
+
+                ModelCL.Control control = new ModelCL.Control();
+
+                control.ValorId = datos.ValorId;
+                control.ControlValor = datos.ControlValor;
+
+                regControl.Control = control;
+
+                Persona.Registro.Add(regControl);
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (datos.EnfermedadId == 0)
+            {
+                List<ModelCL.Valor> lValores = db.Valor.ToList();
+                ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+            }
+            else
+            {
+                List<ModelCL.Valor> lValores = db.Valor.Where(v => v.Enfermedad.Where(e => e.EnfermedadId == datos.EnfermedadId).FirstOrDefault() != null).ToList();
+                ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+            }
+
+            return View(datos);
+        }
+
+        [Route("edit")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Registro regControl = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            if (regControl.Control == null)
+            {
+                return HttpNotFound();
+            }
+
+            RegControlViewModel vmRegControl = new RegControlViewModel();
+            vmRegControl.RegistroId = regControl.RegistroId;
+            vmRegControl.PersonaId = regControl.PersonaId;
+            vmRegControl.ValorId = regControl.Control.ValorId;
+            vmRegControl.ValorNombre = regControl.Control.Valor.ValorNombre;
+            vmRegControl.RegistroFchHora = regControl.RegistroFchHora.ToString();
+            vmRegControl.ControlValor = regControl.Control.ControlValor;
+
+            return View(vmRegControl);
+        }
+
+        [HttpPost]
+        [Route("edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(RegControlViewModel datos)
+        {            
+            if (ModelState.IsValid)
+            {
+                ModelCL.Registro regControl = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
+
+                regControl.RegistroFchHora = Convert.ToDateTime(datos.RegistroFchHora);
+                regControl.Control.ControlValor = datos.ControlValor;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(datos);
+        }
+
+        [Route("delete")]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Registro regControl = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            if (regControl.Control == null)
+            {
+                return HttpNotFound();
+            }
+            return View(regControl);
+        }
+
+        [Route("delete")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(long id)
+        {
+            ModelCL.Registro regControl = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            db.Registro.Remove(regControl);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
