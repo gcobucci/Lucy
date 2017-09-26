@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicinasController.cs" />
     <Compile Include="Controllers\DosisController.cs" />
     <Compile Include="Controllers\ValoresController.cs" />
@@ -218,6 +219,7 @@
     <Content Include="Views\Dosis\Delete.cshtml" />
     <Content Include="Views\Dosis\Edit.cshtml" />
     <Content Include="Views\Dosis\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
