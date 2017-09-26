@@ -43,10 +43,18 @@ namespace Lucy.Controllers
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-            //var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
-
-            return View(db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) && 
-            (c.ContenidoTitulo.StartsWith(search) || c.ContenidoTitulo.EndsWith(search) || search == null)).ToList().ToPagedList(page ?? 1, 2));
+            var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+            (c.ContenidoTitulo.Contains(search) || search == null)).ToList().ToPagedList(page ?? 1, 2);
+            if (recetas.Count < 1) {
+                if (search != null)
+                {
+                    ViewBag.Message = "No encontramos recetas con ese nombre.";
+                } else
+                {
+                    ViewBag.Message = "No encontramos recetas con estos filtros.";
+                }
+            }
+            return View(recetas);
         }
 
         [Route("details")]
