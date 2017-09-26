@@ -33,56 +33,28 @@
             </div>
         </div>
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.Label("Valores")
-            </dt>
-
-            <dd>
-                <p>
-                    @Html.ActionLink("Create new", "Create", "RelEnfVal", new { idEnf = Model.EnfermedadId }, null)
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.Label("Nombre")
-                        </th>
-                        <th>
-                            @Html.Label("Medida")
-                        </th>
-                        <th>
-                            @Html.Label("Valor mínimo")
-                        </th>
-                        <th>
-                            @Html.Label("Valor máximo")
-                        </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Valor.ValorNombre))
-                {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Valor.ValorMedida)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null) |
-                                @Html.ActionLink("Delete", "Delete", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null)
-                            </td>
-                        </tr>
+        <div class="panel panel-default">
+            <div class="panel-heading">Valores</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var valor in ViewBag.lValores)
+                    {
+                        var check = false;
+                        foreach (var v in Model.Valor)
+                        {
+                            if (valor.ValorId == v.ValorId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="valores" value="@valor.ValorId" /> @valor.ValorNombre</label>
+                        </li>
                     }
-                </table>
-            </dd>
-        </dl>
+                </ul>
+            </div>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">Medicinas</div>

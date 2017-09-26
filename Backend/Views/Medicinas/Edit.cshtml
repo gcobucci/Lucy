@@ -83,10 +83,7 @@
                             <table class="table">
                                 <tr>
                                     <th>
-                                        @Html.Label("Tipo")
-                                    </th>
-                                    <th>
-                                        @Html.Label("Medida")
+                                        @Html.Label("Presentación")
                                     </th>
                                     <th>
                                         @Html.Label("Cantidad mínima")
@@ -101,10 +98,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => d.DosisTipo)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => d.DosisMedida)
+                                            @Html.DisplayFor(modelItem => d.Presentacion.PresentacionNombre)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => d.DosisCantidadMin)

@@ -111,8 +111,7 @@
           </Key>
           <Property Name="DatCliId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="DatCliAltura" Type="smallint" />
-          <Property Name="DatCliColesterol" Type="smallint" />
+          <Property Name="DatCliAltura" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Datos">
           <Key>
@@ -2309,8 +2308,7 @@
           </Key>
           <Property Name="DatCliId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="DatCliAltura" Type="Int16" />
-          <Property Name="DatCliColesterol" Type="Int16" />
+          <Property Name="DatCliAltura" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_DatCli_DatCliId_PersonaId" FromRole="DatCli" ToRole="Registro" />
         </EntityType>
         <EntityType Name="Datos">
@@ -3858,7 +3856,6 @@
                 <ScalarProperty Name="DatCliId" ColumnName="DatCliId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="DatCliAltura" ColumnName="DatCliAltura" />
-                <ScalarProperty Name="DatCliColesterol" ColumnName="DatCliColesterol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

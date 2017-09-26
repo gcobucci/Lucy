@@ -78,7 +78,6 @@ namespace Lucy.Controllers
                     if (RegistroDatCli != null)
                     {
                         newDatCli.DatCliAltura = RegistroDatCli.DatCli.DatCliAltura;
-                        newDatCli.DatCliColesterol = RegistroDatCli.DatCli.DatCliColesterol;
                     }
 
 
@@ -181,20 +180,19 @@ namespace Lucy.Controllers
                 }
 
 
-                if (Datos.DatCliAltura != null || Datos.DatCliColesterol != null)
+                if (Datos.DatCliAltura != null)
                 {
                     ModelCL.Registro oldRegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
                     ModelCL.DatCli DatCli = new ModelCL.DatCli();
 
-                    DatCli.DatCliAltura = Datos.DatCliAltura;
-                    DatCli.DatCliColesterol = Datos.DatCliColesterol;
+                    DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
                     RegistroDatCli.DatCli = DatCli;
 
                     if (oldRegistroDatCli != null)
                     {
-                        if (oldRegistroDatCli.DatCli.DatCliAltura != DatCli.DatCliAltura || oldRegistroDatCli.DatCli.DatCliColesterol != DatCli.DatCliColesterol)
+                        if (oldRegistroDatCli.DatCli.DatCliAltura != DatCli.DatCliAltura)
                         {
                             Persona.Registro.Add(RegistroDatCli);
                         }

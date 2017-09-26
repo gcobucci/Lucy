@@ -42,6 +42,9 @@ namespace Backend.Controllers
         [Route("create")]
         public ActionResult Create()
         {
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = lValores;
+
             List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
             ViewBag.lMedicinas = lMedicinas;
 
@@ -51,10 +54,15 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ModelCL.Enfermedad enfermedad, int[] medicinas)
+        public ActionResult Create(ModelCL.Enfermedad enfermedad, int[] valores, int[] medicinas)
         {
             if (ModelState.IsValid)
             {
+                foreach (var v in valores)
+                {
+                    enfermedad.Valor.Add(db.Valor.Find(v));
+                }
+
                 foreach (var m in medicinas)
                 {
                     enfermedad.Medicina.Add(db.Medicina.Find(m));
@@ -64,6 +72,12 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = lValores;
+
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);
         }
@@ -82,6 +96,9 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = lValores;
+
             List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
             ViewBag.lMedicinas = lMedicinas;
 
@@ -91,7 +108,7 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Enfermedad enfermedad, int[] medicinas)
+        public ActionResult Edit(ModelCL.Enfermedad enfermedad, int[] valores, int[] medicinas)
         {
             if (ModelState.IsValid)
             {
@@ -100,6 +117,17 @@ namespace Backend.Controllers
                 enf.EnfermedadNombre = enfermedad.EnfermedadNombre;
                 enf.EnfermedadDesc = enfermedad.EnfermedadDesc;
 
+
+                List<ModelCL.Valor> bkValores = enf.Valor.ToList();
+                foreach (ModelCL.Valor oldValor in bkValores)
+                {
+                    enf.Valor.Remove(oldValor);
+                }
+
+                foreach (var v in valores)
+                {
+                    enf.Valor.Add(db.Valor.Find(v));
+                }
 
                 List<ModelCL.Medicina> bkMedicinas = enf.Medicina.ToList();
                 foreach (ModelCL.Medicina oldMedicina in bkMedicinas)
@@ -115,6 +143,13 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = lValores;
+
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            ViewBag.lMedicinas = lMedicinas;
+
             return View(enfermedad);
         }
 

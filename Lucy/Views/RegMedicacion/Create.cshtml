@@ -32,18 +32,6 @@
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
 
     <script type="text/javascript">
-        $(function () {
-            var ln = x = window.navigator.language || navigator.browserLanguage;
-            $('.datetimepicker').datetimepicker({
-                locale: 'es',
-                viewMode: 'days',
-                locale: ln,
-                maxDate: 'now',
-                //format: 'L'
-            });
-        });
-
-
         window.onload = function cargar(){
             var selectedID = $('#Enfermedades').val();
 
