@@ -32,6 +32,21 @@
         </div>
 
         <div class="panel panel-default">
+            <div class="panel-heading">Valores</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var valor in ViewBag.lValores)
+                    {
+                        var check = false;
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="valores" value="@valor.ValorId" /> @valor.ValorNombre</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
             <div class="panel-heading">Medicinas</div>
             <div class="panel-body">
                 <ul class="list-group">

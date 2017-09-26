@@ -31,40 +31,12 @@
         </dt>
 
         <dd>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.Label("Nombre")
-                    </th>
-                    <th>
-                        @Html.Label("Medida")
-                    </th>
-                    <th>
-                        @Html.Label("Valor mínimo")
-                    </th>
-                    <th>
-                        @Html.Label("Valor máximo")
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Valor.ValorNombre))
+            <ul>
+                @foreach (var item in Model.Valor.OrderBy(m => m.ValorNombre))
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Valor.ValorNombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Valor.ValorMedida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                        </td>
-                    </tr>
+                    <li>@Html.DisplayFor(modelItem => item.ValorNombre)</li>
                 }
-            </table>
+            </ul>
         </dd>
 
         <dt>

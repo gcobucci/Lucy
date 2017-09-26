@@ -45,9 +45,6 @@ namespace Lucy.Models
         [Display(Name = "Altura (centimetros)")]
         public Nullable<short> DatCliAltura { get; set; }
 
-        [Display(Name = "Colesterol total (mg/dL)")]
-        public Nullable<short> DatCliColesterol { get; set; }
-
         /////Enfermedades/////
         public List<Fachada.ViewModelCheckBox> Enfermedades { get; set; }
 

@@ -47,6 +47,9 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
 
+            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
+            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
+
             return View(dosis);
         }
 
@@ -86,6 +89,15 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(e => e.Usuario == null).ToList();
+            ViewBag.lMedicinas = new SelectList(lMedicinas, "MedicinaId", "MedicinaNombre");
+
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+
+            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
+            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
+
             return View(datos);
         }
 
@@ -109,6 +121,9 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
 
+            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
+            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
+
             return View(dosis);
         }
 
@@ -131,6 +146,16 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(e => e.Usuario == null).ToList();
+            ViewBag.lMedicinas = new SelectList(lMedicinas, "MedicinaId", "MedicinaNombre");
+
+            List<ModelCL.Valor> lValores = db.Valor.ToList();
+            ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
+
+            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
+            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
+
             return View(dosis);
         }
 

@@ -16,8 +16,7 @@ namespace ModelCL
     {
         public long DatCliId { get; set; }
         public long PersonaId { get; set; }
-        public Nullable<short> DatCliAltura { get; set; }
-        public Nullable<short> DatCliColesterol { get; set; }
+        public short DatCliAltura { get; set; }
     
         public virtual Registro Registro { get; set; }
     }

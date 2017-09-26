@@ -45,9 +45,6 @@ namespace Backend.Controllers
             List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
-            //List<ModelCL.Valor> lValores = db.Valor.ToList();
-            //ViewBag.lValores = lValores;
-
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
             {
                 new Fachada.ViewModelSelectListChk { Id = "Activa", Valor = "Activa" },
@@ -76,6 +73,16 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
+
+            List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Activa", Valor = "Activa" },
+                new Fachada.ViewModelSelectListChk { Id = "Pasiva", Valor = "Pasiva" },
+            };
+            ViewBag.lMedTipos = new SelectList(lMedTipos, "Id", "Valor");
+
             return View(medicina);
         }
 
@@ -95,9 +102,6 @@ namespace Backend.Controllers
 
             List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
             ViewBag.lEnfermedades = lEnfermedades;
-
-            List<ModelCL.Valor> lValores = db.Valor.ToList();
-            ViewBag.lValores = lValores;
 
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
             {
@@ -136,6 +140,17 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            ViewBag.lEnfermedades = lEnfermedades;
+
+            List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Activa", Valor = "Activa" },
+                new Fachada.ViewModelSelectListChk { Id = "Pasiva", Valor = "Pasiva" },
+            };
+            ViewBag.lMedTipos = new SelectList(lMedTipos, "Id", "Valor");
+
             return View(medicina);
         }
 

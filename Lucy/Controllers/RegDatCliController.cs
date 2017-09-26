@@ -42,12 +42,6 @@ namespace Lucy.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (datos.DatCliAltura == null && datos.DatCliColesterol == null)
-                {
-                    ViewBag.ErrorMessage = "No puede dejar los dos campos de valor en blanco.";
-                    return View(datos);
-                }
-
                 //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
                 long idPer = 1;
 
@@ -68,7 +62,6 @@ namespace Lucy.Controllers
                 ModelCL.DatCli datCli = new ModelCL.DatCli();
 
                 datCli.DatCliAltura = datos.DatCliAltura;
-                datCli.DatCliColesterol = datos.DatCliColesterol;
                 regDatCli.DatCli = datCli;
 
                 Persona.Registro.Add(regDatCli);
@@ -98,7 +91,6 @@ namespace Lucy.Controllers
             //vmRegDatCli.PersonaId = regDatCli.PersonaId;
             vmRegDatCli.RegistroFchHora = regDatCli.RegistroFchHora.ToString();
             vmRegDatCli.DatCliAltura = regDatCli.DatCli.DatCliAltura;
-            vmRegDatCli.DatCliColesterol = regDatCli.DatCli.DatCliColesterol;
 
             return View(vmRegDatCli);
         }
@@ -110,12 +102,6 @@ namespace Lucy.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (datos.DatCliAltura == null && datos.DatCliColesterol == null)
-                {
-                    ViewBag.ErrorMessage = "No puede dejar los dos campos de valor en blanco.";
-                    return View(datos);
-                }
-
                 ModelCL.Registro regDatCli = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
@@ -132,7 +118,6 @@ namespace Lucy.Controllers
 
                 regDatCli.RegistroFchHora = f;
                 regDatCli.DatCli.DatCliAltura = datos.DatCliAltura;
-                regDatCli.DatCli.DatCliColesterol = datos.DatCliColesterol;
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
