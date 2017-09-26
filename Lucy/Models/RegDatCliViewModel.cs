@@ -22,12 +22,12 @@ namespace Lucy.Models
         [Display(Name = "Fecha")]
         public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
 
-        [RequiredIf("DatCliColesterol", "")]
+        //[RequiredIf("DatCliColesterol", null)]
         [Display(Name = "Altura (centimetros)")]
         [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<short> DatCliAltura { get; set; }
 
-        [RequiredIf("DatCliAltura", "")]
+        //[RequiredIf("DatCliAltura", null)]
         [Display(Name = "Colesterol total (mg/dL)")]
         [Range(50, 400, ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<short> DatCliColesterol { get; set; }

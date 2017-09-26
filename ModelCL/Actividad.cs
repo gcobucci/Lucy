@@ -17,7 +17,7 @@ namespace ModelCL
         public long ActividadId { get; set; }
         public long PersonaId { get; set; }
         public long EjercicioId { get; set; }
-        public System.TimeSpan ActividadTiempo { get; set; }
+        public short ActividadTiempo { get; set; }
     
         public virtual Registro Registro { get; set; }
         public virtual Ejercicio Ejercicio { get; set; }

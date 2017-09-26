@@ -37,6 +37,11 @@ header {
     font-weight: 300;
 }
 
+.display-for {
+    display: block;
+    padding-top: 7px;
+}
+
 .barras {
     display: inline-block;
     cursor: pointer;
@@ -719,4 +724,157 @@ li.liHi {
 .MLitem {
     width: 100%;
     height: 150px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transform: translateY(0px);
+    transition: all 0.5s;
 }
+
+    .MLitem:hover {
+        transform: translateY(-1px);
+        -webkit-box-shadow: 0 3px 20px 0px rgba(0,0,0,.3);
+        box-shadow: rgba(0,0,0,.3) 0 3px 20px 0px;
+        transition: all .3s;
+    }
+
+    .MLitem img {
+        width: 100%;
+        height: 130px;
+        margin: 10px 0;
+        border-radius: 3px;
+    }
+
+    .MLitem div a {
+        margin: 58px 0;
+    }
+
+.MLitemLeft {
+    padding: 0 10px;
+}
+
+.MLitemTitulo {
+    margin: 35px 0 10px;
+    font-size: 18pt;
+    font-weight: 300;
+}
+
+.MLitemRight{
+    text-align: center;
+}
+
+.sinPadding{
+    padding:0;
+}
+
+
+/* Global Button Styles */
+a.animated-button:link, a.animated-button:visited {
+    position: relative;
+    display: block;
+    margin: 30px auto 0;
+    padding: 14px 15px;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    border-radius: 0;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+    a.animated-button:link:after, a.animated-button:visited:after {
+        content: "";
+        position: absolute;
+        height: 0%;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        z-index: -1;
+        -webkit-transition: all 0.75s ease 0s;
+        -moz-transition: all 0.75s ease 0s;
+        -o-transition: all 0.75s ease 0s;
+        transition: all 0.75s ease 0s;
+    }
+
+    a.animated-button:link:hover, a.animated-button:visited:hover {
+        color: #000;
+        text-shadow: none;
+    }
+
+        a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
+            height: 450%;
+        }
+
+a.animated-button:link, a.animated-button:visited {
+    position: relative;
+    display: block;
+    margin: 53.4px auto 0;
+    padding: 10px 0;
+    width: 80%;
+    color: #000;
+    font-size: 10pt;
+    border-radius: 0;
+    font-weight: lighter;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+
+
+
+
+
+
+a.animated-button.thar-three {
+    color: #000;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    border: 2px solid #F7CA18;
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+    0s;
+}
+
+    a.animated-button.thar-three:hover {
+        color: #000 !important;
+        background-color: transparent;
+        text-shadow: nthree;
+        font-weight: bolder;
+    }
+
+        a.animated-button.thar-three:hover:before {
+            left: 0%;
+            right: auto;
+            width: 100%;
+        }
+
+    a.animated-button.thar-three:before {
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        width: 0px;
+        z-index: -1;
+        content: '';
+        color: #000 !important;
+        background: #F7CA18;
+        transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+        0s;
+    }

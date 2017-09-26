@@ -14,25 +14,16 @@ namespace ModelCL
     
     public partial class Registro
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Registro()
-        {
-            this.Actividad = new HashSet<Actividad>();
-            this.Medicacion = new HashSet<Medicacion>();
-        }
-    
         public long RegistroId { get; set; }
         public long PersonaId { get; set; }
         public System.DateTime RegistroFchHora { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Actividad> Actividad { get; set; }
+        public virtual Actividad Actividad { get; set; }
         public virtual Agua Agua { get; set; }
         public virtual Comida Comida { get; set; }
         public virtual Control Control { get; set; }
         public virtual DatCli DatCli { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Medicacion> Medicacion { get; set; }
+        public virtual Medicacion Medicacion { get; set; }
         public virtual Persona Persona { get; set; }
         public virtual Peso Peso { get; set; }
     }

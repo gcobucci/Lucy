@@ -4,54 +4,54 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c42f99a76e6949d5b85771bc0558e144" Name="Diagram1">
-        <EntityTypeShape EntityType="AgustinaDBModel.Actividad" Width="1.5" PointX="12.75" PointY="32.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Agua" Width="1.5" PointX="9.75" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Alimento" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Articulo" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+      <Diagram DiagramId="dcc410b7b5114dd5816f357ee9c35c9f" Name="Diagram1">
+        <EntityTypeShape EntityType="AgustinaDBModel.Actividad" Width="1.5" PointX="12.75" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Agua" Width="1.5" PointX="9.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Alimento" Width="1.5" PointX="5.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Articulo" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Auditoria" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Comentario" Width="1.5" PointX="9.75" PointY="26.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Comida" Width="1.5" PointX="12.75" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Contenido" Width="1.5" PointX="0.75" PointY="27.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Control" Width="1.5" PointX="9.75" PointY="38.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.DatCli" Width="1.5" PointX="9.75" PointY="45.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Datos" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Dia" Width="1.5" PointX="8.25" PointY="42.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Diabetes" Width="1.5" PointX="9.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Dieta" Width="1.5" PointX="3" PointY="24.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Dosis" Width="1.5" PointX="17.75" PointY="36.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Ejercicio" Width="1.5" PointX="3" PointY="29" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Enfermedad" Width="1.5" PointX="5.25" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Comentario" Width="1.5" PointX="9.75" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Comida" Width="1.5" PointX="12.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Contenido" Width="1.5" PointX="0.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Control" Width="1.5" PointX="9.75" PointY="38.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.DatCli" Width="1.5" PointX="9.75" PointY="45.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Datos" Width="1.5" PointX="7.5" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Dia" Width="1.5" PointX="8.25" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Diabetes" Width="1.5" PointX="9.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Dieta" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Dosis" Width="1.5" PointX="15" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Ejercicio" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Enfermedad" Width="1.5" PointX="5.25" PointY="30.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Error" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.HisDatosDiabetes" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.HisRelMedRelPerEnf" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.HisRelPerEnf" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.HisRelUsuRol" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Medicacion" Width="1.5" PointX="12.75" PointY="39.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Medicacion" Width="1.5" PointX="12.75" PointY="39.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Medicina" Width="1.5" PointX="5.25" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Modulo" Width="1.5" PointX="8.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Modulo" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Multimedia" Width="1.5" PointX="3" PointY="32" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Notificacion" Width="1.5" PointX="15" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Persona" Width="1.5" PointX="5.25" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Peso" Width="1.5" PointX="9.75" PointY="51.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Programa" Width="1.5" PointX="7.5" PointY="30.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Receta" Width="1.5" PointX="3" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Notificacion" Width="1.5" PointX="15" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Persona" Width="1.5" PointX="5.25" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Peso" Width="1.5" PointX="9.75" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Presentacion" Width="1.5" PointX="10.5" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Programa" Width="1.5" PointX="7.5" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Receta" Width="1.5" PointX="3" PointY="35" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Recordatorio" Width="1.5" PointX="10.5" PointY="30.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Registro" Width="1.5" PointX="7.5" PointY="34.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.RelEnfVal" Width="1.5" PointX="7.5" PointY="38.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.RelMedRelPerEnf" Width="1.5" PointX="14.75" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.RelMedVal" Width="1.5" PointX="15.5" PointY="36.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.RelPerEnf" Width="1.5" PointX="12.5" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.RelUsuPer" Width="1.5" PointX="12.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Registro" Width="1.5" PointX="7.5" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.RelMedRelPerEnf" Width="1.5" PointX="14.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.RelMedVal" Width="1.5" PointX="12.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.RelPerEnf" Width="1.5" PointX="12.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.RelUsuPer" Width="1.5" PointX="12.75" PointY="26" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.RelUsuRol" Width="1.5" PointX="12.75" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Repeticion" Width="1.5" PointX="12.75" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Repeticion" Width="1.5" PointX="12.75" PointY="43.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AgustinaDBModel.Rol" Width="1.5" PointX="10.5" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Rutina" Width="1.5" PointX="12.75" PointY="29.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Sexo" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Tema" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.TemaNot" Width="1.5" PointX="12.75" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Usuario" Width="1.5" PointX="7.5" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AgustinaDBModel.Valor" Width="1.5" PointX="5.25" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Rutina" Width="1.5" PointX="12.75" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Sexo" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Tema" Width="1.5" PointX="5.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.TemaNot" Width="1.5" PointX="12.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Usuario" Width="1.5" PointX="7.5" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgustinaDBModel.Valor" Width="1.5" PointX="7.5" PointY="45" IsExpanded="true" />
         <AssociationConnector Association="AgustinaDBModel.FK_Actividad_ActividadId_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Actividad_EjercicioId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Agua_AguaId_PersonaId" ManuallyRouted="false" />
@@ -65,16 +65,18 @@
         <AssociationConnector Association="AgustinaDBModel.FK_Programa_ProgramaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Receta_RecetaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Rutina_RutinaId" ManuallyRouted="false" />
-        <AssociationConnector Association="AgustinaDBModel.FK_ControlId_PersonaId" ManuallyRouted="false" />
-        <AssociationConnector Association="AgustinaDBModel.FK_EnfermedadId_ValorId" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.FK_Control_ControlId_PersonaId" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.FK_Control_ValorId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_DatCli_DatCliId_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Datos_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Diabetes_DiabetesId_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Dosis_MedicinaId_ValorId" ManuallyRouted="false" />
-        <AssociationConnector Association="AgustinaDBModel.FK_RelEnfVal_EnfermedadId" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.FK_Dosis_PresentacionId" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.FK_Medicacion_EnfermedadId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelPerEnf_EnfermedadId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Medicacion_MedicacionId_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Medicacion_MedicinaId" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.FK_Medicacion_PresentacionId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelMedRelPerEnf_MedicinaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelMedVal_MedicinaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Notificacion_TemaNotId" ManuallyRouted="false" />
@@ -86,7 +88,6 @@
         <AssociationConnector Association="AgustinaDBModel.FK_RelUsuPer_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Peso_PesoId_PersonaId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_Repeticion_RecordatorioId_PersonaId" ManuallyRouted="false" />
-        <AssociationConnector Association="AgustinaDBModel.FK_RelEnfVal_ValorId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelMedRelPerEnf_PersonaId_EnfermedadId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelMedVal_ValorId" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.FK_RelUsuPer_UsuarioId" ManuallyRouted="false" />
@@ -95,6 +96,7 @@
         <AssociationConnector Association="AgustinaDBModel.RelComAli" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.RelComCom" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.RelEnfMed" ManuallyRouted="false" />
+        <AssociationConnector Association="AgustinaDBModel.RelEnfVal" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.RelFavUsuCom" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.RelFavUsuCont" ManuallyRouted="false" />
         <AssociationConnector Association="AgustinaDBModel.RelFavUsuTem" ManuallyRouted="false" />

@@ -15,13 +15,16 @@
             @Html.DisplayNameFor(model => model.ValorNombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValorMedida)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ValorDesc)
         </th>
         <th>
-            @Html.Label("Cantidad de enfermedades asociadas")
+            @Html.DisplayNameFor(model => model.ValorGeneral)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorMedida)
+        </th>
+        <th>
+            @Html.Label("Cantidad de enfermedades relacionadas")
         </th>
         <th>
             @Html.Label("Cantidad de medicinas asociadas (y dosis)")
@@ -38,10 +41,20 @@
             @Html.DisplayFor(modelItem => item.ValorDesc)
         </td>
         <td>
+            @if (item.ValorGeneral == true)
+            {
+                <text>Si</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ValorMedida)
         </td>
         <td>
-            @item.RelEnfVal.Count().ToString()
+            @item.Enfermedad.Count().ToString()
         </td>
         <td>
             @{ int cantDosis = 0; }

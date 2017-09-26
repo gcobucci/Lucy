@@ -17,11 +17,11 @@ namespace ModelCL
         public long DosisId { get; set; }
         public long MedicinaId { get; set; }
         public long ValorId { get; set; }
-        public string DosisTipo { get; set; }
+        public short PresentacionId { get; set; }
         public double DosisCantidadMin { get; set; }
-        public string DosisMedida { get; set; }
         public double DosisEfecto { get; set; }
     
         public virtual RelMedVal RelMedVal { get; set; }
+        public virtual Presentacion Presentacion { get; set; }
     }
 }

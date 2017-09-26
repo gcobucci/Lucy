@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ModelCL.Control>
+﻿@model IEnumerable<ModelCL.Registro>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ControlValor)
+            @Html.Label("Fecha")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Registro.RegistroId)
+            @Html.Label("Valor")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RelEnfVal.EnfermedadId)
+            @Html.Label("Resultado del control")
         </th>
         <th></th>
     </tr>
@@ -26,18 +26,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ControlValor)
+            @item.RegistroFchHora.ToString("dd MMM yyyy")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Registro.RegistroId)
+            @Html.DisplayFor(modelItem => item.Control.Valor.ValorNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RelEnfVal.EnfermedadId)
+            @Html.DisplayFor(modelItem => item.Control.ControlValor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.RegistroId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
         </td>
     </tr>
 }

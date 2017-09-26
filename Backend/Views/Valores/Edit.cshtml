@@ -24,14 +24,6 @@
                 @Html.ValidationMessageFor(model => model.ValorNombre, "", new { @class = "text-danger" })
             </div>
         </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.ValorMedida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ValorMedida, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ValorMedida, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ValorDesc, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,54 +33,126 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorGeneral, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorGeneral, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMedida, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMedida, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMedida, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorBajoMinimo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorBajoMinimo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorBajoMinimo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorNormalMinimo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorNormalMinimo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorNormalMinimo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorNormalMaximo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorNormalMaximo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorNormalMaximo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorAltoMaximo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorAltoMaximo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorAltoMaximo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorAltoMaximo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorAltoMaximo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorAltoMaximo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMsgMuyBajo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMsgMuyBajo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMsgMuyBajo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMsgBajo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMsgBajo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMsgBajo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMsgNormal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMsgNormal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMsgNormal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMsgAlto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMsgAlto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMsgAlto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMsgMuyAlto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorMsgMuyAlto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorMsgMuyAlto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Enfermedades</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var enfermedad in ViewBag.lEnfermedades)
+                    {
+                        var check = false;
+                        foreach (var e in Model.Enfermedad)
+                        {
+                            if (enfermedad.EnfermedadId == e.EnfermedadId)
+                            {
+                                check = true;
+                                break;
+                            }
+                        }
+                        <li class="list-group-item">
+                            <label><input type="checkbox" @(check ? "checked" : "") name="enfermedades" value="@enfermedad.EnfermedadId" /> @enfermedad.EnfermedadNombre</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
 
         <dl class="dl-horizontal">
-            <dt>
-                @Html.Label("Enfermedades")
-            </dt>
-
-            <dd>
-                <p>
-                    @Html.ActionLink("Create new", "Create", "RelEnfVal", new { idVal = Model.ValorId }, null)
-                </p>
-                <table class="table">
-                    <tr>
-                        <th>
-                            @Html.Label("Nombre")
-                        </th>
-                        <th>
-                            @Html.Label("Medida")
-                        </th>
-                        <th>
-                            @Html.Label("Valor mínimo")
-                        </th>
-                        <th>
-                            @Html.Label("Valor máximo")
-                        </th>
-                        <th></th>
-                    </tr>
-
-                    @foreach (var item in Model.RelEnfVal.OrderBy(rev => rev.Enfermedad.EnfermedadNombre))
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Enfermedad.EnfermedadNombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RelEnfValMinimo)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null) |
-                                @Html.ActionLink("Delete", "Delete", "RelEnfVal", new { idEnf = item.EnfermedadId, idVal = item.ValorId }, null)
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </dd>
-
             <dt>
                 @Html.Label("Medicinas/Dosis")
             </dt>
@@ -107,10 +171,7 @@
                             <table class="table">
                                 <tr>
                                     <th>
-                                        @Html.Label("Tipo")
-                                    </th>
-                                    <th>
-                                        @Html.Label("Medida")
+                                        @Html.Label("Presentación")
                                     </th>
                                     <th>
                                         @Html.Label("Cantidad mínima")
@@ -125,10 +186,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => d.DosisTipo)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => d.DosisMedida)
+                                            @Html.DisplayFor(modelItem => d.Presentacion.PresentacionNombre)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => d.DosisCantidadMin)

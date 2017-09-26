@@ -54,11 +54,11 @@ namespace ModelCL
         public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Peso> Peso { get; set; }
+        public virtual DbSet<Presentacion> Presentacion { get; set; }
         public virtual DbSet<Programa> Programa { get; set; }
         public virtual DbSet<Receta> Receta { get; set; }
         public virtual DbSet<Recordatorio> Recordatorio { get; set; }
         public virtual DbSet<Registro> Registro { get; set; }
-        public virtual DbSet<RelEnfVal> RelEnfVal { get; set; }
         public virtual DbSet<RelMedRelPerEnf> RelMedRelPerEnf { get; set; }
         public virtual DbSet<RelMedVal> RelMedVal { get; set; }
         public virtual DbSet<RelPerEnf> RelPerEnf { get; set; }

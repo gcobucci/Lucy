@@ -51,6 +51,14 @@
             @Html.DisplayFor(model => model.Ejercicio.EjercicioCategoria)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Ejercicio.EjercicioCaloriasPorMinuto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ejercicio.EjercicioCaloriasPorMinuto)
+        </dd>
+
         @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
         {
             @*<dt>

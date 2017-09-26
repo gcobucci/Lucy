@@ -26,6 +26,7 @@ namespace ModelCL
     
         public long MedicinaId { get; set; }
         public string MedicinaNombre { get; set; }
+        public bool MedicinaGeneral { get; set; }
         public string MedicinaTipo { get; set; }
         public string MedicinaDesc { get; set; }
     

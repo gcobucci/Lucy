@@ -16,11 +16,10 @@ namespace ModelCL
     {
         public long ControlId { get; set; }
         public long PersonaId { get; set; }
-        public long EnfermedadId { get; set; }
         public long ValorId { get; set; }
         public double ControlValor { get; set; }
     
         public virtual Registro Registro { get; set; }
-        public virtual RelEnfVal RelEnfVal { get; set; }
+        public virtual Valor Valor { get; set; }
     }
 }

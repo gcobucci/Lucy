@@ -28,7 +28,7 @@ namespace Lucy.Controllers
             {
                 lPersonas.Add(rup.Persona);
             }
-            ModelCL.Persona Persona = new Persona();
+            ModelCL.Persona Persona = new ModelCL.Persona();
             Persona.PersonaId = 0;
             Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
             lPersonas.Add(Persona);
