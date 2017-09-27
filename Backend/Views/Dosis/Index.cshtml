@@ -4,27 +4,25 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RelMedVal.Medicina.MedicinaNombre)
+            Nombre Medicina
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RelMedVal.Valor.ValorNombre)
+            Nombre Valor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Presentacion.PresentacionNombre)
+            Nombre Presentacion
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DosisCantidadMin)
+            Cantidad de Dosis por Minuto
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DosisEfecto)
+            Efecto Dosis
         </th>
         <th></th>
     </tr>
