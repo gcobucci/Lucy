@@ -4,42 +4,38 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoNombre)
+            Alimento
+        </th>
+        <th></th>
+        <th>
+            Porcion
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoImagen)
+            Carbohidratos
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoPorcion)
+            Calorias
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoCarbohidratos)
+            Azucar
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoCalorias)
+            Grasa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoAzucar)
+            Sodio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoGrasa)
+            Gluten
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AlimentoSodio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlimentoGluten)
-        </th>
-        <th>
-            @Html.Display("Usuario")
+            Usuario
         </th>
         <th></th>
     </tr>
@@ -80,7 +76,7 @@
             }
             else
             {
-                @Html.Display("Alimento Oficial")
+                <text> Alimento Oficial</text>
             }
         </td>
         <td>
