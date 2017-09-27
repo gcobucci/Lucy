@@ -110,6 +110,14 @@
     <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
     <Content Include="Client Scripts\MvcFoolproofValidation.js" />
     <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
+    <Content Include="Content1\bootstrap-progressbar-3.3.4.min.css" />
+    <Content Include="Content1\bootstrap.min.css" />
+    <Content Include="Content1\custom.min.css" />
+    <Content Include="Content1\daterangepicker.css" />
+    <Content Include="Content1\font-awesome.min.css" />
+    <Content Include="Content1\green.css" />
+    <Content Include="Content1\jqvmap.min.css" />
+    <Content Include="Content1\nprogress.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -122,6 +130,7 @@
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="ico.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

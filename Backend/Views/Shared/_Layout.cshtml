@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/ico.ico">
     <title>@ViewBag.Title - YoTeCuido!</title>
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
     <link href="~/Content1/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -30,16 +31,19 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><img src="images/img.ico" heigh="50" width="25"></i> <span>YoTeCuido!</span></a>
+                        <a href="index.html" class="site_title"><i class="fa fa-heart" style="border:none"></i> <span>Yo Te Cuido!</span></a>
                     </div>
 
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="~/MATE.png" alt="..." class="img-circle profile_img">
+                        </div>
                         <div class="profile_info">
-                            <span>Bienvenido</span>
-                            <h2>a nuestro backend♥</h2>
+                            <span>Bienvenido,</span>
+                            <h2>ADMIN</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -225,7 +229,7 @@
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="~/MATE.png" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -237,7 +241,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="~/MATE.png" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -249,7 +253,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="~/MATE.png" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -261,7 +265,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="~/MATE.png" alt="Profile Image" /></span>
                                             <span>
                                                 <span>John Smith</span>
                                                 <span class="time">3 mins ago</span>
@@ -286,7 +290,35 @@
                 </div>
             </div>
             <!-- /top navigation -->
-            @RenderBody()
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>@ViewBag.Title</h3>
+                        </div>
+
+                        <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="row" style="overflow: auto;">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
