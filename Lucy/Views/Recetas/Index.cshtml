@@ -53,35 +53,46 @@
     {
         <div class="MLitem">
             <div class="MLitemLeft col-sm-9">
-                <div class="sinPadding col-sm-4">
-                    <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" />
+                <div class="sinPadding col-xs-6 col-sm-4">
+                    <a href="/recetas/details?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
                 </div>
-                <div class="sinPadding col-sm-8">
-                    <div class="MLitemTitulo col-sm-12">@item.ContenidoTitulo</div>
-                    <div class="col-sm-6">Calorías: @item.Receta.RecetaCalorias</div>
-                    <div class="col-sm-6">Hidratos: @item.Receta.RecetaHidratos</div>
-                    <div class="col-sm-6">
-                        Gluten: @if (item.Receta.RecetaGluten == true)
-                        { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
-                        else
-                        {
-                            <span style="color:rgba(247, 24, 24, 0.7);">No</span>
-                        }
-                    </div>
-
-                    <div class="col-sm-6">
-                        Sodio: @if (item.Receta.RecetaSodio == true)
-                        { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
-                        else
-                        {
-                            <span style="color:rgba(247, 24, 24, 0.7);">No</span>
-                        }
-                    </div>
-
+                <div class="sinPadding col-xs-6 col-sm-8">
+                    <div class="MLitemTitulo col-sm-12"><a href="/recetas/details?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
+                    <div class="hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
             </div>
-            <div class="MLitemRight col-sm-3">
-                <a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a> 
+            <div class="MLitemRight hidden-xs col-sm-3">
+                @*<a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a>*@ 
+                
+                @*if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
+                {
+                    <div>caca</div>
+                }
+                else
+                {
+                    <div>papa</div>
+                }*@
+
+                <div class="col-sm-12 caca">Calorías: @item.Receta.RecetaCalorias</div>
+                <div class="col-sm-12 caca">Hidratos: @item.Receta.RecetaHidratos</div>
+                <div class="col-sm-12 caca">
+                    Gluten: @if (item.Receta.RecetaGluten == true)
+                    { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                    else
+                    {
+                        <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                    }
+                </div>
+
+                <div class="col-sm-12 caca">
+                    Sodio: @if (item.Receta.RecetaSodio == true)
+                    { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                    else
+                    {
+                        <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                    }
+                </div>
+
             </div>
         </div>
     }

@@ -751,6 +751,7 @@ li.liHi {
 
 .MLitemLeft {
     padding: 0 10px;
+    border-right: 2px solid #f3f3f3;
 }
 
 .MLitemTitulo {
@@ -759,8 +760,15 @@ li.liHi {
     font-weight: 300;
 }
 
-.MLitemRight{
-    text-align: center;
+@media (max-width: 767px) {
+    .MLitemTitulo {
+        margin: 58px 0;
+    }
+}
+
+.MLitemRight {
+    margin: 35px 0;
+    color: #666;
 }
 
 .MLitemSR {
@@ -798,9 +806,17 @@ li.liHi {
     padding:0;
 }
 
+.buttonText {
+    color: inherit;
+}
 
-/* Global Button Styles */
-a.animated-button:link, a.animated-button:visited {
+.buttonText:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/*a.animated-button:link, a.animated-button:visited {
     position: relative;
     display: block;
     margin: 30px auto 0;
@@ -908,4 +924,4 @@ a.animated-button.thar-three {
         background: #F7CA18;
         transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
         0s;
-    }
+    }*/
