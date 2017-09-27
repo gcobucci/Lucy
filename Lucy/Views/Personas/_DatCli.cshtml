@@ -70,7 +70,7 @@
                 @Html.Label(Model.Enfermedades[i].Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.HiddenFor(model => model.Enfermedades[i].Id)
                 <div class="col-md-10">
-                    @Html.CheckBoxFor(model => model.Enfermedades[i].Checked)
+                    @Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id })
                 </div>
             </div>
         }
@@ -139,16 +139,18 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        if ($("#Enfermedades_0__Checked").is(':checked')) {
+        if ($("#enfermedad_1").is(':checked')) {
             $("#info_diabetes").show();
         } else {
             $("#info_diabetes").hide();
         }
+    });
 
-        if ($("#DiabetesTipo").val() == 1) {
-            $("#diabetes_tipo_1").show();
+    $("#enfermedad_1").change(function () {
+        if ($("#enfermedad_1").is(':checked')) {
+            $("#info_diabetes").show();
         } else {
-            $("#diabetes_tipo_1").hide();
+            $("#info_diabetes").hide();
         }
     });
 
@@ -161,21 +163,5 @@
             maxDate: 'now',
             format: 'L'
         });
-    });
-
-    $("#DiabetesTipo").change(function () {
-        if ($("#DiabetesTipo").val() == 1) {
-            $("#diabetes_tipo_1").show();
-        } else {
-            $("#diabetes_tipo_1").hide();
-        }
-    });
-
-    $("#Enfermedades_0__Checked").change(function () {
-        if ($("#Enfermedades_0__Checked").is(':checked')) {
-            $("#info_diabetes").show();
-        } else {
-            $("#info_diabetes").hide();
-        }
     });
 </script>
