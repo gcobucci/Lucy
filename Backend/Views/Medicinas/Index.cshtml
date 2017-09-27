@@ -4,27 +4,25 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MedicinaNombre)
+            Nombre de Medicina
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MedicinaTipo)
+            Tipo de Medicina
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MedicinaDesc)
+            Descripción Medicina
         </th>
         <th>
-            @Html.Label("Cantidad de enfermedades asociadas")
+            Cantidad de enfermedades asociadas
         </th>
         <th>
-            @Html.Label("Cantidad de valores asociados (y dosis)")
+            Cantidad de valores asociados (y dosis)
         </th>
         <th></th>
     </tr>

@@ -161,9 +161,11 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroPeso = new ModelCL.Registro();
-                    ModelCL.Peso Peso = new ModelCL.Peso();
+                    RegistroPeso.RegistroFchHora = DateTime.Now;
 
+                    ModelCL.Peso Peso = new ModelCL.Peso();
                     Peso.PesoValor = Convert.ToDouble(Datos.PesoValor);
+
                     RegistroPeso.Peso = Peso;
 
                     if (oldRegistroPeso != null)
@@ -185,9 +187,11 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
-                    ModelCL.DatCli DatCli = new ModelCL.DatCli();
+                    RegistroDatCli.RegistroFchHora = DateTime.Now;
 
+                    ModelCL.DatCli DatCli = new ModelCL.DatCli();
                     DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+
                     RegistroDatCli.DatCli = DatCli;
 
                     if (oldRegistroDatCli != null)

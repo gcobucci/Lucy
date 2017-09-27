@@ -38,11 +38,12 @@ namespace Lucy.Models
 
         /////Peso/////
         [Display(Name = "Peso (Kg)")]
-        [Range(typeof(double), "1", "600", ErrorMessage = "El valor debe estar entre {1} y {2}")]
+        [Range(typeof(double), "1", "700", ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<double> PesoValor { get; set; }
 
         /////DatCli/////
         [Display(Name = "Altura (centimetros)")]
+        [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<short> DatCliAltura { get; set; }
 
         /////Enfermedades/////
