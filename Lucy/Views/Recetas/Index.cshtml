@@ -21,7 +21,15 @@
     <h2>Filtros</h2>
     @using (Html.BeginForm("Index", "Recetas", FormMethod.Get))
     {
-        @Html.TextBox("search") <input type="submit" value="Search">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input id="search" name="search" type="text" class="form-control" placeholder="Buscar">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"></button>
+                    @*<input class="btn btn-default" type="submit" value="Buscar">*@
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
     }
 </div>
 
