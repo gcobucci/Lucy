@@ -1,74 +1,82 @@
 ﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Dietas";
 }
 
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Titulo
-        </th>
-        <th>
-            Descripcion
-        </th>
-        <th>
-            Calorias por Desayuno
-        </th>
-        <th>
-            Calorias por Almuerzo
-        </th>
-        <th>
-            Calorias por Merienda
-        </th>
-        <th>
-            Calorias por Cena
-        </th>
-        <th>
-            Calorias por Ingesta
-        </th>
-        <th>
-            Imágen
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dieta.DietaDesayunoCalorias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dieta.DietaAlmuerzoCalorias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dieta.DietaMeriendaCalorias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dieta.DietaCenaCalorias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dieta.DietaIngestasCalorias)
-        </td>
-        <td>
-            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContenidoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ContenidoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContenidoId })
-        </td>
-    </tr>
-}
+            <table class="table">
+                <tr>
+                    <th>
+                        Titulo
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Calorias por Desayuno
+                    </th>
+                    <th>
+                        Calorias por Almuerzo
+                    </th>
+                    <th>
+                        Calorias por Merienda
+                    </th>
+                    <th>
+                        Calorias por Cena
+                    </th>
+                    <th>
+                        Calorias por Ingesta
+                    </th>
+                    <th>
+                        Imágen
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta.DietaDesayunoCalorias)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta.DietaAlmuerzoCalorias)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta.DietaMeriendaCalorias)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta.DietaCenaCalorias)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dieta.DietaIngestasCalorias)
+                        </td>
+                        <td>
+                            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

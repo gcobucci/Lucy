@@ -1,38 +1,46 @@
 ﻿@model IEnumerable<ModelCL.Tema>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tema";
 }
 
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nombre del Tema
-        </th>
-        <th>
-            Descripcion del Tema
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TemaNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TemaDescripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TemaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TemaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TemaId })
-        </td>
-    </tr>
-}
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre del Tema
+                    </th>
+                    <th>
+                        Descripcion del Tema
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TemaNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TemaDescripcion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.TemaId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.TemaId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.TemaId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

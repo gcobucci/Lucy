@@ -1,58 +1,66 @@
 ﻿@model IEnumerable<ModelCL.Medicina>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Medicinas";
 }
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nombre de Medicina
-        </th>
-        <th>
-            Tipo de Medicina
-        </th>
-        <th>
-            Descripción Medicina
-        </th>
-        <th>
-            Cantidad de enfermedades asociadas
-        </th>
-        <th>
-            Cantidad de valores asociados (y dosis)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MedicinaNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MedicinaTipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MedicinaDesc)
-        </td>
-        <td>
-            @item.Enfermedad.Count().ToString()
-        </td>
-        <td>
-            @{ int cantDosis = 0; }
-            @foreach (var rmv in item.RelMedVal) { cantDosis = cantDosis + rmv.Dosis.Count(); }
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre de Medicina
+                    </th>
+                    <th>
+                        Tipo de Medicina
+                    </th>
+                    <th>
+                        Descripción Medicina
+                    </th>
+                    <th>
+                        Cantidad de enfermedades asociadas
+                    </th>
+                    <th>
+                        Cantidad de valores asociados (y dosis)
+                    </th>
+                    <th></th>
+                </tr>
 
-            @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MedicinaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MedicinaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MedicinaId })
-        </td>
-    </tr>
-}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicinaNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicinaTipo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicinaDesc)
+                        </td>
+                        <td>
+                            @item.Enfermedad.Count().ToString()
+                        </td>
+                        <td>
+                            @{ int cantDosis = 0; }
+                            @foreach (var rmv in item.RelMedVal) { cantDosis = cantDosis + rmv.Dosis.Count(); }
 
-</table>
+                            @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MedicinaId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.MedicinaId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MedicinaId })
+                        </td>
+                    </tr>
+                                }
+
+            </table>
+        </div>
+    </div>
+</div>
