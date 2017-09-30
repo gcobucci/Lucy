@@ -441,7 +441,7 @@ li.liHi {
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
     #subTopNav h3 {
@@ -766,10 +766,29 @@ li.liHi {
     }
 }
 
-.MLitemRight {
-    margin: 35px 0;
-    color: #666;
+.MLitemCont {
+    max-height: 62px;
+    overflow: hidden;
+    font-weight: 300;
 }
+
+.MLitemRight {
+    margin: 45px 0 31px;
+    color: #666;
+    font-size: 13px;
+}
+
+    .MLitemRight > i {
+        position: absolute;
+        font-size: 20px;
+        top: -50px;
+        right: 0px;
+        display: none;
+    }
+
+    .MLitem:hover .MLitemRight > i {
+        display: inline-block;
+    }
 
 .MLitemSR {
     -webkit-border-radius: 4px;

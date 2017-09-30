@@ -18,19 +18,21 @@
 }
 
 <div class="MLfiltros col-xs-12 col-sm-3">
-    <h2>Filtros</h2>
-    @using (Html.BeginForm("Index", "Recetas", FormMethod.Get))
-    {
-        <div class="col-lg-6">
+    <h3><strong>Recetas</strong></h3>
+    <text style="margin-bottom:12px;">@Model.TotalItemCount resultados</text>
+        @using (Html.BeginForm("Index", "Recetas", FormMethod.Get))
+        {
+
             <div class="input-group">
-                <input id="search" name="search" type="text" class="form-control" placeholder="Buscar">
+                <input id="search" name="search" type="text" class="form-control" placeholder="Buscar" style="max-width: none;">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"></button>
-                    @*<input class="btn btn-default" type="submit" value="Buscar">*@
+                    <button class="btn btn-default" type="submit">
+                        <span class="fa fa-search" aria-hidden="true" style="display: unset;"></span>
+                    </button>
                 </span>
             </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
-    }
+
+        }
 </div>
 
 <div class="MLcontenedor col-xs-12 col-sm-9">
@@ -60,31 +62,32 @@
     @foreach (var item in Model)
     {
         <div class="MLitem">
-            <div class="MLitemLeft col-sm-9">
+            <div class="MLitemLeft col-lg-10 col-md-9 col-sm-8">
                 <div class="sinPadding col-xs-6 col-sm-4">
                     <a href="/recetas/details?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
                 </div>
                 <div class="sinPadding col-xs-6 col-sm-8">
                     <div class="MLitemTitulo col-sm-12"><a href="/recetas/details?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
-                    <div class="hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
+                    <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
             </div>
-            <div class="MLitemRight hidden-xs col-sm-3">
+            <div class="MLitemRight hidden-xs col-lg-2 col-md-3 col-sm-4">
                 @*<a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a>*@ 
                 
-                @*if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
+                @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
                 {
-                    <div>caca</div>
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
                 }
                 else
                 {
-                    <div>papa</div>
-                }*@
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                }
 
-                <div class="col-sm-12 caca">Calorías: @item.Receta.RecetaCalorias</div>
-                <div class="col-sm-12 caca">Hidratos: @item.Receta.RecetaHidratos</div>
-                <div class="col-sm-12 caca">
-                    Gluten: @if (item.Receta.RecetaGluten == true)
+                @*<div class="col-lg-6 col-sm-7 sinPadding">Calorías:</div><div class="col-lg-6 col-sm-5 text-left">@item.Receta.RecetaCalorias</div>
+                <div class="col-lg-6 col-sm-7 sinPadding">Hidratos:</div><div class="col-lg-6 col-sm-5 text-left">@item.Receta.RecetaHidratos</div>
+                <div class="col-lg-6 col-sm-7 sinPadding">
+                    Gluten:</div><div class="col-lg-6 col-sm-5 text-left">
+                    @if (item.Receta.RecetaGluten == true)
                     { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
                     else
                     {
@@ -92,12 +95,33 @@
                     }
                 </div>
 
-                <div class="col-sm-12 caca">
-                    Sodio: @if (item.Receta.RecetaSodio == true)
+                <div class="col-lg-6 col-sm-7 sinPadding">
+                    Sodio:</div><div class="col-lg-6 col-sm-5 text-left">
+                    @if (item.Receta.RecetaSodio == true)
                     { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
                     else
                     {
                         <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                    }
+                </div>*@
+
+                <div class="col-sm-12" title="Calorías">@item.Receta.RecetaCalorias Calorías</div>
+                <div class="col-sm-12" title="Carbohidratos">@item.Receta.RecetaHidratos Azúcares</div>
+                <div class="col-sm-12">
+                    @if (item.Receta.RecetaGluten == true)
+                    { <span>Con Gluten</span> }
+                    else
+                    {
+                        <span>Sin Gluten</span>
+                    }
+                </div>
+
+                <div class="col-sm-12">
+                    @if (item.Receta.RecetaSodio == true)
+                    { <span>Con Sodio</span> }
+                    else
+                    {
+                        <span>Sin Sodio</span>
                     }
                 </div>
 
@@ -110,80 +134,6 @@
         DisplayLinkToPreviousPage = PagedListDisplayMode.Always, LinkToPreviousPageFormat = "", LinkToNextPageFormat = "" })
 
 </div>
-
-<!--<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<div class="container">
-    <div class="row">
-        <div class="box clearfix">
-            <table class="table table-hover table-striped" id="bootstrap-table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().ContenidoTitulo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().ContenidoDescripcion)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaCalorias)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaHidratos)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaSodio)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaGluten)
-                        </th>
-                        <th>
-                            Imágen
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaCalorias)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaHidratos)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaSodio)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaGluten)
-                            </td>
-                            <td>
-                                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
 
 @section style{
 
