@@ -44,7 +44,7 @@ namespace Lucy.Controllers
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-            (c.ContenidoTitulo.Contains(search) || search == null)).ToList().ToPagedList(page ?? 1, 2);
+            (c.ContenidoTitulo.Contains(search) || search == null)).ToList().ToPagedList(page ?? 1, 10);
             if (recetas.Count < 1) {
                 if (search != null)
                 {
