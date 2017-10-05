@@ -39,7 +39,7 @@ namespace Lucy.Controllers
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("index")]
-        public ActionResult Index(int? page, string search)
+        public ActionResult Index(int? page, string search, byte? diabetes, byte? celiaquia, byte? hipertencion, byte? obesidad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 

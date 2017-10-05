@@ -40,7 +40,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["diabetes"] == "1")
+            @if (Request.QueryString["diabetes"] == "true")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -48,7 +48,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["celiaquia"] == "1")
+            @if (Request.QueryString["celiaquia"] == "true")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -56,7 +56,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["hipertencion"] == "1")
+            @if (Request.QueryString["hipertencion"] == "true")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -64,7 +64,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["obesidad"] == "1")
+            @if (Request.QueryString["obesidad"] == "true")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -230,13 +230,13 @@
                     {
 
                         <div class="form-group inputRange">
-                            <input type="text" class="form-control" id="calMin" name="calMin" placeholder="Mín.">
+                            <input type="number" class="form-control" id="calMin" name="calMin" placeholder="Mín.">
                         </div>
                         <div class="form-group guionMedio">
                             <span>&#8211;</span>
                         </div>
                         <div class="form-group inputRange">
-                            <input type="text" class="form-control" id="calMax" name="calMax" placeholder="Máx.">
+                            <input type="number" class="form-control" id="calMax" name="calMax" placeholder="Máx.">
                         </div>
                         <div class="form-group submitRange">
                             <button class="btn btn-default btn-circular" type="submit">
@@ -286,13 +286,13 @@
                     {
 
                         <div class="form-group inputRange">
-                            <input type="text" class="form-control" id="carMin" name="carMin" placeholder="Mín.">
+                            <input type="number" class="form-control" id="carMin" name="carMin" placeholder="Mín.">
                         </div>
                         <div class="form-group guionMedio">
                             <span>&#8211;</span>
                         </div>
                         <div class="form-group inputRange">
-                            <input type="text" class="form-control" id="carMax" name="carMax" placeholder="Máx.">
+                            <input type="number" class="form-control" id="carMax" name="carMax" placeholder="Máx.">
                         </div>
                         <div class="form-group submitRange">
                             <button class="btn btn-default btn-circular" type="submit">
