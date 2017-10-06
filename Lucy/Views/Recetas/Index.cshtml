@@ -35,12 +35,12 @@
             @if (Request.QueryString["search"] != "" && Request.QueryString["search"] != null)
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="index?search=&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     "@Request.QueryString["search"]"
                 </div>
             }
 
-            @if (Request.QueryString["diabetes"] == "true")
+            @if (Request.QueryString["enfermedad"] == "1")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -48,7 +48,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["celiaquia"] == "true")
+            @if (Request.QueryString["enfermedad"] == "2")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -56,7 +56,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["hipertencion"] == "true")
+            @if (Request.QueryString["enfermedad"] == "3")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -64,7 +64,7 @@
                 </div>
             }
 
-            @if (Request.QueryString["obesidad"] == "true")
+            @if (Request.QueryString["enfermedad"] == "4")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -72,7 +72,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["calMax"] == "" || Request.QueryString["calMax"] == null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null))
+            @if (((Request.QueryString["calMax"] == "" || Request.QueryString["calMax"] == null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -80,7 +80,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["calMin"] == "" || Request.QueryString["calMin"] == null) && (Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null))
+            @if (((Request.QueryString["calMin"] == "" || Request.QueryString["calMin"] == null) && (Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -88,7 +88,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null))
+            @if (((Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -96,7 +96,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["carMax"] == "" || Request.QueryString["carMax"] == null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null))
+            @if (((Request.QueryString["carMax"] == "" || Request.QueryString["carMax"] == null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -104,7 +104,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["carMin"] == "" || Request.QueryString["carMin"] == null) && (Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null))
+            @if (((Request.QueryString["carMin"] == "" || Request.QueryString["carMin"] == null) && (Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -112,7 +112,7 @@
                 </div>
             }
 
-            @if ((Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null))
+            @if (((Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
@@ -120,19 +120,19 @@
                 </div>
             }
 
-            @if (Request.QueryString["gluten"] == "1")
+            @if ((Request.QueryString["gluten"] == "1") && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                    Gluten
+                    Sin Gluten
                 </div>
             }
 
-            @if (Request.QueryString["sodio"] == "1")
+            @if ((Request.QueryString["sodio"] == "1") && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
                     <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                    Sodio
+                    Sin Sodio
                 </div>
             }
 
@@ -142,11 +142,24 @@
     <!-- filtro buscador -->
     <div class="row MLitemFiltro">
         <div class="col-xs-9 col-sm-12">
-            @using (Html.BeginForm("Index", "Recetas", new { search = Request.QueryString["search"], diabetes = Request.QueryString["diabetes"],
-                        celiaquia = Request.QueryString["celiaquia"], hipertencion = Request.QueryString["hipertencion"], obesidad = Request.QueryString["obesidad"],
-                        calMax = Request.QueryString["calMax"], calMin = Request.QueryString["calMin"], carMax = Request.QueryString["carMax"],
-                        carMin = Request.QueryString["carMin"], gluten = Request.QueryString["gluten"], sodio = Request.QueryString["sodio"] }, FormMethod.Get))
+            @using (Html.BeginForm("Index", "Recetas", new
             {
+                search = Request.QueryString["search"],
+                enfermedad = Request.QueryString["enfermedad"],
+                calMax = Request.QueryString["calMax"],
+                calMin = Request.QueryString["calMin"],
+                carMax = Request.QueryString["carMax"],
+                carMin = Request.QueryString["carMin"],
+                gluten = Request.QueryString["gluten"],
+                sodio = Request.QueryString["sodio"]
+            }, FormMethod.Get))
+            {
+                <input style="display:none" id="calMax" name="calMax" value="@Request.QueryString["calMax"]" disabled>
+                <input style="display:none" id="calMin" name="calMin" value="@Request.QueryString["calMin"]" disabled>
+                <input style="display:none" id="carMax" name="carMax" value="@Request.QueryString["carMax"]" disabled>
+                <input style="display:none" id="carMin" name="carMin" value="@Request.QueryString["carMin"]" disabled>
+                <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
 
                 <div class="input-group divSearch">
                     <input id="search" name="search" type="text" class="form-control" placeholder="Buscar por..." style="max-width: none;">
@@ -168,26 +181,26 @@
                 <dt>Enfermedad</dt>
 
                     @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
-                            Request.QueryString["search"] + "&diabetes=1&celiaquia=0&hipertencion=0&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio";
-                    }else{cusUrl = "search&diabetes=1&celiaquia=0&hipertencion=0&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio"; }
+                            Request.QueryString["search"] + "&enfermedad=1";
+                    }else{cusUrl = "search&enfermedad=1"; }
 
                 <dd><a href="./index?@cusUrl">Diabetes</a></dd>
 
                     @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
-                            Request.QueryString["search"] + "&diabetes=0&celiaquia=1&hipertencion=0&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio";
-                    }else{cusUrl = "search&diabetes=0&celiaquia=1&hipertencion=0&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio"; }
+                            Request.QueryString["search"] + "&enfermedad=2";
+                    }else{cusUrl = "search&enfermedad=2"; }
                 
                 <dd><a href="./index?@cusUrl">Celiaquía</a></dd>
 
                     @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
-                            Request.QueryString["search"] + "&diabetes=0&celiaquia=0&hipertencion=1&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio";
-                    }else{cusUrl = "search&diabetes=0&celiaquia=0&hipertencion=1&obesidad=0&calMax&calMin&carMax&carMin&gluten&sodio"; }
+                            Request.QueryString["search"] + "&enfermedad=3";
+                    }else{cusUrl = "search&enfermedad=3"; }
                 
                 <dd><a href="./index?@cusUrl">Hipertención</a></dd>
 
                     @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
-                            Request.QueryString["search"] + "&diabetes=0&celiaquia=0&hipertencion=0&obesidad=1&calMax&calMin&carMax&carMin&gluten&sodio";
-                    }else{cusUrl = "search&diabetes=0&celiaquia=0&hipertencion=0&obesidad=1&calMax&calMin&carMax&carMin&gluten&sodio"; }
+                            Request.QueryString["search"] + "&enfermedad=4";
+                    }else{cusUrl = "search&enfermedad=4"; }
 
                 <dd><a href="./index?@cusUrl">Obesidad</a></dd>
             </dl>
@@ -224,10 +237,22 @@
                 
                 <dd><a href="./index?@cusUrl">Más de 500 kcal.</a></dd>
                 <dd>
-                    @using (Html.BeginForm("Index", "Recetas", new { search = Request.QueryString["search"], calMax = Request.QueryString["calMax"],
-                        calMin = Request.QueryString["calMin"], carMax = Request.QueryString["carMax"], carMin = Request.QueryString["carMin"],
-                        gluten = Request.QueryString["gluten"], sodio = Request.QueryString["sodio"] }, FormMethod.Get))
+                    @using (Html.BeginForm("Index", "Recetas", new
                     {
+                        search = Request.QueryString["search"],
+                        calMax = Request.QueryString["calMax"],
+                        calMin = Request.QueryString["calMin"],
+                        carMax = Request.QueryString["carMax"],
+                        carMin = Request.QueryString["carMin"],
+                        gluten = Request.QueryString["gluten"],
+                        sodio = Request.QueryString["sodio"]
+                    }, FormMethod.Get))
+                    {
+                        <input style="display:none" id="search" name="search" value="@Request.QueryString["search"]" disabled>
+                        <input style="display:none" id="carMax" name="carMax" value="@Request.QueryString["carMax"]" disabled>
+                        <input style="display:none" id="carMin" name="carMin" value="@Request.QueryString["carMin"]" disabled>
+                        <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                        <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
 
                         <div class="form-group inputRange">
                             <input type="number" class="form-control" id="calMin" name="calMin" placeholder="Mín.">
@@ -284,6 +309,11 @@
                         calMin = Request.QueryString["calMin"], carMax = Request.QueryString["carMax"], carMin = Request.QueryString["carMin"],
                         gluten = Request.QueryString["gluten"], sodio = Request.QueryString["sodio"] }, FormMethod.Get))
                     {
+                        <input style="display:none" id="search" name="search" value="@Request.QueryString["search"]" disabled>
+                        <input style="display:none" id="calMax" name="calMax" value="@Request.QueryString["calMax"]" disabled>
+                        <input style="display:none" id="calMin" name="calMin" value="@Request.QueryString["calMin"]" disabled>
+                        <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                        <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
 
                         <div class="form-group inputRange">
                             <input type="number" class="form-control" id="carMin" name="carMin" placeholder="Mín.">
@@ -322,9 +352,9 @@
 
                 <dd>
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-7">
                             <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
-                                Gluten
+                                Sin Gluten
                                 @if (Request.QueryString["gluten"] == "1")
                                 { <input type="checkbox" class="custom-control-input"checked> }
                                 else
@@ -345,9 +375,9 @@
 
                 <dd>
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-7">
                             <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
-                                Sodio
+                                Sin Sodio
                                 @if (Request.QueryString["sodio"] == "1")
                                 { <input type="checkbox" class="custom-control-input" checked> }
                                 else
