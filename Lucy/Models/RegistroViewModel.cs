@@ -41,7 +41,7 @@ namespace Lucy.Models
         [Compare("UsuarioPass", ErrorMessage = "Las contraseñas no coinciden")]
         [Display(Name = "Confirmar contraseña")]
         public string UsuarioPassConfirmacion { get; set; }
-
+                
         [Required]
         [Display(Name = "Nombre")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Este campo debe tener un largo mínimo de {2} caracteres.")]
@@ -59,5 +59,9 @@ namespace Lucy.Models
         [Required]
         [Display(Name = "Sexo")]
         public short SexoId { get; set; }
+
+        [Required]
+        [Display(Name = "País de residencia")]
+        public string UsuarioPais { get; set; }
     }
 }

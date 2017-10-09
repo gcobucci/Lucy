@@ -185,6 +185,9 @@
     <Compile Include="Registro.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RelComAli.cs">
+      <DependentUpon>AgustinaDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RelMedRelPerEnf.cs">
       <DependentUpon>AgustinaDBModel.tt</DependentUpon>
     </Compile>

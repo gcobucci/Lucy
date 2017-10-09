@@ -1,0 +1,108 @@
+﻿@model ModelCL.Registro
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Esta seguro/a de que desea eliminar este registro de peso?</h3>
+<div>
+    <h4>Peso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Fecha y hora")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistroFchHora)
+        </dd>
+
+        <dt>
+            @Html.Label("Nombre del platillo/descriptivo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaPlatillo)
+        </dd>
+
+        <dt>
+            @Html.Label("Comida")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaComida)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de calorías")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaCalorias)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de carbohidratos")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaCarbohidratos)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de azucares")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaAzucar)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de grasas")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaGrasa)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de sodio")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaSodio)
+        </dd>
+
+        <dt>
+            @Html.Label("Total de gluten")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.ComidaGluten)
+        </dd>
+
+        <dt>
+            @Html.Label("Alimentos")
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in Model.Comida.Alimento.OrderBy(e => e.AlimentoNombre))
+                {
+                    <li>@Html.DisplayFor(modelItem => item.AlimentoNombre)</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

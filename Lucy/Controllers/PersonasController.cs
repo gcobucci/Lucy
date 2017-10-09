@@ -63,24 +63,28 @@ namespace Lucy.Controllers
                     newDatCli.SexoId = Persona.SexoId;
 
 
+                    ModelCL.Registro RegistroDatCliActividad = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliNivelActividad != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+
+                    if (RegistroDatCliActividad != null)
+                    {
+                        newDatCli.DatCliNivelActividad = RegistroDatCliActividad.DatCli.DatCliNivelActividad;
+                    }
 
                     ModelCL.Registro RegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();                     
 
                     if (RegistroPeso != null)
                     {
                         newDatCli.PesoValor = RegistroPeso.Peso.PesoValor;
-                    }
+                    }                    
 
+                    ModelCL.Registro RegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();              
 
-
-                    ModelCL.Registro RegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();              
-
-                    if (RegistroDatCli != null)
+                    if (RegistroDatCliAltura != null)
                     {
-                        newDatCli.DatCliAltura = RegistroDatCli.DatCli.DatCliAltura;
+                        newDatCli.DatCliAltura = RegistroDatCliAltura.DatCli.DatCliAltura;
                     }
-
-
+                    
+                    
 
                     for (int i = 0; i < newDatCli.Enfermedades.Count; i++)
                     {
@@ -116,6 +120,16 @@ namespace Lucy.Controllers
                 List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
                 ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
 
+                List<Fachada.ViewModelSelectListChk> lNivelesActividad = new List<Fachada.ViewModelSelectListChk>()
+                {
+                    new Fachada.ViewModelSelectListChk { Id = "Sedentario", Valor = "Sedentario" },
+                    new Fachada.ViewModelSelectListChk { Id = "Escasa", Valor = "Escasa" },
+                    new Fachada.ViewModelSelectListChk { Id = "Moderada", Valor = "Moderada" },
+                    new Fachada.ViewModelSelectListChk { Id = "Alta", Valor = "Alta" },
+                    new Fachada.ViewModelSelectListChk { Id = "Muy alta", Valor = "Muy alta" },
+                };
+                ViewBag.lNivelesActividad = new SelectList(lNivelesActividad, "Id", "Valor");
+
                 //List<Fachada.ViewModelSelectList> lTiposDiabetes = new List<Fachada.ViewModelSelectList>()
                 //{
                 //    new Fachada.ViewModelSelectList { Id = 1, Valor = "1" },
@@ -137,9 +151,9 @@ namespace Lucy.Controllers
                 throw (ex);
             }
         }
-
-        [ValidateAntiForgeryToken]
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult _DatCli(DatCliViewModel Datos, int id)
         {
             try
@@ -153,9 +167,53 @@ namespace Lucy.Controllers
                 Persona.PersonaNombre = Datos.PersonaNombre;
                 Persona.PersonaApellido = Datos.PersonaApellido;
                 Persona.PersonaFchNac = Convert.ToDateTime(Datos.PersonaFchNac);
-                Persona.Sexo = db.Sexo.Find(Datos.SexoId);
+                Persona.SexoId = Datos.SexoId;
 
-                
+
+                if (Datos.DatCliNivelActividad != null || Datos.DatCliAltura != null)
+                {
+                    ModelCL.Registro oldRegistroDatCliNivelActividad = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliNivelActividad != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+                    ModelCL.Registro oldRegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+
+                    ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
+                    RegistroDatCli.RegistroFchHora = DateTime.Now;
+
+                    ModelCL.DatCli DatCli = new ModelCL.DatCli();
+
+                    if (oldRegistroDatCliNivelActividad != null)
+                    {
+                        if (oldRegistroDatCliNivelActividad.DatCli.DatCliNivelActividad != Datos.DatCliNivelActividad)
+                        {
+                            DatCli.DatCliNivelActividad = Datos.DatCliNivelActividad;
+                        }                            
+                    }
+                    else
+                    {
+                        DatCli.DatCliNivelActividad = Datos.DatCliNivelActividad;
+                    }
+
+                    if (oldRegistroDatCliAltura != null)
+                    {
+                        if (oldRegistroDatCliAltura.DatCli.DatCliAltura != Datos.DatCliAltura)
+                        {
+                            DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                        }                      
+                    }
+                    else
+                    {
+                        DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                    }
+
+                    RegistroDatCli.DatCli = DatCli;
+
+
+                    if (RegistroDatCli.DatCli.DatCliNivelActividad != null || RegistroDatCli.DatCli.DatCliAltura!= null)
+                    {
+                        Persona.Registro.Add(RegistroDatCli);                        
+                    }
+                }
+
+
                 if (Datos.PesoValor != null)
                 {
                     ModelCL.Registro oldRegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
@@ -181,31 +239,6 @@ namespace Lucy.Controllers
                     }
                 }
 
-
-                if (Datos.DatCliAltura != null)
-                {
-                    ModelCL.Registro oldRegistroDatCli = Persona.Registro.Where(reg => reg.DatCli != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
-
-                    ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
-                    RegistroDatCli.RegistroFchHora = DateTime.Now;
-
-                    ModelCL.DatCli DatCli = new ModelCL.DatCli();
-                    DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
-
-                    RegistroDatCli.DatCli = DatCli;
-
-                    if (oldRegistroDatCli != null)
-                    {
-                        if (oldRegistroDatCli.DatCli.DatCliAltura != DatCli.DatCliAltura)
-                        {
-                            Persona.Registro.Add(RegistroDatCli);
-                        }
-                    }
-                    else
-                    {
-                        Persona.Registro.Add(RegistroDatCli);
-                    }
-                }
                 
 
                 foreach (Fachada.ViewModelCheckBox enf in Datos.Enfermedades)

@@ -33,11 +33,13 @@ namespace ModelCL
         public string UsuarioNombre { get; set; }
         public string UsuarioEmail { get; set; }
         public string UsuarioPass { get; set; }
+        public string UsuarioPais { get; set; }
         public string UsuarioImg { get; set; }
         public bool UsuarioMailConf { get; set; }
         public Nullable<System.Guid> UsuarioCodAct { get; set; }
         public System.DateTime UsuarioFchIng { get; set; }
         public string UsuarioApp { get; set; }
+        public Nullable<System.DateTime> UsuarioLastLogin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentario { get; set; }

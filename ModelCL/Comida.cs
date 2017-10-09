@@ -17,7 +17,7 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Comida()
         {
-            this.Alimento = new HashSet<Alimento>();
+            this.RelComAli = new HashSet<RelComAli>();
         }
     
         public long ComidaId { get; set; }
@@ -25,14 +25,14 @@ namespace ModelCL
         public string ComidaPlatillo { get; set; }
         public string ComidaComida { get; set; }
         public Nullable<short> ComidaCalorias { get; set; }
-        public Nullable<short> ComidaHidratos { get; set; }
-        public Nullable<short> ComidaAzucar { get; set; }
-        public Nullable<short> ComidaGrasa { get; set; }
-        public Nullable<short> ComidaSodio { get; set; }
-        public Nullable<short> ComidaGluten { get; set; }
+        public Nullable<short> ComidaCarbohidratos { get; set; }
+        public Nullable<double> ComidaAzucar { get; set; }
+        public Nullable<double> ComidaGrasa { get; set; }
+        public Nullable<double> ComidaSodio { get; set; }
+        public Nullable<bool> ComidaGluten { get; set; }
     
         public virtual Registro Registro { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Alimento> Alimento { get; set; }
+        public virtual ICollection<RelComAli> RelComAli { get; set; }
     }
 }

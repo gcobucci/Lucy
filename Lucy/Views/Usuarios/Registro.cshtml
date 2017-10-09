@@ -64,7 +64,7 @@ else
                     @Html.ValidationMessageFor(model => model.UsuarioPassConfirmacion, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+                        
             <div class="form-group">
                 @Html.LabelFor(model => model.PersonaNombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -93,12 +93,20 @@ else
                     @Html.ValidationMessageFor(model => model.PersonaFchNac, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+                        
             <div class="form-group">
                 @Html.LabelFor(model => model.SexoId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SexoId, ViewData["listaSexos"] as SelectList, "Seleccionar", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.SexoId, ViewBag.listaSexos as SelectList, "Seleccionar", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.SexoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioPais, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.UsuarioPais, ViewBag.lPaises as SelectList, "Seleccionar", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UsuarioPais, "", new { @class = "text-danger" })
                 </div>
             </div>
 

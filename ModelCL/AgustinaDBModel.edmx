@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -32,8 +32,8 @@
           <Property Name="AlimentoNombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AlimentoImagen" Type="varchar(max)" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AlimentoCarbohidratos" Type="float" />
-          <Property Name="AlimentoCalorias" Type="float" />
+          <Property Name="AlimentoCalorias" Type="smallint" />
+          <Property Name="AlimentoCarbohidratos" Type="smallint" />
           <Property Name="AlimentoAzucar" Type="float" />
           <Property Name="AlimentoGrasa" Type="float" />
           <Property Name="AlimentoSodio" Type="float" />
@@ -77,11 +77,11 @@
           <Property Name="ComidaPlatillo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ComidaComida" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ComidaCalorias" Type="smallint" />
-          <Property Name="ComidaHidratos" Type="smallint" />
-          <Property Name="ComidaAzucar" Type="smallint" />
-          <Property Name="ComidaGrasa" Type="smallint" />
-          <Property Name="ComidaSodio" Type="smallint" />
-          <Property Name="ComidaGluten" Type="smallint" />
+          <Property Name="ComidaCarbohidratos" Type="smallint" />
+          <Property Name="ComidaAzucar" Type="float" />
+          <Property Name="ComidaGrasa" Type="float" />
+          <Property Name="ComidaSodio" Type="float" />
+          <Property Name="ComidaGluten" Type="bit" />
         </EntityType>
         <EntityType Name="Contenido">
           <Key>
@@ -111,7 +111,8 @@
           </Key>
           <Property Name="DatCliId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
-          <Property Name="DatCliAltura" Type="smallint" Nullable="false" />
+          <Property Name="DatCliAltura" Type="smallint" />
+          <Property Name="DatCliNivelActividad" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Datos">
           <Key>
@@ -370,6 +371,7 @@
           <Property Name="ComidaId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="AlimentoId" Type="bigint" Nullable="false" />
+          <Property Name="ReComAliCantidad" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="RelComCom">
           <Key>
@@ -625,11 +627,13 @@
           <Property Name="UsuarioNombre" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="UsuarioEmail" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="UsuarioPass" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UsuarioPais" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UsuarioImg" Type="varchar(max)" />
           <Property Name="UsuarioMailConf" Type="bit" Nullable="false" />
           <Property Name="UsuarioCodAct" Type="uniqueidentifier" />
           <Property Name="UsuarioFchIng" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="varchar" MaxLength="50" />
+          <Property Name="UsuarioLastLogin" Type="datetime" />
         </EntityType>
         <EntityType Name="Valor">
           <Key>
@@ -2172,7 +2176,8 @@
             <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2206,13 +2211,13 @@
           <Property Name="AlimentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AlimentoCarbohidratos" Type="Double" />
-          <Property Name="AlimentoCalorias" Type="Double" />
+          <Property Name="AlimentoCalorias" Type="Int16" />
+          <Property Name="AlimentoCarbohidratos" Type="Int16" />
           <Property Name="AlimentoAzucar" Type="Double" />
           <Property Name="AlimentoGrasa" Type="Double" />
           <Property Name="AlimentoSodio" Type="Double" />
           <Property Name="AlimentoGluten" Type="Boolean" />
-          <NavigationProperty Name="Comida" Relationship="Self.RelComAli" FromRole="Alimento" ToRole="Comida" />
+          <NavigationProperty Name="RelComAli" Relationship="Self.FK_RelComAli_AlimentoId" FromRole="Alimento" ToRole="RelComAli" />
           <NavigationProperty Name="Usuario" Relationship="Self.RelUsuAli" FromRole="Alimento" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Articulo">
@@ -2260,13 +2265,13 @@
           <Property Name="ComidaPlatillo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ComidaComida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ComidaCalorias" Type="Int16" />
-          <Property Name="ComidaHidratos" Type="Int16" />
-          <Property Name="ComidaAzucar" Type="Int16" />
-          <Property Name="ComidaGrasa" Type="Int16" />
-          <Property Name="ComidaSodio" Type="Int16" />
-          <Property Name="ComidaGluten" Type="Int16" />
+          <Property Name="ComidaCarbohidratos" Type="Int16" />
+          <Property Name="ComidaAzucar" Type="Double" />
+          <Property Name="ComidaGrasa" Type="Double" />
+          <Property Name="ComidaSodio" Type="Double" />
+          <Property Name="ComidaGluten" Type="Boolean" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_Comida_ComidaId_PersonaId" FromRole="Comida" ToRole="Registro" />
-          <NavigationProperty Name="Alimento" Relationship="Self.RelComAli" FromRole="Comida" ToRole="Alimento" />
+          <NavigationProperty Name="RelComAli" Relationship="Self.FK_RelComAli_ComidaId_PersonaId" FromRole="Comida" ToRole="RelComAli" />
         </EntityType>
         <EntityType Name="Contenido">
           <Key>
@@ -2308,7 +2313,8 @@
           </Key>
           <Property Name="DatCliId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <Property Name="DatCliAltura" Type="Int16" Nullable="false" />
+          <Property Name="DatCliAltura" Type="Int16" />
+          <Property Name="DatCliNivelActividad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Registro" Relationship="Self.FK_DatCli_DatCliId_PersonaId" FromRole="DatCli" ToRole="Registro" />
         </EntityType>
         <EntityType Name="Datos">
@@ -2380,10 +2386,10 @@
           <Property Name="EjercicioId" Type="Int64" Nullable="false" />
           <Property Name="EjercicioTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EjercicioCategoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EjercicioCaloriasPorMinuto" Type="Int32" />
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_EjercicioId" FromRole="Ejercicio" ToRole="Actividad" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Ejercicio_EjercicioId" FromRole="Ejercicio" ToRole="Contenido" />
           <NavigationProperty Name="Rutina" Relationship="Self.RelRutEje" FromRole="Ejercicio" ToRole="Rutina" />
-          <Property Name="EjercicioCaloriasPorMinuto" Type="Int32" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -2616,6 +2622,19 @@
           <NavigationProperty Name="Persona" Relationship="Self.FK_Registro_PersonaId" FromRole="Registro" ToRole="Persona" />
           <NavigationProperty Name="Peso" Relationship="Self.FK_Peso_PesoId_PersonaId" FromRole="Registro" ToRole="Peso" />
         </EntityType>
+        <EntityType Name="RelComAli">
+          <Key>
+            <PropertyRef Name="ComidaId" />
+            <PropertyRef Name="PersonaId" />
+            <PropertyRef Name="AlimentoId" />
+          </Key>
+          <Property Name="ComidaId" Type="Int64" Nullable="false" />
+          <Property Name="PersonaId" Type="Int64" Nullable="false" />
+          <Property Name="AlimentoId" Type="Int64" Nullable="false" />
+          <Property Name="ReComAliCantidad" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Alimento" Relationship="Self.FK_RelComAli_AlimentoId" FromRole="RelComAli" ToRole="Alimento" />
+          <NavigationProperty Name="Comida" Relationship="Self.FK_RelComAli_ComidaId_PersonaId" FromRole="RelComAli" ToRole="Comida" />
+        </EntityType>
         <EntityType Name="RelMedRelPerEnf">
           <Key>
             <PropertyRef Name="PersonaId" />
@@ -2743,11 +2762,13 @@
           <Property Name="UsuarioNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UsuarioEmail" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UsuarioPass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioPais" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UsuarioImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioMailConf" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioCodAct" Type="Guid" />
           <Property Name="UsuarioFchIng" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Usuario" ToRole="Comentario" />
           <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_RelUsuPer_UsuarioId" FromRole="Usuario" ToRole="RelUsuPer" />
           <NavigationProperty Name="RelUsuRol" Relationship="Self.FK_RelUsuRol_UsuarioId" FromRole="Usuario" ToRole="RelUsuRol" />
@@ -2827,6 +2848,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RelComAli_AlimentoId">
+          <End Role="Alimento" Type="Self.Alimento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelComAli" Type="Self.RelComAli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alimento">
+              <PropertyRef Name="AlimentoId" />
+            </Principal>
+            <Dependent Role="RelComAli">
+              <PropertyRef Name="AlimentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Articulo_ArticuloId">
           <End Role="Contenido" Type="Self.Contenido" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2880,6 +2915,22 @@
               <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Comida">
+              <PropertyRef Name="ComidaId" />
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelComAli_ComidaId_PersonaId">
+          <End Role="Comida" Type="Self.Comida" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RelComAli" Type="Self.RelComAli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comida">
+              <PropertyRef Name="ComidaId" />
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="RelComAli">
               <PropertyRef Name="ComidaId" />
               <PropertyRef Name="PersonaId" />
             </Dependent>
@@ -3377,10 +3428,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RelComAli">
-          <End Role="Alimento" Type="Self.Alimento" Multiplicity="*" />
-          <End Role="Comida" Type="Self.Comida" Multiplicity="*" />
-        </Association>
         <Association Name="RelComCom">
           <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
           <End Role="Comentario1" Type="Self.Comentario" Multiplicity="0..1" />
@@ -3488,6 +3535,7 @@
           <EntitySet Name="Receta" EntityType="Self.Receta" />
           <EntitySet Name="Recordatorio" EntityType="Self.Recordatorio" />
           <EntitySet Name="Registro" EntityType="Self.Registro" />
+          <EntitySet Name="RelComAli" EntityType="Self.RelComAli" />
           <EntitySet Name="RelMedRelPerEnf" EntityType="Self.RelMedRelPerEnf" />
           <EntitySet Name="RelMedVal" EntityType="Self.RelMedVal" />
           <EntitySet Name="RelPerEnf" EntityType="Self.RelPerEnf" />
@@ -3513,6 +3561,10 @@
             <End Role="Registro" EntitySet="Registro" />
             <End Role="Agua" EntitySet="Agua" />
           </AssociationSet>
+          <AssociationSet Name="FK_RelComAli_AlimentoId" Association="Self.FK_RelComAli_AlimentoId">
+            <End Role="Alimento" EntitySet="Alimento" />
+            <End Role="RelComAli" EntitySet="RelComAli" />
+          </AssociationSet>
           <AssociationSet Name="FK_Articulo_ArticuloId" Association="Self.FK_Articulo_ArticuloId">
             <End Role="Contenido" EntitySet="Contenido" />
             <End Role="Articulo" EntitySet="Articulo" />
@@ -3528,6 +3580,10 @@
           <AssociationSet Name="FK_Comida_ComidaId_PersonaId" Association="Self.FK_Comida_ComidaId_PersonaId">
             <End Role="Registro" EntitySet="Registro" />
             <End Role="Comida" EntitySet="Comida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelComAli_ComidaId_PersonaId" Association="Self.FK_RelComAli_ComidaId_PersonaId">
+            <End Role="Comida" EntitySet="Comida" />
+            <End Role="RelComAli" EntitySet="RelComAli" />
           </AssociationSet>
           <AssociationSet Name="FK_Dieta_DietaId" Association="Self.FK_Dieta_DietaId">
             <End Role="Contenido" EntitySet="Contenido" />
@@ -3665,10 +3721,6 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="RelUsuRol" EntitySet="RelUsuRol" />
           </AssociationSet>
-          <AssociationSet Name="RelComAli" Association="Self.RelComAli">
-            <End Role="Alimento" EntitySet="Alimento" />
-            <End Role="Comida" EntitySet="Comida" />
-          </AssociationSet>
           <AssociationSet Name="RelComCom" Association="Self.RelComCom">
             <End Role="Comentario" EntitySet="Comentario" />
             <End Role="Comentario1" EntitySet="Comentario" />
@@ -3774,8 +3826,8 @@
                 <ScalarProperty Name="AlimentoNombre" ColumnName="AlimentoNombre" />
                 <ScalarProperty Name="AlimentoImagen" ColumnName="AlimentoImagen" />
                 <ScalarProperty Name="AlimentoPorcion" ColumnName="AlimentoPorcion" />
-                <ScalarProperty Name="AlimentoCarbohidratos" ColumnName="AlimentoCarbohidratos" />
                 <ScalarProperty Name="AlimentoCalorias" ColumnName="AlimentoCalorias" />
+                <ScalarProperty Name="AlimentoCarbohidratos" ColumnName="AlimentoCarbohidratos" />
                 <ScalarProperty Name="AlimentoAzucar" ColumnName="AlimentoAzucar" />
                 <ScalarProperty Name="AlimentoGrasa" ColumnName="AlimentoGrasa" />
                 <ScalarProperty Name="AlimentoSodio" ColumnName="AlimentoSodio" />
@@ -3820,7 +3872,7 @@
                 <ScalarProperty Name="ComidaPlatillo" ColumnName="ComidaPlatillo" />
                 <ScalarProperty Name="ComidaComida" ColumnName="ComidaComida" />
                 <ScalarProperty Name="ComidaCalorias" ColumnName="ComidaCalorias" />
-                <ScalarProperty Name="ComidaHidratos" ColumnName="ComidaHidratos" />
+                <ScalarProperty Name="ComidaCarbohidratos" ColumnName="ComidaCarbohidratos" />
                 <ScalarProperty Name="ComidaAzucar" ColumnName="ComidaAzucar" />
                 <ScalarProperty Name="ComidaGrasa" ColumnName="ComidaGrasa" />
                 <ScalarProperty Name="ComidaSodio" ColumnName="ComidaSodio" />
@@ -3856,6 +3908,7 @@
                 <ScalarProperty Name="DatCliId" ColumnName="DatCliId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="DatCliAltura" ColumnName="DatCliAltura" />
+                <ScalarProperty Name="DatCliNivelActividad" ColumnName="DatCliNivelActividad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3917,10 +3970,10 @@
           <EntitySetMapping Name="Ejercicio">
             <EntityTypeMapping TypeName="AgustinaDBModel.Ejercicio">
               <MappingFragment StoreEntitySet="Ejercicio">
-                <ScalarProperty Name="EjercicioCaloriasPorMinuto" ColumnName="EjercicioCaloriasPorMinuto" />
                 <ScalarProperty Name="EjercicioId" ColumnName="EjercicioId" />
                 <ScalarProperty Name="EjercicioTipo" ColumnName="EjercicioTipo" />
                 <ScalarProperty Name="EjercicioCategoria" ColumnName="EjercicioCategoria" />
+                <ScalarProperty Name="EjercicioCaloriasPorMinuto" ColumnName="EjercicioCaloriasPorMinuto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4120,6 +4173,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RelComAli">
+            <EntityTypeMapping TypeName="AgustinaDBModel.RelComAli">
+              <MappingFragment StoreEntitySet="RelComAli">
+                <ScalarProperty Name="ComidaId" ColumnName="ComidaId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
+                <ScalarProperty Name="ReComAliCantidad" ColumnName="ReComAliCantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RelMedRelPerEnf">
             <EntityTypeMapping TypeName="AgustinaDBModel.RelMedRelPerEnf">
               <MappingFragment StoreEntitySet="RelMedRelPerEnf">
@@ -4227,11 +4290,13 @@
                 <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
                 <ScalarProperty Name="UsuarioEmail" ColumnName="UsuarioEmail" />
                 <ScalarProperty Name="UsuarioPass" ColumnName="UsuarioPass" />
+                <ScalarProperty Name="UsuarioPais" ColumnName="UsuarioPais" />
                 <ScalarProperty Name="UsuarioImg" ColumnName="UsuarioImg" />
                 <ScalarProperty Name="UsuarioMailConf" ColumnName="UsuarioMailConf" />
                 <ScalarProperty Name="UsuarioCodAct" ColumnName="UsuarioCodAct" />
                 <ScalarProperty Name="UsuarioFchIng" ColumnName="UsuarioFchIng" />
                 <ScalarProperty Name="UsuarioApp" ColumnName="UsuarioApp" />
+                <ScalarProperty Name="UsuarioLastLogin" ColumnName="UsuarioLastLogin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4255,15 +4320,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="RelComAli" TypeName="AgustinaDBModel.RelComAli" StoreEntitySet="RelComAli">
-            <EndProperty Name="Alimento">
-              <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
-            </EndProperty>
-            <EndProperty Name="Comida">
-              <ScalarProperty Name="ComidaId" ColumnName="ComidaId" />
-              <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="RelComCom" TypeName="AgustinaDBModel.RelComCom" StoreEntitySet="RelComCom">
             <EndProperty Name="Comentario">
               <ScalarProperty Name="ComentarioId" ColumnName="ComentarioHijoId" />
