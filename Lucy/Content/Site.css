@@ -42,6 +42,78 @@ header {
     padding-top: 7px;
 }
 
+.btn i, .btn span {
+    color: #737373;
+}
+
+.btn-circular {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    height: 28px;
+    text-align: center;
+    width: 28px;
+    padding-top: 0;
+    margin: 1px 0 3px 5px;
+}
+
+    .btn-circular i {
+        padding-top: 0;
+        position: relative;
+        left: -3px;
+        font-size: 24px;
+        height: 0;
+        width: 0;
+        top: -0.5px;
+    }
+
+    .btn-circular i:hover {
+        color: inherit;
+    }
+
+.guionMedio {
+    margin: 0 5px;
+    display: inline-block;
+    color: #666;
+}
+
+.inputRange {
+    width: 33.3%;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+    .inputRange .form-control {
+        height: 30px;
+    }
+
+.submitRange {
+    width: 16.6%;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.divSearch input:focus {
+    border-color: #ccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.divSearch > span > button > .fa:focus, .divSearch > span > button > .fa:hover {
+    color: initial !important;
+}
+
+.alert-tags {
+    display: inline-block;
+    color: #333;
+    background-color: #fff;
+    padding: 4px 20px 4px 8px;
+    margin-right: 8px;
+}
+
+    .alert-tags > a {
+        right: -10px !important;
+    }
+
 .barras {
     display: inline-block;
     cursor: pointer;
@@ -441,7 +513,7 @@ li.liHi {
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
     #subTopNav h3 {
@@ -716,6 +788,24 @@ li.liHi {
     float: left;
 }
 
+.MLitemFiltro {
+    margin-bottom: 24px;
+}
+
+.MLfiltrosHead {
+    margin-bottom: 10px;
+}
+
+.MLfiltrosAplicados {
+    margin-bottom: 30px;
+}
+
+.MLfiltrosAplicados > div .alert {
+    margin-bottom: 10px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
 .MLcontenedor {
     float: left;
 }
@@ -745,9 +835,6 @@ li.liHi {
         border-radius: 3px;
     }
 
-    .MLitem div a {
-        margin: 58px 0;
-    }
 
 .MLitemLeft {
     padding: 0 10px;
@@ -766,9 +853,33 @@ li.liHi {
     }
 }
 
+.MLitemCont {
+    max-height: 62px;
+    overflow: hidden;
+    font-weight: 300;
+}
+
 .MLitemRight {
-    margin: 35px 0;
+    margin: 45px 0 31px;
     color: #666;
+    font-size: 13px;
+}
+
+    .MLitemRight > a {
+        position: absolute;
+        font-size: 20px;
+        top: -50px;
+        right: 0px;
+        display: none;
+        color: #333;
+    }
+
+    .MLitem:hover .MLitemRight > a {
+        display: inline-block;
+    }
+
+.MLitemRight > .fa:hover {
+    color: #337ab7;
 }
 
 .MLitemSR {
@@ -815,6 +926,97 @@ li.liHi {
     color: inherit;
 }
 
+dl {
+    margin: 0;
+}
+
+.dlFiltros dt {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.dlFiltros dd a {
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    cursor: pointer;
+}
+
+.dlFiltros dd {
+    margin-bottom: 3px;
+}
+
+.dlFiltros dd a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+
+/********************************************************** custom-checkbox **********************************************************/
+
+
+input.custom-control-input {
+    display: none;
+}
+
+.custom-checkbox {
+    min-height: 1rem;
+    padding-left: 0;
+    margin-right: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    width: 100%;
+    cursor: pointer;
+}
+
+    .custom-checkbox .custom-control-indicator {
+        content: "";
+        float: right;
+        display: inline-block;
+        position: relative;
+        width: 30px;
+        height: 10px;
+        background-color: #818181;
+        border-radius: 15px;
+        margin-right: 10px;
+        -webkit-transition: background .3s ease;
+        transition: background .3s ease;
+        vertical-align: middle;
+        margin: 6px 16px 0;
+        box-shadow: none;
+    }
+
+        .custom-checkbox .custom-control-indicator:after {
+            content: "";
+            position: absolute;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #f1f1f1;
+            border-radius: 21px;
+            box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+            left: -2px;
+            top: -4px;
+            -webkit-transition: left .3s ease, background .3s ease, box-shadow .1s ease;
+            transition: left .3s ease, background .3s ease, box-shadow .1s ease;
+        }
+
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator {
+        background-color: #84c7c1;
+        background-image: none;
+        box-shadow: none !important;
+    }
+
+        .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator:after {
+            background-color: #84c7c1;
+            left: 15px;
+        }
+
+    .custom-checkbox .custom-control-input:focus ~ .custom-control-indicator {
+        box-shadow: none !important;
+    }
 
 /*a.animated-button:link, a.animated-button:visited {
     position: relative;

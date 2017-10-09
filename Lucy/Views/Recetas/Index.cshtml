@@ -7,6 +7,10 @@
     ViewBag.Title = "Recetas";
 }
 
+@{
+    var cusUrl = "";
+}
+
 @section subnav{
 
     <div id="subTopNav" style="background-image:url(/Resources/Oficial/bannerRecetas.jpg);">
@@ -18,16 +22,381 @@
 }
 
 <div class="MLfiltros col-xs-12 col-sm-3">
-    <h2>Filtros</h2>
-    @using (Html.BeginForm("Index", "Recetas", FormMethod.Get))
-    {
-        @Html.TextBox("search") <input type="submit" value="Search">
-    }
+
+    <div class="row MLfiltrosHead">
+        <div class="col-sm-12">
+            <h3>Recetas</h3>
+            <text style="margin-bottom:12px;">@Model.TotalItemCount resultados</text>
+        </div>
+    </div>
+
+    <div class="row MLfiltrosAplicados">
+        <div class="col-sm-12">
+            @if (Request.QueryString["search"] != "" && Request.QueryString["search"] != null)
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search=&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    "@Request.QueryString["search"]"
+                </div>
+            }
+
+            @if (Request.QueryString["enfermedad"] == "1")
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Diabetes
+                </div>
+            }
+
+            @if (Request.QueryString["enfermedad"] == "2")
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Celiaquía
+                </div>
+            }
+
+            @if (Request.QueryString["enfermedad"] == "3")
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Hipertención
+                </div>
+            }
+
+            @if (Request.QueryString["enfermedad"] == "4")
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Obesidad
+                </div>
+            }
+
+            @if (((Request.QueryString["calMax"] == "" || Request.QueryString["calMax"] == null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Más de @Request.QueryString["calMin"] kcal.
+                </div>
+            }
+
+            @if (((Request.QueryString["calMin"] == "" || Request.QueryString["calMin"] == null) && (Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Hasta @Request.QueryString["calMax"] kcal.
+                </div>
+            }
+
+            @if (((Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    @Request.QueryString["calMin"] kcal. a @Request.QueryString["calMax"] kcal.
+                </div>
+            }
+
+            @if (((Request.QueryString["carMax"] == "" || Request.QueryString["carMax"] == null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Más de @Request.QueryString["carMin"] g.
+                </div>
+            }
+
+            @if (((Request.QueryString["carMin"] == "" || Request.QueryString["carMin"] == null) && (Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Hasta @Request.QueryString["carMax"] g.
+                </div>
+            }
+
+            @if (((Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    @Request.QueryString["carMin"] g. a @Request.QueryString["carMax"] g.
+                </div>
+            }
+
+            @if ((Request.QueryString["gluten"] == "1") && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Sin Gluten
+                </div>
+            }
+
+            @if ((Request.QueryString["sodio"] == "1") && (Request.QueryString["enfermedad"] == null))
+            {
+                <div class="alert alert-tags alert-dismissible" role="alert">
+                    <a href="index?search&search2=b" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    Sin Sodio
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <!-- filtro buscador -->
+    <div class="row MLitemFiltro">
+        <div class="col-xs-9 col-sm-12">
+            @using (Html.BeginForm("Index", "Recetas", new
+            {
+                search = Request.QueryString["search"],
+                enfermedad = Request.QueryString["enfermedad"],
+                calMax = Request.QueryString["calMax"],
+                calMin = Request.QueryString["calMin"],
+                carMax = Request.QueryString["carMax"],
+                carMin = Request.QueryString["carMin"],
+                gluten = Request.QueryString["gluten"],
+                sodio = Request.QueryString["sodio"]
+            }, FormMethod.Get))
+            {
+                <input style="display:none" id="calMax" name="calMax" value="@Request.QueryString["calMax"]" disabled>
+                <input style="display:none" id="calMin" name="calMin" value="@Request.QueryString["calMin"]" disabled>
+                <input style="display:none" id="carMax" name="carMax" value="@Request.QueryString["carMax"]" disabled>
+                <input style="display:none" id="carMin" name="carMin" value="@Request.QueryString["carMin"]" disabled>
+                <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
+
+                <div class="input-group divSearch">
+                    <input id="search" name="search" type="text" class="form-control" placeholder="Buscar por..." style="max-width: none;">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="fa fa-search" aria-hidden="true" style="display: unset;"></span>
+                        </button>
+                    </span>
+                </div>
+
+            }
+        </div>
+    </div>
+
+    <!-- filtro enfermedades -->
+    <div class="row MLitemFiltro">
+        <div class="col-sm-12">
+            <dl class="dlFiltros">
+                <dt>Enfermedad</dt>
+
+                    @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
+                            Request.QueryString["search"] + "&enfermedad=1";
+                    }else{cusUrl = "search&enfermedad=1"; }
+
+                <dd><a href="./index?@cusUrl">Diabetes</a></dd>
+
+                    @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
+                            Request.QueryString["search"] + "&enfermedad=2";
+                    }else{cusUrl = "search&enfermedad=2"; }
+                
+                <dd><a href="./index?@cusUrl">Celiaquía</a></dd>
+
+                    @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
+                            Request.QueryString["search"] + "&enfermedad=3";
+                    }else{cusUrl = "search&enfermedad=3"; }
+                
+                <dd><a href="./index?@cusUrl">Hipertención</a></dd>
+
+                    @if (Request.QueryString["search"] != null && Request.QueryString["search"] != ""){cusUrl = "search=" +
+                            Request.QueryString["search"] + "&enfermedad=4";
+                    }else{cusUrl = "search&enfermedad=4"; }
+
+                <dd><a href="./index?@cusUrl">Obesidad</a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- filtro calorias -->
+    <div class="row MLitemFiltro">
+        <div class="col-sm-12">
+            <dl class="dlFiltros">
+                <dt>Calorías</dt>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"] + "&calMax=150&calMin"; } else { cusUrl = "search&calMax=150&calMin"; }
+                @if (Request.QueryString["carMax"] != null && Request.QueryString["carMax"] != "") { cusUrl += "&carMax=" + Request.QueryString["carMax"]; } else { cusUrl += "&carMax"; }
+                @if (Request.QueryString["carMin"] != null && Request.QueryString["carMin"] != "") { cusUrl += "&carMin=" + Request.QueryString["carMin"]; } else { cusUrl += "&carMin"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+                
+                <dd><a href="./index?@cusUrl">Hasta 150 kcal.</a></dd>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"] + "&calMax=500&calMin=150"; } else { cusUrl = "search&calMax=500&calMin=150"; }
+                @if (Request.QueryString["carMax"] != null && Request.QueryString["carMax"] != "") { cusUrl += "&carMax=" + Request.QueryString["carMax"]; } else { cusUrl += "&carMax"; }
+                @if (Request.QueryString["carMin"] != null && Request.QueryString["carMin"] != "") { cusUrl += "&carMin=" + Request.QueryString["carMin"]; } else { cusUrl += "&carMin"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+                
+                <dd><a href="./index?@cusUrl">150 kcal. a 500 kcal.</a></dd>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"] + "&calMax&calMin=500"; } else { cusUrl = "search&calMax&calMin=500"; }
+                @if (Request.QueryString["carMax"] != null && Request.QueryString["carMax"] != "") { cusUrl += "&carMax=" + Request.QueryString["carMax"]; } else { cusUrl += "&carMax"; }
+                @if (Request.QueryString["carMin"] != null && Request.QueryString["carMin"] != "") { cusUrl += "&carMin=" + Request.QueryString["carMin"]; } else { cusUrl += "&carMin"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+                
+                <dd><a href="./index?@cusUrl">Más de 500 kcal.</a></dd>
+                <dd>
+                    @using (Html.BeginForm("Index", "Recetas", new
+                    {
+                        search = Request.QueryString["search"],
+                        calMax = Request.QueryString["calMax"],
+                        calMin = Request.QueryString["calMin"],
+                        carMax = Request.QueryString["carMax"],
+                        carMin = Request.QueryString["carMin"],
+                        gluten = Request.QueryString["gluten"],
+                        sodio = Request.QueryString["sodio"]
+                    }, FormMethod.Get))
+                    {
+                        <input style="display:none" id="search" name="search" value="@Request.QueryString["search"]" disabled>
+                        <input style="display:none" id="carMax" name="carMax" value="@Request.QueryString["carMax"]" disabled>
+                        <input style="display:none" id="carMin" name="carMin" value="@Request.QueryString["carMin"]" disabled>
+                        <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                        <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
+
+                        <div class="form-group inputRange">
+                            <input type="number" class="form-control" id="calMin" name="calMin" placeholder="Mín.">
+                        </div>
+                        <div class="form-group guionMedio">
+                            <span>&#8211;</span>
+                        </div>
+                        <div class="form-group inputRange">
+                            <input type="number" class="form-control" id="calMax" name="calMax" placeholder="Máx.">
+                        </div>
+                        <div class="form-group submitRange">
+                            <button class="btn btn-default btn-circular" type="submit">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- filtro carbohidratos -->
+    <div class="row MLitemFiltro">
+        <div class="col-sm-12">
+            <dl class="dlFiltros">
+                <dt>Carbohidratos</dt>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"]; } else { cusUrl = "search"; }
+                @if (Request.QueryString["calMax"] != null && Request.QueryString["calMax"] != "") { cusUrl += "&calMax=" + Request.QueryString["calMax"]; } else { cusUrl += "&calMax"; }
+                @if (Request.QueryString["calMin"] != null && Request.QueryString["calMin"] != "") { cusUrl += "&calMin=" + Request.QueryString["calMin"] + "&carMax=50&carMin"; } else { cusUrl += "&calMin&carMax=50&carMin"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+
+                <dd><a href="./index?@cusUrl">Hasta 50 g.</a></dd>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"]; } else { cusUrl = "search"; }
+                @if (Request.QueryString["calMax"] != null && Request.QueryString["calMax"] != "") { cusUrl += "&calMax=" + Request.QueryString["calMax"]; } else { cusUrl += "&calMax"; }
+                @if (Request.QueryString["calMin"] != null && Request.QueryString["calMin"] != "") { cusUrl += "&calMin=" + Request.QueryString["calMin"] + "&carMax=200&carMin=50"; } else { cusUrl += "&calMin&carMax=200&carMin=50"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+
+                <dd><a href="./index?@cusUrl">50 g. a 200 g.</a></dd>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"]; } else { cusUrl = "search"; }
+                @if (Request.QueryString["calMax"] != null && Request.QueryString["calMax"] != "") { cusUrl += "&calMax=" + Request.QueryString["calMax"]; } else { cusUrl += "&calMax"; }
+                @if (Request.QueryString["calMin"] != null && Request.QueryString["calMin"] != "") { cusUrl += "&calMin=" + Request.QueryString["calMin"] + "&carMax&carMin=200"; } else { cusUrl += "&calMin&carMax&carMin=200"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+
+                <dd><a href="./index?@cusUrl">Más de 200 g.</a></dd>
+                <dd>
+                    @using (Html.BeginForm("Index", "Recetas", new { search = Request.QueryString["search"], calMax = Request.QueryString["calMax"],
+                        calMin = Request.QueryString["calMin"], carMax = Request.QueryString["carMax"], carMin = Request.QueryString["carMin"],
+                        gluten = Request.QueryString["gluten"], sodio = Request.QueryString["sodio"] }, FormMethod.Get))
+                    {
+                        <input style="display:none" id="search" name="search" value="@Request.QueryString["search"]" disabled>
+                        <input style="display:none" id="calMax" name="calMax" value="@Request.QueryString["calMax"]" disabled>
+                        <input style="display:none" id="calMin" name="calMin" value="@Request.QueryString["calMin"]" disabled>
+                        <input style="display:none" id="gluten" name="gluten" value="@Request.QueryString["gluten"]" disabled>
+                        <input style="display:none" id="sodio" name="sodio" value="@Request.QueryString["sodio"]" disabled>
+
+                        <div class="form-group inputRange">
+                            <input type="number" class="form-control" id="carMin" name="carMin" placeholder="Mín.">
+                        </div>
+                        <div class="form-group guionMedio">
+                            <span>&#8211;</span>
+                        </div>
+                        <div class="form-group inputRange">
+                            <input type="number" class="form-control" id="carMax" name="carMax" placeholder="Máx.">
+                        </div>
+                        <div class="form-group submitRange">
+                            <button class="btn btn-default btn-circular" type="submit">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- filtro otros -->
+    <div class="row MLitemFiltro">
+        <div class="col-sm-12">
+            <dl class="dlFiltros">
+                <dt>Otros</dt>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"]; } else { cusUrl = "search"; }
+                @if (Request.QueryString["calMax"] != null && Request.QueryString["calMax"] != "") { cusUrl += "&calMax=" + Request.QueryString["calMax"]; } else { cusUrl += "&calMax"; }
+                @if (Request.QueryString["calMin"] != null && Request.QueryString["calMin"] != "") { cusUrl += "&calMin=" + Request.QueryString["calMin"]; } else { cusUrl += "&calMin"; }
+                @if (Request.QueryString["carMax"] != null && Request.QueryString["carMax"] != "") { cusUrl += "&carMax=" + Request.QueryString["carMax"]; } else { cusUrl += "&carMax"; }
+                @if (Request.QueryString["carMin"] != null && Request.QueryString["carMin"] != "") { cusUrl += "&carMin=" + Request.QueryString["carMin"]; } else { cusUrl += "&carMin"; }
+                @if (Request.QueryString["gluten"] != "1") { cusUrl += "&gluten=1"; } else { cusUrl += "&gluten=0"; }
+                @if (Request.QueryString["sodio"] != null && Request.QueryString["sodio"] != "") { cusUrl += "&sodio=" + Request.QueryString["sodio"]; } else { cusUrl += "&sodio"; }
+
+                <dd>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
+                                Sin Gluten
+                                @if (Request.QueryString["gluten"] == "1")
+                                { <input type="checkbox" class="custom-control-input"checked> }
+                                else
+                                { <input type="checkbox" class="custom-control-input"> }
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </dd>
+
+                @if (Request.QueryString["search"] != null && Request.QueryString["search"] != "") { cusUrl = "search=" + Request.QueryString["search"]; } else { cusUrl = "search"; }
+                @if (Request.QueryString["calMax"] != null && Request.QueryString["calMax"] != "") { cusUrl += "&calMax=" + Request.QueryString["calMax"]; } else { cusUrl += "&calMax"; }
+                @if (Request.QueryString["calMin"] != null && Request.QueryString["calMin"] != "") { cusUrl += "&calMin=" + Request.QueryString["calMin"]; } else { cusUrl += "&calMin"; }
+                @if (Request.QueryString["carMax"] != null && Request.QueryString["carMax"] != "") { cusUrl += "&carMax=" + Request.QueryString["carMax"]; } else { cusUrl += "&carMax"; }
+                @if (Request.QueryString["carMin"] != null && Request.QueryString["carMin"] != "") { cusUrl += "&carMin=" + Request.QueryString["carMin"]; } else { cusUrl += "&carMin"; }
+                @if (Request.QueryString["gluten"] != null && Request.QueryString["gluten"] != "") { cusUrl += "&gluten=" + Request.QueryString["gluten"]; } else { cusUrl += "&gluten"; }
+                @if (Request.QueryString["sodio"] != "1") { cusUrl += "&sodio=1"; } else { cusUrl += "&sodio=0"; }
+
+                <dd>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
+                                Sin Sodio
+                                @if (Request.QueryString["sodio"] == "1")
+                                { <input type="checkbox" class="custom-control-input" checked> }
+                                else
+                                { <input type="checkbox" class="custom-control-input"> }
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
 </div>
 
 <div class="MLcontenedor col-xs-12 col-sm-9">
     @if (ViewBag.Message != null)
     {
+        <!-- Sin Resultados -->
         <div class="MLitemSR">
             <div class="MLimgSR">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80" version="1.1" width="50" height="50">
@@ -52,44 +421,44 @@
     @foreach (var item in Model)
     {
         <div class="MLitem">
-            <div class="MLitemLeft col-sm-9">
+            <div class="MLitemLeft col-lg-10 col-md-9 col-sm-8">
                 <div class="sinPadding col-xs-6 col-sm-4">
                     <a href="/recetas/details?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
                 </div>
                 <div class="sinPadding col-xs-6 col-sm-8">
                     <div class="MLitemTitulo col-sm-12"><a href="/recetas/details?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
-                    <div class="hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
+                    <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
             </div>
-            <div class="MLitemRight hidden-xs col-sm-3">
+            <div class="MLitemRight hidden-xs col-lg-2 col-md-3 col-sm-4">
                 @*<a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a>*@ 
                 
-                @*if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
+                @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
                 {
-                    <div>caca</div>
+                    <a href="#" class="fa fa-heart-o" aria-hidden="true"></a>
                 }
                 else
                 {
-                    <div>papa</div>
-                }*@
+                    <a href="#" class="fa fa-heart" aria-hidden="true"></a>
+                }
 
-                <div class="col-sm-12 caca">Calorías: @item.Receta.RecetaCalorias</div>
-                <div class="col-sm-12 caca">Hidratos: @item.Receta.RecetaHidratos</div>
-                <div class="col-sm-12 caca">
-                    Gluten: @if (item.Receta.RecetaGluten == true)
-                    { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                <div class="col-sm-12" title="Calorías">@item.Receta.RecetaCalorias Calorías</div>
+                <div class="col-sm-12" title="Carbohidratos">@item.Receta.RecetaHidratos Azúcares</div>
+                <div class="col-sm-12">
+                    @if (item.Receta.RecetaGluten == true)
+                    { <span>Con Gluten</span> }
                     else
                     {
-                        <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                        <span>Sin Gluten</span>
                     }
                 </div>
 
-                <div class="col-sm-12 caca">
-                    Sodio: @if (item.Receta.RecetaSodio == true)
-                    { <span style="color:rgba(38, 223, 105, 0.8);">Si</span> }
+                <div class="col-sm-12">
+                    @if (item.Receta.RecetaSodio == true)
+                    { <span>Con Sodio</span> }
                     else
                     {
-                        <span style="color:rgba(247, 24, 24, 0.7);">No</span>
+                        <span>Sin Sodio</span>
                     }
                 </div>
 
@@ -102,80 +471,6 @@
         DisplayLinkToPreviousPage = PagedListDisplayMode.Always, LinkToPreviousPageFormat = "", LinkToNextPageFormat = "" })
 
 </div>
-
-<!--<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<div class="container">
-    <div class="row">
-        <div class="box clearfix">
-            <table class="table table-hover table-striped" id="bootstrap-table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().ContenidoTitulo)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().ContenidoDescripcion)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaCalorias)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaHidratos)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaSodio)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().Receta.RecetaGluten)
-                        </th>
-                        <th>
-                            Imágen
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaCalorias)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaHidratos)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaSodio)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Receta.RecetaGluten)
-                            </td>
-                            <td>
-                                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
 
 @section style{
 

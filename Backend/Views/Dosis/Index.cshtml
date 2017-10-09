@@ -7,48 +7,56 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nombre Medicina
-        </th>
-        <th>
-            Nombre Valor
-        </th>
-        <th>
-            Nombre Presentacion
-        </th>
-        <th>
-            Cantidad Mínima
-        </th>
-        <th>
-            Efecto Dosis
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RelMedVal.Medicina.MedicinaNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RelMedVal.Valor.ValorNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Presentacion.PresentacionNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DosisCantidadMin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DosisEfecto)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DosisId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DosisId })
-        </td>
-    </tr>
-}
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre Medicina
+                    </th>
+                    <th>
+                        Nombre Valor
+                    </th>
+                    <th>
+                        Nombre Presentacion
+                    </th>
+                    <th>
+                        Cantidad Mínima
+                    </th>
+                    <th>
+                        Efecto Dosis
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelMedVal.Medicina.MedicinaNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelMedVal.Valor.ValorNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Presentacion.PresentacionNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DosisCantidadMin)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DosisEfecto)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.DosisId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.DosisId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

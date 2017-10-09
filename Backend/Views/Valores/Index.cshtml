@@ -1,72 +1,80 @@
 ﻿@model IEnumerable<ModelCL.Valor>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Valores";
 }
 
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nombre de Valor
-        </th>
-        <th>
-            Descripción de Valor
-        </th>
-        <th>
-            Valor General
-        </th>
-        <th>
-            Valor de Medida)
-        </th>
-        <th>
-            Cantidad de enfermedades relacionadas
-        </th>
-        <th>
-            Cantidad de medicinas asociadas (y dosis)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorDesc)
-        </td>
-        <td>
-            @if (item.ValorGeneral == true)
-            {
-                <text>Si</text>
-            }
-            else
-            {
-                <text>No</text>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorMedida)
-        </td>
-        <td>
-            @item.Enfermedad.Count().ToString()
-        </td>
-        <td>
-            @{ int cantDosis = 0; }
-            @foreach (var rmv in item.RelMedVal) { cantDosis = cantDosis + rmv.Dosis.Count(); }
-            
-            @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ValorId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ValorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ValorId })
-        </td>
-    </tr>
-}
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre de Valor
+                    </th>
+                    <th>
+                        Descripción de Valor
+                    </th>
+                    <th>
+                        Valor General
+                    </th>
+                    <th>
+                        Valor de Medida)
+                    </th>
+                    <th>
+                        Cantidad de enfermedades relacionadas
+                    </th>
+                    <th>
+                        Cantidad de medicinas asociadas (y dosis)
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValorNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValorDesc)
+                        </td>
+                        <td>
+                            @if (item.ValorGeneral == true)
+                            {
+                                <text>Si</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValorMedida)
+                        </td>
+                        <td>
+                            @item.Enfermedad.Count().ToString()
+                        </td>
+                        <td>
+                            @{ int cantDosis = 0; }
+                            @foreach (var rmv in item.RelMedVal) { cantDosis = cantDosis + rmv.Dosis.Count(); }
+
+                            @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ValorId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ValorId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ValorId })
+                        </td>
+                    </tr>
+                                }
+
+            </table>
+        </div>
+    </div>
+</div>

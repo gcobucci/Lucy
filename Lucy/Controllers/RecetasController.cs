@@ -39,13 +39,43 @@ namespace Lucy.Controllers
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("index")]
-        public ActionResult Index(int? page, string search)
+        public ActionResult Index(int? page, string search, byte? enfermedad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            IPagedList recetas = null;
 
-            var recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-            (c.ContenidoTitulo.Contains(search) || search == null)).ToList().ToPagedList(page ?? 1, 2);
-            if (recetas.Count < 1) {
+            if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0))
+            {
+                recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
+                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+            }
+            else
+            {
+                if (gluten == 1 && sodio == 1)
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
+                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaGluten == false) &&
+                    (c.Receta.RecetaSodio == false)).ToList().ToPagedList(page ?? 1, 10);
+                }
+                else if (gluten == 1 && (sodio == 0 || sodio == null))
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
+                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaGluten == false))
+                    .ToList().ToPagedList(page ?? 1, 10);
+                }
+                else if ((gluten == 0 || gluten == null) && sodio == 1)
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
+                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaSodio == false))
+                    .ToList().ToPagedList(page ?? 1, 10);
+                }
+            }
+
+            if (recetas.TotalItemCount < 1) {
                 if (search != null)
                 {
                     ViewBag.Message = "No encontramos recetas con ese nombre.";

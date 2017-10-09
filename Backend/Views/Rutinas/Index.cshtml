@@ -1,46 +1,53 @@
 ﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rutinas";
 }
 
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Contenido del Titulo 
-        </th>
-        <th>
-            Contenido de Descripcion)
-        </th>
-        <th>
-            Cantidad de ejercicios
-        </th>
-        <th>
-        </th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-            </td>
-            <td>
-                @item.Rutina.Ejercicio.Count().ToString()
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
-            </td>
-        </tr>
-    }
+            <table class="table">
+                <tr>
+                    <th>
+                        Contenido del Titulo
+                    </th>
+                    <th>
+                        Contenido de Descripcion)
+                    </th>
+                    <th>
+                        Cantidad de ejercicios
+                    </th>
+                    <th>
+                    </th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
+                        </td>
+                        <td>
+                            @item.Rutina.Ejercicio.Count().ToString()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

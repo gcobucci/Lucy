@@ -1,49 +1,57 @@
 ﻿@model IEnumerable<ModelCL.Enfermedad>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Enfermedades";
 }
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nombre de Enfermedad
-        </th>
-        <th>
-            Descripción de Enfermedad
-        </th>
-        <th>
-            Cantidad de valores asociados
-        </th>
-        <th>
-            Cantidad de medicinas asociadas
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnfermedadNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnfermedadDesc)
-        </td>
-        <td>
-            @item.Valor.Count().ToString()
-        </td>
-        <td>
-            @item.Medicina.Count().ToString()
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EnfermedadId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EnfermedadId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EnfermedadId })
-        </td>
-    </tr>
-}
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre de Enfermedad
+                    </th>
+                    <th>
+                        Descripción de Enfermedad
+                    </th>
+                    <th>
+                        Cantidad de valores asociados
+                    </th>
+                    <th>
+                        Cantidad de medicinas asociadas
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnfermedadNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnfermedadDesc)
+                        </td>
+                        <td>
+                            @item.Valor.Count().ToString()
+                        </td>
+                        <td>
+                            @item.Medicina.Count().ToString()
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.EnfermedadId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.EnfermedadId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.EnfermedadId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
