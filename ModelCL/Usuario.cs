@@ -17,14 +17,14 @@ namespace ModelCL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Comentario = new HashSet<Comentario>();
+            this.Comentarios = new HashSet<Comentario>();
             this.RelUsuPer = new HashSet<RelUsuPer>();
             this.RelUsuRol = new HashSet<RelUsuRol>();
-            this.Comentario1 = new HashSet<Comentario>();
-            this.Contenido = new HashSet<Contenido>();
+            this.ComentariosFav = new HashSet<Comentario>();
+            this.ContenidosFav = new HashSet<Contenido>();
             this.Tema = new HashSet<Tema>();
             this.Alimento = new HashSet<Alimento>();
-            this.Contenido1 = new HashSet<Contenido>();
+            this.Contenidos = new HashSet<Contenido>();
             this.Enfermedad = new HashSet<Enfermedad>();
             this.Medicina = new HashSet<Medicina>();
         }
@@ -42,21 +42,21 @@ namespace ModelCL
         public Nullable<System.DateTime> UsuarioLastLogin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentario> Comentario { get; set; }
+        public virtual ICollection<Comentario> Comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RelUsuPer> RelUsuPer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RelUsuRol> RelUsuRol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentario> Comentario1 { get; set; }
+        public virtual ICollection<Comentario> ComentariosFav { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contenido> Contenido { get; set; }
+        public virtual ICollection<Contenido> ContenidosFav { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tema> Tema { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alimento> Alimento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contenido> Contenido1 { get; set; }
+        public virtual ICollection<Contenido> Contenidos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enfermedad> Enfermedad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

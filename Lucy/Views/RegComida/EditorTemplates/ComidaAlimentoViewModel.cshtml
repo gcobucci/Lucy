@@ -4,34 +4,64 @@
 {
     @Html.HiddenFor(model => model[i].AlimentoId)
 
-    @Html.LabelFor(model => model[i].AlimentoNombre)
-    @Html.HiddenFor(model => model[i].AlimentoNombre)
-    @Html.DisplayFor(model => model[i].AlimentoNombre)
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoNombre)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoNombre)
+            @Html.DisplayFor(model => model[i].AlimentoNombre)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoCalorias)
-    @Html.HiddenFor(model => model[i].AlimentoCalorias)
-    @Html.DisplayFor(model => model[i].AlimentoCalorias)
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoCalorias)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoCalorias)
+            @Html.DisplayFor(model => model[i].AlimentoCalorias)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoCarbohidratos)
-    @Html.HiddenFor(model => model[i].AlimentoCarbohidratos)
-    @Html.DisplayFor(model => model[i].AlimentoCarbohidratos)
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoCarbohidratos)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoCarbohidratos)
+            @Html.DisplayFor(model => model[i].AlimentoCarbohidratos)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoAzucar)
-    @Html.HiddenFor(model => model[i].AlimentoAzucar)
-    @Html.DisplayFor(model => model[i].AlimentoAzucar)
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoAzucar)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoAzucar)
+            @Html.DisplayFor(model => model[i].AlimentoAzucar)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoGrasa)
-    @Html.HiddenFor(model => model[i].AlimentoGrasa)
-    @Html.DisplayFor(model => model[i].AlimentoGrasa)
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoGrasa)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoGrasa)
+            @Html.DisplayFor(model => model[i].AlimentoGrasa)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoSodio)
-    @Html.HiddenFor(model => model[i].AlimentoSodio)
-    @Html.DisplayFor(model => model[i].AlimentoSodio)
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoSodio)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoSodio)
+            @Html.DisplayFor(model => model[i].AlimentoSodio)
+        </dd>
 
-    @Html.LabelFor(model => model[i].AlimentoGluten)
-    @Html.HiddenFor(model => model[i].AlimentoGluten)
-    @Html.DisplayFor(model => model[i].AlimentoGluten)
-
+        <dt>
+            @Html.LabelFor(model => model[i].AlimentoGluten)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoGluten)
+            @Html.DisplayFor(model => model[i].AlimentoGluten)
+        </dd>
+    </dl>         
+                  
     <div class="form-group">
         @Html.LabelFor(model => model[i].RelComAliCantidad, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

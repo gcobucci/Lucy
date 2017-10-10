@@ -52,35 +52,10 @@
             </div>
         </div>
 
+
         <div id="alimentos">
-            @Html.EditorFor(model => model.Alimentos/*, "ComidaAlimentoViewModel"*/)
+            @Html.EditorFor(model => model.Alimentos)
         </div>
-
-
-        @*<div class="panel panel-default">
-            <div class="panel-heading">Alimentos</div>
-            <div class="panel-body">
-                <ul class="list-group">
-                    @foreach (var alimento in ViewBag.lAlimentos)
-                    {
-                        var check = false;
-                        foreach (var a in Model.Alimentos)
-                        {
-                            if (alimento.AlimentoId == a.AlimentoId)
-                            {
-                                check = true;
-                                break;
-                            }
-                        }
-                        <li class="list-group-item">
-                            <label><input type="checkbox" @(check ? "checked" : "") name="lAlimentos" value="@alimento.AlimentoId" /> @alimento.AlimentoNombre (Porcion: @alimento.AlimentoPorcion, Calorias: @alimento.AlimentoCalorias, Carbohidratos: @alimento.AlimentoCarbohidratos, Azucares: @alimento.AlimentoAzucar, Grasas: @alimento.AlimentoGrasa, Sodio: @alimento.AlimentoSodio, Gluten: @alimento.AlimentoGluten)</label>
-                            <input type="number" name="lCantidades" value="@alimento.AlimentoId" /> 
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>*@
-
 
 
         <div class="form-group">

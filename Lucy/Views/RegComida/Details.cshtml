@@ -88,9 +88,9 @@
 
         <dd>
             <ul>
-                @foreach (var item in Model.Comida.Alimento.OrderBy(e => e.AlimentoNombre))
+                @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
                 {
-                    <li>@Html.DisplayFor(modelItem => item.AlimentoNombre)</li>
+                    <li>@item.ReComAliCantidad - @item.Alimento.AlimentoNombre)</li>
                 }
             </ul>
         </dd>
