@@ -179,7 +179,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Global.asax" />
-    <Content Include="ico.ico" />
+    <Content Include="ico4.ico" />
     <Content Include="Resources\Oficial\almuerzo.jpg" />
     <Content Include="Resources\Oficial\bannerRecetas.jpg" />
     <Content Include="Resources\Oficial\cena.jpg" />
@@ -363,6 +363,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
+    <Compile Include="Controllers\FavoritoController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
     <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
@@ -451,6 +452,7 @@
     <Folder Include="Resources\Oficial\Imagenes\Recetas\" />
     <Folder Include="Resources\Oficial\Videos\" />
     <Folder Include="Resources\Users\" />
+    <Folder Include="Views\Favorito\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fachada\Fachada.csproj">
