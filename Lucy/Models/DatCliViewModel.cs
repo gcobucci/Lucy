@@ -36,6 +36,10 @@ namespace Lucy.Models
         public short SexoId { get; set; }
 
 
+        /////DatCli/////
+        [Display(Name = "Nivel de actividad física")]
+        public string DatCliNivelActividad { get; set; }
+
         /////Peso/////
         [Display(Name = "Peso (Kg)")]
         [Range(typeof(double), "1", "700", ErrorMessage = "El valor debe estar entre {1} y {2}")]
@@ -46,33 +50,17 @@ namespace Lucy.Models
         [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<short> DatCliAltura { get; set; }
 
+
         /////Enfermedades/////
         public List<Fachada.ViewModelCheckBox> Enfermedades { get; set; }
 
-        //[Display(Name = "Tipo")]
-        //public string DiabetesTipo { get; set; }
-
-        //Tipo 1//
-        //[RequiredIf("DiabetesTipo", "1")]
-        //[Range(typeof(double), "0,4", "1", ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        //[Display(Name = "Valor normal mínimo de glicemia")]
-        //public double DiabetesGlicemiaBaja { get; set; }
-
-        //[RequiredIf("DiabetesTipo", "1")]
-        //[Range(typeof(double), "1", "1,8", ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        //[Display(Name = "Valor normal máximo de glicemia")]
-        //public double DiabetesGlicemiaAlta { get; set; }
-
-        //[RequiredIf("DiabetesTipo", "1")]
         [Range(5, 30, ErrorMessage = "El campo valor debe estar entre {1} y {2}")]
         [Display(Name = "Hidratos por unidad de insulina")]
         public short DiabetesHidratosPorUniInsu { get; set; }
 
-        //[RequiredIf("DiabetesTipo", "1")]
         [Display(Name = "Insulina retardada")]
         public long InsulinaRetardadaId { get; set; }
 
-        //[RequiredIf("DiabetesTipo", "1")]
         [Display(Name = "Insulina de corrección")]
         public long InsulinaCorreccionId { get; set; }
 

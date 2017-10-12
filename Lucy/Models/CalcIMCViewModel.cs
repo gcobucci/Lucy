@@ -10,20 +10,20 @@ using System.Web.Mvc;
 
 namespace Lucy.Models
 {
-    public class RegDatCliViewModel
+    public class CalcIMCViewModel
     {
         [Key]
-        public long RegistroId { get; set; }
+        public int Id { get; set; }
 
-        //[Key]
+
         //public long PersonaId { get; set; }
 
-        [Required]
-        [Display(Name = "Fecha")]
-        public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
+        [Display(Name = "Peso (Kg)")]
+        [Range(typeof(double), "1", "700", ErrorMessage = "El valor debe estar entre {1} y {2}")]
+        public double Peso { get; set; }
 
         [Display(Name = "Altura (centimetros)")]
         [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        public short DatCliAltura { get; set; }
+        public short Altura { get; set; }
     }
 }

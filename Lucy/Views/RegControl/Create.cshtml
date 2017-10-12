@@ -5,7 +5,7 @@
 <h2>Create</h2>
 
 <div class="form-horizontal">
-    <h4>Medicación</h4>
+    <h4>Control</h4>
     <hr />
     <div class="form-group">
         <div class="form-group">
@@ -35,7 +35,7 @@
         window.onload = function cargar() {
             var selectedID = $('#Enfermedades').val();
 
-            $.get('/registros/medicacion/_create/' + '?idEnf=' + selectedID, function (data) {
+            $.get('/registros/control/_create/' + '?idEnf=' + selectedID, function (data) {
 
                 $('#RegMed').html(data);
                 $('#RegMed').fadeIn('fast');
@@ -55,7 +55,7 @@
                 selectedID = 0;
             }
 
-            $.get('/registros/medicacion/_create/' + '?idEnf=' + selectedID, function (data) {
+            $.get('/registros/control/_create/' + '?idEnf=' + selectedID, function (data) {
 
                 $('#RegMed').html(data);
                 $('#RegMed').fadeIn('fast');
