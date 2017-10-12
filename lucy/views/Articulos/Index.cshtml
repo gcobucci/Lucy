@@ -1,10 +1,18 @@
 ﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "Artículos y Noticias -";
+    ViewBag.Title = "Noticias -";
 }
 
-<h2>Artículos y Noticias</h2>
+@section subnav{
+
+    <div id="subTopNav" style="background-image:url(/Resources/Oficial/bannerNoticias.jpg);">
+        <div class="container body-content">
+            <h3>Noticias</h3>
+        </div>
+    </div>
+
+}
 
 <div id="Center">
     <ul id="waterfall"></ul>
