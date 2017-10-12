@@ -59,6 +59,7 @@ namespace ModelCL
         public virtual DbSet<Receta> Receta { get; set; }
         public virtual DbSet<Recordatorio> Recordatorio { get; set; }
         public virtual DbSet<Registro> Registro { get; set; }
+        public virtual DbSet<RelComAli> RelComAli { get; set; }
         public virtual DbSet<RelMedRelPerEnf> RelMedRelPerEnf { get; set; }
         public virtual DbSet<RelMedVal> RelMedVal { get; set; }
         public virtual DbSet<RelPerEnf> RelPerEnf { get; set; }

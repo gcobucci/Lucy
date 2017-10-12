@@ -363,6 +363,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
+    <Compile Include="Controllers\CalculadorasController.cs" />
+    <Compile Include="Controllers\RegComidaController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
     <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
@@ -370,7 +372,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\RegAguaController.cs" />
-    <Compile Include="Controllers\RegDatCliController.cs" />
     <Compile Include="Controllers\RegActividadController.cs" />
     <Compile Include="Controllers\RegPesoController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
@@ -381,9 +382,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalcTMBViewModel.cs" />
+    <Compile Include="Models\CalcIMCViewModel.cs" />
+    <Compile Include="Models\RegComidaViewModel.cs" />
     <Compile Include="Models\RegControlViewModel.cs" />
     <Compile Include="Models\RegMedicacionViewModel.cs" />
-    <Compile Include="Models\RegDatCliViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
     <Compile Include="Models\RegActividadViewModel.cs" />
     <Compile Include="Models\RegPesoViewModel.cs" />
@@ -420,10 +423,6 @@
     <Content Include="Views\RegAgua\Delete.cshtml" />
     <Content Include="Views\RegAgua\Edit.cshtml" />
     <Content Include="Views\RegAgua\Index.cshtml" />
-    <Content Include="Views\RegDatCli\Create.cshtml" />
-    <Content Include="Views\RegDatCli\Delete.cshtml" />
-    <Content Include="Views\RegDatCli\Edit.cshtml" />
-    <Content Include="Views\RegDatCli\Index.cshtml" />
     <Content Include="Views\RegActividad\Create.cshtml" />
     <Content Include="Views\RegActividad\Delete.cshtml" />
     <Content Include="Views\RegActividad\Edit.cshtml" />
@@ -438,6 +437,14 @@
     <Content Include="Views\RegControl\Delete.cshtml" />
     <Content Include="Views\RegControl\Edit.cshtml" />
     <Content Include="Views\RegControl\Index.cshtml" />
+    <Content Include="Views\Calculadoras\calcularIMC.cshtml" />
+    <Content Include="Views\Calculadoras\calcularTMB.cshtml" />
+    <Content Include="Views\RegComida\Create.cshtml" />
+    <Content Include="Views\RegComida\Delete.cshtml" />
+    <Content Include="Views\RegComida\Edit.cshtml" />
+    <Content Include="Views\RegComida\Index.cshtml" />
+    <Content Include="Views\RegComida\Details.cshtml" />
+    <Content Include="Views\RegComida\EditorTemplates\ComidaAlimentoViewModel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -451,6 +458,7 @@
     <Folder Include="Resources\Oficial\Imagenes\Recetas\" />
     <Folder Include="Resources\Oficial\Videos\" />
     <Folder Include="Resources\Users\" />
+    <Folder Include="Views\CalcIMC\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fachada\Fachada.csproj">

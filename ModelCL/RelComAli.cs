@@ -12,13 +12,14 @@ namespace ModelCL
     using System;
     using System.Collections.Generic;
     
-    public partial class DatCli
+    public partial class RelComAli
     {
-        public long DatCliId { get; set; }
+        public long ComidaId { get; set; }
         public long PersonaId { get; set; }
-        public Nullable<short> DatCliAltura { get; set; }
-        public string DatCliNivelActividad { get; set; }
+        public long AlimentoId { get; set; }
+        public double ReComAliCantidad { get; set; }
     
-        public virtual Registro Registro { get; set; }
+        public virtual Alimento Alimento { get; set; }
+        public virtual Comida Comida { get; set; }
     }
 }

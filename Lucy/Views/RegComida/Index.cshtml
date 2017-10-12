@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ModelCL.Registro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Fecha")
+        </th>
+        <th>
+            @Html.Label("Nombre del platillo/descriptivo")
+        </th>
+        <th>
+            @Html.Label("Comida")
+        </th>
+        <th>
+            @Html.Label("Calorías")
+        </th>
+        <th>
+            @Html.Label("Carbohidratos")
+        </th>
+        <th>
+            @Html.Label("Azucares")
+        </th>
+        <th>
+            @Html.Label("Grasas")
+        </th>
+        <th>
+            @Html.Label("Sodio")
+        </th>
+        <th>
+            @Html.Label("Gluten")
+        </th>
+        <th>
+            @Html.Label("Cantidad de alimentos")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.RegistroFchHora.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaPlatillo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaComida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaCalorias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaCarbohidratos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaAzucar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaGrasa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comida.ComidaSodio)
+        </td>
+        <td>
+            @if (item.Comida.ComidaGluten == true)
+            {
+                <text>Si</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
+        </td>
+        <td>
+            @item.Comida.RelComAli.Count()
+        </td>
+        <td>            
+            @Html.ActionLink("Edit", "Edit", new { id=item.RegistroId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.RegistroId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+        </td>
+    </tr>
+}
+
+</table>
