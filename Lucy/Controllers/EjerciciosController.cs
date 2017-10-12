@@ -1,4 +1,6 @@
 ﻿using System;
+using PagedList;
+using PagedList.Mvc;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -19,11 +21,38 @@ namespace Backend.Controllers
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("index")]
-        public ActionResult Index()
+        public ActionResult Index(int? page, string search, int? calMax, int? calMin ,byte? categoria, byte? tipo)
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            IPagedList ejercicios = null;
+            ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList().
+                ToPagedList(page ?? 1, 10);
 
-            var ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
+            if ((categoria == null && tipo == null) || (categoria == 0 && tipo == 0))
+            {
+                ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 1)) && (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+            }
+            else
+            {
+                if (gluten == 1 && sodio == 1)
+                {
+                }
+            }
+
+            if (ejercicios.TotalItemCount < 1)
+            {
+                if (search != null)
+                {
+                    ViewBag.Message = "No encontramos ejercicios con ese nombre.";
+                }
+                else
+                {
+                    ViewBag.Message = "No encontramos ejercicios con estos filtros.";
+                }
+            }
+
+            ViewBag.idUsu = idUsu;
 
             return View(ejercicios);
         }

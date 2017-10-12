@@ -149,7 +149,7 @@
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
                         <ul id="ulUsu" class="dropdown-menu">
                             <li class="userLi">
-                                @if (Request.IsAuthenticated)
+                                @if (Request.Cookies["cookieUsu"] != null)
                                 {
                                     <h4>@Request.Cookies["cookieUsu"]["UsuNom"]</h4>
                                 }
