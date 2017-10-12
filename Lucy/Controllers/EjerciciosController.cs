@@ -35,9 +35,9 @@ namespace Backend.Controllers
             }
             else
             {
-                if (gluten == 1 && sodio == 1)
-                {
-                }
+                //if (gluten == 1 && sodio == 1)
+                //{
+                //}
             }
 
             if (ejercicios.TotalItemCount < 1)
