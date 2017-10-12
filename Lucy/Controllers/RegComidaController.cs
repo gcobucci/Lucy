@@ -37,7 +37,7 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
                         
-            ModelCL.Registro regComida = db.Registro.Find(id);
+            ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
             if (regComida.Comida == null)
             {
                 return HttpNotFound();
@@ -123,7 +123,7 @@ namespace Lucy.Controllers
                 comida.ComidaPlatillo = datos.ComidaPlatillo;
                 comida.ComidaComida = datos.ComidaComida;
 
-                foreach (var a in datos.Alimentos)
+                foreach (ComidaAlimentoViewModel a in datos.Alimentos)
                 {
                     if (a.RelComAliCantidad != 0)
                     {
@@ -162,23 +162,8 @@ namespace Lucy.Controllers
                 return HttpNotFound();
             }
 
+
             RegComidaViewModel vmRegComida = new RegComidaViewModel();
-            vmRegComida.RegistroId = regComida.RegistroId;
-            //vmRegComida.PersonaId = regComida.PersonaId;
-            vmRegComida.RegistroFchHora = regComida.RegistroFchHora.ToString();
-            vmRegComida.ComidaPlatillo = regComida.Comida.ComidaPlatillo;
-            vmRegComida.ComidaComida = regComida.Comida.ComidaComida;
-            //vmRegComida.Alimentos = regComida.Comida.Alimento.ToList();
-            //foreach (ModelCL.Alimento a in regComida.Comida.Alimento)
-            //{
-            //    //vmRegComida.Alimentos.Add(a.AlimentoId);
-            //}
-            vmRegComida.ComidaCalorias = regComida.Comida.ComidaCalorias;
-            vmRegComida.ComidaCarbohidratos = regComida.Comida.ComidaCarbohidratos;
-            vmRegComida.ComidaAzucar = regComida.Comida.ComidaAzucar;
-            vmRegComida.ComidaGrasa = regComida.Comida.ComidaGrasa;
-            vmRegComida.ComidaSodio = regComida.Comida.ComidaSodio;
-            vmRegComida.ComidaGluten = regComida.Comida.ComidaGluten;
 
 
             List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
@@ -195,15 +180,38 @@ namespace Lucy.Controllers
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-            ViewBag.lAlimentos = lAlimentos;
-
+            vmRegComida.Alimentos = new List<ComidaAlimentoViewModel>();
+            foreach (ModelCL.Alimento ali in lAlimentos)
+            {
+                vmRegComida.Alimentos.Add(new ComidaAlimentoViewModel { AlimentoId = ali.AlimentoId, AlimentoNombre = ali.AlimentoNombre, AlimentoCalorias = ali.AlimentoCalorias, AlimentoCarbohidratos = ali.AlimentoCarbohidratos, AlimentoAzucar = ali.AlimentoAzucar, AlimentoGrasa = ali.AlimentoGrasa, AlimentoSodio = ali.AlimentoSodio, AlimentoGluten = ali.AlimentoGluten });
+            }
+            
+            
+            vmRegComida.RegistroId = regComida.RegistroId;
+            //vmRegComida.PersonaId = regComida.PersonaId;
+            vmRegComida.RegistroFchHora = regComida.RegistroFchHora.ToString();
+            vmRegComida.ComidaPlatillo = regComida.Comida.ComidaPlatillo;
+            vmRegComida.ComidaComida = regComida.Comida.ComidaComida;
+            //vmRegComida.Alimentos = regComida.Comida.RelComAli.ToList();
+            foreach (ModelCL.RelComAli rca in regComida.Comida.RelComAli.ToList())
+            {
+                ComidaAlimentoViewModel cavm = vmRegComida.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
+                cavm.RelComAliCantidad = rca.ReComAliCantidad;
+            }
+            vmRegComida.ComidaCalorias = regComida.Comida.ComidaCalorias;
+            vmRegComida.ComidaCarbohidratos = regComida.Comida.ComidaCarbohidratos;
+            vmRegComida.ComidaAzucar = regComida.Comida.ComidaAzucar;
+            vmRegComida.ComidaGrasa = regComida.Comida.ComidaGrasa;
+            vmRegComida.ComidaSodio = regComida.Comida.ComidaSodio;
+            vmRegComida.ComidaGluten = regComida.Comida.ComidaGluten;
+                      
             return View(vmRegComida);
         }
 
         [HttpPost]
         [Route("edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(RegComidaViewModel datos, long[] lAlimentos, bool confirmacion = false)
+        public ActionResult Edit(RegComidaViewModel datos)
         {
             List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
             {
@@ -214,20 +222,8 @@ namespace Lucy.Controllers
                 new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
             };
             ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
-
-
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
-            List<ModelCL.Alimento> alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-            ViewBag.lAlimentos = alimentos;
-
-
-            foreach (long abk in lAlimentos)
-            {
-                //datos.Alimentos.Add(db.Alimento.Find(abk));
-            }
-
-
+            
+            
             if (ModelState.IsValid)
             {
                 ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
@@ -251,16 +247,19 @@ namespace Lucy.Controllers
                 regComida.Comida.ComidaPlatillo = datos.ComidaPlatillo;
                 regComida.Comida.ComidaComida = datos.ComidaComida;
 
-                //List<ModelCL.Alimento> bkAlimentos = regComida.Comida.Alimento.ToList();
-                //foreach (ModelCL.Alimento oldAlimento in bkAlimentos)
-                //{
-                //    //regComida.Comida.Alimento.Remove(oldAlimento);
-                //}
-                
-                //foreach (var a in lAlimentos)
-                //{
-                //    //regComida.Comida.Alimento.Add(db.Alimento.Find(a));
-                //}
+                List<ModelCL.RelComAli> bkRelComAli = regComida.Comida.RelComAli.ToList();
+                foreach (ModelCL.RelComAli oldRelComAli in bkRelComAli)
+                {
+                    regComida.Comida.RelComAli.Remove(oldRelComAli);
+                }
+
+                foreach (ComidaAlimentoViewModel a in datos.Alimentos)
+                {
+                    if (a.RelComAliCantidad != 0)
+                    {
+                        regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                    }
+                }
 
                 regComida.Comida.ComidaCalorias = datos.ComidaCalorias;
                 regComida.Comida.ComidaCarbohidratos = datos.ComidaCarbohidratos;
@@ -288,6 +287,7 @@ namespace Lucy.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(regComida);
         }
 

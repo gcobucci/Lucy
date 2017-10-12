@@ -2769,14 +2769,14 @@
           <Property Name="UsuarioFchIng" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Usuario" ToRole="Comentario" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Usuario" ToRole="Comentario" />
           <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_RelUsuPer_UsuarioId" FromRole="Usuario" ToRole="RelUsuPer" />
           <NavigationProperty Name="RelUsuRol" Relationship="Self.FK_RelUsuRol_UsuarioId" FromRole="Usuario" ToRole="RelUsuRol" />
-          <NavigationProperty Name="Comentario1" Relationship="Self.RelFavUsuCom" FromRole="Usuario" ToRole="Comentario" />
-          <NavigationProperty Name="Contenido" Relationship="Self.RelFavUsuCont" FromRole="Usuario" ToRole="Contenido" />
+          <NavigationProperty Name="ComentariosFav" Relationship="Self.RelFavUsuCom" FromRole="Usuario" ToRole="Comentario" />
+          <NavigationProperty Name="ContenidosFav" Relationship="Self.RelFavUsuCont" FromRole="Usuario" ToRole="Contenido" />
           <NavigationProperty Name="Tema" Relationship="Self.RelFavUsuTem" FromRole="Usuario" ToRole="Tema" />
           <NavigationProperty Name="Alimento" Relationship="Self.RelUsuAli" FromRole="Usuario" ToRole="Alimento" />
-          <NavigationProperty Name="Contenido1" Relationship="Self.RelUsuCont" FromRole="Usuario" ToRole="Contenido" />
+          <NavigationProperty Name="Contenidos" Relationship="Self.RelUsuCont" FromRole="Usuario" ToRole="Contenido" />
           <NavigationProperty Name="Enfermedad" Relationship="Self.RelUsuEnf" FromRole="Usuario" ToRole="Enfermedad" />
           <NavigationProperty Name="Medicina" Relationship="Self.RelUsuMed" FromRole="Usuario" ToRole="Medicina" />
         </EntityType>
