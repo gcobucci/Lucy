@@ -513,6 +513,7 @@ li.liHi {
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position-y: center;
     margin-bottom: 50px;
 }
 

@@ -35,9 +35,21 @@ namespace Backend.Controllers
             }
             else
             {
-                //if (gluten == 1 && sodio == 1)
-                //{
-                //}
+                if (categoria != null || categoria != 0)
+                {
+                    //switch (categoria)
+                    //{
+                    //    case 1:
+                    //        Console.WriteLine("Case 1");
+                    //        break;
+                    //    case 2:
+                    //        Console.WriteLine("Case 2");
+                    //        break;
+                    //    default:
+                    //        Console.WriteLine("Default case");
+                    //        break;
+                    //}
+                }
             }
 
             if (ejercicios.TotalItemCount < 1)
