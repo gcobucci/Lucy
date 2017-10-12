@@ -14,6 +14,14 @@
         </dd>
 
         <dt>
+            @Html.LabelFor(model => model[i].AlimentoPorcion)
+        </dt>
+        <dd>
+            @Html.HiddenFor(model => model[i].AlimentoPorcion)
+            @Html.DisplayFor(model => model[i].AlimentoPorcion)
+        </dd>
+
+        <dt>
             @Html.LabelFor(model => model[i].AlimentoCalorias)
         </dt>
         <dd>

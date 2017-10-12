@@ -76,11 +76,22 @@
         </dd>
 
         <dt>
-            @Html.Label("Total de gluten")
+            @Html.Label("Gluten")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaGluten)
+            @if (Model.Comida.ComidaGluten == true)
+            {
+                <text>Si</text>
+            }
+            else if (Model.Comida.ComidaGluten == false)
+            {
+                <text>No</text>
+            }
+            else
+            {
+                <text>Sin asignar</text>
+            }
         </dd>
 
         <dt>

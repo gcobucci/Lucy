@@ -67,6 +67,8 @@ namespace Lucy.Models
 
         [Display(Name = "Alimento")]
         public string AlimentoNombre { get; set; }
+        [Display(Name = "Porción")]
+        public string AlimentoPorcion { get; set; }
         [Display(Name = "Calorías")]
         public Nullable<short> AlimentoCalorias { get; set; }
         [Display(Name = "Carbohidratos")]
