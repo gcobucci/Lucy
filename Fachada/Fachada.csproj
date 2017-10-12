@@ -65,5 +65,11 @@
     <Compile Include="ViewModelSelectListChk.cs" />
     <Compile Include="ViewModelSelectList.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelCL\ModelCL.csproj">
+      <Project>{1bc34328-b271-4d56-bcdb-b2a72cd1d0d1}</Project>
+      <Name>ModelCL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

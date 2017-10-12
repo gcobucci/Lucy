@@ -44,7 +44,7 @@ namespace Lucy.Controllers
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
             IPagedList recetas = null;
 
-            if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0))
+            if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0) || (gluten == 0 && sodio == null) || (gluten == null && sodio == 0))
             {
                 recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
@@ -106,7 +106,7 @@ namespace Lucy.Controllers
             }
             return View(contReceta);
         }
-
+        
         //[Route("create")]
         //public ActionResult Create()
         //{

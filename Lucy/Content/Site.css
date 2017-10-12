@@ -865,20 +865,25 @@ li.liHi {
     font-size: 13px;
 }
 
-    .MLitemRight > a {
+    .MLitemRight > div > a {
         position: absolute;
         font-size: 20px;
         top: -50px;
         right: 0px;
         display: none;
         color: #333;
+        cursor: pointer;
     }
 
-    .MLitem:hover .MLitemRight > a {
+    .MLitem:hover .MLitemRight > div > a {
         display: inline-block;
     }
 
-.MLitemRight > .fa:hover {
+.MLitemRight > div > .fa-heart {
+    color: #3d94de;
+}
+
+.MLitemRight > div > .fa:hover {
     color: #337ab7;
 }
 
