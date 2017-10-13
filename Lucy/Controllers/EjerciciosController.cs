@@ -24,9 +24,9 @@ namespace Backend.Controllers
         public ActionResult Index(int? page, string search, int? calMax, int? calMin ,byte? categoria, byte? tipo)
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            string cat = null;
+            string tip = null;
             IPagedList ejercicios = null;
-            ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList().
-                ToPagedList(page ?? 1, 10);
 
             if ((categoria == null && tipo == null) || (categoria == 0 && tipo == 0))
             {
@@ -35,23 +35,59 @@ namespace Backend.Controllers
             }
             else
             {
+                // Identifico la categoría seleccionada
                 if (categoria != null || categoria != 0)
                 {
-                    //switch (categoria)
-                    //{
-                    //    case 1:
-                    //        Console.WriteLine("Case 1");
-                    //        break;
-                    //    case 2:
-                    //        Console.WriteLine("Case 2");
-                    //        break;
-                    //    default:
-                    //        Console.WriteLine("Default case");
-                    //        break;
-                    //}
+                    switch (categoria)
+                    {
+                        case 1:
+                            cat = "Cuerpo completo";
+                            break;
+                        case 2:
+                            cat = "Tren superior";
+                            break;
+                        case 3:
+                            cat = "Tren inferior";
+                            break;
+                        case 4:
+                            cat = "Abdominales";
+                            break;
+                        case 5:
+                            cat = "Calentamiento";
+                            break;
+                        case 6:
+                            cat = "Estiramiento";
+                            break;
+                        default:
+                            cat = null;
+                            break;
+                    }
                 }
+
+                // Identifico el tipo seleccionado
+                if (tipo != null || tipo != 0)
+                {
+                    switch (tipo)
+                    {
+                        case 1:
+                            tip = "Ejercicio";
+                            break;
+                        case 2:
+                            tip = "Actividad";
+                            break;
+                        default:
+                            tip = null;
+                            break;
+                    }
+                }
+
+                ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 1)) && 
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria == cat) && 
+                    (c.Ejercicio.EjercicioTipo == tip)).ToList().ToPagedList(page ?? 1, 10);
             }
 
+            // Valido si esta vacio
             if (ejercicios.TotalItemCount < 1)
             {
                 if (search != null)
@@ -65,7 +101,6 @@ namespace Backend.Controllers
             }
 
             ViewBag.idUsu = idUsu;
-
             return View(ejercicios);
         }
 
