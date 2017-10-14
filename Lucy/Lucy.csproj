@@ -528,6 +528,7 @@
     <Content Include="Views\RegComida\Index.cshtml" />
     <Content Include="Views\Calculadoras\calcularIMC.cshtml" />
     <Content Include="Views\Calculadoras\calcularTMB.cshtml" />
+    <Content Include="Views\Home\_Personas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

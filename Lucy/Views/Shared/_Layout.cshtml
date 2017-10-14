@@ -163,13 +163,9 @@
                             {
                                 <li class="dropdown-submenu userLiSubMenu">
 
-                                    <select class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%" @*data-live-search="true"*@>
-                                        <optgroup label="Cuidando a...">
-                                            <a href="/recetas/index"><option>Miguel</option></a>
-                                            <option>Gabriel</option>
-                                            <option>Pablo</option>
-                                        </optgroup>
-                                    </select>
+                                    <div id="selectPersonas">
+
+                                    </div>
 
                                 </li>
                             }
@@ -301,6 +297,18 @@
                 e.preventDefault();
             });
         });
+
+        window.onload = function getPersonas() {
+            $.get('/Home/_Personas', function (data) {
+
+                $('#selectPersonas').html(data);
+                $('#selectPersonas').fadeIn('fast');
+
+                //$('form').removeData('validator');
+                //$('form').removeData('unobtrusiveValidation');
+                //$.validator.unobtrusive.parse('form');
+            });
+        }
     </script>
 </body>
 </html>

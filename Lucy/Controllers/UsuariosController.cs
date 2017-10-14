@@ -47,7 +47,6 @@ namespace Lucy.Controllers
                             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
                             cookie.Expires = DateTime.Now.AddMinutes(timeout);
                             cookie.HttpOnly = true;
-
                             Response.Cookies.Add(cookie);
 
                             var cookieUsu = new HttpCookie("cookieUsu");

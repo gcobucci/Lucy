@@ -390,7 +390,7 @@ li.liHi {
     margin: 5px 0 10px;
 }
 
-    .userLiSubMenu > div > .dropdown-menu {
+    .userLiSubMenu > div > div > .dropdown-menu {
         top: 0px;
         position: relative;
         width: 100%;
