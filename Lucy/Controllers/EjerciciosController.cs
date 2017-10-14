@@ -70,10 +70,10 @@ namespace Backend.Controllers
                     switch (tipo)
                     {
                         case 1:
-                            tip = "Ejercicio";
+                            tip = "Actividad";
                             break;
                         case 2:
-                            tip = "Actividad";
+                            tip = "Ejercicio";
                             break;
                         default:
                             tip = null;
