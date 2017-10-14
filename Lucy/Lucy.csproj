@@ -365,6 +365,7 @@
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CalculadorasController.cs" />
     <Compile Include="Controllers\FavoritoController.cs" />
+    <Compile Include="Controllers\RegControlDiabeticoController.cs" />
     <Compile Include="Controllers\RegComidaController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
     <Compile Include="Controllers\RegMedicacionController.cs" />
@@ -385,7 +386,9 @@
     </Compile>
     <Compile Include="Models\CalcIMCViewModel.cs" />
     <Compile Include="Models\CalcTMBViewModel.cs" />
+    <Compile Include="Models\RegControlDiabeticoViewModel.cs" />
     <Compile Include="Models\RegComidaViewModel.cs" />
+    <Compile Include="Models\ComidaAlimentoViewModel.cs" />
     <Compile Include="Models\RegControlViewModel.cs" />
     <Compile Include="Models\RegMedicacionViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
@@ -446,10 +449,15 @@
     <Content Include="Views\RegComida\Delete.cshtml" />
     <Content Include="Views\RegComida\Details.cshtml" />
     <Content Include="Views\RegComida\Edit.cshtml" />
-    <Content Include="Views\RegComida\EditorTemplates\ComidaAlimentoViewModel.cshtml" />
     <Content Include="Views\RegComida\Index.cshtml" />
     <Content Include="Views\Calculadoras\calcularIMC.cshtml" />
     <Content Include="Views\Calculadoras\calcularTMB.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ComidaAlimentoViewModel.cshtml" />
+    <Content Include="Views\RegControlDiabetico\Create.cshtml" />
+    <Content Include="Views\RegControlDiabetico\Delete.cshtml" />
+    <Content Include="Views\RegControlDiabetico\Details.cshtml" />
+    <Content Include="Views\RegControlDiabetico\Edit.cshtml" />
+    <Content Include="Views\RegControlDiabetico\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

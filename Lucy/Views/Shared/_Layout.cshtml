@@ -273,5 +273,20 @@
     @Scripts.Render("~/bundles/myScript")
     @RenderSection("scripts", required: false)
 
+    <script type="text/javascript">
+                            $.validator.methods.number = function (value, element) {
+                                value = floatValue(value);
+                                return this.optional(element) || !isNaN(value);
+                            }
+                            $.validator.methods.range = function (value, element, param) {
+                                value = floatValue(value);
+                                return this.optional(element) || (value >= param[0] && value <= param[1]);
+                            }
+
+                            function floatValue(value) {
+                                return parseFloat(value.replace(",", "."));
+                            }
+    </script>
+
 </body>
 </html>

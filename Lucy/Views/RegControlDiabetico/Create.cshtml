@@ -1,0 +1,283 @@
+﻿@model Lucy.Models.RegControlDiabeticoViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Control diabético</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>¡Error!</strong> @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegistroFchHora, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date datetimepicker" style="max-width: 280px">
+                    @Html.EditorFor(model => model.RegistroFchHora, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.RegistroFchHora, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @* Registro de insulina retardada *@        
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegistrarInsulinaRetardada, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.RegistrarInsulinaRetardada, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RegistrarInsulinaRetardada, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="registro_insulina_retardada">
+            <div class="form-group">
+                @Html.LabelFor(model => model.InsulinaRetardadaPresentacionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.InsulinaRetardadaPresentacionId, ViewBag.lPresentacionesMed as SelectList, "Seleccionar", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.InsulinaRetardadaPresentacionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InsulinaRetardadaCantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InsulinaRetardadaCantidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InsulinaRetardadaCantidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @* Registro de control *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegistrarControl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.RegistrarControl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RegistrarControl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="registro_control">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ControlValor, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ControlValor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ControlValor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegistrarComida, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.RegistrarComida, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RegistrarComida, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            @* Registro de comida *@
+            <div id="registro_comida">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaPlatillo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaPlatillo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaPlatillo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaComida, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.ComidaComida, ViewBag.lComidas as SelectList, "Seleccionar", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ComidaComida, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div id="alimentos">
+                    @Html.EditorFor(model => model.Alimentos)
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaCalorias, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaCalorias, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ComidaCalorias, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaCarbohidratos, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaCarbohidratos, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ComidaCarbohidratos, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaAzucar, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaAzucar, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ComidaAzucar, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaGrasa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaGrasa, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ComidaGrasa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaSodio, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.ComidaSodio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaGluten, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaGluten, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            @* Resultados *@
+            <div id="resultados">
+                <h4>Resultados</h4>
+
+                <p>
+                    @Html.LabelFor(model => Model.ResultadoInsulinaPorCorreccion):
+
+                    @Html.HiddenFor(model => Model.ResultadoInsulinaPorCorreccion)
+                    @Html.DisplayFor(model => Model.ResultadoInsulinaPorCorreccion)
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => Model.ResultadoInsulinaPorHidratos):
+
+                    @Html.HiddenFor(model => Model.ResultadoInsulinaPorHidratos)
+                    @Html.DisplayFor(model => Model.ResultadoInsulinaPorHidratos)
+                </p>
+            </div>
+
+            <div id="resultado_final">
+                <h5>Resultado final</h5>
+
+                <p>
+                    @Html.HiddenFor(model => Model.ResultadoTotalMensaje)
+                    @Html.DisplayFor(model => Model.ResultadoTotalMensaje)
+                </p>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.ResultadoTotalInsulina, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">*@
+                    @Html.EditorFor(model => model.ResultadoTotalInsulinaCorreccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ResultadoTotalInsulinaCorreccion, "", new { @class = "text-danger" })
+                    @*</div>*@
+                </div>
+            </div>
+        </div>               
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section style {
+    @Styles.Render("~/Content/bootstrap-datetimepicker")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+
+    <script type="text/javascript">
+        $(function () {
+            var ln = x = window.navigator.language || navigator.browserLanguage;
+            $('.datetimepicker').datetimepicker({
+                locale: 'es',
+                viewMode: 'days',
+                locale: ln,
+                maxDate: 'now',
+                //format: 'L'
+            });
+        });
+
+        $(document).ready(function () {
+            if ($("#RegistrarControl").is(':checked')) {
+                $("#registro_control").show();
+            } else {
+                $("#registro_control").hide();
+            }
+
+            if ($("#RegistrarComida").is(':checked')) {
+                $("#registro_comida").show();
+            } else {
+                $("#registro_comida").hide();
+            }
+
+            if ($("#RegistrarInsulinaRetardada").is(':checked')) {
+                $("#registro_insulina_retardada").show();
+            } else {
+                $("#registro_insulina_retardada").hide();
+            }
+        });
+
+        $("#RegistrarControl").change(function () {
+            if ($("#RegistrarControl").is(':checked')) {
+                $("#registro_control").show();
+            } else {
+                $("#registro_control").hide();
+            }
+        });
+
+        $("#RegistrarComida").change(function () {
+            if ($("#RegistrarComida").is(':checked')) {
+                $("#registro_comida").show();
+            } else {
+                $("#registro_comida").hide();
+            }
+        });
+
+        $("#RegistrarInsulinaRetardada").change(function () {
+            if ($("#RegistrarInsulinaRetardada").is(':checked')) {
+                $("#registro_insulina_retardada").show();
+            } else {
+                $("#registro_insulina_retardada").hide();
+            }
+        });
+    </script>
+}

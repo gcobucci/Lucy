@@ -34,12 +34,12 @@ namespace Lucy.Models
         public string MedicinaNombre { get; set; }
 
         [Required]
-        [Display(Name = "Presentacion de la medicina")]
+        [Display(Name = "Presentación de la medicina")]
         public short PresentacionId { get; set; }
 
         [Required]
         [Display(Name = "Cantidad")]
-        [Range(typeof(double), "1", "100000", ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a 0,1")]
         public double MedicacionCantidad { get; set; }
     }
 }

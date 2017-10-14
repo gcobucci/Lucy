@@ -53,7 +53,7 @@
                 @Html.ValidationMessageFor(model => model.MedicacionCantidad, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -62,7 +62,7 @@
     </div>
 }
 
-<script type="text/javascript">
+<script type="text/javascript">  
     $(function () {
         var ln = x = window.navigator.language || navigator.browserLanguage;
         $('.datetimepicker').datetimepicker({
@@ -70,7 +70,14 @@
             viewMode: 'days',
             locale: ln,
             maxDate: 'now',
-            format: 'L'
-        });
+            //format: 'L'
+        });        
     });
+    
 </script>
+
+@section scripts{
+    <script type="text/javascript">
+        $("#MedicacionCantidad").removeAttr("data-val");
+    </script>
+}
