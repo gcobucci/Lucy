@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
     @RenderSection("style", required: false)
 </head>
-<body onshow="getUsuPos()" onresize="getUsuPos()">
+<body onfocus="getUsuPos()" onresize="getUsuPos()">
 
     <div id="out" onclick="closeNav()"></div>
 
@@ -148,15 +148,26 @@
 
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
                         <ul id="ulUsu" class="dropdown-menu">
-                            <li class="userLi">
+                            <li class="userLi" style="border:none;">
                                 @if (Request.Cookies["cookieUsu"] != null)
                                 {
-                                    <h4>@Request.Cookies["cookieUsu"]["UsuNom"]</h4>
+                                    <h3 class="userTitle">@Request.Cookies["cookieUsu"]["UsuNom"]</h3>
                                 }
                                 else
                                 {
-                                    <h4>Hola</h4>
+                                    <h3 class="userTitle">Hola</h3>
                                 }
+                            </li>
+                            <li class="dropdown-submenu userLiSubMenu">
+
+                                <select class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%" @*data-live-search="true"*@>
+                                    <optgroup label="Cuidando a...">
+                                        <option><a href="recetas/index">Miguel</a></option>
+                                        <option>Gabriel</option>
+                                        <option>Pablo</option>
+                                    </optgroup>
+                                </select>
+                                
                             </li>
                             <li class="userLi"><a href="#">Notificaciones</a></li>
                             <li class="userLi">
@@ -272,6 +283,19 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/myScript")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-submenu div button').on("click", function (e) {
+                $(this).next('div').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
 
+            $('.userLi h3').on("click", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html>

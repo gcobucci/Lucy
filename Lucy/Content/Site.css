@@ -376,6 +376,26 @@ li.liHi {
     height: 44px;
 }
 
+#ulUsu {
+    overflow: hidden;
+}
+
+.userTitle {
+    margin: 10px 0px;
+    text-align: center;
+}
+
+.userLiSubMenu {
+    text-align: center;
+    margin: 5px 0 10px;
+}
+
+    .userLiSubMenu > div > .dropdown-menu {
+        top: 0px;
+        position: relative;
+        width: 100%;
+    }
+
 .dropdown-menu {
     position: absolute;
     border: 1px solid #d6d6d6;
