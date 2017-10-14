@@ -36,7 +36,7 @@ namespace Backend.Controllers
             else
             {
                 // Identifico la categoría seleccionada
-                if (categoria != null || categoria != 0)
+                if (categoria != null && categoria != 0)
                 {
                     switch (categoria)
                     {
@@ -65,7 +65,7 @@ namespace Backend.Controllers
                 }
 
                 // Identifico el tipo seleccionado
-                if (tipo != null || tipo != 0)
+                if (tipo != null && tipo != 0)
                 {
                     switch (tipo)
                     {
@@ -83,8 +83,8 @@ namespace Backend.Controllers
 
                 ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 1)) && 
-                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria == cat) && 
-                    (c.Ejercicio.EjercicioTipo == tip)).ToList().ToPagedList(page ?? 1, 10);
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) && 
+                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).ToList().ToPagedList(page ?? 1, 10);
             }
 
             // Valido si esta vacio

@@ -57,7 +57,7 @@
                     <a href="#" class="opSidnav">Mapas</a>
                 </li>
                 <li>
-                    <a href="#" class="opSidnav">Ejercicio</a>
+                    <a href="/ejercicios/index" class="opSidnav">Ejercicio</a>
                 </li>
                 <li>
                     <a href="#" class="opSidnav">Calculadoras</a>
@@ -158,17 +158,22 @@
                                     <h3 class="userTitle">Hola</h3>
                                 }
                             </li>
-                            <li class="dropdown-submenu userLiSubMenu">
 
-                                <select class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%" @*data-live-search="true"*@>
-                                    <optgroup label="Cuidando a...">
-                                        <option><a href="recetas/index">Miguel</a></option>
-                                        <option>Gabriel</option>
-                                        <option>Pablo</option>
-                                    </optgroup>
-                                </select>
-                                
-                            </li>
+                            @if (Request.Cookies["cookieUsu"] != null)
+                            {
+                                <li class="dropdown-submenu userLiSubMenu">
+
+                                    <select class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%" @*data-live-search="true"*@>
+                                        <optgroup label="Cuidando a...">
+                                            <a href="/recetas/index"><option>Miguel</option></a>
+                                            <option>Gabriel</option>
+                                            <option>Pablo</option>
+                                        </optgroup>
+                                    </select>
+
+                                </li>
+                            }
+
                             <li class="userLi"><a href="#">Notificaciones</a></li>
                             <li class="userLi">
                                 @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
