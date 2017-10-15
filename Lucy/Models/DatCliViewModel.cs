@@ -46,7 +46,7 @@ namespace Lucy.Models
         public Nullable<double> PesoValor { get; set; }
 
         /////DatCli/////
-        [Display(Name = "Altura (centimetros)")]
+        [Display(Name = "Altura (cm)")]
         [Range(30, 300, ErrorMessage = "El valor debe estar entre {1} y {2}")]
         public Nullable<short> DatCliAltura { get; set; }
 

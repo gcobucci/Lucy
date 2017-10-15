@@ -1,11 +1,24 @@
 ﻿@model List<ModelCL.Persona>
 
-<select onchange="alert($(this).val())" class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%" @*data-live-search="true"*@>
-    <optgroup label="Cuidando a...">
-        @foreach (var item in Model)
-        {
-            <option value="@item.PersonaId">@item.PersonaNombre @item.PersonaApellido</option>
-            //falta matchear con cookie para poner selected
-        }
-    </optgroup>
-</select>
+<select onchange="changePersona($(this).val())" class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%">
+        <optgroup label="Cuidando a...">
+            @foreach (var item in Model)
+            {
+                if (Request.Cookies["cookiePer"] != null)
+                {
+                    if (Request.Cookies["cookiePer"]["PerId"] == item.PersonaId.ToString())
+                    {
+                        <option selected value="@item.PersonaId">@item.PersonaNombre @item.PersonaApellido</option>
+                    }
+                    else
+                    {
+                        <option value="@item.PersonaId">@item.PersonaNombre @item.PersonaApellido</option>
+                    }
+                }
+                else
+                {
+                    <option value="@item.PersonaId">@item.PersonaNombre @item.PersonaApellido</option>
+                }
+            }
+        </optgroup>
+    </select>

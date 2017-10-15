@@ -47,13 +47,18 @@ namespace Lucy.Controllers
                             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
                             cookie.Expires = DateTime.Now.AddMinutes(timeout);
                             cookie.HttpOnly = true;
-
                             Response.Cookies.Add(cookie);
 
                             var cookieUsu = new HttpCookie("cookieUsu");
                             cookieUsu.Expires = DateTime.Now.AddMinutes(timeout);
                             cookieUsu.Values["UsuNom"] = v.UsuarioNombre;
                             Response.Cookies.Add(cookieUsu);
+
+                            var cookiePer = new HttpCookie("cookiePer");
+                            cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
+                            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                            cookiePer.Values["PerId"] = v.RelUsuPer.Where(u => u.UsuarioId == idUsu).FirstOrDefault().PersonaId.ToString();
+                            Response.Cookies.Add(cookiePer);
 
                             if (Url.IsLocalUrl(ReturnUrl))
                             {
@@ -90,9 +95,16 @@ namespace Lucy.Controllers
         {
             FormsAuthentication.SignOut();
             HttpCookie cookieUsu = Request.Cookies["cookieUsu"];
-            //HttpCookie cookieUsu = new HttpCookie("UserSettings");
             cookieUsu.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(cookieUsu);
+
+            if (Request.Cookies["cookiePer"] != null)
+            {
+                HttpCookie cookiePer = Request.Cookies["cookiePer"];
+                cookiePer.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookiePer);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
