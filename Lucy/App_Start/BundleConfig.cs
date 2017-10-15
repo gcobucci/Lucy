@@ -22,14 +22,15 @@ namespace Lucy
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-select.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-select.min.css",
                       "~/Content/site.css"));
 
             // bootstrap-datetimepicker
-
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-datetimepicker").Include(
                       "~/Scripts/moment-with-locales.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js"));
@@ -39,7 +40,6 @@ namespace Lucy
                       "~/Content/bootstrap-datetimepicker.min.css"));
 
             // Mis script
-
             bundles.Add(new ScriptBundle("~/bundles/myScript").Include(
                       "~/Scripts/slideRigth.js",
                       "~/Scripts/menuScroll.js",

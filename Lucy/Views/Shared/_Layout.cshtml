@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
     @RenderSection("style", required: false)
 </head>
-<body onshow="getUsuPos()" onresize="getUsuPos()">
+<body onfocus="getUsuPos()" onresize="getUsuPos()">
 
     <div id="out" onclick="closeNav()"></div>
 
@@ -22,7 +22,7 @@
         <!-- sidenav -->
         <nav id="mySidenav" class="sidenav">
             <ul class="ul-sidenav">
-                @if (Request.Cookies["cookieUsu"] != null)
+                @if ((Request.Cookies[FormsAuthentication.FormsCookieName] != null) && (Request.Cookies["cookieUsu"] != null))
                 {
                     <li class="liHi">
                         <a disabled class="opSidnav typewrite" data-period="3000" data-type='[ "", "Hola @Request.Cookies["cookieUsu"]["UsuNom"]", "¿Cómo estás?", "¿Qué tal tu día?" ]'>
@@ -57,7 +57,7 @@
                     <a href="#" class="opSidnav">Mapas</a>
                 </li>
                 <li>
-                    <a href="#" class="opSidnav">Ejercicio</a>
+                    <a href="/ejercicios/index" class="opSidnav">Ejercicio</a>
                 </li>
                 <li>
                     <a href="#" class="opSidnav">Calculadoras</a>
@@ -148,23 +148,31 @@
 
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown"></a>
                         <ul id="ulUsu" class="dropdown-menu">
-                            <li class="userLi">
-                                @if (Request.Cookies["cookieUsu"] != null)
+                            <li class="userLi" style="border:none;">
+                                @if ((Request.Cookies[FormsAuthentication.FormsCookieName] != null) && (Request.Cookies["cookieUsu"] != null))
                                 {
-                                    <h4>@Request.Cookies["cookieUsu"]["UsuNom"]</h4>
+                                    <h3 class="userTitle">@Request.Cookies["cookieUsu"]["UsuNom"]</h3>
                                 }
                                 else
                                 {
-                                    <h4>Hola</h4>
+                                    <h3 class="userTitle">Hola</h3>
                                 }
                             </li>
+
+                            @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                            {
+                                <li class="dropdown-submenu userLiSubMenu" id="caca">
+                                    @Html.Action("_Personas", "Home")
+                                </li>
+                            }
+
                             <li class="userLi"><a href="#">Notificaciones</a></li>
                             <li class="userLi">
                                 @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
                             </li>
                             <li class="userLi"><a href="#">Configuración</a></li>
                             <li class="userLi">
-                                @if (Request.IsAuthenticated)
+                                @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                                 {
                                     @Html.ActionLink("Salir", "Logout", "Usuarios")
                                 }
@@ -274,19 +282,49 @@
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
-                            $.validator.methods.number = function (value, element) {
-                                value = floatValue(value);
-                                return this.optional(element) || !isNaN(value);
-                            }
-                            $.validator.methods.range = function (value, element, param) {
-                                value = floatValue(value);
-                                return this.optional(element) || (value >= param[0] && value <= param[1]);
-                            }
+        $(document).ready(function () {
+            $('.dropdown-submenu div button').on("click", function (e) {
+                $(this).next('div').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
 
-                            function floatValue(value) {
-                                return parseFloat(value.replace(",", "."));
-                            }
+            $('.userLi h3').on("click", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+
+        function changePersona(PerId) {
+            $.ajax({
+                dataType: 'json',
+                data: {
+                    PerId: PerId
+                },
+                type: 'POST',
+                url: "/home/selPersona",
+                success: $('.userLiSubMenu div.dropdown-menu').attr('style', 'display: none')
+            });
+        }
     </script>
+
+    @*@if (ViewBag.ReloadHome != null && ViewBag.ReloadHome == true)
+    {
+        <script type="text/javascript">
+            location.href = "/?reloadHome=false";
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            if (window.location.href.indexOf("reloadHome") > -1) {
+                $(".logoBanner").on("click", function () {
+                    location.href = "/";
+                });
+                $(".logoBanner").trigger("click");
+            }
+        </script>
+    }*@
 
 </body>
 </html>

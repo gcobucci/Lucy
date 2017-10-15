@@ -1,62 +1,4 @@
-﻿@*@model IEnumerable<ModelCL.Contenido>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Nombre")
-        </th>
-        <th>
-            @Html.Label("Tipo")
-        </th>
-        <th>
-            @Html.Label("Categoría")
-        </th>
-        <th>
-            @Html.Label("Descripción")
-        </th>
-        <th>
-            @Html.Label("Imágen")
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ejercicio.)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ejercicio.EjercicioCategoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-        </td>
-        <td>
-            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContenidoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ContenidoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContenidoId })
-        </td>
-    </tr>
-}
-
-</table>*@
-
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc;
 @using PagedList;
 
 @model IPagedList<ModelCL.Contenido>
@@ -67,6 +9,7 @@
 
 @{
     var cusUrl = "";
+    var favId = "";
 }
 
 @section subnav{
@@ -185,7 +128,6 @@
                     Ejercicio
                 </div>
             }
-
         </div>
     </div>
 
@@ -207,14 +149,13 @@
                 <input style="display:none" id="tipo" name="tipo" value="@Request.QueryString["tipo"]">
 
                 <div class="input-group divSearch">
-                    <input id="search" name="search" type="text" class="form-control" placeholder="Buscar por..." style="max-width: none;">
+                    <input id="search" name="search" type="text" class="form-control" placeholder="Buscar..." style="max-width: none;">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <span class="fa fa-search" aria-hidden="true" style="display: unset;"></span>
                         </button>
                     </span>
                 </div>
-
             }
         </div>
     </div>
@@ -224,17 +165,16 @@
         <div class="col-sm-12">
             <dl class="dlFiltros">
                 <dt>Calorías</dt>
-
                
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=100&calMin=" + Request.QueryString["calMin"] + "&categoria=" + Request.QueryString["categorias"] + "&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=100&calMin&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Hasta 100 cal.</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=250&calMin=100&categoria=" + Request.QueryString["categorias"] + "&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=250&calMin=100&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">100 cal. a 250 cal.</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=250&categoria=" + Request.QueryString["categorias"] + "&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax&calMin=250&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Más de 250 cal.</a></dd>
                 <dd>
@@ -279,27 +219,27 @@
             <dl class="dlFiltros">
                 <dt>Categoría</dt>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=1&ejercicio=" + Request.QueryString["ejercicio"]; } 
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=1&tipo=" + Request.QueryString["tipo"]; } 
 
                 <dd><a href="./index?@cusUrl">Cuerpo completo</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=2&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=2&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Tren superior</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=3&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=3&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Tren inferior</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=4&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=4&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Abdominales</a></dd>
 
-                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=5&ejercicio=" + Request.QueryString["ejercicio"]; }
+                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=5&tipo=" + Request.QueryString["tipo"]; }
 
                 <dd><a href="./index?@cusUrl">Calentamiento</a></dd>
 
-               @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=6&ejercicio=" + Request.QueryString["ejercicio"]; }
+               @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=6&tipo=" + Request.QueryString["tipo"]; }
                 
                 <dd><a href="./index?@cusUrl">Estiramiento</a></dd>
 
@@ -313,7 +253,6 @@
         <div class="col-sm-12">
             <dl class="dlFiltros">
                 <dt>Tipo</dt>
-
               
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=" + Request.QueryString["categoria"] + "&tipo=1"; }
 
@@ -367,23 +306,29 @@
                     <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
             </div>
-            <div class="MLitemRight hidden-xs col-lg-2 col-md-3 col-sm-4">
-                @*<a href="/recetas/details?id=@item.ContenidoId" class="btn btn-sm animated-button thar-three">Leer</a>*@
 
-                @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
-                {
-                    <a href="#" class="fa fa-heart-o" aria-hidden="true"></a>
-                }
-                else
-                {
-                    <a href="#" class="fa fa-heart" aria-hidden="true"></a>
-                }
+            @{ favId = "fav" + item.ContenidoId; }
 
-                <div class="col-sm-12" title="Calorías">@item.Ejercicio.EjercicioTipo</div>
-                <div class="col-sm-12" title="Categoria">@item.Ejercicio.EjercicioTipo</div>
-                <div class="col-sm-12">@item.Ejercicio.EjercicioTipo</div>
-                    
+            <div class="MLitemRight hidden-xs col-lg-2 col-md-3 col-sm-4" id="@favId">
+                
+                @{ favId = "auxfav" + item.ContenidoId; }
+                <div id="@favId">
 
+                    @{ favId = "fav" + item.ContenidoId; }
+                    @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
+                    {
+                        <a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart-o" aria-hidden="true"></a>
+                    }
+                    else
+                    {
+                        <a onclick="deleteFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart" aria-hidden="true"></a>
+                    }
+
+                    <div class="col-sm-12" title="Calorías">@item.Ejercicio.EjercicioTipo</div>
+                    <div class="col-sm-12" title="Categoria">@item.Ejercicio.EjercicioTipo</div>
+                    <div class="col-sm-12">@item.Ejercicio.EjercicioTipo</div>
+
+                </div>
             </div>
         </div>
     }
@@ -403,5 +348,37 @@
 @section style{
 
     <link rel="stylesheet" href="~/Content/PagedList.css">
+
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+       function saveFav(idCont, idUsu, favId) {
+           $.ajax({
+               dataType: 'json',
+               data: {
+                   idCont: idCont,
+                   idUsu: idUsu
+               },
+               type: 'POST',
+               url: "/favorito/saveFav",
+               success: $("#" + favId).load(" #aux" + favId)
+           });
+       }
+
+       function deleteFav(idCont, idUsu, favId) {
+            $.ajax({
+                dataType: 'json',
+                data: {
+                    idCont: idCont,
+                    idUsu: idUsu
+                },
+                type: 'POST',
+                url: "/favorito/deleteFav",
+                success: $("#" + favId).load(" #aux" + favId)
+            });
+        }
+    </script>
 
 }
