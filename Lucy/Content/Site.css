@@ -390,10 +390,18 @@ li.liHi {
     margin: 5px 0 10px;
 }
 
-    .userLiSubMenu > div > div > .dropdown-menu {
+    .userLiSubMenu > div > .dropdown-menu {
         top: 0px;
         position: relative;
         width: 100%;
+    }
+
+    .userLiSubMenu > div > button > .bs-caret{
+        display: none;
+    }
+
+    .userLiSubMenu > div > button > span {
+        text-align: center !important;
     }
 
 .dropdown-menu {
