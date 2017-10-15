@@ -398,11 +398,7 @@
                     @{ favId = "fav" + item.ContenidoId; }
                     @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
                     {
-                        @*<a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart-o" aria-hidden="true"></a>*@
-
-                        <a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')">
-
-                        </a>
+                        <a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart-o" aria-hidden="true"></a>
                     }
                     else
                     {
