@@ -37,7 +37,7 @@
                             <p>@ViewBag.ConfirmationMessage</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                            <button onclick="confirmar()" type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
                             <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
 
         @Html.HiddenFor(model => model.RegistroId)
 
-        @*@Html.HiddenFor(model => model.PersonaId)*@
+        @Html.HiddenFor(model => model.confirmacion)
 
         <div class="form-group">
             @Html.LabelFor(model => model.RegistroFchHora, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -72,7 +72,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input id="batman" type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -105,5 +105,10 @@
         $('#PopUpConfirmationMsg').modal({
             show: 'true'
         });
+
+        function confirmar() {
+            $('#confirmacion').val(true);
+            $("#batman").trigger("click");
+        }
     </script>
 }
