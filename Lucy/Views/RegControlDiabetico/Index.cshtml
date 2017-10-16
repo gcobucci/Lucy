@@ -1,0 +1,123 @@
+﻿@model IEnumerable<ModelCL.Registro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Fecha y hora")
+        </th>
+        <th>
+            @Html.Label("Registro de insulina Retardada")
+        </th>
+        <th>
+            @Html.Label("Registro de control")
+        </th>
+        <th>
+            @Html.Label("Valor del Control")
+        </th>
+        <th>
+            @Html.Label("Registro de comida")
+        </th>
+        <th>
+            @Html.Label("Nombre del platillo/descriptivo")
+        </th>
+        <th>
+            @Html.Label("Carbohidratos de la comida")
+        </th>        
+        <th>
+            @Html.Label("Cantidad de insulina por corrección")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.RegistroFchHora.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @if (item.Medicacion.Medicina.MedicinaTipo == "Pasiva")
+                {
+                    <text>Si</text>
+                }
+                else
+                {
+                    <text>No</text>
+                }
+            </td>
+            <td>
+                @if (item.Control != null)
+                {
+                    <text>Si</text>
+                }
+                else
+                {
+                    <text>No</text>
+                }
+            </td>
+            <td>
+                @if (item.Control != null)
+                {
+                    <text>@item.Control.ControlValor</text>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>
+            <td>
+                @if (item.Comida != null)
+                {
+                    <text>Si</text>
+                }
+                else
+                {
+                    <text>No</text>
+                }
+            </td>
+            <td>
+                @if (item.Comida != null)
+                {
+                    <text>@item.Comida.ComidaPlatillo</text>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>
+            <td>
+                @if (item.Comida != null)
+                {
+                    <text>@item.Comida.ComidaCarbohidratos</text>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>            
+            <td>
+                @if (item.Control != null)
+                {
+                    <text>@item.Medicacion.ComidaPlatillo</text>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>
+            <td>            
+                @Html.ActionLink("Edit", "Edit", new { id = item.RegistroId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RegistroId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+            </td>
+        </tr>
+    }
+</table>

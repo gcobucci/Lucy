@@ -132,6 +132,7 @@ namespace Lucy.Controllers
             List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
             ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
 
+            //return RedirectToAction("Create");
             return View(datos);
         }
 

@@ -32,6 +32,7 @@
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
 
     <script type="text/javascript">
+
         window.onload = function cargar(){
             var selectedID = $('#Enfermedades').val();
 
@@ -39,14 +40,15 @@
 
                 $('#RegMed').html(data);
                 $('#RegMed').fadeIn('fast');
-
+                
                 $('form').removeData('validator');
                 $('form').removeData('unobtrusiveValidation');
+                $('form').attr('novalidate');
                 $.validator.unobtrusive.parse('form');
+                
             });
         }
-
-
+        
         $('#Enfermedades').change(function() {
 
             var selectedID = $(this).val();
@@ -65,7 +67,7 @@
                 $.validator.unobtrusive.parse('form');
             });
 
-        });
+        });        
     </script>
 }
 

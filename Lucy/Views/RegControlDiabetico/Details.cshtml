@@ -1,14 +1,13 @@
 ﻿@model ModelCL.Registro
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
 
-<h2>Delete</h2>
+<h2>Details</h2>
 
-<h3>¿Esta seguro/a de que desea eliminar este registro de peso?</h3>
 <div>
-    <h4>Comida</h4>
+    <h4>Control diabético</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -65,15 +64,15 @@
 
         <dd>
             @Html.DisplayFor(model => model.Comida.ComidaGrasa)
-        </dd>
-
+        </dd> 
+        
         <dt>
             @Html.Label("Total de sodio")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Comida.ComidaSodio)
-        </dd>
+        </dd> 
 
         <dt>
             @Html.Label("Gluten")
@@ -107,13 +106,8 @@
             </ul>
         </dd>
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RegistroId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

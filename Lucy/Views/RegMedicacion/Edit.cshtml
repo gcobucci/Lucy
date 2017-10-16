@@ -92,6 +92,13 @@
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
 
     <script type="text/javascript">
+        //window.onload = function cargar() {
+        //    $('form').attr('novalidate');
+        //}
+
+        $("#MedicacionCantidad").removeAttr("data-val");
+
+
         $(function () {
             var ln = x = window.navigator.language || navigator.browserLanguage;
             $('.datetimepicker').datetimepicker({
@@ -101,6 +108,6 @@
                 maxDate: 'now',
                 //format: 'L'
             });
-        });
+        });        
     </script>
 }
