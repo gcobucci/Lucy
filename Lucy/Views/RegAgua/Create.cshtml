@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm("Create", "RegAgua", new { confirmacion = ViewBag.Confirmacion }, FormMethod.Post))
+@using (Html.BeginForm("Create", "RegAgua", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -37,7 +37,7 @@
                             <p>@ViewBag.ConfirmationMessage</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                            <button onclick="confirmar()" type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
                             <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -101,5 +101,17 @@
         $('#PopUpConfirmationMsg').modal({
             show: 'true'
         });
+
+        function confirmar() {
+            $.ajax({
+                dataType: 'json',
+                data: {
+                    datos: @Model,
+                    confirmacion: true
+                },
+                type: 'POST',
+                url: "/registros/agua/create"
+            });
+        }
     </script>
 }

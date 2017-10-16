@@ -70,16 +70,15 @@ namespace Lucy.Controllers
                         double totalAgua = regAguaEx.Agua.AguaCantidad + datos.AguaCantidad;
                         if ((totalAgua) > 20)
                         {
-                            ViewBag.ErrorMessage = "Consideramos que no es posible tomar mas de 20 litros de agua por día y la suma del valor ya registrado en esta fecha (" + regAguaEx.Agua.AguaCantidad + ") y el nuevo valor (" + datos.AguaCantidad + ") es " + totalAgua + ".";
+                            ViewBag.ConfirmationMessage = "No es saludable tomar mucha agua por día, ya has registrado " + regAguaEx.Agua.AguaCantidad + " litros de agua en esta fecha ¿Quieres registrar " + datos.AguaCantidad + " litro(s) más de todas formas? ";
                             return View(datos);
                         }
-
                         regAguaEx.Agua.AguaCantidad += datos.AguaCantidad;
-                    }                   
+                    }
                     else
                     {
                         //ViewBag.Confirmacion = false;
-                        ViewBag.ConfirmationMessage = "La fecha ingresada ya tiene un valor registrado (" + regAguaEx.Agua.AguaCantidad + "). Si decide continuar se añadirá la cantidad de agua que esta registrando a la cantidad ya registrada. ¿Desea continuar?";
+                        ViewBag.ConfirmationMessage = "Ya tienes " + regAguaEx.Agua.AguaCantidad + " litros de agua registrados en esta fecha. ¿Deseas registrar " + datos.AguaCantidad + " litro(s) más?";
                         return View(datos);
                     }
                 }

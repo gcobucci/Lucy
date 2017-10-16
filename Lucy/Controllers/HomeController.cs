@@ -35,6 +35,22 @@ namespace Lucy.Controllers
                     lPersonas.Add(rup.Persona);
                 }
 
+                if (Request.Cookies["cookiePer"] != null)
+                {
+                    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                    DateTime expiration = ticket.Expiration;
+
+                    var auxTO = expiration - DateTime.Now;
+                    double timeout = auxTO.TotalMinutes;
+                    var v = db.Usuario.Where(a => a.UsuarioId == idUsu).FirstOrDefault();
+
+                    var cookiePer = new HttpCookie("cookiePer");
+                    cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
+                    idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                    cookiePer.Values["PerId"] = v.RelUsuPer.Where(u => u.UsuarioId == idUsu).FirstOrDefault().PersonaId.ToString();
+                    Response.Cookies.Add(cookiePer);
+                }
                 return PartialView("_Personas", lPersonas);
             }
             else
@@ -46,7 +62,6 @@ namespace Lucy.Controllers
         // Guardar Persona a cargo en cookie
         public ActionResult selPersona(int PerId)
         {
-
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
                 HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -55,13 +70,12 @@ namespace Lucy.Controllers
 
                 var auxTO = expiration - DateTime.Now;
                 double timeout = auxTO.TotalMinutes;
-
+                
                 var cookiePer = new HttpCookie("cookiePer");
                 cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
                 cookiePer.Values["PerId"] = PerId.ToString();
                 Response.Cookies.Add(cookiePer);
             }
-            
             return null;
         }
     }
