@@ -33,14 +33,7 @@ namespace Lucy.Controllers
                 .FirstOrDefault() != null))))) && r.Persona.PersonaId == idPer)
                 .OrderByDescending(r => r.RegistroFchHora).ToList();
 
-            List<RegControlDiabeticoViewModel> regControlDiabeticoVm = new List<RegControlDiabeticoViewModel>();
-
-            //Probablemente lo mas prolijo sea pasar de alguna forma todo a una lista formada por 
-            //el viewmodel y en el edit, detail y delete separar los id segun el registro
-            //RegistroRetardada = idRetardada && RegistroControl = idControl
-            //Va a ser un viaje
-
-            return View(regControlDiabeticoVm);
+            return View(regControlDiabetico);
         }
 
         [Route("details")]
@@ -64,10 +57,6 @@ namespace Lucy.Controllers
         public ActionResult Create()
         {
             RegControlDiabeticoViewModel newRegControlDiabetico = new RegControlDiabeticoViewModel();
-
-            //Registro de insulina retardada//
-            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
-            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
 
 
             //Registro de Comida//
@@ -99,11 +88,6 @@ namespace Lucy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RegControlDiabeticoViewModel datos)
         {
-            //Registro de insulina retardada//
-            List<ModelCL.Presentacion> lPresentacionesMed = db.Presentacion.ToList();
-            ViewBag.lPresentacionesMed = new SelectList(lPresentacionesMed, "PresentacionId", "PresentacionNombre");
-
-
             //Registro de Comida//
             List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
             {
@@ -125,97 +109,70 @@ namespace Lucy.Controllers
                 //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
                 long idPer = 1;
 
-                DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
-
-
-                if (datos.RegistrarInsulinaRetardada == false && datos.RegistrarControl == false)
-                {
-                    ViewBag.ErrorMessage = "Debe seleccionar al menos una de las acciones";
-                    return View(datos);
-                }
-
-
                 ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                DateTime f = Convert.ToDateTime(datos.RegistroFchHora);                              
                                 
-                if (datos.RegistrarInsulinaRetardada == true)
+
+                ModelCL.Registro regControl = new ModelCL.Registro();
+                regControl.RegistroFchHora = f;
+
+                ModelCL.Control control = new ModelCL.Control();
+
+                control.Valor = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
+                control.ControlValor = Convert.ToDouble(datos.ControlValor);
+
+                regControl.Control = control;
+
+
+                if (datos.RegistrarComida == true)
                 {
-                    ModelCL.Registro regInsulinaRetardada = new ModelCL.Registro();
-                    regInsulinaRetardada.RegistroFchHora = f;
-
-                    ModelCL.Medicacion medicacion = new ModelCL.Medicacion();
-
-                    medicacion.Enfermedad = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
-                    medicacion.Medicina = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Pasiva").FirstOrDefault().Medicina;
-                    medicacion.PresentacionId = datos.InsulinaRetardadaPresentacionId;
-                    medicacion.MedicacionCantidad = Convert.ToDouble(datos.InsulinaRetardadaCantidad);
-
-                    regInsulinaRetardada.Medicacion = medicacion;
-
-                    Persona.Registro.Add(regInsulinaRetardada);
-                }
-
-                if (datos.RegistrarControl == true)
-                {
-                    ModelCL.Registro regControl = new ModelCL.Registro();
-                    regControl.RegistroFchHora = f;
-
-                    ModelCL.Control control = new ModelCL.Control();
-
-                    control.Valor = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
-                    control.ControlValor = Convert.ToDouble(datos.ControlValor);
-
-                    regControl.Control = control;
-
-
-                    if (datos.RegistrarComida == true)
+                    if (datos.ComidaComida != "Ingesta")
                     {
-                        if (datos.ComidaComida != "Ingesta")
-                        {
-                            ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).FirstOrDefault();
+                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).FirstOrDefault();
 
-                            if (regComidaEx != null)
-                            {
-                                ViewBag.ErrorMessage = "Ya existe un/a " + datos.ComidaComida + " registrado/a en esta fecha. Puede modificarlo si lo desea.";
-                                return View(datos);
-                            }
+                        if (regComidaEx != null)
+                        {
+                            ViewBag.ErrorMessage = "Ya existe un/a " + datos.ComidaComida + " registrado/a en esta fecha. Puede modificarlo si lo desea.";
+                            return View(datos);
                         }
+                    }
                         
-                        ModelCL.Comida comida = new ModelCL.Comida();
+                    ModelCL.Comida comida = new ModelCL.Comida();
 
-                        comida.ComidaPlatillo = datos.ComidaPlatillo;
-                        comida.ComidaComida = datos.ComidaComida;
+                    comida.ComidaPlatillo = datos.ComidaPlatillo;
+                    comida.ComidaComida = datos.ComidaComida;
 
-                        foreach (ComidaAlimentoViewModel a in datos.Alimentos)
+                    foreach (ComidaAlimentoViewModel a in datos.Alimentos)
+                    {
+                        if (a.RelComAliCantidad != 0)
                         {
-                            if (a.RelComAliCantidad != 0)
-                            {
-                                comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
-                            }
+                            comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
                         }
-
-                        comida.ComidaCalorias = datos.ComidaCalorias;
-                        comida.ComidaCarbohidratos = datos.ComidaCarbohidratos;
-                        comida.ComidaAzucar = datos.ComidaAzucar;
-                        comida.ComidaGrasa = datos.ComidaGrasa;
-                        comida.ComidaSodio = datos.ComidaSodio;
-                        comida.ComidaGluten = datos.ComidaGluten;
-
-                        regControl.Comida = comida;
                     }
 
-                    //Resultado//
-                    ModelCL.Medicacion medicacion = new ModelCL.Medicacion();
+                    comida.ComidaCalorias = datos.ComidaCalorias;
+                    comida.ComidaCarbohidratos = datos.ComidaCarbohidratos;
+                    comida.ComidaAzucar = datos.ComidaAzucar;
+                    comida.ComidaGrasa = datos.ComidaGrasa;
+                    comida.ComidaSodio = datos.ComidaSodio;
+                    comida.ComidaGluten = datos.ComidaGluten;
 
-                    medicacion.Enfermedad = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
-                    medicacion.Medicina = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
-                    medicacion.PresentacionId = db.Presentacion.Where(p => p.PresentacionNombre == "Inyección (unidades)").FirstOrDefault().PresentacionId;
-                    medicacion.MedicacionCantidad = Convert.ToDouble(datos.ResultadoTotalInsulinaCorreccion);
+                    regControl.Comida = comida;
+                }
 
-                    regControl.Medicacion = medicacion;
+                //Resultado//
+                ModelCL.Medicacion medicacion = new ModelCL.Medicacion();
+
+                medicacion.Enfermedad = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
+                medicacion.Medicina = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
+                medicacion.PresentacionId = db.Presentacion.Where(p => p.PresentacionNombre == "Inyección (unidades)").FirstOrDefault().PresentacionId;
+                medicacion.MedicacionCantidad = Convert.ToDouble(datos.ResultadoTotalInsulinaCorreccion);
+
+                regControl.Medicacion = medicacion;
 
 
-                    Persona.Registro.Add(regControl);
-                }                              
+                Persona.Registro.Add(regControl);                            
                 
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -29,25 +29,7 @@ namespace Lucy.Models
         public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
 
 
-        //Registro de insulina retardada//
-        [Display(Name = "Registrar insulina retardada")]
-        public bool RegistrarInsulinaRetardada { get; set; }
-                        
-        [RequiredIf("RegistrarInsulinaRetardada", true)]
-        [Display(Name = "Presentación")]
-        public short InsulinaRetardadaPresentacionId { get; set; }
-
-        [RequiredIf("RegistrarInsulinaRetardada", true)]
-        [Display(Name = "Cantidad")]
-        [Range(typeof(double), "0,1", "100000", ErrorMessage = "El valor debe ser mayor a {1}")]
-        public Nullable<double> InsulinaRetardadaCantidad { get; set; }
-
-
-        //Registro de control//
-        [Display(Name = "Registrar control")]
-        public bool RegistrarControl { get; set; }
-
-        [RequiredIf("RegistrarControl", true)]
+        [Required]
         [Display(Name = "Resultado del control")]
         [Range(typeof(double), "0,1", "10", ErrorMessage = "El valor debe estar entre {1} y {2}.")]
         public Nullable<double> ControlValor { get; set; }
