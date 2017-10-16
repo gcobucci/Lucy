@@ -7,33 +7,31 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrar control", "Create")
 </p>
+<p>
+    @Html.ActionLink("Registrar toma de insulina retardada", "Create", "regMedicacion", new { filtro = "insulina_retardada" }, null))
+</p>
+
 <table class="table">
     <tr>
         <th>
             @Html.Label("Fecha y hora")
         </th>
         <th>
-            @Html.Label("Registro de insulina Retardada")
+            @Html.Label("Valor de glicemia")
         </th>
         <th>
-            @Html.Label("Registro de control")
-        </th>
-        <th>
-            @Html.Label("Valor del Control")
-        </th>
-        <th>
-            @Html.Label("Registro de comida")
-        </th>
-        <th>
-            @Html.Label("Nombre del platillo/descriptivo")
+            @Html.Label("Comida")
         </th>
         <th>
             @Html.Label("Carbohidratos de la comida")
-        </th>        
+        </th>
         <th>
-            @Html.Label("Cantidad de insulina por corrección")
+            @Html.Label("Insulina de corrección")
+        </th>
+        <th>
+            @Html.Label("Insulina retardada")
         </th>
         <th></th>
     </tr>
@@ -41,27 +39,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @item.RegistroFchHora.ToString("dd MMM yyyy")
-            </td>
-            <td>
-                @if (item.Medicacion.Medicina.MedicinaTipo == "Pasiva")
-                {
-                    <text>Si</text>
-                }
-                else
-                {
-                    <text>No</text>
-                }
-            </td>
-            <td>
-                @if (item.Control != null)
-                {
-                    <text>Si</text>
-                }
-                else
-                {
-                    <text>No</text>
-                }
+                @item.RegistroFchHora.ToString("dd MMM yyyy") @* Ver como agergar la hora *@ 
             </td>
             <td>
                 @if (item.Control != null)
@@ -71,16 +49,6 @@
                 else
                 {
                     <text>-</text>
-                }
-            </td>
-            <td>
-                @if (item.Comida != null)
-                {
-                    <text>Si</text>
-                }
-                else
-                {
-                    <text>No</text>
                 }
             </td>
             <td>
@@ -104,9 +72,19 @@
                 }
             </td>            
             <td>
-                @if (item.Control != null)
+                @if (item.Medicacion != null && item.Medicacion.Medicina.MedicinaTipo == "Activa")
                 {
-                    <text>@item.Medicacion.ComidaPlatillo</text>
+                    <text>@item.Medicacion.Medicina.MedicinaNombre - @item.Medicacion.MedicacionCantidad - @item.Medicacion.Presentacion.PresentacionNombre</text>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>
+            <td>
+                @if (item.Medicacion != null && item.Medicacion.Medicina.MedicinaTipo == "Pasiva")
+                {
+                    <text>@item.Medicacion.Medicina.MedicinaNombre - @item.Medicacion.MedicacionCantidad - @item.Medicacion.Presentacion.PresentacionNombre</text>
                 }
                 else
                 {
