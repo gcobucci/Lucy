@@ -25,14 +25,14 @@ namespace Lucy.Models
 
     
         [Required]
-        [Display(Name = "Fecha")]
+        [Display(Name = "Fecha y hora")]
         public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
 
 
         [Required]
         [Display(Name = "Resultado del control")]
         [Range(typeof(double), "0,1", "10", ErrorMessage = "El valor debe estar entre {1} y {2}.")]
-        public Nullable<double> ControlValor { get; set; }
+        public double ControlValor { get; set; }
 
 
         //Registro de Comida//

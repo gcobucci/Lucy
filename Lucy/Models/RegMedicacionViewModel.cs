@@ -20,7 +20,7 @@ namespace Lucy.Models
 
         [Required]
         //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        [Display(Name = "Fecha")]
+        [Display(Name = "Fecha y hora")]
         public string RegistroFchHora { get; set; } = DateTime.Now.ToString();
 
         public Nullable<long> EnfermedadId { get; set; }

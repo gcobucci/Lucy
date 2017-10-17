@@ -10,7 +10,7 @@
     @Html.ActionLink("Registrar control", "Create")
 </p>
 <p>
-    @Html.ActionLink("Registrar toma de insulina retardada", "Create", "regMedicacion", new { filtro = "insulina_retardada" }, null))
+    @Html.ActionLink("Registrar toma de insulina retardada", "Create", "regMedicacion"@*, new { ad = "insulina_retardada" }, null*@)
 </p>
 
 <table class="table">
@@ -39,7 +39,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @item.RegistroFchHora.ToString("dd MMM yyyy") @* Ver como agergar la hora *@ 
+                @item.RegistroFchHora.ToString("dd MMM yyyy - HH:mm")
             </td>
             <td>
                 @if (item.Control != null)
@@ -91,10 +91,19 @@
                     <text>-</text>
                 }
             </td>
-            <td>            
-                @Html.ActionLink("Edit", "Edit", new { id = item.RegistroId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RegistroId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+            <td>        
+                @if (item.Control != null)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.RegistroId }) <text>|</text>
+                    @Html.ActionLink("Details", "Details", new { id = item.RegistroId }) <text>|</text>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+                }
+                else
+                {
+                    @Html.ActionLink("Edit", "Edit", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
+                    @Html.ActionLink("Details", "Details", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
+                    @Html.ActionLink("Delete", "Delete", "regMedicacion", new { id = item.RegistroId }, null)
+                }
             </td>
         </tr>
     }

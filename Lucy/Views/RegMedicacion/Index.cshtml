@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.Label("Fecha")
+            @Html.Label("Fecha y hora")
         </th>
         <th>
             @Html.Label("Enfermedad")
@@ -32,7 +32,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @item.RegistroFchHora.ToString("dd MMM yyyy")
+            @item.RegistroFchHora.ToString("dd MMM yyyy - HH:mm")
         </td>
         @if (item.Medicacion.Enfermedad == null)
         {
