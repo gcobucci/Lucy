@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="~/ico4.ico">
-    <title>@ViewBag.Title Lucy</title>
+    @if (ViewBag.Title == null) { <title>YoTeCuido</title> } else { <title>@ViewBag.Title • YoTeCuido</title> }
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,7 +42,14 @@
                     <a href="/articulos/index" class="opSidnav">Noticias</a>
                 </li>
                 <li>
-                    <a href="#" class="opSidnav">Registro</a>
+                    <a href="#subMenu-Registros" class="opSidnav" data-toggle="collapse">Registro</a>
+                    <div id="subMenu-Registros" class="panel-collapse collapse">
+                        <ul>
+                            <li><a href="#">Comida</a></li>
+                            <li><a href="#">Agua</a></li>
+                            <li><a href="#">Medicina</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li>
                     <a href="/alimentos/informacion_nutricional" class="opSidnav">Información Nutricional</a>
@@ -161,7 +168,7 @@
 
                             @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                             {
-                                <li class="dropdown-submenu userLiSubMenu" id="caca">
+                                <li class="dropdown-submenu userLiSubMenu" id="leti">
                                     @*@Html.Action("_Personas", "Home")*@
                                 </li>
                             }
@@ -279,13 +286,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/myScript")
-    <script type="text/javascript" src="~/Scripts/bootstrap-select.min.js"></script>
+
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.dropdown-submenu div button').on("click", function (e) {
-                $(this).next('div').toggle();
+            $('.dropdown-submenu').on("click", function (e) {
+                //$(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
             });
@@ -294,20 +301,26 @@
                 e.stopPropagation();
                 e.preventDefault();
             });
+
+            $("#leti").load("/Home/_Personas");
+            
         });
 
-        function changePersona(PerId) {
+        function changePersona(PerId, PerNom, PerApe) {
+            $('.userLiSubMenu ul').attr('style', 'display: none');
+            $('.userLiSubMenu a.btn-default').text(PerNom + " " + PerApe);
             $.ajax({
                 dataType: 'json',
                 data: {
                     PerId: PerId
                 },
                 type: 'POST',
-                url: "/home/selPersona",
-                success: $('.userLiSubMenu div.dropdown-menu').attr('style', 'display: none')
+                url: "/home/selPersona"
             });
         }
+        
     </script>
+
 
     @*@if (ViewBag.ReloadHome != null && ViewBag.ReloadHome == true)
     {

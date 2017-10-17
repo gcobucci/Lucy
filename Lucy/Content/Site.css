@@ -387,22 +387,23 @@ li.liHi {
 
 .userLiSubMenu {
     text-align: center;
-    margin: 5px 0 10px;
+    margin: 5px 10% 10px;
 }
 
-    .userLiSubMenu > div > .dropdown-menu {
-        top: 0px;
-        position: relative;
-        width: 100%;
+    .userLiSubMenu > a {
+        margin-bottom: 10px;
+        overflow: hidden;
     }
 
-    .userLiSubMenu > div > button > .bs-caret{
-        display: none;
-    }
-
-    .userLiSubMenu > div > button > span {
-        text-align: center !important;
-    }
+/*dropdown-menu Usu*/
+#jojo {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    margin: -7px 0px 10px;
+    overflow-x: hidden;
+    max-height: 112px;
+}
 
 .dropdown-menu {
     position: absolute;
