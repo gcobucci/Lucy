@@ -1,6 +1,6 @@
 ﻿@model List<ModelCL.Persona>
 
-<select onchange="changePersona($(this).val())" class="selectpicker show-tick" title="Cuidando a..." data-size="4" data-width="80%">
+@*<select onchange="changePersona($(this).val())" class="form-control" title="Cuidando a..." data-size="4" data-width="80%">
     <optgroup label="Cuidando a...">
         @foreach (var item in Model)
         {
@@ -21,4 +21,24 @@
             }
         }
     </optgroup>
-</select>
+</select>*@
+
+    <a class="btn btn-default" onclick="$('#jojo').toggle();">
+        @foreach (var item in Model)
+        {
+            if (Request.Cookies["cookiePer"] != null)
+            {
+                if (Request.Cookies["cookiePer"]["PerId"] == item.PersonaId.ToString())
+                {
+                    @item.PersonaNombre @item.PersonaApellido
+                }
+            }
+        }
+    </a>
+    <ul id="jojo" class="dropdown-menu">
+        <li class="dropdown-header">Cuidando a...</li>
+        @foreach (var item in Model)
+        {
+            <li><a href="#" onclick="changePersona(@item.PersonaId, '@item.PersonaNombre', '@item.PersonaApellido')">@item.PersonaNombre @item.PersonaApellido</a></li>
+        }
+    </ul>

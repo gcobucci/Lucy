@@ -18,6 +18,8 @@ namespace Lucy.Models
         //[Key]
         //public long PersonaId { get; set; }
 
+        public bool confirmacion { get; set; } = false;
+
         [Required]
         //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         [Display(Name = "Fecha")]
