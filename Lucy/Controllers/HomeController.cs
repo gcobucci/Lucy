@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -23,9 +24,7 @@ namespace Lucy.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                int idUsu = Convert.ToInt32(usu.Name);
+                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
                 List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -64,17 +63,34 @@ namespace Lucy.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                DateTime expiration = ticket.Expiration;
+                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-                var auxTO = expiration - DateTime.Now;
-                double timeout = auxTO.TotalMinutes;
+                ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+                List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
+                List<ModelCL.Persona> lPersonas = new List<ModelCL.Persona>();
+                foreach (ModelCL.RelUsuPer rup in lRelUsuPer)
+                {
+                    lPersonas.Add(rup.Persona);
+                }
+
+                foreach (ModelCL.Persona item in lPersonas)
+                {
+                    if (item.PersonaId == PerId)
+                    {
+                        HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                        DateTime expiration = ticket.Expiration;
+
+                        var auxTO = expiration - DateTime.Now;
+                        double timeout = auxTO.TotalMinutes;
+
+                        var cookiePer = new HttpCookie("cookiePer");
+                        cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookiePer.Values["PerId"] = PerId.ToString();
+                        Response.Cookies.Add(cookiePer);
+                    }
+                }
                 
-                var cookiePer = new HttpCookie("cookiePer");
-                cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
-                cookiePer.Values["PerId"] = PerId.ToString();
-                Response.Cookies.Add(cookiePer);
             }
             return null;
         }
