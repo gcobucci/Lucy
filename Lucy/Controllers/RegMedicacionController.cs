@@ -29,8 +29,23 @@ namespace Lucy.Controllers
             return View(registrosMed);
         }
 
+        [Route("details")]
+        public ActionResult Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Registro regMedicacion = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            if (regMedicacion.Medicacion == null)
+            {
+                return HttpNotFound();
+            }
+            return View(regMedicacion);
+        }
+
         [Route("create")]
-        public ActionResult Create()
+        public ActionResult Create(/*string ad = null*/)
         {
             //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
             long idPer = 1;
@@ -51,6 +66,9 @@ namespace Lucy.Controllers
 
             lEnfermedades.Add(enfermedad);
             ViewBag.lEnfermedades = new SelectList(lEnfermedades/*.OrderByDescending(e => e.EnfermedadId)*/, "EnfermedadId", "EnfermedadNombre");
+
+
+
             return View();
         }
 

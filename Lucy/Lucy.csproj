@@ -538,6 +538,7 @@
     <Content Include="Views\RegControlDiabetico\Edit.cshtml" />
     <Content Include="Views\RegControlDiabetico\Index.cshtml" />
     <Content Include="Views\Home\_Personas.cshtml" />
+    <Content Include="Views\RegMedicacion\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

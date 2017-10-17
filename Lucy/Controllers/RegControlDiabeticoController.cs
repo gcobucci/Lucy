@@ -26,12 +26,8 @@ namespace Lucy.Controllers
 
             List<ModelCL.Registro> regControlDiabetico = 
                 db.Registro.Where(r => ((r.Medicacion != null && (r.Medicacion.Medicina.MedicinaTipo == "Pasiva" && 
-                r.Medicacion.Medicina.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1")
-                .FirstOrDefault() != null)) || (r.Control != null && (r.Control.Valor.ValorNombre == "Glucosa" && 
-                (r.Medicacion != null && (r.Medicacion.Medicina.MedicinaTipo == "Activa" && 
-                r.Medicacion.Medicina.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1")
-                .FirstOrDefault() != null))))) && r.Persona.PersonaId == idPer)
-                .OrderByDescending(r => r.RegistroFchHora).ToList();
+                r.Medicacion.Enfermedad.EnfermedadNombre == "Diabetes tipo 1")) || (r.Control != null && (r.Control.Valor.ValorNombre == "Glucosa"))) 
+                && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();
 
             return View(regControlDiabetico);
         }
@@ -45,7 +41,7 @@ namespace Lucy.Controllers
             }
                         
             ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (! ((regControlDiabetico.Medicacion.Medicina.MedicinaTipo == "Pasiva" && regControlDiabetico.Medicacion.Medicina.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null) || regControlDiabetico.Control.Valor.ValorNombre == "Glucosa"))
+            if (!(regControlDiabetico.Control != null && (regControlDiabetico.Control.Valor.ValorNombre == "Glucosa")))
             {
                 return HttpNotFound();
             }
@@ -97,7 +93,7 @@ namespace Lucy.Controllers
                 new Fachada.ViewModelSelectListChk { Id = "Cena", Valor = "Cena" },
                 new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
             };
-            ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");            
+            ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
             //var errors = ModelState
             //.Where(x => x.Value.Errors.Count > 0)
@@ -120,7 +116,7 @@ namespace Lucy.Controllers
                 ModelCL.Control control = new ModelCL.Control();
 
                 control.Valor = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
-                control.ControlValor = Convert.ToDouble(datos.ControlValor);
+                control.ControlValor = datos.ControlValor;
 
                 regControl.Control = control;
 
@@ -162,15 +158,17 @@ namespace Lucy.Controllers
                 }
 
                 //Resultado//
-                ModelCL.Medicacion medicacion = new ModelCL.Medicacion();
+                if (datos.ResultadoTotalInsulinaCorreccion != null)
+                {
+                    ModelCL.Medicacion medicacion = new ModelCL.Medicacion();
 
-                medicacion.Enfermedad = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
-                medicacion.Medicina = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
-                medicacion.PresentacionId = db.Presentacion.Where(p => p.PresentacionNombre == "Inyección (unidades)").FirstOrDefault().PresentacionId;
-                medicacion.MedicacionCantidad = Convert.ToDouble(datos.ResultadoTotalInsulinaCorreccion);
+                    medicacion.Enfermedad = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault();
+                    medicacion.Medicina = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
+                    medicacion.PresentacionId = db.Presentacion.Where(p => p.PresentacionNombre == "Inyección (unidades)").FirstOrDefault().PresentacionId;
+                    medicacion.MedicacionCantidad = Convert.ToDouble(datos.ResultadoTotalInsulinaCorreccion);
 
-                regControl.Medicacion = medicacion;
-
+                    regControl.Medicacion = medicacion;
+                }              
 
                 Persona.Registro.Add(regControl);                            
                 
@@ -181,132 +179,171 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        //[Route("edit")]
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+        [Route("edit")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-        //    if (regComida.Comida == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-
-        //    RegComidaViewModel vmRegComida = new RegComidaViewModel();
+            ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            if (!(regControlDiabetico.Control != null && (regControlDiabetico.Control.Valor.ValorNombre == "Glucosa")))
+            {
+                return HttpNotFound();
+            }
 
 
-        //    List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
-        //    {
-        //        new Fachada.ViewModelSelectListChk { Id = "Desayuno", Valor = "Desayuno" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Almuerzo", Valor = "Almuerzo" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Merienda", Valor = "Merienda" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Cena", Valor = "Cena" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
-        //    };
-        //    ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
+            RegControlDiabeticoViewModel vmRegControlDiabetico = new RegControlDiabeticoViewModel();
 
 
-        //    int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Desayuno", Valor = "Desayuno" },
+                new Fachada.ViewModelSelectListChk { Id = "Almuerzo", Valor = "Almuerzo" },
+                new Fachada.ViewModelSelectListChk { Id = "Merienda", Valor = "Merienda" },
+                new Fachada.ViewModelSelectListChk { Id = "Cena", Valor = "Cena" },
+                new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
+            };
+            ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
-        //    List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-        //    vmRegComida.Alimentos = new List<ComidaAlimentoViewModel>();
-        //    foreach (ModelCL.Alimento ali in lAlimentos)
-        //    {
-        //        vmRegComida.Alimentos.Add(new ComidaAlimentoViewModel { AlimentoId = ali.AlimentoId, AlimentoNombre = ali.AlimentoNombre, AlimentoPorcion = ali.AlimentoPorcion, AlimentoCalorias = ali.AlimentoCalorias, AlimentoCarbohidratos = ali.AlimentoCarbohidratos, AlimentoAzucar = ali.AlimentoAzucar, AlimentoGrasa = ali.AlimentoGrasa, AlimentoSodio = ali.AlimentoSodio, AlimentoGluten = ali.AlimentoGluten });
-        //    }
+
+            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
+            vmRegControlDiabetico.Alimentos = new List<ComidaAlimentoViewModel>();
+            foreach (ModelCL.Alimento ali in lAlimentos)
+            {
+                vmRegControlDiabetico.Alimentos.Add(new ComidaAlimentoViewModel { AlimentoId = ali.AlimentoId, AlimentoNombre = ali.AlimentoNombre, AlimentoPorcion = ali.AlimentoPorcion, AlimentoCalorias = ali.AlimentoCalorias, AlimentoCarbohidratos = ali.AlimentoCarbohidratos, AlimentoAzucar = ali.AlimentoAzucar, AlimentoGrasa = ali.AlimentoGrasa, AlimentoSodio = ali.AlimentoSodio, AlimentoGluten = ali.AlimentoGluten });
+            }
 
 
-        //    vmRegComida.RegistroId = regComida.RegistroId;
-        //    //vmRegComida.PersonaId = regComida.PersonaId;
-        //    vmRegComida.RegistroFchHora = regComida.RegistroFchHora.ToString();
-        //    vmRegComida.ComidaPlatillo = regComida.Comida.ComidaPlatillo;
-        //    vmRegComida.ComidaComida = regComida.Comida.ComidaComida;
-        //    //vmRegComida.Alimentos = regComida.Comida.RelComAli.ToList();
-        //    foreach (ModelCL.RelComAli rca in regComida.Comida.RelComAli.ToList())
-        //    {
-        //        ComidaAlimentoViewModel cavm = vmRegComida.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
-        //        cavm.RelComAliCantidad = rca.ReComAliCantidad;
-        //    }
-        //    vmRegComida.ComidaCalorias = regComida.Comida.ComidaCalorias;
-        //    vmRegComida.ComidaCarbohidratos = regComida.Comida.ComidaCarbohidratos;
-        //    vmRegComida.ComidaAzucar = regComida.Comida.ComidaAzucar;
-        //    vmRegComida.ComidaGrasa = regComida.Comida.ComidaGrasa;
-        //    vmRegComida.ComidaSodio = regComida.Comida.ComidaSodio;
-        //    vmRegComida.ComidaGluten = regComida.Comida.ComidaGluten;
-                      
-        //    return View(vmRegComida);
-        //}
+            vmRegControlDiabetico.RegistroId = regControlDiabetico.RegistroId;
+            //vmRegComida.PersonaId = regComida.PersonaId;
+            vmRegControlDiabetico.RegistroFchHora = regControlDiabetico.RegistroFchHora.ToString();
 
-        //[HttpPost]
-        //[Route("edit")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(RegComidaViewModel datos)
-        //{
-        //    List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
-        //    {
-        //        new Fachada.ViewModelSelectListChk { Id = "Desayuno", Valor = "Desayuno" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Almuerzo", Valor = "Almuerzo" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Merienda", Valor = "Merienda" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Cena", Valor = "Cena" },
-        //        new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
-        //    };
-        //    ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
-            
-            
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
+            vmRegControlDiabetico.ControlValor = regControlDiabetico.Control.ControlValor;
 
-        //        DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
-        //        if (datos.ComidaComida != "Ingesta")
-        //        {
-        //            if (regComida.RegistroFchHora != f)
-        //            {
-        //                ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == regComida.PersonaId && r.RegistroFchHora == f).FirstOrDefault();
+            if (regControlDiabetico.Comida != null)
+            {
+                vmRegControlDiabetico.RegistrarComida = true;
 
-        //                if (regComidaEx != null)
-        //                {
-        //                    ViewBag.ErrorMessage = "Ya existe un/a " + datos.ComidaComida + " registrado/a en esta fecha. Puede modificarlo si lo desea.";
-        //                    return View(datos);
-        //                }
-        //            }
-        //        }                
+                vmRegControlDiabetico.ComidaPlatillo = regControlDiabetico.Comida.ComidaPlatillo;
+                vmRegControlDiabetico.ComidaComida = regControlDiabetico.Comida.ComidaComida;
+                //vmRegComida.Alimentos = regComida.Comida.RelComAli.ToList();
+                foreach (ModelCL.RelComAli rca in regControlDiabetico.Comida.RelComAli.ToList())
+                {
+                    ComidaAlimentoViewModel cavm = vmRegControlDiabetico.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
+                    cavm.RelComAliCantidad = rca.ReComAliCantidad;
+                }
+                vmRegControlDiabetico.ComidaCalorias = regControlDiabetico.Comida.ComidaCalorias;
+                vmRegControlDiabetico.ComidaCarbohidratos = regControlDiabetico.Comida.ComidaCarbohidratos;
+                vmRegControlDiabetico.ComidaAzucar = regControlDiabetico.Comida.ComidaAzucar;
+                vmRegControlDiabetico.ComidaGrasa = regControlDiabetico.Comida.ComidaGrasa;
+                vmRegControlDiabetico.ComidaSodio = regControlDiabetico.Comida.ComidaSodio;
+                vmRegControlDiabetico.ComidaGluten = regControlDiabetico.Comida.ComidaGluten;
+            }
 
-        //        regComida.RegistroFchHora = f;
-        //        regComida.Comida.ComidaPlatillo = datos.ComidaPlatillo;
-        //        regComida.Comida.ComidaComida = datos.ComidaComida;
+            //Ver como tratamos en especifico esta parte, es diferente al create ya que aca ya tenes los valores finales
+            if (regControlDiabetico.Medicacion != null)
+            {
+                vmRegControlDiabetico.ResultadoTotalInsulinaCorreccion = regControlDiabetico.Medicacion.MedicacionCantidad;
+            }
+            else
+            {
+                //Hay que ver como hacemos lo de los resultados con mensaje
+            }
 
-        //        List<ModelCL.RelComAli> bkRelComAli = regComida.Comida.RelComAli.ToList();
-        //        foreach (ModelCL.RelComAli oldRelComAli in bkRelComAli)
-        //        {
-        //            regComida.Comida.RelComAli.Remove(oldRelComAli);
-        //        }
+            return View(vmRegControlDiabetico);
+        }
 
-        //        foreach (ComidaAlimentoViewModel a in datos.Alimentos)
-        //        {
-        //            if (a.RelComAliCantidad != 0)
-        //            {
-        //                regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
-        //            }
-        //        }
+        [HttpPost]
+        [Route("edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(RegControlDiabeticoViewModel datos)
+        {
+            List<Fachada.ViewModelSelectListChk> lComidas = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Desayuno", Valor = "Desayuno" },
+                new Fachada.ViewModelSelectListChk { Id = "Almuerzo", Valor = "Almuerzo" },
+                new Fachada.ViewModelSelectListChk { Id = "Merienda", Valor = "Merienda" },
+                new Fachada.ViewModelSelectListChk { Id = "Cena", Valor = "Cena" },
+                new Fachada.ViewModelSelectListChk { Id = "Ingesta", Valor = "Ingesta" },
+            };
+            ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
-        //        regComida.Comida.ComidaCalorias = datos.ComidaCalorias;
-        //        regComida.Comida.ComidaCarbohidratos = datos.ComidaCarbohidratos;
-        //        regComida.Comida.ComidaAzucar = datos.ComidaAzucar;
-        //        regComida.Comida.ComidaGrasa = datos.ComidaGrasa;
-        //        regComida.Comida.ComidaSodio = datos.ComidaSodio;
-        //        regComida.Comida.ComidaGluten = datos.ComidaGluten;
 
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            if (ModelState.IsValid)
+            {
+                ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
 
-        //    return View(datos);
-        //}
+                DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
+                if (datos.ComidaComida != "Ingesta")
+                {
+                    if (regControlDiabetico.RegistroFchHora != f)
+                    {
+                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == regControlDiabetico.PersonaId && r.RegistroFchHora == f).FirstOrDefault();
+
+                        if (regComidaEx != null)
+                        {
+                            ViewBag.ErrorMessage = "Ya existe un/a " + datos.ComidaComida + " registrado/a en esta fecha. Puede modificarlo si lo desea.";
+                            return View(datos);
+                        }
+                    }
+                }
+
+                regControlDiabetico.RegistroFchHora = f;
+
+                regControlDiabetico.Control.ControlValor = datos.ControlValor;
+
+
+                if (datos.RegistrarComida == true)
+                {
+                    regControlDiabetico.Comida.ComidaPlatillo = datos.ComidaPlatillo;
+                    regControlDiabetico.Comida.ComidaComida = datos.ComidaComida;
+
+                    List<ModelCL.RelComAli> bkRelComAli = regControlDiabetico.Comida.RelComAli.ToList();
+                    foreach (ModelCL.RelComAli oldRelComAli in bkRelComAli)
+                    {
+                        regControlDiabetico.Comida.RelComAli.Remove(oldRelComAli);
+                    }
+
+                    foreach (ComidaAlimentoViewModel a in datos.Alimentos)
+                    {
+                        if (a.RelComAliCantidad != 0)
+                        {
+                            regControlDiabetico.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                        }
+                    }
+
+                    regControlDiabetico.Comida.ComidaCalorias = datos.ComidaCalorias;
+                    regControlDiabetico.Comida.ComidaCarbohidratos = datos.ComidaCarbohidratos;
+                    regControlDiabetico.Comida.ComidaAzucar = datos.ComidaAzucar;
+                    regControlDiabetico.Comida.ComidaGrasa = datos.ComidaGrasa;
+                    regControlDiabetico.Comida.ComidaSodio = datos.ComidaSodio;
+                    regControlDiabetico.Comida.ComidaGluten = datos.ComidaGluten;
+                }
+                else
+                {
+                    regControlDiabetico.Comida = null;
+                }
+
+
+                if (datos.ResultadoTotalInsulinaCorreccion != null)
+                {
+                    regControlDiabetico.Medicacion.MedicacionCantidad = Convert.ToDouble(datos.ResultadoTotalInsulinaCorreccion);
+                }
+                else
+                {
+                    regControlDiabetico.Medicacion = null;
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(datos);
+        }
 
         [Route("delete")]
         public ActionResult Delete(long? id)
@@ -316,7 +353,7 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (!((regControlDiabetico.Medicacion.Medicina.MedicinaTipo == "Pasiva" && regControlDiabetico.Medicacion.Medicina.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null) || regControlDiabetico.Control.Valor.ValorNombre == "Glucosa"))
+            if (!(regControlDiabetico.Control != null && (regControlDiabetico.Control.Valor.ValorNombre == "Glucosa")))
             {
                 return HttpNotFound();
             }
