@@ -4,16 +4,16 @@
 
 <h2>Historial clínico</h2>
 <br />
-<p>Esta viendo el historial clínico de <b>@ViewBag.Persona</b></p>
+<p>Esta viendo el historial clínico de <b>@ViewBag.Persona</b>.</p>
 
 <br />
 
 <div id="relacion_peso_altura">
-    @Html.Partial("_RelacionPesoAltura")
+    @Html.Action("_RelacionPesoAltura", "HistorialClinico")
 </div>
 
 <br />
 
 <div id="dieta">
-    @Html.Partial("_Dieta")
+    @Html.Action("_Dieta", "HistorialClinico")
 </div>
