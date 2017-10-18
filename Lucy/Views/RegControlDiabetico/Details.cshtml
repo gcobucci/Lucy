@@ -1,13 +1,14 @@
 ﻿@model ModelCL.Registro
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Control Diabético | Información";
 }
 
-<h2>Details</h2>
+<h2>Información del registro</h2>
+
 
 <div>
-    <h4>Control diabético</h4>
+    <h4>Control Diabético</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,7 +16,7 @@
         </dt>
 
         <dd>
-            @item.RegistroFchHora.ToString("dd MMM yyyy - HH:mm")
+            @Model.RegistroFchHora.ToString("dd MMM yyyy - HH:mm")
         </dd>
 
         <dt>

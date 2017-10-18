@@ -534,6 +534,35 @@ li.liHi {
 }
 
 
+/****************************************************************   SUBMENU LEFT   ****************************************************************/
+
+.subMenu-ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+    .subMenu-ul > li > a {
+        text-decoration: none;
+        font-size: 10.5pt;
+        color: #fff;
+        display: block;
+        transition: .3s;
+    }
+
+    .subMenu-ul > li {
+        border: 0;
+        background-color: transparent;
+        margin-right: 0;
+        border-radius: 2px;
+        transition: .3s;
+    }
+
+    .subMenu-ul > li:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+
 /****************************************************************   SUB TOP NAV   ****************************************************************/
 
 #subTopNav {
