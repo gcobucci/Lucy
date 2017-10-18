@@ -6,7 +6,6 @@
 
 <h2>Información del registro</h2>
 
-
 <div>
     <h4>Control Diabético</h4>
     <hr />
@@ -20,11 +19,26 @@
         </dd>
 
         <dt>
+            @Html.Label("Resultado del control")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Control.ControlValor)
+        </dd>
+
+        <dt>
             @Html.Label("Nombre del platillo/descriptivo")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaPlatillo)
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaPlatillo)
+            }
+            else
+            {
+                <text>-</text>
+            }            
         </dd>
 
         <dt>
@@ -32,66 +46,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaComida)
-        </dd>
-
-        <dt>
-            @Html.Label("Total de calorías")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Total de carbohidratos")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaCarbohidratos)
-        </dd>
-
-        <dt>
-            @Html.Label("Total de azucares")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaAzucar)
-        </dd>
-
-        <dt>
-            @Html.Label("Total de grasas")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaGrasa)
-        </dd> 
-        
-        <dt>
-            @Html.Label("Total de sodio")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comida.ComidaSodio)
-        </dd> 
-
-        <dt>
-            @Html.Label("Gluten")
-        </dt>
-
-        <dd>
-            @if (Model.Comida != null && Model.Comida.ComidaGluten == true)
+            @if (Model.Comida != null)
             {
-                <text>Si</text>
-            }
-            else if (Model.Comida != null && Model.Comida.ComidaGluten == false)
-            {
-                <text>No</text>
+                @Html.DisplayFor(model => model.Comida.ComidaComida)
             }
             else
             {
-                <text>Sin asignar</text>
-            }
+                <text>-</text>
+            }          
         </dd>
 
         <dt>
@@ -99,7 +61,8 @@
         </dt>
 
         <dd>
-            @if (Model.Comida != null) {
+            @if (Model.Comida != null)
+            {
                 <ul>
                     @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
                     {
@@ -107,7 +70,127 @@
                     }
                 </ul>
             }
+            else
+            {
+                <text>-</text>
+            }
         </dd>
+
+        <dt>
+            @Html.Label("Total de calorías")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaCalorias)
+            }
+            else
+            {
+                <text>-</text>
+            }
+        </dd>
+
+        <dt>
+            @Html.Label("Total de carbohidratos")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaCarbohidratos)
+            }
+            else
+            {
+                <text>-</text>
+            }            
+        </dd>
+
+        <dt>
+            @Html.Label("Total de azucares")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaAzucar)
+            }
+            else
+            {
+                <text>-</text>
+            }
+        </dd>
+
+        <dt>
+            @Html.Label("Total de grasas")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaGrasa)
+            }
+            else
+            {
+                <text>-</text>
+            }            
+        </dd> 
+        
+        <dt>
+            @Html.Label("Total de sodio")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                @Html.DisplayFor(model => model.Comida.ComidaSodio)
+            }
+            else
+            {
+                <text>-</text>
+            }            
+        </dd> 
+
+        <dt>
+            @Html.Label("Gluten")
+        </dt>
+
+        <dd>
+            @if (Model.Comida != null)
+            {
+                if (Model.Comida.ComidaGluten == true)
+                {
+                    <text>Si</text>
+                }
+                else if (Model.Comida.ComidaGluten == false)
+                {
+                    <text>No</text>
+                }
+                else
+                {
+                    <text>Sin asignar</text>
+                }
+            }
+            else
+            {
+                <text>-</text>
+            }           
+        </dd>
+
+        <dt>
+            @Html.Label("Insulina por corrección")
+        </dt>
+
+        <dd>
+            @if (Model.Medicacion != null)
+            {
+                <text>@Model.Medicacion.Medicina.MedicinaNombre - @Model.Medicacion.MedicacionCantidad - @Model.Medicacion.Presentacion.PresentacionNombre</text>
+            }
+            else
+            {
+                <text>-</text>
+            }
+        </dd>        
     </dl>
 </div>
 <p>
