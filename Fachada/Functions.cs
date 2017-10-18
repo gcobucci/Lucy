@@ -27,13 +27,14 @@ namespace Fachada
             return idUsu;
         }
 
-        public static int get_idPer(HttpCookie cookie)
-        {
-            FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
-            int idPer = Convert.ToInt32(per.Name);
+        //public static int get_idPer(HttpCookie cookie)
+        //{
 
-            return idPer;
-        }
+        //    FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
+        //    int idPer = Convert.ToInt32(per.Name);
+
+        //    return idPer;
+        //}
 
         public static double calcular_IMC(double peso, short altura)
         {
