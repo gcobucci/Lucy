@@ -35,7 +35,7 @@ namespace Lucy.Controllers
             RegActividadViewModel newRegActividad = new RegActividadViewModel();
 
 
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Contenido> lContEje = db.Contenido.Where(e => e.Ejercicio != null && (e.UsuarioAutor == null || e.UsuarioAutor.UsuarioId == idUsu)).ToList();
             ViewBag.lContEje = new SelectList(lContEje, "ContenidoId", "ContenidoTitulo");
@@ -48,7 +48,7 @@ namespace Lucy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RegActividadViewModel datos)
         {
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Contenido> lContEje = db.Contenido.Where(e => e.Ejercicio != null && (e.UsuarioAutor == null || e.UsuarioAutor.UsuarioId == idUsu)).ToList();
             ViewBag.lContEje = new SelectList(lContEje, "ContenidoId", "ContenidoTitulo");
@@ -119,7 +119,7 @@ namespace Lucy.Controllers
             vmRegActividad.ActividadTiempo = regActividad.Actividad.ActividadTiempo;
 
 
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Contenido> lContEje = db.Contenido.Where(e => e.Ejercicio != null && (e.UsuarioAutor == null || e.UsuarioAutor.UsuarioId == idUsu)).ToList();
             ViewBag.lContEje = new SelectList(lContEje, "ContenidoId", "ContenidoTitulo");
@@ -132,7 +132,7 @@ namespace Lucy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RegActividadViewModel datos)
         {
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Contenido> lContEje = db.Contenido.Where(e => e.Ejercicio != null && (e.UsuarioAutor == null || e.UsuarioAutor.UsuarioId == idUsu)).ToList();
             ViewBag.lContEje = new SelectList(lContEje, "ContenidoId", "ContenidoTitulo");

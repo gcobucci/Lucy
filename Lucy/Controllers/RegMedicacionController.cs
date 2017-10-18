@@ -75,7 +75,7 @@ namespace Lucy.Controllers
         [Route("_create")]
         public PartialViewResult _Create(long idEnf)
         {
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
             long idPer = 1;
@@ -134,7 +134,7 @@ namespace Lucy.Controllers
                 return RedirectToAction("Index");
             }
 
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             if (datos.EnfermedadId == 0)
             {
@@ -188,7 +188,7 @@ namespace Lucy.Controllers
             vmRegMedicacion.MedicacionCantidad = regMedicacion.Medicacion.MedicacionCantidad;
 
 
-            long idUsu = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             if (vmRegMedicacion.EnfermedadId == null)
             {

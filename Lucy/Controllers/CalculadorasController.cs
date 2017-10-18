@@ -23,8 +23,7 @@ namespace Lucy.Controllers
 
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-                long idPer = 1;
+                long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
 
                 //cimc.PersonaId = idPer;
@@ -89,12 +88,10 @@ namespace Lucy.Controllers
 
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-                long idPer = 1;
-
+                long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
                 //cimc.PersonaId = idPer;
-
+                
                 ModelCL.Persona per = db.Persona.Find(idPer);
 
                 ModelCL.Registro regPeso = per.Registro.Where(r => r.Peso != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault();
