@@ -80,11 +80,11 @@
         </dt>
 
         <dd>
-            @if (Model.Comida.ComidaGluten == true)
+            @if (Model.Comida != null && Model.Comida.ComidaGluten == true)
             {
                 <text>Si</text>
             }
-            else if (Model.Comida.ComidaGluten == false)
+            else if (Model.Comida != null && Model.Comida.ComidaGluten == false)
             {
                 <text>No</text>
             }
@@ -99,12 +99,14 @@
         </dt>
 
         <dd>
-            <ul>
-                @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
-                {
-                    <li>@item.ReComAliCantidad - @item.Alimento.AlimentoNombre)</li>
-                }
-            </ul>
+            @if (Model.Comida != null) {
+                <ul>
+                    @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
+                    {
+                        <li>@item.ReComAliCantidad - @item.Alimento.AlimentoNombre)</li>
+                    }
+                </ul>
+            }
         </dd>
     </dl>
 </div>
