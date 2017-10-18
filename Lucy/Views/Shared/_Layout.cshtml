@@ -111,10 +111,14 @@
                     <li class="topnavli dropdown2 arrow">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdownS">Registro</a>
-                        <ul class="dropdown-menuS nav-list list-inline">
-                            <li class="userLi"><a href="/alimentos/informacion_nutricional"><img src="~/resources/Oficial/infnut.png" /><p>Inf. Nutricional</p></a></li>
-                            <li class="userLi"><a href="/recetas/index"><img src="~/resources/Oficial/receta.png" /><p>Recetas</p></a></li>
-                            <li class="userLi"><a href="/dietas/index"><img src="~/resources/Oficial/dieta.png" /><p>Dieta</p></a></li>
+                        <ul class="dropdown-menuS nav-list list-inline dropdown-menuExtencive">
+                            <li class="userLi"><a href="/registros/comida/index"><img src="~/resources/Oficial/comida.png" /><p>Comida</p></a></li>
+                            <li class="userLi"><a href="/registros/agua/index"><img src="~/resources/Oficial/agua.png" /><p>Agua</p></a></li>
+                            <li class="userLi"><a href="/registros/actividad/index"><img src="~/resources/Oficial/actividad.png" /><p>Actividad</p></a></li>
+                            <li class="userLi"><a href="/registros/medicacion/index"><img src="~/resources/Oficial/medicina.png" /><p>Medicina</p></a></li>
+                            <li class="userLi"><a href="/registros/peso/index"><img src="~/resources/Oficial/peso.png" /><p>Peso</p></a></li>
+                            <li class="userLi"><a href="/registros/control/index"><img src="~/resources/Oficial/control.png" /><p>Control</p></a></li>
+                            <li class="userLi"><a href="/registros/control_diabetico/index"><img src="~/resources/Oficial/diabetes.png" /><p>Control Diabético</p></a></li>
                         </ul>
 
                     </li>
@@ -132,7 +136,7 @@
                         <ul class="dropdown-menuS nav-list list-inline">
                             <li class="userLi"><a href="/recetas/index"><img src="~/resources/Oficial/receta.png" /><p>Recetas</p></a></li>
                             <li class="userLi"><a href="/alimentos/informacion_nutricional"><img src="~/resources/Oficial/infnut.png" /><p>Inf. Nutricional</p></a></li>
-                            <li class="userLi"><a href="/dietas/index"><img src="~/resources/Oficial/dietaA.png" /><p>Dieta</p></a></li>
+                            <li class="userLi"><a href="/dietas/index"><img src="~/resources/Oficial/dieta.png" /><p>Dieta</p></a></li>
                         </ul>
 
                     </li>
@@ -151,7 +155,15 @@
                     </li>
 
                     <li class="topnavli"><a href="#">Mapa</a></li>
-                    <li class="topnavli"><a href="#">Calculadoras</a></li>
+
+                    @*Calculadoras*@
+                    <li class="topnavli dropdown2 arrow">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdownS">Calculadoras</a>
+                        <ul class="dropdown-menuS nav-list list-inline">
+                            <li class="userLi"><a href="/calculadoras/IMC"><img src="~/resources/Oficial/imc.png" title="Índice de Masa Corporal" /><p>IMC</p></a></li>
+                            <li class="userLi"><a href="/calculadoras/TMB"><img src="~/resources/Oficial/tmb.png" title="Tasa Metabólica Basal" /><p>TMB</p></a></li>
+                        </ul>
+                    </li>
 
 
                     @*UsuIco*@
@@ -204,7 +216,7 @@
     {
         <div class="sliderContainer">
             <div class="slider single-item">
-                <div><h1>Lucy</h1></div>
+                <div><h1 style="margin-top:230px;">YoTeCuido</h1></div>
                 <div class="slideAccordian">
                     <div class="comidasSlide">
                         <div class="auxContAccordianAlt">
@@ -216,31 +228,31 @@
                         <div class="accordian">
                             <ul>
                                 <li class="firstLiAccordian">
-                                    <a href="#" style="background-image:url(resources/oficial/yotecuido.jpg);"></a>
+                                    <a href="/recetas/index" style="background-image:url(resources/oficial/yotecuido.jpg);"></a>
                                 </li>
                                 <li>
                                     <div class="image_title">
-                                        <a href="#">Desayuno</a>
+                                        <a href="/recetas/index">Desayuno</a>
                                     </div>
-                                    <a href="#" style="background-image:url(resources/oficial/desayuno.jpg)"></a>
+                                    <a href="/recetas/index" style="background-image:url(resources/oficial/desayuno.jpg)"></a>
                                 </li>
                                 <li>
                                     <div class="image_title">
-                                        <a href="#">Almuerzo</a>
+                                        <a href="/recetas/index">Almuerzo</a>
                                     </div>
-                                    <a href="#" style="background-image:url(resources/oficial/almuerzo.jpg)"></a>
+                                    <a href="/recetas/index" style="background-image:url(resources/oficial/almuerzo.jpg)"></a>
                                 </li>
                                 <li>
                                     <div class="image_title">
-                                        <a href="#">Merienda</a>
+                                        <a href="/recetas/index">Merienda</a>
                                     </div>
-                                    <a href="#" style="background-image:url(resources/oficial/merienda.jpg)"></a>
+                                    <a href="/recetas/index" style="background-image:url(resources/oficial/merienda.jpg)"></a>
                                 </li>
                                 <li>
                                     <div class="image_title">
-                                        <a href="#">Cena</a>
+                                        <a href="/recetas/index">Cena</a>
                                     </div>
-                                    <a href="#" style="background-image:url(resources/oficial/cena.jpg)"></a>
+                                    <a href="/recetas/index" style="background-image:url(resources/oficial/cena.jpg)"></a>
                                 </li>
                             </ul>
                         </div>
@@ -253,8 +265,31 @@
                         </script>
                     </div>
                 </div>
-                <div><h1>#Diabetes</h1></div>
-                <div><h1>•</h1></div>
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <svg viewBox="0 0 960 300">
+                                <symbol id="s-text">
+                                    <text text-anchor="middle" x="50%" y="80%">Lucy </text>
+                                </symbol>
+                                <g class="g-ants">
+                                    <use xlink:href="#s-text" class="text-copy"></use>
+                                    <use xlink:href="#s-text" class="text-copy"></use>
+                                    <use xlink:href="#s-text" class="text-copy"></use>
+                                    <use xlink:href="#s-text" class="text-copy"></use>
+                                    <use xlink:href="#s-text" class="text-copy"></use>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="row">
+                            <address>
+                                Tu asistente personal
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                <div><h1 style="margin-top:230px;">Salud</h1></div>
             </div>
             <div class="progressBarContainer">
                 <div>
