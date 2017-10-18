@@ -34,7 +34,7 @@ namespace Lucy.Controllers
                     lPersonas.Add(rup.Persona);
                 }
                 
-                if (Request.Cookies["cookiePer"] != null)
+                if (Request.Cookies["cookiePer"] == null)
                 {
                     HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
                     FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);

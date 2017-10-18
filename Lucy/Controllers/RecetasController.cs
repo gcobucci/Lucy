@@ -84,7 +84,7 @@ namespace Lucy.Controllers
                     ViewBag.Message = "No encontramos recetas con estos filtros.";
                 }
             }
-
+            
             ViewBag.idUsu = idUsu;
             return View(recetas);
         }
