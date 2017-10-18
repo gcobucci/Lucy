@@ -1,17 +1,17 @@
 ﻿@model Lucy.Models.RegAguaViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Agua | Nueva";
 }
 
-<h2>Create</h2>
+<h2>Nuevo registro</h2>
 
 @using (Html.BeginForm("Create", "RegAgua", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Peso</h4>
+        <h4>Agua</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (ViewBag.ErrorMessage != null)
