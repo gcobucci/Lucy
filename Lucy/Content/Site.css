@@ -259,6 +259,10 @@ li.liHi {
 
 /**********************************************   TOP NAV   **********************************************/
 
+nav#mySidenav::-webkit-scrollbar {
+    display: none;
+}
+
 #menuContainer {
     position: fixed;
     top: 0;
