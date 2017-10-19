@@ -52,7 +52,7 @@ namespace Lucy.Controllers
             return View();
         }
 
-        [Route("_create")]
+        [Route("_crear")]
         public PartialViewResult _Create(long idEnf)
         {
             //long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
@@ -79,7 +79,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("_create")]
+        [Route("_crear")]
         [ValidateAntiForgeryToken]
         public ActionResult _Create(RegControlViewModel datos)
         {

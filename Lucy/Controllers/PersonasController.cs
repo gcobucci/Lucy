@@ -10,11 +10,13 @@ using System.Web.Security;
 namespace Lucy.Controllers
 {
     [Authorize]
+    [RoutePrefix("personas")]
     public class PersonasController : Controller
     {
         private AgustinaEntities db = new AgustinaEntities();
 
         [HttpGet]
+        [Route("datos_clinicos")]
         public ActionResult Datos_Clinicos()
         {
             HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -37,6 +39,7 @@ namespace Lucy.Controllers
         }
 
         [HttpGet]
+        [Route("_datcli")]
         public PartialViewResult _DatCli(long id)
         {
             try
@@ -153,6 +156,7 @@ namespace Lucy.Controllers
         }
         
         [HttpPost]
+        //[Route("_datcli")]
         [ValidateAntiForgeryToken]
         public ActionResult _DatCli(DatCliViewModel Datos, int id)
         {

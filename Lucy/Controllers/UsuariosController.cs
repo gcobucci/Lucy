@@ -15,12 +15,14 @@ using System.Security.Principal;
 
 namespace Lucy.Controllers
 {
+    [RoutePrefix("usuarios")]
     public class UsuariosController : Controller
     {
         //private AgustinaEntities db = new AgustinaEntities(); // MM - 18/07/2017 - Lo cambie por el using porque mejora rendimiento
 
         // Login
         [HttpGet]
+        [Route("login")]
         public ActionResult Login()
         {
             return View();
@@ -29,6 +31,7 @@ namespace Lucy.Controllers
         // Login POST
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Route("login")]
         public ActionResult Login(LoginViewModel login, string ReturnUrl = "")
         {
             string message = "";
@@ -91,6 +94,7 @@ namespace Lucy.Controllers
         // Logout
         [Authorize]
         //[HttpPost]
+        [Route("logout")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -110,6 +114,7 @@ namespace Lucy.Controllers
 
         // Registro
         [HttpGet]
+        [Route("registro")]
         public ActionResult Registro()
         {
             CargarPaises();
@@ -120,6 +125,7 @@ namespace Lucy.Controllers
         // Registro POST
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Route("registro")]
         public ActionResult Registro(RegistroViewModel reg)
         {
             bool Status = false;
@@ -502,6 +508,7 @@ namespace Lucy.Controllers
         }
 
         [HttpGet]
+        [Route("verifyaccount")]
         public ActionResult VerifyAccount(string id)
         {
             bool Status = false;

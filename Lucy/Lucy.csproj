@@ -446,6 +446,7 @@
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CalculadorasController.cs" />
     <Compile Include="Controllers\FavoritoController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HistorialClinicoController.cs" />
     <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\RegControlDiabeticoController.cs" />
@@ -473,6 +474,7 @@
     <Compile Include="Models\RegComidaViewModel.cs" />
     <Compile Include="Models\ComidaAlimentoViewModel.cs" />
     <Compile Include="Models\RegControlViewModel.cs" />
+    <Compile Include="Models\ConfiguracionViewModel.cs" />
     <Compile Include="Models\RegMedicacionViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
     <Compile Include="Models\RegActividadViewModel.cs" />
