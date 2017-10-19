@@ -21,8 +21,7 @@ namespace Lucy.Controllers
         [Route("index")]
         public ActionResult Index()
         {
-            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            long idPer = 1;
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
             List<ModelCL.Registro> regControl = db.Registro.Where(r => r.Control != null && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();
 
@@ -32,8 +31,7 @@ namespace Lucy.Controllers
         [Route("create")]
         public ActionResult Create()
         {
-            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            long idPer = 1;
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
             ModelCL.Persona persona = db.Persona.Find(idPer);
             List<ModelCL.RelPerEnf> lrpe = persona.RelPerEnf.ToList();
@@ -57,10 +55,9 @@ namespace Lucy.Controllers
         [Route("_create")]
         public PartialViewResult _Create(long idEnf)
         {
-            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            //long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            long idPer = 1;
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
 
             RegControlViewModel newRegControl = new RegControlViewModel();

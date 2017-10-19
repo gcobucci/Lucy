@@ -20,8 +20,7 @@ namespace Lucy.Controllers
         [Route("index")]
         public ActionResult Index()
         {
-            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            long idPer = 1;
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
             List<ModelCL.Registro> registrosAgua = db.Registro.Where(r => r.Agua != null && (r.Persona.PersonaId == idPer)).OrderByDescending(r => r.RegistroFchHora).ToList();
 
@@ -43,8 +42,7 @@ namespace Lucy.Controllers
         {
             if (ModelState.IsValid)
             {
-                //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-                long idPer = 1;
+                long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
                 ModelCL.Registro regAguaEx = db.Registro.Where(r => r.Agua != null && r.Persona.PersonaId == idPer && r.RegistroFchHora == f).FirstOrDefault();
