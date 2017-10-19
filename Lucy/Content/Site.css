@@ -1239,3 +1239,13 @@ input.custom-control-input {
         top: -175px;
     }
 }
+
+/********************************************************************************************************************************/
+
+.search-form div.form-group {
+    margin-right: 15px;
+}
+
+.table-header div form label {
+    padding-right: 10px;
+}
