@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 
@@ -6,6 +8,30 @@ namespace Fachada
 {
     public class Functions
     {
+        //public static string encriptar(string original)
+        //{
+        //    MD5 md5 = new MD5CryptoServiceProvider();
+            
+        //    return Convert.ToString(md5.ComputeHash(original));
+        //}
+
+        //public static string encriptar(string valor)
+        //{
+        //    MD5 md5 = new MD5CryptoServiceProvider();
+        //    Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(valor);
+        //    Byte[] encodedBytes = md5.ComputeHash(originalBytes);
+
+        //    return BitConverter.ToString(encodedBytes);
+        //}
+
+        //public static string desencriptar(string valor)
+        //{
+        //    MD5 md5 = new MD5CryptoServiceProvider();
+
+
+        //    return md5.Hash(valor);
+        //}
+
         public static bool isValidContentType(string contentType)
         {
             return contentType.Equals("image/png") || contentType.Equals("image/gif") ||

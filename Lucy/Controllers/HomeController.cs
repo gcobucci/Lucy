@@ -22,6 +22,10 @@ namespace Lucy.Controllers
         [HttpGet]
         public PartialViewResult _Personas()
         {
+            //string valorEn = Fachada.Functions.encriptar("1");
+
+            //string valorDe = Fachada.Functions.desencriptar(valorEn);
+
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
                 int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);

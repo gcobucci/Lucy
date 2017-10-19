@@ -56,7 +56,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/alimentos/informacion_nutricional" class="opSidnav">Información Nutricional</a>
+                    <a href="/alimentos/index" class="opSidnav">Información Nutricional</a>
                 </li>
                 <li>
                     <a href="/dietas/index" class="opSidnav">Dietas</a>
@@ -148,7 +148,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdownS">Alimentación</a>
                         <ul class="dropdown-menuS nav-list list-inline">
                             <li class="userLi"><a href="/recetas/index"><img src="~/resources/Oficial/receta.png" /><p>Recetas</p></a></li>
-                            <li class="userLi"><a href="/alimentos/informacion_nutricional"><img src="~/resources/Oficial/infnut.png" /><p>Inf. Nutricional</p></a></li>
+                            <li class="userLi"><a href="/alimentos/index"><img src="~/resources/Oficial/infnut.png" /><p>Inf. Nutricional</p></a></li>
                             <li class="userLi"><a href="/dietas/index"><img src="~/resources/Oficial/dieta.png" /><p>Dieta</p></a></li>
                         </ul>
 
@@ -343,6 +343,9 @@
         
         @RenderBody()
         
+    </div>
+
+    <div class="container body-content">
         <!-- footer -->
         <hr />
         <footer>
@@ -382,15 +385,10 @@
                     PerId: PerId
                 },
                 type: 'POST',
-                url: "/home/selPersona",
-                success: function (data) {
-                    if (data.success == true) { // if true (1)
-                        setTimeout(function () {// wait for 5 secs(2)
-                            location.reload(); // then reload the page.(3)
-                        }, 5000);
-                    }
-                }
-            });
+                url: "/home/selPersona"
+            });       
+            //window.open('http://localhost:4181/calculadoras/tmb', '_blank')
+            //location.reload(true);
         }
         
     </script>

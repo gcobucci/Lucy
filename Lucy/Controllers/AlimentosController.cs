@@ -44,7 +44,7 @@ namespace Lucy.Controllers
 
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("informacion_nutricional")]
+        [Route("index")]
         public ActionResult Index()
         {
             List<ModelCL.Alimento> alimentos = null;

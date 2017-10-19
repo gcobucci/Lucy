@@ -21,8 +21,7 @@ namespace Lucy.Controllers
         [Route("index")]
         public ActionResult Index()
         {
-            //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            long idPer = 1;
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
             List<ModelCL.Registro> regControlDiabetico = 
                 db.Registro.Where(r => ((r.Medicacion != null && (r.Medicacion.Medicina.MedicinaTipo == "Pasiva" && 
@@ -102,8 +101,7 @@ namespace Lucy.Controllers
 
             if (ModelState.IsValid)
             {
-                //long idPer = Fachada.Functions.get_idPer(Request.Cookies[FormsAuthentication.FormsCookieName]);
-                long idPer = 1;
+                long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
                 ModelCL.Persona Persona = db.Persona.Find(idPer);
 
