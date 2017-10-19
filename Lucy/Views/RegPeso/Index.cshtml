@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ModelCL.Registro>
 
 @{
-    ViewBag.Title = "Peso";
+    ViewBag.Title = "Registros de peso";
 }
 
-<h2>Registro de Peso</h2>
+<h2>Registros de Peso</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo registro", "Create")
 </p>
 <table class="table">
     <tr>
@@ -29,8 +29,8 @@
             @Html.DisplayFor(modelItem => item.Peso.PesoValor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RegistroId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.RegistroId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.RegistroId })
         </td>
     </tr>
 }

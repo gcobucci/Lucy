@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear", "Create")
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -44,9 +44,9 @@
                             @item.Medicina.Count().ToString()
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.EnfermedadId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.EnfermedadId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.EnfermedadId })
+                            @Html.ActionLink("Ver", "Details", new { id = item.EnfermedadId }) |
+                            @Html.ActionLink("Editar", "Edit", new { id = item.EnfermedadId }) |                            
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.EnfermedadId })
                         </td>
                     </tr>
                 }

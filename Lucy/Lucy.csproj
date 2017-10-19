@@ -507,10 +507,6 @@
     <Content Include="Views\RegAgua\Delete.cshtml" />
     <Content Include="Views\RegAgua\Edit.cshtml" />
     <Content Include="Views\RegAgua\Index.cshtml" />
-    <Content Include="Views\RegDatCli\Create.cshtml" />
-    <Content Include="Views\RegDatCli\Delete.cshtml" />
-    <Content Include="Views\RegDatCli\Edit.cshtml" />
-    <Content Include="Views\RegDatCli\Index.cshtml" />
     <Content Include="Views\RegActividad\Create.cshtml" />
     <Content Include="Views\RegActividad\Delete.cshtml" />
     <Content Include="Views\RegActividad\Edit.cshtml" />

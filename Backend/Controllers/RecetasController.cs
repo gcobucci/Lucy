@@ -16,7 +16,7 @@ namespace Backend.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             var recetas = db.Contenido.Where(c => c.Receta != null).ToList();
@@ -24,7 +24,7 @@ namespace Backend.Controllers
             return View(recetas);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace Backend.Controllers
             return View(contReceta);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create()
         {
             //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo");
@@ -47,7 +47,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
         {
@@ -129,7 +129,7 @@ namespace Backend.Controllers
             return View(contenido);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -147,7 +147,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
         {
@@ -243,7 +243,7 @@ namespace Backend.Controllers
             return View(contenido);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -259,7 +259,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Route("delete")]        
+        [Route("eliminar")]        
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {

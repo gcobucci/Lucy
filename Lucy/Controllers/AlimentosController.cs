@@ -44,7 +44,7 @@ namespace Lucy.Controllers
 
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             List<ModelCL.Alimento> alimentos = null;
@@ -63,7 +63,7 @@ namespace Lucy.Controllers
             return View(alimentos);
         }
 
-        //[Route("details")]
+        //[Route("ver")]
         //public ActionResult Details(long? id)
         //{
         //    if (id == null)
@@ -78,14 +78,14 @@ namespace Lucy.Controllers
         //    return View(alimento);
         //}
 
-        //[Route("create")]
+        //[Route("crear")]
         //public ActionResult Create()
         //{
         //    return View();
         //}
 
         //[HttpPost]
-        //[Route("create")]
+        //[Route("crear")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Create(ModelCL.Alimento alimento, HttpPostedFileBase file)
         //{
@@ -141,7 +141,7 @@ namespace Lucy.Controllers
         //    return View(alimento);
         //}
 
-        //[Route("edit")]
+        //[Route("editar")]
         //public ActionResult Edit(long? id)
         //{
         //    if (id == null)
@@ -158,7 +158,7 @@ namespace Lucy.Controllers
         //}
 
         //[HttpPost]
-        //[Route("edit")]
+        //[Route("editar")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Edit(ModelCL.Alimento alimento, HttpPostedFileBase file)
         //{
@@ -228,7 +228,7 @@ namespace Lucy.Controllers
         //    return View(alimento);
         //}
 
-        //[Route("delete")]
+        //[Route("eliminar")]
         //public ActionResult Delete(long? id)
         //{
         //    if (id == null)
@@ -245,7 +245,7 @@ namespace Lucy.Controllers
         //}
 
         //[HttpPost, ActionName("Delete")]
-        //[Route("delete")]
+        //[Route("eliminar")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(long id)
         //{

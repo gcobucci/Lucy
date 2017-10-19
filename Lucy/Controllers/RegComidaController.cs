@@ -18,7 +18,7 @@ namespace Lucy.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
@@ -28,7 +28,7 @@ namespace Lucy.Controllers
             return View(registrosComida);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -45,7 +45,7 @@ namespace Lucy.Controllers
             return View(regComida);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create()
         {
             RegComidaViewModel newRegComida = new RegComidaViewModel();
@@ -75,7 +75,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RegComidaViewModel datos)
         {
@@ -146,7 +146,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -207,7 +207,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RegComidaViewModel datos)
         {
@@ -273,7 +273,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -289,7 +289,7 @@ namespace Lucy.Controllers
             return View(regComida);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

@@ -1,10 +1,10 @@
 ﻿@model ModelCL.Registro
 
 @{
-    ViewBag.Title = "Comida | Información";
+    ViewBag.Title = "Comida | Ver";
 }
 
-<h2>Información del registro</h2>
+<h2>Ver registro</h2>
 
 
 <div>
@@ -109,6 +109,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RegistroId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.RegistroId }) |
+    @Html.ActionLink("Volver al listado", "Index")
 </p>

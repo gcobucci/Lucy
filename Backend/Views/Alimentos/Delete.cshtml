@@ -1,7 +1,7 @@
 ﻿@model ModelCL.Alimento
 
 @{
-    ViewBag.Title = "Borrar Alimento";
+    ViewBag.Title = "Eliminar Alimento";
 }
 
 
@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AlimentoNombre)
+            @Html.Label("Alimento")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Imágen")
         </dt>
 
         <dd>
@@ -87,8 +87,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver al listado", "Index")
         </div>
     }
 </div>

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<ModelCL.Registro>
 
 @{
-    ViewBag.Title = "Control Diabético";
+    ViewBag.Title = "Registros de control diabético";
 }
 
-<h2>Registro de Control Diabético</h2>
+<h2>Registros de Control Diabético</h2>
 
 <p>
     @Html.ActionLink("Registrar control", "Create")
@@ -94,15 +94,15 @@
             <td>        
                 @if (item.Control != null)
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.RegistroId }) <text>|</text>
-                    @Html.ActionLink("Details", "Details", new { id = item.RegistroId }) <text>|</text>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.RegistroId })
+                    @Html.ActionLink("Ver", "Details", new { id = item.RegistroId }) <text>|</text>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.RegistroId }) <text>|</text>                    
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.RegistroId })
                 }
                 else
                 {
-                    @Html.ActionLink("Edit", "Edit", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
-                    @Html.ActionLink("Details", "Details", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
-                    @Html.ActionLink("Delete", "Delete", "regMedicacion", new { id = item.RegistroId }, null)
+                    @Html.ActionLink("Ver", "Details", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
+                    @Html.ActionLink("Editar", "Edit", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>                    
+                    @Html.ActionLink("Eliminar", "Delete", "regMedicacion", new { id = item.RegistroId }, null)
                 }
             </td>
         </tr>

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<ModelCL.Tema>
 
 @{
-    ViewBag.Title = "Tema";
+    ViewBag.Title = "Temas";
 }
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear", "Create")
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -33,9 +33,9 @@
                             @Html.DisplayFor(modelItem => item.TemaDescripcion)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.TemaId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.TemaId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.TemaId })
+                            @Html.ActionLink("Ver", "Details", new { id = item.TemaId }) |
+                            @Html.ActionLink("Editar", "Edit", new { id = item.TemaId }) |                            
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.TemaId })
                         </td>
                     </tr>
                 }
