@@ -447,6 +447,7 @@
     <Compile Include="Controllers\CalculadorasController.cs" />
     <Compile Include="Controllers\FavoritoController.cs" />
     <Compile Include="Controllers\HistorialClinicoController.cs" />
+    <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\RegControlDiabeticoController.cs" />
     <Compile Include="Controllers\RegComidaController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
@@ -539,6 +540,7 @@
     <Content Include="Views\HistorialClinico\Index.cshtml" />
     <Content Include="Views\HistorialClinico\_RelacionPesoAltura.cshtml" />
     <Content Include="Views\HistorialClinico\_Dieta.cshtml" />
+    <Content Include="Views\Mapa\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

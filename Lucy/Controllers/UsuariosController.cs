@@ -473,12 +473,12 @@ namespace Lucy.Controllers
             var verifyUrl = "/Usuarios/VerifyAccount/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("mateswdv@gmail.com", "Lucy");
+            var fromEmail = new MailAddress("mateswdv@gmail.com", "YoTeCuido");
             var toEmail = new MailAddress(email);
             var fromEmailPassword = "mateSolutions07uy";
             string subject = "¡Su cuenta se ha creado correctamente!";
 
-            string body = "<br/><br/>Estamos encantados de decirle que su cuenta de Lucy se ha" +
+            string body = "<br/><br/>Estamos encantados de decirle que su cuenta en YoTeCuido se ha" +
                 " creado correctamente. Por favor haga clic en el siguiente enlace para verificar su cuenta" +
                 " <br/><br/><a href='" + link + "'>" + link + "</a> ";
 

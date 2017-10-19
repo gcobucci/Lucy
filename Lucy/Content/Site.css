@@ -1095,112 +1095,157 @@ input.custom-control-input {
         box-shadow: none !important;
     }
 
-/*a.animated-button:link, a.animated-button:visited {
-    position: relative;
-    display: block;
-    margin: 30px auto 0;
-    padding: 14px 15px;
-    color: #000;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    letter-spacing: .08em;
-    border-radius: 0;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
+
+/******************************************************* Slide Lucy *******************************************************/
+
+
+#slideLucy {
+    height: 100%;
+    font-weight: 800;
+    background: #030321;
 }
 
-    a.animated-button:link:after, a.animated-button:visited:after {
-        content: "";
-        position: absolute;
-        height: 0%;
-        left: 50%;
-        top: 50%;
-        width: 150%;
-        z-index: -1;
-        -webkit-transition: all 0.75s ease 0s;
-        -moz-transition: all 0.75s ease 0s;
-        -o-transition: all 0.75s ease 0s;
-        transition: all 0.75s ease 0s;
-    }
-
-    a.animated-button:link:hover, a.animated-button:visited:hover {
-        color: #000;
-        text-shadow: none;
-    }
-
-        a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
-            height: 450%;
-        }
-
-a.animated-button:link, a.animated-button:visited {
-    position: relative;
-    display: block;
-    margin: 53.4px auto 0;
-    padding: 10px 0;
-    width: 80%;
-    color: #000;
-    font-size: 10pt;
-    border-radius: 0;
-    font-weight: lighter;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    letter-spacing: .08em;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
-}
-
-
-
-
-
-
-
-a.animated-button.thar-three {
-    color: #000;
-    cursor: pointer;
-    display: block;
-    position: relative;
-    border: 2px solid #F7CA18;
-    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
-    0s;
-}
-
-    a.animated-button.thar-three:hover {
-        color: #000 !important;
-        background-color: transparent;
-        text-shadow: nthree;
-        font-weight: bolder;
-    }
-
-        a.animated-button.thar-three:hover:before {
-            left: 0%;
-            right: auto;
-            width: 100%;
-        }
-
-    a.animated-button.thar-three:before {
+    #slideLucy svg {
         display: block;
-        position: absolute;
+        width: 100%;
+        height: 148px;
+        margin: 140px auto 0;
+    }
+
+        #slideLucy svg g .text-copy {
+            font-size: 270px;
+            font-family: Poppins !important;
+            font-weight: 500;
+        }
+
+    #slideLucy .text-copy {
+        fill: none;
+        stroke: white;
+        stroke-dasharray: 6% 29%;
+        stroke-width: 5px;
+        stroke-dashoffset: 0%;
+        animation: stroke-offset 5.5s infinite linear;
+    }
+
+        #slideLucy .text-copy:nth-child(1) {
+            stroke: #4D163D;
+            animation-delay: -1;
+        }
+
+        #slideLucy .text-copy:nth-child(2) {
+            stroke: #840037;
+            animation-delay: -2s;
+        }
+
+        #slideLucy .text-copy:nth-child(3) {
+            stroke: #BD0034;
+            animation-delay: -3s;
+        }
+
+        #slideLucy .text-copy:nth-child(4) {
+            stroke: #BD0034;
+            animation-delay: -4s;
+        }
+
+        #slideLucy .text-copy:nth-child(5) {
+            stroke: #FDB731;
+            animation-delay: -5s;
+        }
+
+    #slideLucy h3 {
+        font-family: Poppins;
+        font-weight: 300;
+        margin: 65px 25px 10px;
+    }
+@keyframes stroke-offset {
+    100% {
+        stroke-dashoffset: -35%;
+    }
+}
+
+/******************************************************* Slide YoTeCuido *******************************************************/
+
+#slideYTC {
+    padding: 5.5em 0;
+    margin: 0 auto;
+    width: 299px;
+    font: normal 40px/50px Arial,sans-serif;
+    color: #111;
+}
+
+#slideYTC p {
+    height: 50px;
+    float: left;
+    margin-right: 0.1em;
+}
+
+    #slideYTC h1 {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 40px;
+    }
+
+        #slideYTC h1 i {
+            color: #d83030;
+            padding: 0;
+        }
+
+        #slideYTC h1 i:hover {
+            color: #d83030;
+        }
+
+    #slideYTC b {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        height: 48.8px;
+    }
+
+    #slideYTC span1 {
+        display: inline-block;
+        font-family: poppins;
+        font-weight: 500;
+        position: relative;
+        white-space: nowrap;
+        top: 0;
+        left: 0;
+        -webkit-animation: move 5.5s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-delay: 0s;
+    }
+
+@keyframes move {
+    0% {
         top: 0px;
-        right: 0px;
-        height: 100%;
-        width: 0px;
-        z-index: -1;
-        content: '';
-        color: #000 !important;
-        background: #F7CA18;
-        transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
-        0s;
+    }
+
+    25% {
+        top: 0px;
+    }
+
+    50% {
+        top: -87px;
+    }
+
+    /*51% {
+        top: -87px;
     }*/
+
+    75% {
+        top: -175px;
+    }
+
+    90% {
+        top: -175px;
+    }
+}
+
+/********************************************************************************************************************************/
+
+.search-form div.form-group {
+    margin-right: 15px;
+}
+
+.table-header div form label {
+    padding-right: 10px;
+}
