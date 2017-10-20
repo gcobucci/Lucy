@@ -12,7 +12,7 @@ namespace Lucy.Controllers
         private AgustinaEntities db = new AgustinaEntities();
 
         // Guardar un Favorito
-        public ActionResult saveFav(int idUsu, int idCont)
+        public ActionResult saveFav(long idUsu, int idCont)
         {
             Contenido Contenido = db.Contenido.Find(idCont);
 
@@ -32,7 +32,7 @@ namespace Lucy.Controllers
             return null;
         }
 
-        public ActionResult deleteFav(int idUsu, int idCont)
+        public ActionResult deleteFav(long idUsu, int idCont)
         {
             Contenido Contenido = db.Contenido.Find(idCont);
 

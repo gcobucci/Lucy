@@ -45,10 +45,10 @@ namespace Fachada
         }
 
 
-        public static int get_idUsu(HttpCookie cookie)
+        public static long get_idUsu(HttpCookie cookie)
         {
             FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
+            long idUsu = Convert.ToInt32(usu.Name);
 
             return idUsu;
         }
@@ -57,7 +57,7 @@ namespace Fachada
         //{
 
         //    FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
-        //    int idPer = Convert.ToInt32(per.Name);
+        //    long idPer = Convert.ToInt32(per.Name);
 
         //    return idPer;
         //}

@@ -59,7 +59,7 @@ namespace Lucy.Controllers
 
                             var cookiePer = new HttpCookie("cookiePer");
                             cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
-                            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
                             cookiePer.Values["PerId"] = v.RelUsuPer.Where(u => u.UsuarioId == idUsu).FirstOrDefault().PersonaId.ToString();
                             Response.Cookies.Add(cookiePer);
 

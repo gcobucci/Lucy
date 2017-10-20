@@ -21,7 +21,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             var rutinas = db.Contenido.Where(c => c.Rutina != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
@@ -36,7 +36,7 @@ namespace Backend.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             ModelCL.Contenido contRutina = db.Contenido.Find(id);
             if (contRutina.Rutina == null || (contRutina.UsuarioAutor != null && contRutina.UsuarioAutor.UsuarioId != idUsu))
