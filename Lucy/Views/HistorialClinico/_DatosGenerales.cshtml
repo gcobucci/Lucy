@@ -1,11 +1,7 @@
-﻿@model List<ModelCL.Registro>
-
-<h3>Datos generales</h3>
+﻿<h3>Datos generales</h3>
 
 <br />
 
-@if (Model != null)
-{
 <div class="datos row">
     <div class="col-sm-12">
         <b>Altura Actual</b>: @ViewBag.Altura cm.
@@ -14,30 +10,12 @@
             <span><b>IMC (según datos registrados)</b>: @ViewBag.IMC</span>
             <span><b>TMB (según datos registrados)</b>: @ViewBag.TMB</span>
         </span>
-    </div>
-    @*<div class="col-sm-3">
-        <b>Altura Actual</b>: @ViewBag.Altura
-    </div>
-    <div class="col-sm-3">
-        <b>Peso Actual</b>: @ViewBag.Peso
-    </div>
-    <div class="col-sm-3">
-        <b>IMC (según datos registrados)</b>: @ViewBag.IMC
-    </div>
-    <div class="col-sm-3">
-        <b>TMB (según datos registrados)</b>: @ViewBag.TMB
-    </div>*@                
+    </div>               
 </div>
 
 <br />
 
 <div class="graph-wrapper row">
     <div id="grafica_peso" class="graph">
-
     </div>
 </div>
-}
-else
-{
-    <p>Sin datos.</p>
-}

@@ -24,10 +24,8 @@ namespace Lucy.Controllers
             List<ModelCL.Registro> regPeso = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
             ViewBag.regPeso = regPeso;
-
-            List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
-
-            return View(Pesos);
+            
+            return View();
         }
 
         [Route("_datos_generales")]
@@ -90,10 +88,8 @@ namespace Lucy.Controllers
             {
                 ViewBag.TMB = Fachada.Functions.calcular_TMB(Convert.ToDouble(peso), Convert.ToInt16(altura), Persona.edad, Persona.Sexo.SexoNombre);
             }
-
-            List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
-
-            return PartialView(Pesos);
+            
+            return PartialView();
         }
 
         [Route("_dieta")]
@@ -211,5 +207,6 @@ namespace Lucy.Controllers
 
             return PartialView();
         }
+        
     }
 }
