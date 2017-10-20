@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ModelCL.Registro>
+
+@{
     ViewBag.Title = "Historial clínico";
 }
 
@@ -6,14 +8,42 @@
 <br />
 <p>Esta viendo el historial clínico de <b>@ViewBag.Persona</b>.</p>
 
-<br />
-
-<div id="relacion_peso_altura">
-    @Html.Action("_RelacionPesoAltura", "HistorialClinico")
+<div class="datos_generales">
+    @Html.Action("_DatosGenerales", "HistorialClinico")
 </div>
-
-<br />
 
 <div id="dieta">
     @Html.Action("_Dieta", "HistorialClinico")
 </div>
+
+@section scripts{
+    <!-- morris.js -->
+    <script src="~/Scripts/raphael.min.js"></script>
+    <script src="~/Scripts/morris.min.js"></script>
+    @*<script>
+        $('#grafica_peso').ready(function () {
+            if ($('#grafica_peso').length) {
+
+                new Morris.Line({
+                    element: 'grafica_peso',
+                    xkey: 'year',
+                    ykeys: ['value'],
+                    labels: ['Value'],
+                    hideHover: 'auto',
+                    lineColors: ['#34495E'],
+                    data: [
+                        @if (Model.Count() != 0)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                @Html.Raw("{ Fch: '" + item.RegistroFchHora + "', value: 20 },")
+                            }
+                        }
+                    ],
+                    resize: true
+                });
+                
+            }
+        });
+    </script>*@
+}
