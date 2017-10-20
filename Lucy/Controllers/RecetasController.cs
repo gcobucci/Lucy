@@ -27,7 +27,7 @@ namespace Lucy.Controllers
         //        #region UsuarioId por cookie
         //        HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
         //        FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-        //        int idUsu = Convert.ToInt32(usu.Name);
+        //        long idUsu = Convert.ToInt32(usu.Name);
         //        #endregion
 
         //        List<ModelCL.Receta> recetas = db.Receta.Where(r => r.Contenido.UsuarioAutor == null || r.Contenido.UsuarioAutor.UsuarioId == idUsu).ToList();
@@ -41,7 +41,7 @@ namespace Lucy.Controllers
         [Route("listado")]
         public ActionResult Index(int? page, string search, byte? enfermedad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
             IPagedList recetas = null;
 
             if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0) || (gluten == 0 && sodio == null) || (gluten == null && sodio == 0))
@@ -97,7 +97,7 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             ModelCL.Contenido contReceta = db.Contenido.Find(id);
             if (contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))

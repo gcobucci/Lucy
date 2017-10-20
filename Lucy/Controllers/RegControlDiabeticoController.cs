@@ -66,7 +66,7 @@ namespace Lucy.Controllers
             ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             newRegControlDiabetico.Alimentos = new List<ComidaAlimentoViewModel>();
@@ -206,7 +206,7 @@ namespace Lucy.Controllers
             ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             vmRegControlDiabetico.Alimentos = new List<ComidaAlimentoViewModel>();

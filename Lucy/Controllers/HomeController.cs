@@ -28,7 +28,7 @@ namespace Lucy.Controllers
 
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
                 List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -67,7 +67,7 @@ namespace Lucy.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
                 List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();

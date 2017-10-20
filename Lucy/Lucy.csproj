@@ -543,6 +543,9 @@
     <Content Include="Views\HistorialClinico\_DatosGenerales.cshtml" />
     <Content Include="Views\HistorialClinico\_Dieta.cshtml" />
     <Content Include="Views\Mapa\Index.cshtml" />
+    <Content Include="Views\Configuracion\_Premium.cshtml" />
+    <Content Include="Views\Configuracion\_Notificaciones.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

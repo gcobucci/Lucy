@@ -23,7 +23,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index(int? page, string search, int? calMax, int? calMin ,byte? categoria, byte? tipo)
         {
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
             string cat = null;
             string tip = null;
             IPagedList ejercicios = null;
@@ -112,7 +112,7 @@ namespace Backend.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             ModelCL.Contenido contEjercicio = db.Contenido.Find(id);
             if (contEjercicio.Ejercicio == null || (contEjercicio.UsuarioAutor != null && contEjercicio.UsuarioAutor.UsuarioId != idUsu))

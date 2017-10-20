@@ -1,0 +1,34 @@
+﻿<h3>Disfruta beneficios adicionales</h3>
+
+<br />
+
+<div id="tabla_tipos_usuario">
+    <h4>Tabla comparativa:</h4>
+
+
+</div>
+
+<div id="suscripción">
+    @if (ViewBag.esPremium == false)
+    {
+        using (Html.BeginForm("_premium", "Configuracion", new { accion = true }, FormMethod.Post))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Convertirse en usuario premium" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("_premium", "Configuracion", new { accion = false }, FormMethod.Post))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Cancelar suscripción" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    }
+</div>

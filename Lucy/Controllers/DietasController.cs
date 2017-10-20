@@ -21,7 +21,7 @@ namespace Lucy.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             var dietas = db.Contenido.Where(c => c.Dieta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
@@ -36,7 +36,7 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             ModelCL.Contenido contDieta = db.Contenido.Find(id);
             if (contDieta.Dieta == null || (contDieta.UsuarioAutor != null && contDieta.UsuarioAutor.UsuarioId != idUsu))

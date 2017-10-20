@@ -21,7 +21,7 @@ namespace Lucy.Controllers
         {
             HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
+            long idUsu = Convert.ToInt32(usu.Name);
 
             ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
             List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -389,7 +389,7 @@ namespace Lucy.Controllers
                 {
                     HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
                     FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                    int idUsu = Convert.ToInt32(usu.Name);
+                    long idUsu = Convert.ToInt32(usu.Name);
 
                     ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
 
