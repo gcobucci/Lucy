@@ -8,25 +8,55 @@
         <!-- Total -->
         <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="glyphicon glyphicon-asterisk"></i> Controles</span>
-            <div class="count">@ViewBag.ControlesTotal</div>
+            <div class="count">@if (ViewBag.ControlesTotal != null) { 
+                @ViewBag.ControlesTotal
+            }
+            else
+            { 
+                @Html.Raw("0")
+            }</div>
             <span class="count_bottom">Total de controles</span>
         </div>
         <!-- Correctos -->
         <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="glyphicon glyphicon-ok"></i> Correctos</span>
-            <div class="count green">@ViewBag.ControlesBuenos</div>
+            <div class="count green">
+            @if (ViewBag.ControlesBuenos != null)
+            {
+                @ViewBag.ControlesBuenos
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
             <span class="count_bottom">Valores correctos</span>
         </div>
         <!-- Regulares -->
         <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="glyphicon glyphicon-minus"></i> Regulares</span>
-            <div class="count yellow">@ViewBag.ControlesRegulares</div>
+            <div class="count yellow">
+            @if (ViewBag.ControlesRegulares != null)
+            {
+                @ViewBag.ControlesRegulares
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
             <span class="count_bottom">Valores aceptables</span>
         </div>
         <!-- Peligrosos -->
         <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="glyphicon glyphicon-remove"></i> Peligrosos</span>
-            <div class="count red">@ViewBag.ControlesPeligrosos</div>
+            <div class="count red">
+            @if (ViewBag.ControlesPeligrosos != null)
+            {
+                @ViewBag.ControlesPeligrosos
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
             <span class="count_bottom">Valores malos</span>
         </div>
     </div>

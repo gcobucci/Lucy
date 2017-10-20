@@ -1,6 +1,6 @@
 ﻿@{
     var auxPeso = ViewBag.regPeso;
-    var auxDTipo1_bueno = ViewBag.ControlesBuenosPorcentaje;
+    var auxDTipo1_bueno = ViewBag.ControlesCorrectosPorcentaje;
     var auxDTipo1_regular = ViewBag.ControlesRegularesPorcentaje;
     var auxDTipo1_malo = ViewBag.ControlesPeligrososPorcentaje;
 }
@@ -39,6 +39,10 @@
     <!-- morris.js -->
     <script src="~/Scripts/raphael.min.js"></script>
     <script src="~/Scripts/morris.min.js"></script>
+    <!-- echarts -->
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/map/js/world.js"></script>
+    
     <script>
         $('#grafica_peso').ready(function () {
             if ($('#grafica_peso').length) {
@@ -86,92 +90,14 @@
             + "});")
         }
 
-        
-        $('#grafica_calorias').ready(function () {
-            var echartPie = echarts.init(document.getElementById('grafica_calorias'), theme);
-
-            echartPie.setOption({
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    x: 'center',
-                    y: 'bottom',
-                    data: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Ingestas/Colaciones/Aperitivos']
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        magicType: {
-                            show: true,
-                            type: ['pie', 'funnel'],
-                            option: {
-                                funnel: {
-                                    x: '25%',
-                                    width: '50%',
-                                    funnelAlign: 'left',
-                                    max: 1548
-                                }
-                            }
-                        },
-                        saveAsImage: {
-                            show: true,
-                            title: "Guardar Imagen"
-                        }
-                    }
-                },
-                calculable: true,
-                series: [{
-                    name: 'Dieta',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['50%', '48%'],
-                    data: [{
-                        value: 335,
-                        name: 'Desayuno'
-                    }, {
-                        value: 310,
-                        name: 'Almuerzo'
-                    }, {
-                        value: 234,
-                        name: 'Merienda'
-                    }, {
-                        value: 135,
-                        name: 'Cena'
-                    }, {
-                        value: 1548,
-                        name: 'Ingestas/Colaciones/Aperitivos'
-                    }]
-                }]
-            });
-
-            var dataStyle = {
-                normal: {
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            };
-
-            var placeHolderStyle = {
-                normal: {
-                    color: 'rgba(0,0,0,0)',
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                },
-                emphasis: {
-                    color: 'rgba(0,0,0,0)'
-                }
-            };
-
+        @if (ViewBag.VerGraficaDieta == true)
+        {
+            @Html.Raw("$('#grafica_calorias').ready(function () {        var echartPie = echarts.init(document.getElementById('grafica_calorias'), theme);        echartPie.setOption({            tooltip: {                trigger: 'item',                    formatter: '{a} <br/>{b} : {c} ({d}%)'                },                legend: {                x: 'center',                    y: 'bottom',                    data: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Ingestas/Colaciones/Aperitivos']                },                toolbox: {                show: true,                    feature: {                    magicType: {                        show: true,                            type: ['pie', 'funnel'],                            option: {                            funnel: {                                x: '25%',                                    width: '50%',                                    funnelAlign: 'left',                                    max: 1548                                }                        }                    },                        saveAsImage: {                        show: true,                            title: 'Guardar Imagen'                        }                }            },                calculable: true,                series: [{                name: 'Dieta',                    type: 'pie',                    radius: '55%',                    center: ['50%', '48%'],                    data: [{                    value: @ViewBag.CaloriasDesayunoPorcentaje,                        name: 'Desayuno'                    }, {                    value: @ViewBag.CaloriasAlmuerzoPorcentaje,                        name: 'Almuerzo'                    }, {                    value: @ViewBag.CaloriasMeriendaPorcentaje,                        name: 'Merienda'                    }, {                    value: @ViewBag.CaloriasCenaPorcentaje,                        name: 'Cena'                    }, {                    value: @ViewBag.CaloriasIngestasPorcentaje,                        name: 'Ingestas/Colaciones/Aperitivos'                    }]                }]            });            var dataStyle = {                normal: {                    label: {                        show: false                    },                    labelLine: {                        show: false                    }                }            };            var placeHolderStyle = {                normal: {                    color: 'rgba(0,0,0,0)',                    label: {                        show: false                    },                    labelLine: {                        show: false                    }                },                emphasis: {                    color: 'rgba(0,0,0,0)'                }            };        });")
         }
-    </script>
+        else
+        {
+            @Html.Raw("$('#grafica_calorias').html('<h4 style=\"width: fit-content;margin: 0 auto;font-weight: 300;\">Sin datos</h4>')")
+        }
+
+        </script>
 }

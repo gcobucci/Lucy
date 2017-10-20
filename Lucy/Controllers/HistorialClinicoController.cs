@@ -292,11 +292,11 @@ namespace Lucy.Controllers
                     totalCalDes += Convert.ToInt32(regDes.Comida.ComidaCalorias);
                 }
 
-                ViewBag.CaloriasDesayuno = totalCalDes / cantDesayunos + " (" + cantDesayunos + " desayuno/s registrado/s)";
+                ViewBag.CaloriasDesayuno = totalCalDes / cantDesayunos + " cal.";
             }
             else
             {
-                ViewBag.CaloriasDesayuno = 0 + " (No hay registros)";
+                ViewBag.CaloriasDesayuno = 0 + " cal.";
             }
 
 
@@ -313,11 +313,11 @@ namespace Lucy.Controllers
                     totalCalAlm += Convert.ToInt32(regAlm.Comida.ComidaCalorias);
                 }
 
-                ViewBag.CaloriasAlmuerzo = totalCalAlm / cantAlmuerzos + " (" + cantAlmuerzos + " almuerzo/s registrado/s)";
+                ViewBag.CaloriasAlmuerzo = totalCalAlm / cantAlmuerzos + " cal.";
             }
             else
             {
-                ViewBag.CaloriasAlmuerzo = 0 + " (No hay registros)";
+                ViewBag.CaloriasAlmuerzo = 0 + " cal.";
             }
 
 
@@ -334,11 +334,11 @@ namespace Lucy.Controllers
                     totalCalMer += Convert.ToInt32(regMer.Comida.ComidaCalorias);
                 }
 
-                ViewBag.CaloriasMerienda = totalCalMer / cantMeriendas + " (" + cantMeriendas + " merienda/s registrada/s)";
+                ViewBag.CaloriasMerienda = totalCalMer / cantMeriendas + " cal.";
             }
             else
             {
-                ViewBag.CaloriasMerienda = 0 + " (No hay registros)";
+                ViewBag.CaloriasMerienda = 0 + " cal.";
             }
 
 
@@ -355,11 +355,11 @@ namespace Lucy.Controllers
                     totalCalCen += Convert.ToInt32(regCen.Comida.ComidaCalorias);
                 }
 
-                ViewBag.CaloriasCena = totalCalCen / cantCenas + " (" + cantCenas + " cena/s registrada/s)";
+                ViewBag.CaloriasCena = totalCalCen / cantCenas + " cal.";
             }
             else
             {
-                ViewBag.CaloriasCena = 0 + " (No hay registros)";
+                ViewBag.CaloriasCena = 0 + " cal.";
             }
 
 
@@ -376,13 +376,12 @@ namespace Lucy.Controllers
                     totalCalIng += Convert.ToInt32(regIng.Comida.ComidaCalorias);
                 }
 
-                ViewBag.CaloriasIngestas = totalCalIng / cantIngestas + " (" + cantIngestas + " ingesta/s registrada/s)";
+                ViewBag.CaloriasIngestas = totalCalIng / cantIngestas + " cal.";
             }
             else
             {
-                ViewBag.CaloriasIngestas = 0 + " (No hay registros)";
+                ViewBag.CaloriasIngestas = 0 + " cal.";
             }
-
 
             return PartialView();
         }
