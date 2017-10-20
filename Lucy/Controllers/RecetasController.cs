@@ -42,6 +42,16 @@ namespace Lucy.Controllers
         public ActionResult Index(int? page, string search, byte? enfermedad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {               
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+            
+
+
             IPagedList recetas = null;
 
             if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0) || (gluten == 0 && sodio == null) || (gluten == null && sodio == 0))
@@ -98,6 +108,15 @@ namespace Lucy.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
 
             ModelCL.Contenido contReceta = db.Contenido.Find(id);
             if (contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))

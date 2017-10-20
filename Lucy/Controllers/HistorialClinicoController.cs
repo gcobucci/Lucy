@@ -31,23 +31,124 @@ namespace Lucy.Controllers
             List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
 
-            //Dieta//
+            //Dieta//         
+            List<ModelCL.Registro> lRegDesayunos = Persona.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == "Desayuno" && r.Comida.ComidaCalorias != null).ToList();
 
+            int cantDesayunos = lRegDesayunos.Count();
+            int promedioCaloriasDesayuno = 0;
+
+            if (cantDesayunos > 0)
+            {
+                int totalCalDes = 0;
+                foreach (ModelCL.Registro regDes in lRegDesayunos)
+                {
+                    totalCalDes += Convert.ToInt32(regDes.Comida.ComidaCalorias);
+                }
+
+                promedioCaloriasDesayuno = totalCalDes / cantDesayunos;
+            }
+
+
+
+            List<ModelCL.Registro> lRegAlmuerzos = Persona.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == "Almuerzo" && r.Comida.ComidaCalorias != null).ToList();
+
+            int cantAlmuerzos = lRegAlmuerzos.Count();
+            int promedioCaloriasAlmuerzo = 0;
+
+            if (cantAlmuerzos > 0)
+            {
+                int totalCalAlm = 0;
+                foreach (ModelCL.Registro regAlm in lRegAlmuerzos)
+                {
+                    totalCalAlm += Convert.ToInt32(regAlm.Comida.ComidaCalorias);
+                }
+
+                promedioCaloriasAlmuerzo = totalCalAlm / cantAlmuerzos;
+            }
+
+
+
+            List<ModelCL.Registro> lRegMeriendas = Persona.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == "Merienda" && r.Comida.ComidaCalorias != null).ToList();
+
+            int cantMeriendas = lRegMeriendas.Count();
+            int promedioCaloriasMerienda = 0;
+
+            if (cantMeriendas > 0)
+            {
+                int totalCalMer = 0;
+                foreach (ModelCL.Registro regMer in lRegMeriendas)
+                {
+                    totalCalMer += Convert.ToInt32(regMer.Comida.ComidaCalorias);
+                }
+
+                promedioCaloriasMerienda = totalCalMer / cantMeriendas;
+            }
+
+
+
+            List<ModelCL.Registro> lRegCenas = Persona.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == "Cena" && r.Comida.ComidaCalorias != null).ToList();
+
+            int cantCenas = lRegCenas.Count();
+            int promedioCaloriasCena = 0;
+
+            if (cantCenas > 0)
+            {
+                int totalCalCen = 0;
+                foreach (ModelCL.Registro regCen in lRegCenas)
+                {
+                    totalCalCen += Convert.ToInt32(regCen.Comida.ComidaCalorias);
+                }
+
+                promedioCaloriasCena = totalCalCen / cantCenas;
+            }
+
+
+
+            List<ModelCL.Registro> lRegIngestas = Persona.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == "Ingesta" && r.Comida.ComidaCalorias != null).ToList();
+
+            int cantIngestas = lRegIngestas.Count();
+            int promedioCaloriasIngestas = 0;
+
+            if (cantIngestas > 0)
+            {
+                int totalCalIng = 0;
+                foreach (ModelCL.Registro regIng in lRegCenas)
+                {
+                    totalCalIng += Convert.ToInt32(regIng.Comida.ComidaCalorias);
+                }
+
+                promedioCaloriasIngestas = totalCalIng / cantIngestas;
+            }
+
+
+            int totalPromedioCalorias = promedioCaloriasDesayuno + promedioCaloriasAlmuerzo + promedioCaloriasMerienda + promedioCaloriasCena + promedioCaloriasIngestas;
+
+            ViewBag.VerGraficaDieta = false;
+            if (totalPromedioCalorias > 0)
+            {
+                ViewBag.VerGraficaDieta = true;
+
+                ViewBag.CaloriasDesayunoPorcentaje = promedioCaloriasDesayuno / totalPromedioCalorias;
+                ViewBag.CaloriasAlmuerzoPorcentaje = promedioCaloriasAlmuerzo / totalPromedioCalorias;
+                ViewBag.CaloriasMeriendaPorcentaje = promedioCaloriasMerienda / totalPromedioCalorias;
+                ViewBag.CaloriasCenaPorcentaje = promedioCaloriasCena / totalPromedioCalorias;
+                ViewBag.CaloriasIngestasPorcentaje = promedioCaloriasIngestas / totalPromedioCalorias;
+            }            
 
 
             //Diabetes tipo 1//
-            ViewBag.esDiabeticoTipo1 = false;
+            ViewBag.VerDiabeticoTipo1 = false;
 
-            if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == true || Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").Count() > 0)
             {
-                ViewBag.esDiabeticoTipo1 = true;
+                ViewBag.VerDiabeticoTipo1 = true;
 
 
                 List<ModelCL.Registro> regsControlGlucosa = Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").ToList();
 
                 int controlesTotal = regsControlGlucosa.Count();
                 
-                int controlesBuenos = 0;
+                int controlesCorrectos = 0;
                 int controlesRegulares = 0;
                 int controlesPeligrosos = 0;
 
@@ -56,11 +157,11 @@ namespace Lucy.Controllers
                 foreach (ModelCL.Registro reg in regsControlGlucosa)
                 {
                     double valor = reg.Control.ControlValor;
-                    if (valor > valGlu.ValorNormalMinimo && valor < valGlu.ValorNormalMaximo)
+                    if (valor >= valGlu.ValorNormalMinimo && valor <= valGlu.ValorNormalMaximo)
                     {
-                        controlesBuenos += 1;
+                        controlesCorrectos += 1;
                     }
-                    else if ((valor > valGlu.ValorBajoMinimo && valor < valGlu.ValorNormalMinimo) || (valor > valGlu.ValorNormalMaximo && valor < valGlu.ValorAltoMaximo))
+                    else if ((valor >= valGlu.ValorBajoMinimo && valor < valGlu.ValorNormalMinimo) || (valor > valGlu.ValorNormalMaximo && valor <= valGlu.ValorAltoMaximo))
                     {
                         controlesRegulares += 1;
                     }
@@ -70,13 +171,13 @@ namespace Lucy.Controllers
                     }
                 }
 
-                if (controlesBuenos > 0)
+                if (controlesCorrectos > 0)
                 {
-                    ViewBag.ControlesBuenosPorcentaje = (controlesBuenos * 100) / controlesTotal;
+                    ViewBag.ControlesCorrectosPorcentaje = (controlesCorrectos * 100) / controlesTotal;
                 }
                 else
                 {
-                    ViewBag.ControlesBuenosPorcentaje = 0;
+                    ViewBag.ControlesCorrectosPorcentaje = 0;
                 }
 
 
@@ -300,7 +401,7 @@ namespace Lucy.Controllers
             ViewBag.ControlesTotal = regsControlGlucosa.Count();
 
 
-            int controlesBuenos = 0;
+            int controlesCorrectos = 0;
             int controlesRegulares = 0;
             int controlesPeligrosos = 0;
 
@@ -311,7 +412,7 @@ namespace Lucy.Controllers
                 double valor = reg.Control.ControlValor;
                 if (valor > valGlu.ValorNormalMinimo && valor < valGlu.ValorNormalMaximo)
                 {
-                    controlesBuenos += 1;
+                    controlesCorrectos += 1;
                 }
                 else if ((valor > valGlu.ValorBajoMinimo && valor < valGlu.ValorNormalMinimo) || (valor > valGlu.ValorNormalMaximo && valor < valGlu.ValorAltoMaximo))
                 {
@@ -323,7 +424,7 @@ namespace Lucy.Controllers
                 }
             }
 
-            ViewBag.ControlesBuenos = controlesBuenos;
+            ViewBag.ControlesCorrectos = controlesCorrectos;
             ViewBag.ControlesRegulares = controlesRegulares;
             ViewBag.ControlesPeligrosos = controlesPeligrosos;
 

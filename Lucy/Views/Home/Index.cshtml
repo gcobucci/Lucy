@@ -3,6 +3,23 @@
     ViewBag.Title = null;
 }
 
+@if (TempData["PermisoDenegado"] != null)
+{
+    <div class="modal fade" id="PopUpPermisoDenegado" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¡Atención!</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_PermisoDenegado")
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div>
     <h3>¿Qué es YoTeCuido?</h3>
 
@@ -39,6 +56,11 @@
 
     @Scripts.Render("~/bundles/Slides")
 
+    <script>
+        $('#PopUpPermisoDenegado').modal({
+            show: 'true'
+        });
+    </script>
 }
 
 @section style {

@@ -23,6 +23,15 @@ namespace Backend.Controllers
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
+
             var programas = db.Contenido.Where(c => c.Programa != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
 
             return View(programas);
@@ -37,6 +46,15 @@ namespace Backend.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
 
             ModelCL.Contenido contPrograma = db.Contenido.Find(id);
             if (contPrograma.Programa == null || (contPrograma.UsuarioAutor != null && contPrograma.UsuarioAutor.UsuarioId != idUsu))
