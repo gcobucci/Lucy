@@ -20,15 +20,69 @@ namespace Lucy.Controllers
 
             ViewBag.Persona = db.Persona.Find(idPer).nombreCompleto;
 
-            return View();
+            ModelCL.Persona Persona = db.Persona.Find(idPer);
+            List<ModelCL.Registro> regPeso = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
+
+            ViewBag.regPeso = regPeso;
+            //List<double> pesos = 
+            
+            //foreach (var item in collection)
+            //{
+
+            //}
+
+            return View(regPeso);
         }
 
-        [Route("_relacion_peso_altura")]
-        public PartialViewResult _RelacionPesoAltura()
+        [Route("_datos_generales")]
+        public PartialViewResult _DatosGenerales()
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
-            ViewBag.Persona = db.Persona.Find(idPer).nombreCompleto;
+            ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+            Nullable<double> peso = Persona.Registro.Where(r => r.Peso != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault().Peso.PesoValor;
+
+            Nullable<short> altura = Convert.ToInt16(Persona.Registro.Where(r => r.DatCli != null && r.DatCli.DatCliAltura != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault().DatCli.DatCliAltura);
+
+            if (peso != null)
+            {
+                ViewBag.Peso = peso;
+            }
+            else
+            {
+                ViewBag.Peso = "No hay registros";
+            }
+
+
+            if (altura != null)
+            {
+                ViewBag.Altura = altura;
+            }
+            else
+            {
+                ViewBag.Altura = "No hay registros";
+            }
+
+
+            if (peso == null || altura == null)
+            {
+                ViewBag.IMC = "No ha registrado los datos requeridos para este calculo";
+            }
+            else
+            {
+                ViewBag.IMC = Fachada.Functions.calcular_IMC(Convert.ToDouble(peso), Convert.ToInt16(altura));
+            }
+
+
+            if (peso == null || altura == null || (Persona.Sexo.SexoNombre != "Hombre" && Persona.Sexo.SexoNombre != "Mujer"))
+            {
+                ViewBag.IMC = "No ha registrado los datos requeridos para este calculo";
+            }
+            else
+            {
+                ViewBag.TMB = Fachada.Functions.calcular_TMB(Convert.ToDouble(peso), Convert.ToInt16(altura), Persona.edad, Persona.Sexo.SexoNombre);
+            }
 
             return PartialView();
         }
