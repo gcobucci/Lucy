@@ -142,9 +142,9 @@ header {
     padding: 13px 0 9px;
 }
 
-.terminos_condiciones{
+/*.terminos_condiciones{
 
-}
+}*/
 
 
 /********** CRUZ END **********/
@@ -1033,7 +1033,7 @@ dl {
 /********************************************************** custom-checkbox **********************************************************/
 
 
-input.custom-control-input {
+/*input.custom-control-input {
     display: none;
 }
 
@@ -1093,7 +1093,7 @@ input.custom-control-input {
 
     .custom-checkbox .custom-control-input:focus ~ .custom-control-indicator {
         box-shadow: none !important;
-    }
+    }*/
 
 
 /******************************************************* Slide Lucy *******************************************************/

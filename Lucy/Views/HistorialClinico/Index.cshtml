@@ -1,4 +1,4 @@
-﻿@model List<ModelCL.Registro>
+﻿@{var aux = ViewBag.regPeso;}
 
 @{
     ViewBag.Title = "Historial Clínico";
@@ -39,20 +39,20 @@
                     hideHover: 'auto',
                     lineColors: ['#34495E'],
                     data: [
-                        @if (Model != null)
+                        @if (aux != null)
                         {
-                            foreach (var item in Model)
+                            foreach (var item in aux)
                             {
-                                @Html.Raw("{ Fch: '" + item.RegistroFchHora.ToShortDateString() + "', peso: " + item.Peso.PesoValor + " },")
+                                @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("dd-MM-yyyy") + "', peso: " + item.Peso.PesoValor + " },")
                             }
                         }
                     ],
                     resize: true
                 });
-                
+
             }
         });
-
+        
     </script>
 
 }
