@@ -156,7 +156,7 @@ namespace Lucy.Controllers
         }
         
         [HttpPost]
-        //[Route("_datcli")]
+        [Route("_datcli")]
         [ValidateAntiForgeryToken]
         public ActionResult _DatCli(DatCliViewModel Datos, int id)
         {
