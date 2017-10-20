@@ -45,10 +45,9 @@ namespace Lucy.Controllers
 
 
             if (Fachada.Functions.es_premium(idUsu) == false)
-            {
-                ViewBag.PermisoDenegado = true;
-                RedirectToAction("Index", "Home");
-                //return View("Index", "Home");
+            {               
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
             }
             
 
@@ -109,6 +108,15 @@ namespace Lucy.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
 
             ModelCL.Contenido contReceta = db.Contenido.Find(id);
             if (contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))

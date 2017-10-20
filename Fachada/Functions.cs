@@ -81,6 +81,22 @@ namespace Fachada
             }
         }
 
+        public static bool es_diabetico_tipo_1(long idPer)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+                if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         public static double calcular_IMC(double peso, short altura)
         {

@@ -3,9 +3,9 @@
     ViewBag.Title = null;
 }
 
-@if (ViewBag.PermisoDenegado == true)
+@if (TempData["PermisoDenegado"] != null)
 {
-    <div class="modal fade" id="PopUpConfirmationMsg" role="dialog">
+    <div class="modal fade" id="PopUpPermisoDenegado" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,10 +14,6 @@
                 </div>
                 <div class="modal-body">
                     @Html.Partial("_PermisoDenegado")
-                </div>
-                <div class="modal-footer">
-                    <button onclick="confirmar()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -60,6 +56,11 @@
 
     @Scripts.Render("~/bundles/Slides")
 
+    <script>
+        $('#PopUpPermisoDenegado').modal({
+            show: 'true'
+        });
+    </script>
 }
 
 @section style {

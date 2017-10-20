@@ -123,19 +123,25 @@ namespace Lucy.Controllers
 
             int totalPromedioCalorias = promedioCaloriasDesayuno + promedioCaloriasAlmuerzo + promedioCaloriasMerienda + promedioCaloriasCena + promedioCaloriasIngestas;
 
-            ViewBag.CaloriasDesayunoPorcentaje = promedioCaloriasDesayuno / totalPromedioCalorias;
-            ViewBag.CaloriasAlmuerzoPorcentaje = promedioCaloriasAlmuerzo / totalPromedioCalorias;
-            ViewBag.CaloriasMeriendaPorcentaje = promedioCaloriasMerienda / totalPromedioCalorias;
-            ViewBag.CaloriasCenaPorcentaje = promedioCaloriasCena / totalPromedioCalorias;
-            ViewBag.CaloriasIngestasPorcentaje = promedioCaloriasIngestas / totalPromedioCalorias;
+            ViewBag.VerGraficaDieta = false;
+            if (totalPromedioCalorias > 0)
+            {
+                ViewBag.VerGraficaDieta = true;
+
+                ViewBag.CaloriasDesayunoPorcentaje = promedioCaloriasDesayuno / totalPromedioCalorias;
+                ViewBag.CaloriasAlmuerzoPorcentaje = promedioCaloriasAlmuerzo / totalPromedioCalorias;
+                ViewBag.CaloriasMeriendaPorcentaje = promedioCaloriasMerienda / totalPromedioCalorias;
+                ViewBag.CaloriasCenaPorcentaje = promedioCaloriasCena / totalPromedioCalorias;
+                ViewBag.CaloriasIngestasPorcentaje = promedioCaloriasIngestas / totalPromedioCalorias;
+            }            
 
 
             //Diabetes tipo 1//
-            ViewBag.esDiabeticoTipo1 = false;
+            ViewBag.VerDiabeticoTipo1 = false;
 
-            if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == true || Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").Count() > 0)
             {
-                ViewBag.esDiabeticoTipo1 = true;
+                ViewBag.VerDiabeticoTipo1 = true;
 
 
                 List<ModelCL.Registro> regsControlGlucosa = Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").ToList();
