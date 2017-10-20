@@ -125,7 +125,7 @@ namespace Lucy.Controllers
                 {
                     if (a.RelComAliCantidad != 0)
                     {
-                        comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                        comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                     }
                 }
 
@@ -194,7 +194,7 @@ namespace Lucy.Controllers
             foreach (ModelCL.RelComAli rca in regComida.Comida.RelComAli.ToList())
             {
                 ComidaAlimentoViewModel cavm = vmRegComida.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
-                cavm.RelComAliCantidad = rca.ReComAliCantidad;
+                cavm.RelComAliCantidad = rca.RelComAliCantidad;
             }
             vmRegComida.ComidaCalorias = regComida.Comida.ComidaCalorias;
             vmRegComida.ComidaCarbohidratos = regComida.Comida.ComidaCarbohidratos;
@@ -255,7 +255,7 @@ namespace Lucy.Controllers
                 {
                     if (a.RelComAliCantidad != 0)
                     {
-                        regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                        regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                     }
                 }
 
