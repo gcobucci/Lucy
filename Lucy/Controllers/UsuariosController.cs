@@ -546,7 +546,7 @@ namespace Lucy.Controllers
 
                 db.SaveChanges();
             }
-            return View();
+            return null;
         }
     }
 }
