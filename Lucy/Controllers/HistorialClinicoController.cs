@@ -15,17 +15,66 @@ namespace Lucy.Controllers
 
         [Route("")]
         public ActionResult Index()
-        {
+        {                       
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
             ViewBag.Persona = db.Persona.Find(idPer).nombreCompleto;
 
             ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+
+            //Datos generales//            
             List<ModelCL.Registro> regPeso = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
             ViewBag.regPeso = regPeso;
 
             List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
+
+
+            //Dieta//
+
+
+
+            //Diabetes tipo 1//
+            ViewBag.esDiabeticoTipo1 = false;
+
+            if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+            {
+                ViewBag.esDiabeticoTipo1 = true;
+
+
+                List<ModelCL.Registro> regsControlGlucosa = Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").ToList();
+
+                int controlesTotal = regsControlGlucosa.Count();
+                
+                int controlesBuenos = 0;
+                int controlesRegulares = 0;
+                int controlesPeligrosos = 0;
+
+                ModelCL.Valor valGlu = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
+
+                foreach (ModelCL.Registro reg in regsControlGlucosa)
+                {
+                    double valor = reg.Control.ControlValor;
+                    if (valor > valGlu.ValorNormalMinimo && valor < valGlu.ValorNormalMaximo)
+                    {
+                        controlesBuenos += 1;
+                    }
+                    else if ((valor > valGlu.ValorBajoMinimo && valor < valGlu.ValorNormalMinimo) || (valor > valGlu.ValorNormalMaximo && valor < valGlu.ValorAltoMaximo))
+                    {
+                        controlesRegulares += 1;
+                    }
+                    else
+                    {
+                        controlesPeligrosos += 1;
+                    }
+                }
+
+                ViewBag.ControlesBuenosPorcentaje = (controlesBuenos * 100) / controlesTotal;
+                ViewBag.ControlesRegularesPorcentaje = (controlesRegulares * 100) / controlesTotal;
+                ViewBag.ControlesPeligrososPorcentaje = (controlesPeligrosos * 100) / controlesTotal;
+            }          
+            
 
             return View(Pesos);
         }
@@ -208,8 +257,50 @@ namespace Lucy.Controllers
             }
 
 
-
             return PartialView();
         }
+
+
+        [Route("_diabetes_tipo_1")]
+        public PartialViewResult _DiabetesTipo1()
+        {
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+
+            List<ModelCL.Registro> regsControlGlucosa = Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").ToList();
+
+            ViewBag.ControlesTotal = regsControlGlucosa.Count();
+
+
+            int controlesBuenos = 0;
+            int controlesRegulares = 0;
+            int controlesPeligrosos = 0;
+
+            ModelCL.Valor valGlu = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
+
+            foreach (ModelCL.Registro reg in regsControlGlucosa)
+            {
+                double valor = reg.Control.ControlValor;
+                if (valor > valGlu.ValorNormalMinimo && valor < valGlu.ValorNormalMaximo)
+                {
+                    controlesBuenos += 1;
+                }
+                else if ((valor > valGlu.ValorBajoMinimo && valor < valGlu.ValorNormalMinimo) || (valor > valGlu.ValorNormalMaximo && valor < valGlu.ValorAltoMaximo))
+                {
+                    controlesRegulares += 1;
+                }
+                else
+                {
+                    controlesPeligrosos += 1;
+                }
+            }
+
+            ViewBag.ControlesBuenos = controlesBuenos;
+            ViewBag.ControlesRegulares = controlesRegulares;
+            ViewBag.ControlesPeligrosos = controlesPeligrosos;
+
+            return PartialView();
+        }        
     }
 }

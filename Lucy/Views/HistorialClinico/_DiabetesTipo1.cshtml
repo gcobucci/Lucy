@@ -1,0 +1,21 @@
+﻿<h3>Diabetes tipo 1</h3>
+
+<br />
+
+<h5>Controles de glucosa registrados</h5>
+
+<div id="datos_controles">
+    <p><b>Total</b>: @ViewBag.ControlesTotal</p>
+
+    <p>Verde - <b>Resultados buenos</b>: @ViewBag.ControlesBuenos</p>
+    <p>Amarillo - <b>Resultados regulares</b>: @ViewBag.ControlesRegulares</p>
+    <p>Rojo - <b>Resultados peligrosos</b>: @ViewBag.ControlesPeligrosos</p>
+</div>
+
+<div id="grafica_controles">
+
+</div>
+
+<p>
+    @Html.ActionLink("Ir al listado de controles registrados", "Index", "RegControlDiabetico", null, null)
+</p>

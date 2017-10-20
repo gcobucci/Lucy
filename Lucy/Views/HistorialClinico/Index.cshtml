@@ -16,6 +16,13 @@
     @Html.Action("_Dieta", "HistorialClinico")
 </div>
 
+@if (ViewBag.esDiabeticoTipo1 == true){
+    <div id="diabetes_tipo_1">
+        @Html.Action("_DiabetesTipo1", "HistorialClinico")
+    </div>
+}
+
+
 @section scripts{
     <!-- morris.js -->
     <script src="~/Scripts/raphael.min.js"></script>

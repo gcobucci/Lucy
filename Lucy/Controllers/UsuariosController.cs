@@ -512,15 +512,15 @@ namespace Lucy.Controllers
         public ActionResult VerifyAccount(string id)
         {
             bool Status = false;
-            using (AgustinaEntities dc = new AgustinaEntities())
+            using (AgustinaEntities db = new AgustinaEntities())
             {
-                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid
+                db.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid
                                                                 // Confirm password does not match issue on save changes
-                var v = dc.Usuario.Where(a => a.UsuarioCodAct == new Guid(id)).FirstOrDefault();
+                var v = db.Usuario.Where(a => a.UsuarioCodAct == new Guid(id)).FirstOrDefault();
                 if (v != null)
                 {
                     v.UsuarioMailConf = true;
-                    dc.SaveChanges();
+                    db.SaveChanges();
                     Status = true;
                 }
                 else
@@ -529,6 +529,22 @@ namespace Lucy.Controllers
                 }
             }
             ViewBag.Status = Status;
+            return View();
+        }
+
+        [Route("lastlogin")]
+        public ActionResult LastLogin(string id)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+                Usuario.UsuarioLastLogin = DateTime.Now;
+
+                db.SaveChanges();
+            }
             return View();
         }
     }
