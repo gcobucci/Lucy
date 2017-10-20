@@ -6,7 +6,7 @@
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear", "Create")
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -69,9 +69,9 @@
                             @*<img src="@ViewBag.baseUrl../Lucy/Resources/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaTipo == "Portada").FirstOrDefault().MultimediaUrl)" />*@
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
+                            @Html.ActionLink("Ver", "Details", new { id = item.ContenidoId }) |
+                            @Html.ActionLink("Editar", "Edit", new { id = item.ContenidoId }) |                            
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.ContenidoId })
                         </td>
                     </tr>
                 }

@@ -26,8 +26,8 @@
 
     <div class="row MLfiltrosHead">
         <div class="col-sm-12">
-            <h3>Recetas</h3>
-            <text style="margin-bottom:12px;">@Model.TotalItemCount resultados</text>
+            <h3 style="display:inline-block">Recetas</h3><span title="Crear receta" style="margin-left: 5px;"> @Html.ActionLink("Nueva", "Create")</span>
+            <p style="margin-bottom:12px;">@Model.TotalItemCount resultados</p>
         </div>
     </div>
 
@@ -380,10 +380,10 @@
         <div class="MLitem">
             <div class="MLitemLeft col-lg-10 col-md-9 col-sm-8">
                 <div class="sinPadding col-xs-6 col-sm-4">
-                    <a href="/recetas/details?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
+                    <a href="/recetas/ver?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
                 </div>
                 <div class="sinPadding col-xs-6 col-sm-8">
-                    <div class="MLitemTitulo col-sm-12"><a href="/recetas/details?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
+                    <div class="MLitemTitulo col-sm-12"><a href="/recetas/ver?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
                     <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ namespace Backend.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             var articulos = db.Contenido.Where(c => c.Articulo != null).ToList();
@@ -24,7 +24,7 @@ namespace Backend.Controllers
             return View(articulos);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace Backend.Controllers
             return View(contArticulo);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create()
         {
             List<ModelCL.Tema> lTemas = db.Tema.ToList();
@@ -56,7 +56,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
         {
@@ -131,7 +131,7 @@ namespace Backend.Controllers
             return View(contenido);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -152,7 +152,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
         {
@@ -254,7 +254,7 @@ namespace Backend.Controllers
             return View(contenido);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -270,7 +270,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Route("delete")]
+        [Route("eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {

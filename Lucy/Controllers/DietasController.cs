@@ -18,7 +18,7 @@ namespace Lucy.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
@@ -28,7 +28,7 @@ namespace Lucy.Controllers
             return View(dietas);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -46,14 +46,14 @@ namespace Lucy.Controllers
             return View(contDieta);
         }
 
-        //[Route("create")]
+        //[Route("crear")]
         //public ActionResult Create()
         //{
         //    return View();
         //}
 
         //[HttpPost]
-        //[Route("create")]
+        //[Route("crear")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase file)
         //{
@@ -73,7 +73,7 @@ namespace Lucy.Controllers
         //            }
         //            else
         //            {
-                            
+
         //                if (file.ContentLength > 0)
         //                {
         //                    //var fileName = Path.GetFileName(file.FileName);
@@ -114,7 +114,7 @@ namespace Lucy.Controllers
         //    return View(contenido);
         //}
 
-        //[Route("edit")]
+        //[Route("editar")]
         //public ActionResult Edit(long? id)
         //{
         //    if (id == null)
@@ -132,7 +132,7 @@ namespace Lucy.Controllers
         //}
 
         //[HttpPost]
-        //[Route("edit")]
+        //[Route("editar")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase file)
         //{
@@ -216,7 +216,7 @@ namespace Lucy.Controllers
         //    return View(contenido);
         //}
 
-        //[Route("delete")]
+        //[Route("eliminar")]
         //public ActionResult Delete(long? id)
         //{
         //    if (id == null)
@@ -232,7 +232,7 @@ namespace Lucy.Controllers
         //}
 
         //[HttpPost, ActionName("Delete")]
-        //[Route("delete")]        
+        //[Route("eliminar")]        
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(long id)
         //{

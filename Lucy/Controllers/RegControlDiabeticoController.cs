@@ -18,7 +18,7 @@ namespace Lucy.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
@@ -31,7 +31,7 @@ namespace Lucy.Controllers
             return View(regControlDiabetico);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -48,7 +48,7 @@ namespace Lucy.Controllers
             return View(regControlDiabetico);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create()
         {
             RegControlDiabeticoViewModel newRegControlDiabetico = new RegControlDiabeticoViewModel();
@@ -79,7 +79,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RegControlDiabeticoViewModel datos)
         {
@@ -177,7 +177,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -256,7 +256,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RegControlDiabeticoViewModel datos)
         {
@@ -343,7 +343,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -359,7 +359,7 @@ namespace Lucy.Controllers
             return View(regControlDiabetico);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

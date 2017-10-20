@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Datos clínicos -";
+    ViewBag.Title = "Datos clínicos";
 }
 
 <h2>Datos Clinicos</h2>
@@ -35,7 +35,7 @@
             //    selectedID = 0;
             //}
 
-            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+            $.get('/personas/_datcli/?id=' + selectedID, function (data) {
 
                 $('#DatCli').html(data);
                 $('#DatCli').fadeIn('fast');
@@ -69,7 +69,7 @@
                 selectedID = 0;
             }
 
-            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+            $.get('/personas/_datcli/?id=' + selectedID, function (data) {
 
                 $('#DatCli').html(data);
                 $('#DatCli').fadeIn('fast');

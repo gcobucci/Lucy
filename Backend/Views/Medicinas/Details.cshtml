@@ -1,7 +1,7 @@
 ﻿@model ModelCL.Medicina
 
 @{
-    ViewBag.Title = "Detalles de Medicinas";
+    ViewBag.Title = "Ver Medicina";
 }
 
 
@@ -93,6 +93,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MedicinaId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.MedicinaId }) |
+    @Html.ActionLink("Volver al listado", "Index")
 </p>

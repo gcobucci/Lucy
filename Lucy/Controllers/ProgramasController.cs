@@ -18,7 +18,7 @@ namespace Backend.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
@@ -28,7 +28,7 @@ namespace Backend.Controllers
             return View(programas);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace Backend.Controllers
             return View(contPrograma);
         }
 
-        //[Route("create")]
+        //[Route("crear")]
         //public ActionResult Create()
         //{
         //    List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
@@ -56,7 +56,7 @@ namespace Backend.Controllers
         //}
 
         //[HttpPost]
-        //[Route("create")]
+        //[Route("crear")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Create(ModelCL.Contenido contenido, int[] rutinas)
         //{
@@ -77,7 +77,7 @@ namespace Backend.Controllers
         //    return View(contenido);
         //}
 
-        //[Route("edit")]
+        //[Route("editar")]
         //public ActionResult Edit(long? id)
         //{
         //    if (id == null)
@@ -98,7 +98,7 @@ namespace Backend.Controllers
         //}
 
         //[HttpPost]
-        //[Route("edit")]
+        //[Route("editar")]
         //[ValidateAntiForgeryToken]
         //public ActionResult Edit(ModelCL.Contenido contenido, int[] rutinas)
         //{
@@ -128,7 +128,7 @@ namespace Backend.Controllers
         //    return View(contenido);
         //}
 
-        //[Route("delete")]
+        //[Route("eliminar")]
         //public ActionResult Delete(long? id)
         //{
         //    if (id == null)
@@ -144,7 +144,7 @@ namespace Backend.Controllers
         //}
 
         //[HttpPost, ActionName("Delete")]
-        //[Route("delete")]
+        //[Route("eliminar")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(long id)
         //{

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "Noticias -";
+    ViewBag.Title = "Noticias";
 }
 
 @section subnav{
@@ -44,9 +44,9 @@
             <img src="~/Resource/Image/@Html.DisplayFor(modelItem => item.Contenido.Multimedia.FirstOrDefault().MultimediaUrl)" />
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ArticuloId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArticuloId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArticuloId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Ver", "Details", new { id=item.ArticuloId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ArticuloId })
         </td>
     </tr>
 }
@@ -79,7 +79,7 @@
 
         @foreach (var item in Model) {
 
-            @:articulo.push('<div id="@item.ContenidoId' + 'Div"><a href="details?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
+            @:articulo.push('<div id="@item.ContenidoId' + 'Div"><a href="ver?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
             @:articuloId.push('"@item.ContenidoId' + 'Div"');
             @:articuloImgId.push('\'#@item.ContenidoId' + 'Img\'');
 

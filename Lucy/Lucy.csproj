@@ -446,6 +446,7 @@
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CalculadorasController.cs" />
     <Compile Include="Controllers\FavoritoController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HistorialClinicoController.cs" />
     <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\RegControlDiabeticoController.cs" />
@@ -473,6 +474,7 @@
     <Compile Include="Models\RegComidaViewModel.cs" />
     <Compile Include="Models\ComidaAlimentoViewModel.cs" />
     <Compile Include="Models\RegControlViewModel.cs" />
+    <Compile Include="Models\ConfiguracionViewModel.cs" />
     <Compile Include="Models\RegMedicacionViewModel.cs" />
     <Compile Include="Models\RegAguaViewModel.cs" />
     <Compile Include="Models\RegActividadViewModel.cs" />
@@ -508,10 +510,6 @@
     <Content Include="Views\RegAgua\Delete.cshtml" />
     <Content Include="Views\RegAgua\Edit.cshtml" />
     <Content Include="Views\RegAgua\Index.cshtml" />
-    <Content Include="Views\RegDatCli\Create.cshtml" />
-    <Content Include="Views\RegDatCli\Delete.cshtml" />
-    <Content Include="Views\RegDatCli\Edit.cshtml" />
-    <Content Include="Views\RegDatCli\Index.cshtml" />
     <Content Include="Views\RegActividad\Create.cshtml" />
     <Content Include="Views\RegActividad\Delete.cshtml" />
     <Content Include="Views\RegActividad\Edit.cshtml" />

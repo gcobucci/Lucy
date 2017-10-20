@@ -16,7 +16,7 @@ namespace Backend.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             List<ModelCL.Medicina> medicinas = db.Medicina.ToList();
@@ -24,7 +24,7 @@ namespace Backend.Controllers
             return View(medicinas);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace Backend.Controllers
             return View(medicina);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create()
         {
             List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
@@ -56,7 +56,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModelCL.Medicina medicina, int[] enfermedades)
         {
@@ -86,7 +86,7 @@ namespace Backend.Controllers
             return View(medicina);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -114,7 +114,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ModelCL.Medicina medicina, int[] enfermedades)
         {
@@ -154,7 +154,7 @@ namespace Backend.Controllers
             return View(medicina);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -171,7 +171,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Route("delete")]
+        [Route("eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {

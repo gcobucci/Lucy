@@ -16,7 +16,7 @@ namespace Backend.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             List<ModelCL.Dosis> dosis = db.Dosis.ToList();
@@ -24,7 +24,7 @@ namespace Backend.Controllers
             return View(dosis);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create(long? idMed = null, long? idVal = null)
         {
             ModelCL.Dosis dosis = new ModelCL.Dosis();
@@ -54,7 +54,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModelCL.Dosis datos)
         {
@@ -101,7 +101,7 @@ namespace Backend.Controllers
             return View(datos);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -128,7 +128,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ModelCL.Dosis dosis)
         {
@@ -159,7 +159,7 @@ namespace Backend.Controllers
             return View(dosis);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -176,7 +176,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Route("delete")]
+        [Route("eliminar")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {

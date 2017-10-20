@@ -1,7 +1,7 @@
 ﻿@model ModelCL.Medicina
 
 @{
-    ViewBag.Title = "Editar Medicinas";
+    ViewBag.Title = "Editar Medicina";
 }
 
 
@@ -78,7 +78,7 @@
 
             <dd>
                 <p>
-                    @Html.ActionLink("Create new", "Create", "Dosis", new { idMed = Model.MedicinaId }, null)
+                    @Html.ActionLink("Crear", "Create", "Dosis", new { idMed = Model.MedicinaId }, null)
                 </p>
 
                 <ul>
@@ -114,8 +114,8 @@
                                             @Html.DisplayFor(modelItem => d.DosisEfecto)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", "Dosis", new { id = d.DosisId }, null) |
-                                            @Html.ActionLink("Delete", "Delete", "Dosis", new { id = d.DosisId }, null)
+                                            @Html.ActionLink("Editar", "Edit", "Dosis", new { id = d.DosisId }, null) |
+                                            @Html.ActionLink("Eliminar", "Delete", "Dosis", new { id = d.DosisId }, null)
                                         </td>
                                     </tr>
                                 }
@@ -129,14 +129,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al listado", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

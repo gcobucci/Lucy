@@ -6,7 +6,7 @@
 
 <h2>Eliminar registro</h2>
 
-<h3>¿Esta seguro/a de que desea eliminar este registro de peso?</h3>
+<h3>¿Está seguro/a de que desea eliminar este registro</h3>
 <div>
     <h4>Comida</h4>
     <hr />
@@ -108,12 +108,13 @@
         </dd>
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver al listado", "Index")
         </div>
     }
 </div>

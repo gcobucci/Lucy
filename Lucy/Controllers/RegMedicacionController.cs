@@ -18,7 +18,7 @@ namespace Lucy.Controllers
     {
         private AgustinaEntities db = new AgustinaEntities();
 
-        [Route("index")]
+        [Route("listado")]
         public ActionResult Index()
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
@@ -28,7 +28,7 @@ namespace Lucy.Controllers
             return View(registrosMed);
         }
 
-        [Route("details")]
+        [Route("ver")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -43,7 +43,7 @@ namespace Lucy.Controllers
             return View(regMedicacion);
         }
 
-        [Route("create")]
+        [Route("crear")]
         public ActionResult Create(/*string ad = null*/)
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
@@ -70,7 +70,7 @@ namespace Lucy.Controllers
             return View();
         }
 
-        [Route("_create")]
+        [Route("_crear")]
         public PartialViewResult _Create(long idEnf)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
@@ -101,7 +101,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("_create")]
+        [Route("_crear")]
         [ValidateAntiForgeryToken]
         public ActionResult _Create(RegMedicacionViewModel datos)
         {
@@ -151,7 +151,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("edit")]
+        [Route("editar")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -205,7 +205,7 @@ namespace Lucy.Controllers
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("editar")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RegMedicacionViewModel datos)
         {            
@@ -240,7 +240,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -255,7 +255,7 @@ namespace Lucy.Controllers
             return View(regMedicacion);
         }
 
-        [Route("delete")]
+        [Route("eliminar")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

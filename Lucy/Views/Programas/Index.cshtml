@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ModelCL.Contenido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Programas";
 }
 
-<h2>Index</h2>
+<h2>Programas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nuevo programa", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,9 +37,9 @@
                 @item.Programa.Rutina.Count().ToString()
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ContenidoId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ContenidoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ContenidoId })
+                @Html.ActionLink("Ver", "Details", new { id = item.ContenidoId }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.ContenidoId }) |                
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ContenidoId })
             </td>
         </tr>
     }

@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear", "Create")
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -53,9 +53,9 @@
                             @item.RelMedVal.Count().ToString() (@cantDosis Dosis)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.MedicinaId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.MedicinaId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.MedicinaId })
+                            @Html.ActionLink("Ver", "Details", new { id = item.MedicinaId }) |
+                            @Html.ActionLink("Editar", "Edit", new { id = item.MedicinaId }) |                            
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.MedicinaId })
                         </td>
                     </tr>
                                 }

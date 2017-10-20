@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ModelCL.Alimento>
 
 @{
-    ViewBag.Title = "Alimento";
+    ViewBag.Title = "Alimentos";
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear", "Create")
 </p>
 
 <div class="row">
@@ -81,12 +81,12 @@
                             }
                             else
                             {
-                                <text> Alimento Oficial</text>
+                                <text>Alimento Oficial</text>
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.AlimentoId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.AlimentoId })
+                            @Html.ActionLink("Editar", "Edit", new { id = item.AlimentoId }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.AlimentoId })
                         </td>
                     </tr>
                 }

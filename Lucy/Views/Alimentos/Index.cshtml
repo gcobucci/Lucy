@@ -6,9 +6,9 @@
 
 <h2>Información Nutricional</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+<p>
+    @Html.ActionLink("Crear nuevo alimento", "Create")
+</p>
 
 <div class="container">
     <div class="row">
@@ -43,6 +43,7 @@
                         <th>
                             @Html.Label("Gluten")
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,10 @@
                                 {
                                     <font>Sin determinar</font>
                                 }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.AlimentoId }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.AlimentoId })
                             </td>
                         </tr>
                     }
