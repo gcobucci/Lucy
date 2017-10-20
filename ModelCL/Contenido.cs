@@ -11,8 +11,7 @@ namespace ModelCL
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Contenido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +25,6 @@ namespace ModelCL
         public long ContenidoId { get; set; }
         public string ContenidoTitulo { get; set; }
         public string ContenidoDescripcion { get; set; }
-        [DataType(DataType.MultilineText)]
         public string ContenidoCuerpo { get; set; }
         public System.DateTime ContenidoFchHora { get; set; }
         public int ContenidoCantVisitas { get; set; }

@@ -79,3 +79,92 @@
     </div>
 }
 
+
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">Enfermedades</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <li class="list-group-item">
+                    @Html.HiddenFor(model => model[i].AlimentoId)
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoNombre)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoNombre)
+                            @Html.DisplayFor(model => model[i].AlimentoNombre)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoPorcion)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoPorcion)
+                            @Html.DisplayFor(model => model[i].AlimentoPorcion)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoCalorias)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoCalorias)
+                            @Html.DisplayFor(model => model[i].AlimentoCalorias)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoCarbohidratos)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoCarbohidratos)
+                            @Html.DisplayFor(model => model[i].AlimentoCarbohidratos)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoAzucar)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoAzucar)
+                            @Html.DisplayFor(model => model[i].AlimentoAzucar)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoGrasa)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoGrasa)
+                            @Html.DisplayFor(model => model[i].AlimentoGrasa)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoSodio)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoSodio)
+                            @Html.DisplayFor(model => model[i].AlimentoSodio)
+                        </dd>
+
+                        <dt>
+                            @Html.LabelFor(model => model[i].AlimentoGluten)
+                        </dt>
+                        <dd>
+                            @Html.HiddenFor(model => model[i].AlimentoGluten)
+                            @Html.DisplayFor(model => model[i].AlimentoGluten)
+                        </dd>
+                    </dl>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model[i].RelComAliCantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model[i].RelComAliCantidad, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = "0.5" } })
+                            @Html.ValidationMessageFor(model => model[i].RelComAliCantidad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>*@
