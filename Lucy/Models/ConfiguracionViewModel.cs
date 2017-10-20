@@ -88,7 +88,7 @@ namespace Lucy.Models
         //[Key]
         //public int Id { get; set; }
 
-
+        
         [Display(Name = "Recibir emails de la aplicación")]
         public bool UsuarioRecibirEmails { get; set; }
     }

@@ -40,6 +40,7 @@ namespace ModelCL
         public System.DateTime UsuarioFchIng { get; set; }
         public string UsuarioApp { get; set; }
         public Nullable<System.DateTime> UsuarioLastLogin { get; set; }
+        public bool UsuarioRecibirEmails { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentarios { get; set; }

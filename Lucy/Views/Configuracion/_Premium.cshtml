@@ -1,4 +1,4 @@
-﻿<h3>Disfruta beneficios adicionales</h3>
+﻿<h3>Disfrutá beneficios adicionales</h3>
 
 <br />
 
@@ -8,9 +8,11 @@
 
 </div>
 
-<div id="suscripción">
+<div id="form_suscripcion">
     @if (ViewBag.esPremium == false)
     {
+        <p>Actualmente su usuario es Gratis</p>
+
         using (Html.BeginForm("_premium", "Configuracion", new { accion = true }, FormMethod.Post))
         {
             <div class="form-group">
@@ -22,6 +24,8 @@
     }
     else
     {
+        <p>Actualmente su usuario es Premium</p>
+
         using (Html.BeginForm("_premium", "Configuracion", new { accion = false }, FormMethod.Post))
         {
             <div class="form-group">

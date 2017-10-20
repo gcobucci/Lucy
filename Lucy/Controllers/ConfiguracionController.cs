@@ -1,4 +1,5 @@
-﻿using ModelCL;
+﻿using Lucy.Models;
+using ModelCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,13 @@ namespace Lucy.Controllers
             return View();
         }
 
+
         //[Route("_cambiar_datos_generales")]
         //public PartialViewResult _CambiarDatosGenerales()
         //{
         //    return PartialView();
         //}
+
 
         //[Route("_cambiar_contraseña")]
         //public PartialViewResult _CambiarContraseña()
@@ -32,11 +35,13 @@ namespace Lucy.Controllers
         //    return PartialView();
         //}
 
+
         //[Route("_cambiar_email")]
         //public PartialViewResult _CambiarEmail()
         //{
         //    return PartialView();
         //}
+
 
         [HttpGet]
         [Route("_premium")]
@@ -104,10 +109,36 @@ namespace Lucy.Controllers
             return RedirectToAction("Index");
         }
 
+
         [Route("_notificaciones")]
         public PartialViewResult _Notificaciones()
         {
-            return PartialView();
-        }                
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+
+            ConfiguracionNotificacionesViewModel confNot = new ConfiguracionNotificacionesViewModel();
+
+            confNot.UsuarioRecibirEmails = Usuario.UsuarioRecibirEmails;
+
+            return PartialView(confNot);
+        }
+
+
+        [HttpPost]
+        [Route("_notificaciones")]
+        public ActionResult _Notificaciones(ConfiguracionNotificacionesViewModel datos) //true = suscribrirse - false = cancelar
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+            Usuario.UsuarioRecibirEmails = datos.UsuarioRecibirEmails;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
