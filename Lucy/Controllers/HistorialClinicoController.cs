@@ -70,13 +70,40 @@ namespace Lucy.Controllers
                     }
                 }
 
-                ViewBag.ControlesBuenosPorcentaje = (controlesBuenos * 100) / controlesTotal;
-                ViewBag.ControlesRegularesPorcentaje = (controlesRegulares * 100) / controlesTotal;
-                ViewBag.ControlesPeligrososPorcentaje = (controlesPeligrosos * 100) / controlesTotal;
+                if (controlesBuenos > 0)
+                {
+                    ViewBag.ControlesBuenosPorcentaje = (controlesBuenos * 100) / controlesTotal;
+                }
+                else
+                {
+                    ViewBag.ControlesBuenosPorcentaje = 0;
+                }
+
+
+                if (controlesRegulares > 0)
+                {
+                    ViewBag.ControlesRegularesPorcentaje = (controlesRegulares * 100) / controlesTotal;
+                }
+                else
+                {
+                    ViewBag.ControlesRegularesPorcentaje = 0;
+                }
+
+
+                if (controlesPeligrosos > 0)
+                {
+                    ViewBag.ControlesPeligrososPorcentaje = (controlesPeligrosos * 100) / controlesTotal;
+                }
+                else
+                {
+                    ViewBag.ControlesPeligrososPorcentaje = 0;
+                }
             }          
                        
             return View();
         }
+
+
 
         [Route("_datos_generales")]
         public PartialViewResult _DatosGenerales()
@@ -141,6 +168,8 @@ namespace Lucy.Controllers
             
             return PartialView();
         }
+
+
 
         [Route("_dieta")]
         public PartialViewResult _Dieta()
@@ -256,6 +285,7 @@ namespace Lucy.Controllers
 
             return PartialView();
         }
+
 
 
         [Route("_diabetes_tipo_1")]
