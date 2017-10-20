@@ -1,4 +1,9 @@
-﻿@{var aux = ViewBag.regPeso;}
+﻿@{
+    var auxPeso = ViewBag.regPeso;
+    var auxDTipo1_bueno = ViewBag.ControlesBuenosPorcentaje;
+    var auxDTipo1_regular = ViewBag.ControlesRegularesPorcentaje;
+    var auxDTipo1_malo = ViewBag.ControlesPeligrososPorcentaje;
+}
 
 @{
     ViewBag.Title = "Historial Clínico";
@@ -8,15 +13,22 @@
 <br />
 <p>Esta viendo el historial clínico de <b>@ViewBag.Persona</b>.</p>
 
+<hr style="border: 1px solid #ccc;border-radius: 1px;">
+
 <div class="datos_generales">
     @Html.Action("_DatosGenerales", "HistorialClinico")
 </div>
+
+<hr style="border: 1px solid #ccc;border-radius: 1px;">
 
 <div id="dieta">
     @Html.Action("_Dieta", "HistorialClinico")
 </div>
 
-@if (ViewBag.esDiabeticoTipo1 == true){
+@if (ViewBag.VerDiabeticoTipo1)
+{
+    <hr style="border: 1px solid #ccc;border-radius: 1px;">
+
     <div id="diabetes_tipo_1">
         @Html.Action("_DiabetesTipo1", "HistorialClinico")
     </div>
@@ -31,7 +43,7 @@
         $('#grafica_peso').ready(function () {
             if ($('#grafica_peso').length) {
 
-                new Morris.Line({
+                Morris.Line({
                     element: 'grafica_peso',
                     xkey: 'Fch',
                     ykeys: ['peso'],
@@ -39,9 +51,9 @@
                     hideHover: 'auto',
                     lineColors: ['#34495E'],
                     data: [
-                        @if (aux != null)
+                        @if (auxPeso != null)
                         {
-                            foreach (var item in aux)
+                            foreach (var item in auxPeso)
                             {
                                 @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("dd-MM-yyyy") + "', peso: " + item.Peso.PesoValor + " },")
                             }
@@ -52,7 +64,114 @@
 
             }
         });
-        
-    </script>
 
+        @if (ViewBag.VerDiabeticoTipo1)
+        {
+            @Html.Raw("$('#grafica_dtipo1').ready(function() {"
+                            + "if ($('#grafica_dtipo1').length) {"
+                    + "Morris.Donut({"
+                        + "element: 'grafica_dtipo1',"
+                        + "data: ["
+                            + "{ label: 'Correctos', value: " + auxDTipo1_bueno + " },"
+                            + "{ label: 'Regulares', value: " + auxDTipo1_regular + " },"
+                            + "{ label: 'Peligrosos', value: " + auxDTipo1_malo + " }"
+                        + "],"
+                        + "colors: ['#26B99A', '#ffa500', '#dc143c'],"
+                        + "formatter: function(y) {"
+                            + "return y + '%';"
+                        + "},"
+                        + "resize: true"
+                    + "});"
+                + "}"
+            + "});")
+        }
+
+        
+        $('#grafica_calorias').ready(function () {
+            var echartPie = echarts.init(document.getElementById('grafica_calorias'), theme);
+
+            echartPie.setOption({
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    x: 'center',
+                    y: 'bottom',
+                    data: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Ingestas/Colaciones/Aperitivos']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        magicType: {
+                            show: true,
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        saveAsImage: {
+                            show: true,
+                            title: "Guardar Imagen"
+                        }
+                    }
+                },
+                calculable: true,
+                series: [{
+                    name: 'Dieta',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '48%'],
+                    data: [{
+                        value: 335,
+                        name: 'Desayuno'
+                    }, {
+                        value: 310,
+                        name: 'Almuerzo'
+                    }, {
+                        value: 234,
+                        name: 'Merienda'
+                    }, {
+                        value: 135,
+                        name: 'Cena'
+                    }, {
+                        value: 1548,
+                        name: 'Ingestas/Colaciones/Aperitivos'
+                    }]
+                }]
+            });
+
+            var dataStyle = {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }
+            };
+
+            var placeHolderStyle = {
+                normal: {
+                    color: 'rgba(0,0,0,0)',
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                },
+                emphasis: {
+                    color: 'rgba(0,0,0,0)'
+                }
+            };
+
+        }
+    </script>
 }
