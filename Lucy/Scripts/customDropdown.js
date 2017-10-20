@@ -30,6 +30,9 @@ function getUsuPos() {
         document.getElementById("ulUsu").style.width = "100%";
     }
 
-    // footer
-    
+    $.ajax({
+        dataType: 'json',
+        type: 'POST',
+        url: "/usuarios/lastlogin"
+    }); 
 }

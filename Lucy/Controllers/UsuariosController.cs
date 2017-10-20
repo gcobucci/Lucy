@@ -534,7 +534,7 @@ namespace Lucy.Controllers
         }
 
         [Route("lastlogin")]
-        public ActionResult LastLogin(string id)
+        public ActionResult LastLogin()
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
@@ -550,80 +550,3 @@ namespace Lucy.Controllers
         }
     }
 }
-
-#region OLD Registro
-//public ActionResult Registro(RegistroViewModel Registro)
-//{
-//try
-//{
-//    ModelCL.Usuario Usuario = new ModelCL.Usuario();
-//    Usuario.UsuarioNombre = Registro.UsuarioNombre;
-//    Usuario.UsuarioEmail = Registro.UsuarioEmail;
-//    Usuario.UsuarioPass = Registro.UsuarioPass;
-//    Usuario.UsuarioApp = "Web";
-
-//    ModelCL.Rol Rol = db.Rol.Find(2);//Free
-
-//    Usuario.Rol.Add(Rol);
-
-//    //db.Usuario.Add(Usuario);
-
-//    ModelCL.Persona Persona = new ModelCL.Persona();
-//    Persona.PersonaNombre = Registro.PersonaNombre;
-//    Persona.PersonaApellido = Registro.PersonaApellido;
-//    Persona.PersonaFchNac = Convert.ToDateTime(Registro.PersonaFchNac);
-//    Persona.SexoId = Registro.SexoId;
-
-//    //db.Persona.Add(Persona);
-
-//    Usuario.Persona.Add(Persona);
-//    Persona.Usuario.Add(Usuario);
-
-//    db.Usuario.Add(Usuario);
-//    db.Persona.Add(Persona);
-
-//    db.SaveChanges();
-
-//    // inicio la sesion con el usuario creado
-//    Session["UsuarioId"] = Usuario.UsuarioId;
-//    Session["UsuarioNombre"] = Usuario.UsuarioNombre;
-//    Session["UsuarioRol"] = Usuario.Rol;
-
-//    return View("~/Views/Home/Index");
-//}
-//catch (Exception ex)
-//{
-//    // cargo nuevamente la lista de sexos porque no pasa por el Get
-//    CargarSexo();
-
-//    ViewData["msgError"] = ex.GetBaseException();
-//    return View();
-//}
-//}
-#endregion
-
-#region OLD Login
-//public ActionResult Login(LoginViewModel Login)
-//{
-//    //var query = db.Usuario.Where(usu => (usu.UsuarioNombre == Login.LoginUsuario || usu.UsuarioEmail == Login.LoginUsuario) && usu.UsuarioPass == Login.LoginPass).FirstOrDefault();
-//    using (AgustinaEntities db = new AgustinaEntities())
-//    {
-//        Usuario query = db.Usuario.SingleOrDefault(usu => (usu.UsuarioNombre == Login.LoginUsuario || usu.UsuarioEmail == Login.LoginUsuario) && usu.UsuarioPass == Login.LoginPass);
-
-
-//        if (query != null)
-//        {
-//            // inicio la sesion con el usuario creado
-//            Session["UsuarioId"] = query.UsuarioId;
-//            Session["UsuarioNombre"] = query.UsuarioNombre;
-//            Session["UsuarioRol"] = query.Rol;
-
-//            return View("~/Views/Home/Index.cshtml");
-//        }
-//        else
-//        {
-//            return Content("No ingresaste");
-//        }
-//    }
-//}
-#endregion
