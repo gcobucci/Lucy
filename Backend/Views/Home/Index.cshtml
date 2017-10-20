@@ -5,35 +5,47 @@
 
 <!-- top tiles -->
 <div class="row tile_count">
+    <!-- Total -->
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+        <span class="count_top"><i class="fa fa-user"></i> Total Usuarios</span>
         <div class="count">@ViewBag.TotalUsers</div>
         <span class="count_bottom"><i class="green">4% </i> From last Week</span>
     </div>
+    <!-- Hombre -->
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>
-        <div class="count">123.50</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-    </div>
-    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
+        <span class="count_top"><i class="fa fa-user"></i> Hombres</span>
         <div class="count green">@ViewBag.TotalMales</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>@ViewBag.PercentMales</i>% son Hombres</span>
     </div>
+    <!-- Mujer -->
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
+        <span class="count_top"><i class="fa fa-user"></i> Mujeres</span>
         <div class="count">@ViewBag.TotalFemales</div>
-        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>@ViewBag.PercentFemales</i>% son Mujeres</span>
     </div>
+    <!-- Intersexual -->
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
-        <div class="count">2,315</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+        <span class="count_top"><i class="fa fa-user"></i> Intersexual</span>
+        <div class="count">@ViewBag.TotalInter</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>@ViewBag.PercentInter</i>% son Intersexuales</span>
     </div>
+    <!-- Diabeticos -->
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-        <div class="count">7,325</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+        <span class="count_top"><i class="fa fa-user"></i> Diabéticos</span>
+        <div class="count">@ViewBag.TotalDiabeticos</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>@ViewBag.PercentDiabeticos</i>% son Diabéticos</span>
+    </div>
+    <!-- celiacos -->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Celíacos</span>
+        <div class="count">@ViewBag.TotalCeliacos</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>@ViewBag.PercentCeliacos</i>% son Celíacos</span>
+    </div>
+    <!-- obesos -->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Obesos</span>
+        <div class="count">@ViewBag.TotalObesos</div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>@ViewBag.PercentObesos</i>% son Obesos</span>
     </div>
 </div>
 <!-- /top tiles -->
