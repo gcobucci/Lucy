@@ -17,7 +17,7 @@ namespace ModelCL
         public long ComidaId { get; set; }
         public long PersonaId { get; set; }
         public long AlimentoId { get; set; }
-        public double ReComAliCantidad { get; set; }
+        public double RelComAliCantidad { get; set; }
     
         public virtual Alimento Alimento { get; set; }
         public virtual Comida Comida { get; set; }

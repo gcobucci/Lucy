@@ -28,6 +28,15 @@ namespace Lucy.Controllers
                 r.Medicacion.Enfermedad.EnfermedadNombre == "Diabetes tipo 1")) || (r.Control != null && (r.Control.Valor.ValorNombre == "Glucosa"))) 
                 && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();
 
+
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && regControlDiabetico.Count() == 0)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a esa página";
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(regControlDiabetico);
         }
 
@@ -141,7 +150,7 @@ namespace Lucy.Controllers
                     {
                         if (a.RelComAliCantidad != 0)
                         {
-                            comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                            comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                         }
                     }
 
@@ -232,7 +241,7 @@ namespace Lucy.Controllers
                 foreach (ModelCL.RelComAli rca in regControlDiabetico.Comida.RelComAli.ToList())
                 {
                     ComidaAlimentoViewModel cavm = vmRegControlDiabetico.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
-                    cavm.RelComAliCantidad = rca.ReComAliCantidad;
+                    cavm.RelComAliCantidad = rca.RelComAliCantidad;
                 }
                 vmRegControlDiabetico.ComidaCalorias = regControlDiabetico.Comida.ComidaCalorias;
                 vmRegControlDiabetico.ComidaCarbohidratos = regControlDiabetico.Comida.ComidaCarbohidratos;
@@ -310,7 +319,7 @@ namespace Lucy.Controllers
                     {
                         if (a.RelComAliCantidad != 0)
                         {
-                            regControlDiabetico.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                            regControlDiabetico.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                         }
                     }
 

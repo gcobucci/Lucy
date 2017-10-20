@@ -371,7 +371,7 @@
           <Property Name="ComidaId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="AlimentoId" Type="bigint" Nullable="false" />
-          <Property Name="ReComAliCantidad" Type="float" Nullable="false" />
+          <Property Name="RelComAliCantidad" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="RelComCom">
           <Key>
@@ -2631,7 +2631,7 @@
           <Property Name="ComidaId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="AlimentoId" Type="Int64" Nullable="false" />
-          <Property Name="ReComAliCantidad" Type="Double" Nullable="false" />
+          <Property Name="RelComAliCantidad" Type="Double" Nullable="false" />
           <NavigationProperty Name="Alimento" Relationship="Self.FK_RelComAli_AlimentoId" FromRole="RelComAli" ToRole="Alimento" />
           <NavigationProperty Name="Comida" Relationship="Self.FK_RelComAli_ComidaId_PersonaId" FromRole="RelComAli" ToRole="Comida" />
         </EntityType>
@@ -4180,7 +4180,7 @@
                 <ScalarProperty Name="ComidaId" ColumnName="ComidaId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
-                <ScalarProperty Name="ReComAliCantidad" ColumnName="ReComAliCantidad" />
+                <ScalarProperty Name="RelComAliCantidad" ColumnName="RelComAliCantidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

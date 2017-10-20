@@ -102,7 +102,7 @@
             <ul>
                 @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
                 {
-                    <li>@item.ReComAliCantidad - @item.Alimento.AlimentoNombre)</li>
+                    <li>@item.RelComAliCantidad - @item.Alimento.AlimentoNombre)</li>
                 }
             </ul>
         </dd>

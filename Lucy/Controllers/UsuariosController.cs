@@ -164,6 +164,7 @@ namespace Lucy.Controllers
                     usu.UsuarioEmail = reg.UsuarioEmail;
                     usu.UsuarioPais = reg.UsuarioPais;
                     usu.UsuarioApp = "Web";
+                    usu.UsuarioRecibirEmails = true;
                     #endregion
 
                     #region Cargo Persona

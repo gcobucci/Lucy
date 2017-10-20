@@ -23,18 +23,18 @@ namespace ModelCL
             this.RelPerEnf = new HashSet<RelPerEnf>();
             this.RelUsuPer = new HashSet<RelUsuPer>();
         }
-    
+
+        public string nombreCompleto { get { return PersonaNombre + " " + PersonaApellido; } }
+
+        public short edad { get { return Convert.ToInt16(Math.Floor((((TimeSpan)(DateTime.Now - PersonaFchNac)).Days) / 365.25)); } }
+
         public long PersonaId { get; set; }
         public string PersonaNombre { get; set; }
         public string PersonaApellido { get; set; }
         public System.DateTime PersonaFchNac { get; set; }
         public System.DateTime PersonaFchIng { get; set; }
         public short SexoId { get; set; }
-
-        public string nombreCompleto { get { return PersonaNombre + " " + PersonaApellido; } }
-
-        public short edad { get { return Convert.ToInt16(Math.Floor((((TimeSpan)(DateTime.Now - PersonaFchNac)).Days) / 365.25)); } }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Datos> Datos { get; set; }
         public virtual Sexo Sexo { get; set; }
