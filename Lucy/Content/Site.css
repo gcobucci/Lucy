@@ -1199,6 +1199,7 @@ input.custom-control-input {
         overflow: hidden;
         position: relative;
         height: 48.8px;
+        text-align: left;
     }
 
     #slideYTC span1 {

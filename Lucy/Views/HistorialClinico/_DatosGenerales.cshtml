@@ -1,7 +1,11 @@
-﻿<h3>Datos generales</h3>
+﻿@model List<ModelCL.Registro>
+
+<h3>Datos generales</h3>
 
 <br />
 
+@if (Model != null)
+{
 <div class="datos row">
     <div class="col-sm-12">
         <b>Altura Actual</b>: @ViewBag.Altura cm.
@@ -32,7 +36,8 @@
 
     </div>
 </div>
-
-<script>
-    data 
-</script>
+}
+else
+{
+    <p>Sin datos.</p>
+}

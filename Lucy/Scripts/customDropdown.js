@@ -33,21 +33,3 @@ function getUsuPos() {
     // footer
     
 }
-
-function init_morris_charts(data) {
-    if ($('#grafica_peso').length) {
-        new Morris.Line({
-            element: 'grafica_peso',
-            xkey: 'year',
-            ykeys: ['value'],
-            labels: ['Value'],
-            hideHover: 'auto',
-            lineColors: ['#34495E'],
-            data: data,
-            //data: [
-            //    { year: '2010', value: 20 },
-            //],
-            resize: true
-        });
-    }
-}

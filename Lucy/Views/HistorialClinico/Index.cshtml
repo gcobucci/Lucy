@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ModelCL.Registro>
+﻿@model List<ModelCL.Registro>
 
 @{
-    ViewBag.Title = "Historial clínico";
+    ViewBag.Title = "Historial Clínico";
 }
 
 <h2>Historial clínico</h2>
@@ -20,23 +20,23 @@
     <!-- morris.js -->
     <script src="~/Scripts/raphael.min.js"></script>
     <script src="~/Scripts/morris.min.js"></script>
-    @*<script>
+    <script>
         $('#grafica_peso').ready(function () {
             if ($('#grafica_peso').length) {
 
                 new Morris.Line({
                     element: 'grafica_peso',
-                    xkey: 'year',
-                    ykeys: ['value'],
-                    labels: ['Value'],
+                    xkey: 'Fch',
+                    ykeys: ['peso'],
+                    labels: ['Peso'],
                     hideHover: 'auto',
                     lineColors: ['#34495E'],
                     data: [
-                        @if (Model.Count() != 0)
+                        @if (Model != null)
                         {
-                            @foreach (var item in Model)
+                            foreach (var item in Model)
                             {
-                                @Html.Raw("{ Fch: '" + item.RegistroFchHora + "', value: 20 },")
+                                @Html.Raw("{ Fch: '" + item.RegistroFchHora.ToShortDateString() + "', peso: " + item.Peso.PesoValor + " },")
                             }
                         }
                     ],
@@ -45,5 +45,7 @@
                 
             }
         });
-    </script>*@
+
+    </script>
+
 }

@@ -24,26 +24,33 @@ namespace Lucy.Controllers
             List<ModelCL.Registro> regPeso = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
             ViewBag.regPeso = regPeso;
-            //List<double> pesos = 
-            
-            //foreach (var item in collection)
-            //{
 
-            //}
+            List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
-            return View(regPeso);
+            return View(Pesos);
         }
 
         [Route("_datos_generales")]
         public PartialViewResult _DatosGenerales()
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
-
             ModelCL.Persona Persona = db.Persona.Find(idPer);
 
-            Nullable<double> peso = Persona.Registro.Where(r => r.Peso != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault().Peso.PesoValor;
+            ModelCL.Registro regPeso = Persona.Registro.Where(r => r.Peso != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault();
+            Nullable<double> peso = null;
 
-            Nullable<short> altura = Convert.ToInt16(Persona.Registro.Where(r => r.DatCli != null && r.DatCli.DatCliAltura != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault().DatCli.DatCliAltura);
+            if (regPeso != null)
+            {
+                peso = regPeso.Peso.PesoValor;
+            }
+
+            ModelCL.Registro regAltura = Persona.Registro.Where(r => r.DatCli != null && r.DatCli.DatCliAltura != null).OrderByDescending(r => r.RegistroFchHora).FirstOrDefault();
+            Nullable<short> altura = null;
+
+            if (regAltura != null)
+            {
+                altura = Convert.ToInt16(regAltura.DatCli.DatCliAltura);
+            }
 
             if (peso != null)
             {
@@ -84,7 +91,9 @@ namespace Lucy.Controllers
                 ViewBag.TMB = Fachada.Functions.calcular_TMB(Convert.ToDouble(peso), Convert.ToInt16(altura), Persona.edad, Persona.Sexo.SexoNombre);
             }
 
-            return PartialView();
+            List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
+
+            return PartialView(Pesos);
         }
 
         [Route("_dieta")]
