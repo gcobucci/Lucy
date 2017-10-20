@@ -139,7 +139,7 @@ namespace Lucy.Controllers
             //Diabetes tipo 1//
             ViewBag.VerDiabeticoTipo1 = false;
 
-            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == true || Persona.Registro.Where(r => r.Control != null && r.Control.Valor.ValorNombre == "Glucosa").Count() > 0)
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == true || Fachada.Functions.fue_diabetico_tipo_1(idPer) == true)
             {
                 ViewBag.VerDiabeticoTipo1 = true;
 

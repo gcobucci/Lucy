@@ -97,6 +97,23 @@ namespace Fachada
             }
         }
 
+        public static bool fue_diabetico_tipo_1(long idPer)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                long idDiabetes = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().EnfermedadId;
+
+                if (db.HisRelPerEnf.Where(hrpe => hrpe.EnfermedadId == idDiabetes && hrpe.PersonaId == idPer).FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         public static double calcular_IMC(double peso, short altura)
         {

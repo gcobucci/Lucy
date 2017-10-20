@@ -477,7 +477,7 @@ namespace Lucy.Controllers
         [NonAction]
         public void SendVerificationLinkEmail(string email, string activationCode)
         {
-            var verifyUrl = "/Usuarios/VerifyAccount/" + activationCode;
+            var verifyUrl = "/Usuarios/VerifyAccount/?id=" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("mateswdv@gmail.com", "YoTeCuido");

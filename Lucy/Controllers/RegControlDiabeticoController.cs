@@ -23,19 +23,18 @@ namespace Lucy.Controllers
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
-            List<ModelCL.Registro> regControlDiabetico = 
-                db.Registro.Where(r => ((r.Medicacion != null && (r.Medicacion.Medicina.MedicinaTipo == "Pasiva" && 
-                r.Medicacion.Enfermedad.EnfermedadNombre == "Diabetes tipo 1")) || (r.Control != null && (r.Control.Valor.ValorNombre == "Glucosa"))) 
-                && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();
-
-
-            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && regControlDiabetico.Count() == 0)
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && Fachada.Functions.fue_diabetico_tipo_1(idPer) == false)
             {
                 ModelCL.Persona Persona = db.Persona.Find(idPer);
 
-                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a esa página";
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
                 return RedirectToAction("Index", "Home");
             }
+
+            List<ModelCL.Registro> regControlDiabetico = 
+                db.Registro.Where(r => ((r.Medicacion != null && (r.Medicacion.Medicina.MedicinaTipo == "Pasiva" && 
+                r.Medicacion.Enfermedad.EnfermedadNombre == "Diabetes tipo 1")) || (r.Control != null && (r.Control.Valor.ValorNombre == "Glucosa"))) 
+                && r.Persona.PersonaId == idPer).OrderByDescending(r => r.RegistroFchHora).ToList();                       
 
             return View(regControlDiabetico);
         }
@@ -43,6 +42,17 @@ namespace Lucy.Controllers
         [Route("ver")]
         public ActionResult Details(long? id)
         {
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && Fachada.Functions.fue_diabetico_tipo_1(idPer) == false)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -60,6 +70,17 @@ namespace Lucy.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             RegControlDiabeticoViewModel newRegControlDiabetico = new RegControlDiabeticoViewModel();
 
 
@@ -189,6 +210,17 @@ namespace Lucy.Controllers
         [Route("editar")]
         public ActionResult Edit(long? id)
         {
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -355,6 +387,17 @@ namespace Lucy.Controllers
         [Route("eliminar")]
         public ActionResult Delete(long? id)
         {
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+
+            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && Fachada.Functions.fue_diabetico_tipo_1(idPer) == false)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
+                return RedirectToAction("Index", "Home");
+            }
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
