@@ -3,6 +3,27 @@
     ViewBag.Title = null;
 }
 
+@if (ViewBag.PermisoDenegado == true)
+{
+    <div class="modal fade" id="PopUpConfirmationMsg" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¡Atención!</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_PermisoDenegado")
+                </div>
+                <div class="modal-footer">
+                    <button onclick="confirmar()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div>
     <h3>¿Qué es YoTeCuido?</h3>
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelCL;
+using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -11,7 +13,7 @@ namespace Fachada
         //public static string encriptar(string original)
         //{
         //    MD5 md5 = new MD5CryptoServiceProvider();
-            
+
         //    return Convert.ToString(md5.ComputeHash(original));
         //}
 
@@ -61,6 +63,24 @@ namespace Fachada
 
         //    return idPer;
         //}
+        
+
+        public static bool es_premium(long idUsu)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+                if (Usuario.RelUsuRol.Where(rur => rur.Rol.RolNombre == "Premium").FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         public static double calcular_IMC(double peso, short altura)
         {

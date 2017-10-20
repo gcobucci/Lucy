@@ -547,6 +547,7 @@
     <Content Include="Views\Configuracion\_Notificaciones.cshtml" />
     <Content Include="Views\Configuracion\Index.cshtml" />
     <Content Include="Views\HistorialClinico\_DiabetesTipo1.cshtml" />
+    <Content Include="Views\Home\_PermisoDenegado.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
