@@ -2,6 +2,24 @@
     ViewBag.Title = "Datos Clínicos";
 }
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="modal fade" id="PopUpErrorMessage" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¡Atención!</h4>
+                </div>
+                <div class="modal-body">
+                    @TempData["ErrorMessage"]
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
 <h2>Datos Clinicos</h2>
 
 <div class="form-horizontal">
@@ -79,6 +97,11 @@
                 $.validator.unobtrusive.parse('form');
             });
 
+        });
+
+
+        $('#PopUpErrorMessage').modal({
+            show: 'true'
         });
     </script>
 }

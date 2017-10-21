@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ModelCL.Comentario>
+
+@* Comentarios padre *@
+@foreach (var comPadre in Model) {
+    @Html.HiddenFor(modelItem => comPadre.ComentarioId)
+    @Html.DisplayFor(modelItem => comPadre.UsuarioAutor.UsuarioNombre)
+    @Html.DisplayFor(modelItem => comPadre.ComentarioFchHora)
+    @Html.DisplayFor(modelItem => comPadre.ComentarioCuerpo)
+
+    <a href="#" class="btn btn-link" onclick="responder(@comPadre.ComentarioId)">Responder</a>
+
+    @* Comentarios hijos *@
+    foreach (var comHijo in comPadre.ComentariosHijos)
+    {
+        @Html.HiddenFor(modelItem => comHijo.ComentarioId)
+        @Html.DisplayFor(modelItem => comHijo.UsuarioAutor.UsuarioNombre)
+        @Html.DisplayFor(modelItem => comHijo.ComentarioFchHora)
+        @Html.DisplayFor(modelItem => comHijo.ComentarioCuerpo)
+    }
+
+}
