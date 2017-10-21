@@ -3,6 +3,7 @@ using ModelCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -30,10 +31,29 @@ namespace Lucy.Controllers
             {
                 lPersonas.Add(rup.Persona);
             }
-            ModelCL.Persona Persona = new ModelCL.Persona();
-            Persona.PersonaId = 0;
-            Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
-            lPersonas.Add(Persona);
+
+            if (Fachada.Functions.es_premium(idUsu) == true)
+            {
+                if (lPersonas.Count() < 5)
+                {
+                    ModelCL.Persona Persona = new ModelCL.Persona();
+                    Persona.PersonaId = 0;
+                    Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
+                    lPersonas.Add(Persona);
+                }
+            }
+            else
+            {
+                if (lPersonas.Count() < 2)
+                {
+                    ModelCL.Persona Persona = new ModelCL.Persona();
+                    Persona.PersonaId = 0;
+                    Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
+                    lPersonas.Add(Persona);
+                }
+            }
+            
+            
             ViewBag.listaPersonas = new SelectList(lPersonas, "PersonaId", "nombreCompleto");
             return View();
         }
@@ -410,6 +430,50 @@ namespace Lucy.Controllers
             {
                 throw (ex);
             }
+        }
+
+        [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ModelCL.Persona Persona = db.Persona.Find(id);
+            if (Persona == null)
+            {
+                return HttpNotFound();
+            }
+
+
+
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+            if (Usuario.RelUsuPer.Count() == 1)
+            {
+                TempData["ErrorMessage"] = "No puedes borrar todas tus personas.";
+            }
+            else
+            {                
+                if (Request.Cookies["cookiePer"] != null)
+                {
+                    if (Persona.PersonaId == Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]))
+                    {
+                        HttpCookie cookiePer = Request.Cookies["cookiePer"];
+                        cookiePer.Expires = DateTime.Now.AddDays(-1d);
+                        Response.Cookies.Add(cookiePer);
+                    }
+                }
+
+                db.Persona.Remove(Persona);
+                db.SaveChanges();
+            }           
+
+            return RedirectToAction("Datos_Clinicos", "Personas");
         }
     }
 }
