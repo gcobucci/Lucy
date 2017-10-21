@@ -36,3 +36,33 @@ function getUsuPos() {
         url: "/usuarios/lastlogin"
     }); 
 }
+
+function responder(ComId, UsuNom) {
+    $('#ComentarioPadreId').val(ComId);
+}
+
+function cancelarRespuesta() {
+    $('#ComentarioPadreId').val(null);
+}
+
+function btnComentar(idContenido) {
+    var token = $('[name=__RequestVerificationToken]').val();
+    var obj = {
+        ComentarioCuerpo: $('#ComentarioCuerpo').val(),
+        ComentarioPadreId: $('#ComentarioPadreId').val(),
+        ContenidoId: $('#ContenidoId').val()
+    };
+    $.ajax({
+        type: 'POST',
+        data: {
+            __RequestVerificationToken: token,
+            datos: obj
+        },
+        url: "/_crear",
+        success: function () {
+            $("#comentarios").load("/_listado/?idContenido=" + idContenido);
+            $("#crear_comentario").load("/_crear/?idContenido=" + idContenido);
+        }
+    });
+    
+}

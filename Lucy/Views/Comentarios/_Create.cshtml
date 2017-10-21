@@ -9,16 +9,18 @@
         @Html.HiddenFor(model => model.ComentarioPadreId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ComentarioCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComentarioCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.LabelFor(model => model.ComentarioCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-sm-12 col-sm-offset-0 col-md-8 col-md-offset-2">
+                @Html.TextAreaFor(model => model.ComentarioCuerpo, new { @class = "textareas-Massa", @placeholder = "Escribe un comentario..." })
                 @Html.ValidationMessageFor(model => model.ComentarioCuerpo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Comentar" class="btn btn-default" />
+            <div class="col-sm-12 col-sm-offset-0 col-md-8 col-md-offset-2">
+                <a onclick="btnComentar(@Model.ContenidoId)" class="btn btn-default btn-Massa">
+                    <i class="glyphicon glyphicon-send"></i> Comentar
+                </a>
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@ namespace Lucy.Controllers
         [HttpPost]
         [Route("_crear")]
         [ValidateAntiForgeryToken]
-        public ActionResult _Create(ComentarioViewModel datos)
+        public ActionResult _Create(ComentarioViewModel datos, string url)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
@@ -53,7 +53,7 @@ namespace Lucy.Controllers
             //No estamos teniendo en cuenta que te encajen el id del contenido a prepo ni que el comentario padre pertenezca a otro contenido. Es un quilombo
             if (datos.ComentarioPadreId != null)
             {
-                newComentario.ComentarioPadre = db.Comentario.Find(datos.ComentarioPadreId);
+                newComentario.ComentarioPadre = db.Comentario.Where(c => c.ComentarioId == datos.ComentarioPadreId).FirstOrDefault();
             }
 
             newComentario.UsuarioId = idUsu;

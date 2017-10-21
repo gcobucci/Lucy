@@ -54,7 +54,7 @@
                         @Html.Raw("element: 'grafica_peso', xkey: 'Fch', ykeys: ['peso'], labels: ['Peso'], hideHover: 'auto', lineColors: ['#34495E'], data: [")
                         foreach (var item in auxPeso)
                         {
-                            @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("dd-MM-yyyy") + "', peso: " + item.Peso.PesoValor + " },")
+                            @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("yyyy/MM/dd") + "', peso: " + item.Peso.PesoValor + " },")
                         }
                         @Html.Raw("], resize: true")
                     }
@@ -64,7 +64,7 @@
 
         @if (auxPeso == null)
         {
-            @Html.Raw("$('#grafica_peso').html('<h4 style=\"width: fit-content;margin: 0 auto;font-weight: 300;\">Sin datos</h4>')")
+            @Html.Raw("$('#grafica_peso').html('<h4 style=\"width: fit-content;margin: 0 auto;padding-top: 25px;font-weight: 300;\">Sin datos</h4>')")
         }
 
         @if (ViewBag.VerDiabeticoTipo1)
@@ -94,7 +94,7 @@
         }
         else
         {
-            @Html.Raw("$('#grafica_calorias').html('<h4 style=\"width: fit-content;margin: 0 auto;font-weight: 300;\">Sin datos</h4>')")
+            @Html.Raw("$('#grafica_calorias').html('<h4 style=\"width: fit-content;margin: 0 auto;padding-top: 25px;font-weight: 300;\">Sin datos</h4>')")
         }
 
         </script>
