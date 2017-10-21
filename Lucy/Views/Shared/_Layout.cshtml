@@ -375,18 +375,9 @@
         });
 
         function changePersona(PerId, PerNom, PerApe) {
-            $('.userLiSubMenu ul').attr('style', 'display: none');
-            $('.userLiSubMenu a.btn-default').text(PerNom + " " + PerApe);
-            $.ajax({
-                dataType: 'json',
-                data: {
-                    PerId: PerId
-                },
-                type: 'POST',
-                url: "/home/selPersona"
-            });       
-            //window.open('http://localhost:4181/calculadoras/tmb', '_blank')
-            //location.reload(true);
+            //$('.userLiSubMenu ul').attr('style', 'display: none');
+            //$('.userLiSubMenu a.btn-default').text(PerNom + " " + PerApe);
+            location.href = "/home/selPersona/?PerId=" + PerId + "&url=" + document.URL;     
         }
         
     </script>

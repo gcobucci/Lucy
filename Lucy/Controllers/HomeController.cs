@@ -63,7 +63,7 @@ namespace Lucy.Controllers
         }
 
         // Guardar Persona a cargo en cookie
-        public ActionResult selPersona(int PerId)
+        public ActionResult selPersona(int PerId, string url)
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
@@ -96,7 +96,7 @@ namespace Lucy.Controllers
                 }
                 
             }
-            return null;
+            return Redirect(url);
         }
     }
 }
