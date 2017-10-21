@@ -25,8 +25,12 @@ namespace Lucy.Controllers
 
             //Datos generales//            
             List<ModelCL.Registro> regPeso = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
+            ViewBag.regPeso = null;
 
-            ViewBag.regPeso = regPeso;
+            if (regPeso.Count() > 0)
+            {
+                ViewBag.regPeso = regPeso;
+            }
 
             List<ModelCL.Registro> Pesos = Persona.Registro.Where(r => r.Peso != null).OrderBy(r => r.RegistroFchHora).ToList();
 
