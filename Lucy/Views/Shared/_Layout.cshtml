@@ -197,14 +197,12 @@
 
                             @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                             {
-                                <li class="dropdown-submenu userLiSubMenu" id="leti">
-                                    @*@Html.Action("_Personas", "Home")*@
-                                </li>
+                                <li class="dropdown-submenu userLiSubMenu" id="leti"></li>
                             }
 
                             <li class="userLi"><a href="#">Notificaciones</a></li>
                             <li class="userLi">
-                                @Html.ActionLink("Datos clínicos", "Datos_Clinicos", "Personas")
+                                @Html.ActionLink("Datos Clínicos", "Datos_Clinicos", "Personas")
                             </li>
                             <li class="userLi"><a href="/configuracion">Configuración</a></li>
                             <li class="userLi">

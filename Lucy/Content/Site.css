@@ -910,7 +910,6 @@ nav#mySidenav::-webkit-scrollbar {
 
 .MLitemLeft {
     padding: 0 10px;
-    border-right: 2px solid #f3f3f3;
 }
 
 .MLitemTitulo {
@@ -935,6 +934,7 @@ nav#mySidenav::-webkit-scrollbar {
     margin: 45px 0 31px;
     color: #666;
     font-size: 13px;
+    border-left: 1px solid #f3f3f3;
 }
 
     .MLitemRight > div > a {
@@ -1033,7 +1033,7 @@ dl {
 /********************************************************** custom-checkbox **********************************************************/
 
 
-/*input.custom-control-input {
+input.custom-control-input {
     display: none;
 }
 
@@ -1051,7 +1051,7 @@ dl {
     .custom-checkbox .custom-control-indicator {
         content: "";
         float: right;
-        display: inline-block;
+        /*display: inline-block;*/
         position: relative;
         width: 30px;
         height: 10px;
@@ -1093,7 +1093,7 @@ dl {
 
     .custom-checkbox .custom-control-input:focus ~ .custom-control-indicator {
         box-shadow: none !important;
-    }*/
+    }
 
 
 /******************************************************* Slide Lucy *******************************************************/
@@ -1377,3 +1377,156 @@ dl {
 .cornflowerblue {
     color: cornflowerblue;
 }
+
+
+
+.section-padding h1,
+.section-padding h2,
+.section-padding h3,
+.section-padding h4,
+.section-padding h5,
+.section-padding h6 {
+    margin: 0 0 15px;
+    font-weight: 700;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*Main Style*/
+
+section.section-padding {
+    padding: 0px 0;
+}
+
+.section-title {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+    .section-title h2 {
+        font-size: 30px;
+        position: relative;
+    }
+
+        .section-title h2 span {
+            color: cornflowerblue;
+        }
+
+
+        .section-title h2:before {
+            background: #333;
+            bottom: -10px;
+            content: "";
+            height: 3px;
+            left: 50%;
+            margin-left: -45px;
+            position: absolute;
+            width: 90px;
+        }
+
+        .section-title h2:after {
+            background: #333;
+            bottom: -10px;
+            content: "";
+            height: 3px;
+            left: 50%;
+            margin-left: -15px;
+            position: absolute;
+            width: 30px;
+        }
+
+
+
+    .section-title p {
+        font-size: 17px;
+    }
+
+.single-pricing-box {
+    border: 2px solid #D6DDD9;
+    padding: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+    .single-pricing-box:hover {
+        border-color: cornflowerblue;
+        box-shadow: 0 0 30px #f1f1f1;
+    }
+
+    .single-pricing-box h3 {
+        background: #ddd none repeat scroll 0 0;
+        padding: 10px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+.pricing-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+.single-pricing-box:hover .pricing-icon {
+    color: cornflowerblue;
+}
+
+.pricing-list {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+    .pricing-list ul {
+        line-height: 26px;
+        list-style: outside none none;
+        margin: 0;
+        padding: 0 0 0 16px;
+    }
+
+        .pricing-list ul li {
+            font-size: 15px;
+            -webkit-transition: all 0.2s ease 0s;
+            transition: all 0.2s ease 0s;
+        }
+
+            .pricing-list ul li:hover {
+                padding-left: 5px;
+            }
+
+            .pricing-list ul li:before {
+                font-family: fontAwesome;
+                content: "\f00c";
+                color: cornflowerblue;
+                padding-right: 8px;
+            }
+
+            .pricing-list ul li.off:before {
+                content: "\f00d";
+                color: red;
+            }
+
+.single-pricing-box h3.pricing-count {
+    text-transform: none;
+}
+
+input.bordered-btn {
+    border: 1px solid #ddd;
+    background-color: transparent;
+    color: #333;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 50px;
+    -webkit-transition: .3s;
+    transition: .3s;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+
+    input.bordered-btn:hover {
+        background: cornflowerblue;
+        color: #fff;
+        border-color: cornflowerblue;
+    }
