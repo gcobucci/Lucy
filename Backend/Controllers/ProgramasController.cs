@@ -57,15 +57,22 @@ namespace Backend.Controllers
             {
                 contenido.Programa = new ModelCL.Programa();
 
-                foreach (var r in rutinas)
+
+                if (rutinas != null)
                 {
-                    contenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    foreach (var r in rutinas)
+                    {
+                        contenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    }
                 }
 
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            ViewBag.lRutinas = lRutinas;
 
             return View(contenido);
         }
@@ -109,15 +116,21 @@ namespace Backend.Controllers
                     oldContenido.Programa.Rutina.Remove(oldRutina);
                 }
 
-
-                foreach (var r in rutinas)
+                if (rutinas != null)
                 {
-                    oldContenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    foreach (var r in rutinas)
+                    {
+                        oldContenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    }
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            ViewBag.lRutinas = lRutinas;
+
             return View(contenido);
         }
 
