@@ -62,10 +62,14 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var e in enfermedades)
+                if (enfermedades != null)
                 {
-                    medicina.Enfermedad.Add(db.Enfermedad.Find(e));
+                    foreach (var e in enfermedades)
+                    {
+                        medicina.Enfermedad.Add(db.Enfermedad.Find(e));
+                    }
                 }
+                
 
                 db.Medicina.Add(medicina);
 
@@ -132,9 +136,12 @@ namespace Backend.Controllers
                     med.Enfermedad.Remove(oldEnfermedad);
                 }
 
-                foreach (var e in enfermedades)
+                if (enfermedades != null)
                 {
-                    med.Enfermedad.Add(db.Enfermedad.Find(e));
+                    foreach (var e in enfermedades)
+                    {
+                        med.Enfermedad.Add(db.Enfermedad.Find(e));
+                    }
                 }
 
                 db.SaveChanges();

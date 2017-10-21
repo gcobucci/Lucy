@@ -31,6 +31,7 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ModelCL.Enfermedad enfermedad = db.Enfermedad.Find(id);
             if (enfermedad == null)
             {
@@ -58,15 +59,21 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var v in valores)
+                if (valores != null)
                 {
-                    enfermedad.Valor.Add(db.Valor.Find(v));
+                    foreach (var v in valores)
+                    {
+                        enfermedad.Valor.Add(db.Valor.Find(v));
+                    }
                 }
 
-                foreach (var m in medicinas)
+                if (medicinas != null)
                 {
-                    enfermedad.Medicina.Add(db.Medicina.Find(m));
-                }
+                    foreach (var m in medicinas)
+                    {
+                        enfermedad.Medicina.Add(db.Medicina.Find(m));
+                    }
+                }                
 
                 db.Enfermedad.Add(enfermedad);
                 db.SaveChanges();
@@ -124,10 +131,14 @@ namespace Backend.Controllers
                     enf.Valor.Remove(oldValor);
                 }
 
-                foreach (var v in valores)
+                if (valores != null)
                 {
-                    enf.Valor.Add(db.Valor.Find(v));
+                    foreach (var v in valores)
+                    {
+                        enf.Valor.Add(db.Valor.Find(v));
+                    }
                 }
+                
 
                 List<ModelCL.Medicina> bkMedicinas = enf.Medicina.ToList();
                 foreach (ModelCL.Medicina oldMedicina in bkMedicinas)
@@ -135,10 +146,13 @@ namespace Backend.Controllers
                     enf.Medicina.Remove(oldMedicina);
                 }
 
-                foreach (var m in medicinas)
+                if (medicinas != null)
                 {
-                    enf.Medicina.Add(db.Medicina.Find(m));
-                }
+                    foreach (var m in medicinas)
+                    {
+                        enf.Medicina.Add(db.Medicina.Find(m));
+                    }
+                }               
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

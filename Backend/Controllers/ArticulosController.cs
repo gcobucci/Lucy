@@ -43,13 +43,6 @@ namespace Backend.Controllers
         public ActionResult Create()
         {
             List<ModelCL.Tema> lTemas = db.Tema.ToList();
-            //List<Fachada.ViewModelCheckBox> lista_temas = new List<Fachada.ViewModelCheckBox>();
-            //foreach (ModelCL.Tema tema in lTemas)
-            //{
-            //    lista_temas.Add(new Fachada.ViewModelCheckBox() { Id = tema.TemaId, Nombre = tema.TemaNombre });
-            //}
-
-            //ViewBag.lTemas = lista_temas;
             ViewBag.lTemas = lTemas;
 
             return View();
@@ -59,7 +52,7 @@ namespace Backend.Controllers
         [Route("crear")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
-        {
+        {          
             if (ModelState.IsValid)
             {
                 short cont = 0;
@@ -114,12 +107,17 @@ namespace Backend.Controllers
                         }
                     }
                 }
+                           
+
 
                 ModelCL.Articulo newArticulo = new ModelCL.Articulo();
 
-                foreach (var t in temas)
+                if (temas != null)
                 {
-                    newArticulo.Tema.Add(db.Tema.Find(t));
+                    foreach (var t in temas)
+                    {
+                        newArticulo.Tema.Add(db.Tema.Find(t));
+                    }
                 }
 
                 contenido.Articulo = newArticulo;
@@ -127,6 +125,9 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Tema> lTemas = db.Tema.ToList();
+            ViewBag.lTemas = lTemas;
 
             return View(contenido);
         }
@@ -154,15 +155,16 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] temas)
+        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] checkBorrar, int[] temas)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 ModelCL.Contenido oldContenido = db.Contenido.Find(contenido.ContenidoId);
                 oldContenido.ContenidoTitulo = contenido.ContenidoTitulo;
                 oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
                 oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
 
+                //Agregar o cambiar multimedia
                 short cont = 0;
                 foreach (var file in files)
                 {
@@ -210,7 +212,9 @@ namespace Backend.Controllers
                                 {
                                     var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
                                     if (System.IO.File.Exists(oldPath))
+                                    {
                                         System.IO.File.Delete(oldPath);
+                                    }                                        
 
                                     //oldContenido.Multimedia.Remove(oldMult);
                                     oldMult.MultimediaUrl = newUrl;
@@ -235,6 +239,34 @@ namespace Backend.Controllers
                 }
 
 
+                //Eliminar multimedia
+                if (checkBorrar != null)
+                {
+                    foreach (int c in checkBorrar)
+                    {
+                        ModelCL.Multimedia oldM = db.Multimedia.Where(m => m.MultimediaId == c).FirstOrDefault();
+
+                        List<ModelCL.Multimedia> siguientesM = oldM.Contenido.Multimedia.Where(m => m.MultimediaOrden > oldM.MultimediaOrden).ToList();
+
+                        if (siguientesM.Count() != 0)
+                        {
+                            foreach (ModelCL.Multimedia sigM in siguientesM)
+                            {
+                                sigM.MultimediaOrden -= 1;
+                            }
+                        }
+
+                        var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldM.MultimediaUrl);
+                        if (System.IO.File.Exists(oldPath))
+                        {
+                            System.IO.File.Delete(oldPath);
+                        }
+
+                        db.Multimedia.Remove(oldM);
+                    }
+                }
+
+
                 List<ModelCL.Tema> bkTemas = oldContenido.Articulo.Tema.ToList();
                 foreach (ModelCL.Tema oldTema in bkTemas)
                 {
@@ -243,14 +275,21 @@ namespace Backend.Controllers
                 //bkTemas = null;
 
 
-                foreach (var t in temas)
+                if (temas != null)
                 {
-                    oldContenido.Articulo.Tema.Add(db.Tema.Find(t));
+                    foreach (var t in temas)
+                    {
+                        oldContenido.Articulo.Tema.Add(db.Tema.Find(t));
+                    }
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Tema> lTemas = db.Tema.ToList();
+            ViewBag.lTemas = lTemas;
+
             return View(contenido);
         }
 

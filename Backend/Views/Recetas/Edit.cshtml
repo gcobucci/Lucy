@@ -4,9 +4,6 @@
     ViewBag.Title = "Editar Receta";
 }
 
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm("edit", "recetas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -116,6 +113,14 @@
             </div>
         </div>
 
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -133,6 +138,14 @@
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -152,6 +165,14 @@
             </div>
         </div>
 
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -169,6 +190,14 @@
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
