@@ -234,7 +234,7 @@ namespace Lucy.Controllers
             }
             else
             {
-                ViewBag.Peso = "No hay registros";
+                ViewBag.Peso = "0";
             }
 
 
@@ -244,13 +244,13 @@ namespace Lucy.Controllers
             }
             else
             {
-                ViewBag.Altura = "No hay registros";
+                ViewBag.Altura = "0";
             }
 
 
             if (peso == null || altura == null)
             {
-                ViewBag.IMC = "No ha registrado los datos requeridos para este calculo";
+                ViewBag.IMC = "0";
             }
             else
             {
@@ -260,7 +260,7 @@ namespace Lucy.Controllers
 
             if (peso == null || altura == null || (Persona.Sexo.SexoNombre != "Hombre" && Persona.Sexo.SexoNombre != "Mujer"))
             {
-                ViewBag.IMC = "No ha registrado los datos requeridos para este calculo";
+                ViewBag.TMB = "0";
             }
             else
             {

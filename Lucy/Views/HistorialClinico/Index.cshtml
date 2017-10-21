@@ -89,6 +89,10 @@
                 + "}"
             + "});")
         }
+        else
+        {
+            @Html.Raw("$('#grafica_dtipo1').html('<h4 style=\"width: fit-content;margin: 0 auto;font-weight: 300;\">Sin datos</h4>')")
+        }
 
         @if (ViewBag.VerGraficaDieta == true)
         {
