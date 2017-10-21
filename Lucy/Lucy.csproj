@@ -445,6 +445,7 @@
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\CalculadorasController.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\FavoritoController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HistorialClinicoController.cs" />
@@ -470,6 +471,7 @@
     </Compile>
     <Compile Include="Models\CalcIMCViewModel.cs" />
     <Compile Include="Models\CalcTMBViewModel.cs" />
+    <Compile Include="Models\ComentarioViewModel.cs" />
     <Compile Include="Models\RegControlDiabeticoViewModel.cs" />
     <Compile Include="Models\RegComidaViewModel.cs" />
     <Compile Include="Models\ComidaAlimentoViewModel.cs" />
@@ -548,6 +550,8 @@
     <Content Include="Views\Configuracion\Index.cshtml" />
     <Content Include="Views\HistorialClinico\_DiabetesTipo1.cshtml" />
     <Content Include="Views\Home\_PermisoDenegado.cshtml" />
+    <Content Include="Views\Comentarios\_Index.cshtml" />
+    <Content Include="Views\Comentarios\_Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

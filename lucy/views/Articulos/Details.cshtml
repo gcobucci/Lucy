@@ -64,3 +64,12 @@
     @Html.ActionLink("Volver al listado", "Index")
 </p>
 
+
+
+<div id="comentarios">
+    @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })
+</div>
+<div id="crear_comentario">
+    @Html.Action("_Create", "Comentarios", new { idContenido = Model.ContenidoId })
+</div>
+
