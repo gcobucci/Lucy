@@ -96,6 +96,13 @@ namespace Lucy.Controllers
 
             if (ModelState.IsValid)
             {
+                if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos un alimento.";
+
+                    return View(datos);
+                }
+
                 long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
@@ -224,6 +231,13 @@ namespace Lucy.Controllers
             
             if (ModelState.IsValid)
             {
+                if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos un alimento.";
+
+                    return View(datos);
+                }
+
                 ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);

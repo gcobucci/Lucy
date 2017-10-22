@@ -200,7 +200,7 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
-                    RegistroDatCli.RegistroFchHora = DateTime.Now;
+                    RegistroDatCli.RegistroFchHora = DateTime.Now.Date;
 
                     ModelCL.DatCli DatCli = new ModelCL.DatCli();
 
@@ -220,7 +220,14 @@ namespace Lucy.Controllers
                     {
                         if (oldRegistroDatCliAltura.DatCli.DatCliAltura != Datos.DatCliAltura)
                         {
-                            DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                            if (oldRegistroDatCliAltura.RegistroFchHora.Date != DateTime.Now.Date)
+                            {
+                                DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                            }
+                            else
+                            {
+                                oldRegistroDatCliAltura.DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                            }                            
                         }                      
                     }
                     else
@@ -243,7 +250,7 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroPeso = new ModelCL.Registro();
-                    RegistroPeso.RegistroFchHora = DateTime.Now;
+                    RegistroPeso.RegistroFchHora = DateTime.Now.Date;
 
                     ModelCL.Peso Peso = new ModelCL.Peso();
                     Peso.PesoValor = Convert.ToDouble(Datos.PesoValor);
@@ -254,7 +261,14 @@ namespace Lucy.Controllers
                     {
                         if (oldRegistroPeso.Peso.PesoValor != Peso.PesoValor)
                         {
-                            Persona.Registro.Add(RegistroPeso);
+                            if (oldRegistroPeso.RegistroFchHora.Date != DateTime.Now.Date)
+                            {
+                                Persona.Registro.Add(RegistroPeso);
+                            }
+                            else
+                            {
+                                oldRegistroPeso.Peso.PesoValor = RegistroPeso.Peso.PesoValor;
+                            }                            
                         }
                     }
                     else
