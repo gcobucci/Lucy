@@ -536,16 +536,20 @@ namespace Lucy.Controllers
         [Route("lastlogin")]
         public ActionResult LastLogin()
         {
-            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
-            using (AgustinaEntities db = new AgustinaEntities())
+            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-                Usuario.UsuarioLastLogin = DateTime.Now;
+                using (AgustinaEntities db = new AgustinaEntities())
+                {
+                    ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
 
-                db.SaveChanges();
+                    Usuario.UsuarioLastLogin = DateTime.Now;
+
+                    db.SaveChanges();
+                }
             }
+            
             return null;
         }
     }
