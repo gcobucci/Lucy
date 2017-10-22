@@ -39,10 +39,13 @@ function getUsuPos() {
 
 function responder(ComId, UsuNom) {
     $('#ComentarioPadreId').val(ComId);
+    $("#ComentarioCuerpo").focus();
+    document.getElementById("btn-CancelarRespuesta").style.display = "inline-block";
 }
 
 function cancelarRespuesta() {
     $('#ComentarioPadreId').val(null);
+    document.getElementById("btn-CancelarRespuesta").style.display = "none";
 }
 
 function btnComentar(idContenido) {

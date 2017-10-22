@@ -71,14 +71,13 @@
 
                 <p><h3>MATE SD no garantiza ni asume ningún tipo de responsabilidad por los daños y perjuicios de toda clase que puedan deberse a:</h3></p>
 
-                <p>
-                    <ul>
-                        <li><p>El funcionamiento, disponibilidad, accesibilidad o continuidad de los sitios enlazados.</p></li>
-                        <li><p>La prestación o transmisión de la información, contenidos y servicios existentes en los sitios enlazados.</p></li>
-                        <li><p>La calidad, licitud, fiabilidad y utilidad de la información contenidos y servicios existentes en los sitios enlazados, en los mismos términos y con el mismo alcance dispuesto respecto de los contenidos y de los servicios prestados por terceros a través del portal.</p></li>
-                        <li><p>El mantenimiento de la información, contenidos y servicios existentes en los sitios que por algún medio se encontraren enlazados.</p></li>
-                    </ul>
-                </p>
+                <ul style="margin-left: 40px;">
+                    <li><p>El funcionamiento, disponibilidad, accesibilidad o continuidad de los sitios enlazados.</p></li>
+                    <li><p>La prestación o transmisión de la información, contenidos y servicios existentes en los sitios enlazados.</p></li>
+                    <li><p>La calidad, licitud, fiabilidad y utilidad de la información contenidos y servicios existentes en los sitios enlazados, en los mismos términos y con el mismo alcance dispuesto respecto de los contenidos y de los servicios prestados por terceros a través del portal.</p></li>
+                    <li><p>El mantenimiento de la información, contenidos y servicios existentes en los sitios que por algún medio se encontraren enlazados.</p></li>
+                </ul>
+                
                 <br />
 
                 <p><h3>Propiedad intelectual e industrial</h3></p>
@@ -206,15 +205,14 @@ else
                     @Html.DropDownListFor(model => model.UsuarioPais, ViewBag.lPaises as SelectList, "Seleccionar", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UsuarioPais, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-            <div id="terminos_condiciones">
-                <p>Al registrarse, declara que es mayor de edad y acepta las <a href="#" onclick="openModal()">Políticas de privacidad y los Términos y condiciones</a> de YoTeCuido.</p>
-            </div>                 
+            </div>              
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input id="btnSave" type="submit" value="Registrarse" class="btn btn-default" />
+                    <input id="btnSave" type="submit" value="Registrarse" class="btn btn-default" style="margin-bottom:10px;" />
+                    <div id="terminos_condiciones">
+                        <p>Al registrarse, declara que es mayor de edad y acepta las <a href="#" onclick="openModal()">Políticas de privacidad y los Términos y condiciones</a> de YoTeCuido.</p>
+                    </div>   
                 </div>
             </div>
 

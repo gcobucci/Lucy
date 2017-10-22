@@ -114,6 +114,16 @@ header {
         right: -10px !important;
     }
 
+#terminos_condiciones {
+    display: inline-block;
+    max-width: 322px;
+}
+
+#terminos_condiciones p{
+    color: #999;
+    font-size: 11px;
+}
+
 .barras {
     display: inline-block;
     cursor: pointer;
@@ -1584,16 +1594,6 @@ input.bordered-btn {
     display: none;
 }
 
-.reply-list li:before {
-    content: '';
-    width: 60px;
-    height: 2px;
-    background: #c7cacb;
-    position: absolute;
-    top: 25px;
-    left: -55px;
-}
-
 
 .comments-list li {
     margin-bottom: 15px;
@@ -1624,6 +1624,7 @@ input.bordered-btn {
     z-index: 99;
     float: left;
     border: 3px solid #FFF;
+    background-color: #999;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;

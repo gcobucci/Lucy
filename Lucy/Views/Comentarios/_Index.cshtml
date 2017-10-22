@@ -25,7 +25,7 @@
                 </div>
                 <!-- Respuestas de los comentarios -->
                 <ul class="comments-list reply-list">
-                    @foreach (var comHijo in comPadre.ComentariosHijos)
+                    @foreach (var comHijo in comPadre.ComentariosHijos.OrderBy(modelItem => comPadre.ComentarioFchHora))
                     {
                         <li>
                             @Html.HiddenFor(modelItem => comHijo.ComentarioId)
