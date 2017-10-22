@@ -1054,6 +1054,7 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\RegAguaController.cs" />
     <Compile Include="Controllers\RegActividadController.cs" />
+    <Compile Include="Controllers\RegistrosController.cs" />
     <Compile Include="Controllers\RegPesoController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />

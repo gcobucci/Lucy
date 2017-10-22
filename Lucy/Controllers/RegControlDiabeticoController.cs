@@ -48,7 +48,7 @@ namespace Lucy.Controllers
             {
                 ModelCL.Persona Persona = db.Persona.Find(idPer);
 
-                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
+                TempData["NoCumpleRequisitos"] = "La persona " + Persona.nombreCompleto + " no tiene la enfermedad Diabetes tipo 1 y por lo tanto no puede acceder a este registro.";
                 return RedirectToAction("Index", "Home");
             }
 
