@@ -1271,8 +1271,7 @@ input.custom-control-input {
     height: 300px;
     width: 100%;
     max-width: 750px;
-    /*padding: 25px;*/ 
-    background-color: #FFF;
+    background-color: #FFF !important;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,.2)
 }
