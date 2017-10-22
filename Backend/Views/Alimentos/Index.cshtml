@@ -38,9 +38,6 @@
                     <th>
                         Gluten
                     </th>
-                    <th>
-                        Usuario
-                    </th>
                     <th></th>
                 </tr>
 
@@ -73,16 +70,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.AlimentoGluten)
-                        </td>
-                        <td>
-                            @if (item.Usuario != null)
-                            {
-                                @Html.DisplayFor(modelItem => item.Usuario.UsuarioNombre)
-                            }
-                            else
-                            {
-                                <text>Alimento Oficial</text>
-                            }
                         </td>
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.AlimentoId }) |
