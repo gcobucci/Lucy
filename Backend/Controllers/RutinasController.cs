@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var rutinas = db.Contenido.Where(c => c.Rutina != null).ToList();
+            var rutinas = db.Contenido.Where(c => c.Rutina != null && c.UsuarioAutor == null).ToList();
 
             return View(rutinas);
         }
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.ToList();
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lEjercicios = lEjercicios;
 
             return View();
@@ -70,7 +70,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.ToList();
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lEjercicios = lEjercicios;
 
             return View(contenido);
@@ -90,7 +90,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.ToList();
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lEjercicios = lEjercicios;
 
             return View(contRutina);
@@ -126,6 +126,9 @@ namespace Backend.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
+            ViewBag.lEjercicios = lEjercicios;
+
             return View(contenido);
         }
 

@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var recetas = db.Contenido.Where(c => c.Receta != null).ToList();
+            var recetas = db.Contenido.Where(c => c.Receta != null && c.UsuarioAutor == null).ToList();
 
             return View(recetas);
         }

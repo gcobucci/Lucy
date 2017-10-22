@@ -1017,6 +1017,8 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1066,6 +1068,7 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\RegAguaController.cs" />
     <Compile Include="Controllers\RegActividadController.cs" />
+    <Compile Include="Controllers\RegistrosController.cs" />
     <Compile Include="Controllers\RegPesoController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
@@ -1126,7 +1129,7 @@
     <Content Include="Views\RegMedicacion\Edit.cshtml" />
     <Content Include="Views\RegMedicacion\Index.cshtml" />
     <Content Include="Views\RegMedicacion\Create.cshtml" />
-    <Content Include="Views\RegMedicacion\_Create.cshtml" />
+    <Content Include="Views\RegMedicacion\_Medicinas.cshtml" />
     <Content Include="Views\RegControl\_Create.cshtml" />
     <Content Include="Views\RegControl\Create.cshtml" />
     <Content Include="Views\RegControl\Delete.cshtml" />

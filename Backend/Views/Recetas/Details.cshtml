@@ -10,7 +10,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ContenidoTitulo)
+            @Html.Label("Título")
         </dt>
 
         <dd>
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ContenidoDescripcion)
+            @Html.Label("Descripción")
         </dt>
 
         <dd>
@@ -26,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ContenidoCuerpo)
+            @Html.Label("Cuerpo")
         </dt>
 
         <dd>
@@ -34,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaCalorias)
+            @Html.Label("Calorías")
         </dt>
 
         <dd>
@@ -42,7 +42,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaHidratos)
+            @Html.Label("Hidratos")
         </dt>
 
         <dd>
@@ -50,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaGluten)
+           @Html.Label("Gluten")
         </dt>
 
         <dd>
@@ -58,7 +58,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Receta.RecetaSodio)
+            @Html.Label("Sodio")
         </dt>
 
         <dd>
@@ -68,11 +68,11 @@
         @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
         {
             @*<dt>
-                @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
             </dt>*@
 
             <dd>
-                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
             </dd>
         }
         

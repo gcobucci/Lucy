@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PresentacionId, "ValorId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Presentación", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.PresentacionId, ViewBag.lPresentacionesMed as SelectList, "Seleccionar", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PresentacionId, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DosisCantidadMin, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Cantidad Minima de Dosis", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DosisCantidadMin, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DosisCantidadMin, "", new { @class = "text-danger" })
@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DosisEfecto, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Efecto de la Dosis", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DosisEfecto, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DosisEfecto, "", new { @class = "text-danger" })

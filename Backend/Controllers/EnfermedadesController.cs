@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            List<ModelCL.Enfermedad> enfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> enfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
 
             return View(enfermedades);
         }
@@ -46,7 +46,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View();
@@ -83,7 +83,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);
@@ -106,7 +106,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);
@@ -161,7 +161,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);

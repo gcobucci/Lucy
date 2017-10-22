@@ -14,13 +14,13 @@
             <table class="table">
                 <tr>
                     <th>
-                        Titulo
+                        Título
                     </th>
                     <th>
-                        Descripcion
+                        Descripción
                     </th>
                     <th>
-                        Imágen
+                        Imagen
                     </th>
                     <th>
                     </th>
@@ -36,7 +36,7 @@
                             @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
                         </td>
                         <td>
-                            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
                         </td>
                         <td>
                             @Html.ActionLink("Ver", "Details", new { id = item.ContenidoId }) |
