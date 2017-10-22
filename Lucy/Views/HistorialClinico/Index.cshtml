@@ -44,18 +44,18 @@
     <script src="~/Scripts/echarts/map/js/world.js"></script>
     
     <script>
-
+        //parseTime: false,
         $('#grafica_peso').ready(function () {
             if ($('#grafica_peso').length) {
                 Morris.Line({
                     @if(auxPeso != null)
                     {
-                        @Html.Raw("element: 'grafica_peso', xkey: 'Fch', ykeys: ['peso'], labels: ['Peso'], parseTime: false, hideHover: 'auto', lineColors: ['#34495E'], data: [")
+                        @Html.Raw("element: 'grafica_peso', xkey: 'Fch', ykeys: ['peso'], labels: ['Peso'], hideHover: 'auto', lineColors: ['#34495E'], data: [")
                         foreach (var item in auxPeso)
                         {
                             @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("yyyy-MM-dd") + "', peso: " + item.Peso.PesoValor + " },")
                         }
-                        @Html.Raw("], resize: true")
+                        @Html.Raw("], resize: true, xLabels: \"month\"")
                     }
                 });
             }
