@@ -23,7 +23,7 @@
         @Html.HiddenFor(model => model.ContenidoId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContenidoTitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Título", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContenidoTitulo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContenidoTitulo, "", new { @class = "text-danger" })
@@ -31,7 +31,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContenidoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContenidoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContenidoDescripcion, "", new { @class = "text-danger" })
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContenidoCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Cuerpo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextAreaFor(model => model.ContenidoCuerpo, 10, 0, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
         @Html.HiddenFor(model => model.Receta.RecetaId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Receta.RecetaCalorias, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Calorías", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Receta.RecetaCalorias, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Receta.RecetaCalorias, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Receta.RecetaHidratos, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Hidratos", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Receta.RecetaHidratos, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Receta.RecetaHidratos, "", new { @class = "text-danger" })
@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Receta.RecetaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Sodio", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Receta.RecetaSodio)
@@ -76,7 +76,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Receta.RecetaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Gluten", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Receta.RecetaGluten)
