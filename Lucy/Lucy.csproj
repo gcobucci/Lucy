@@ -1114,7 +1114,7 @@
     <Content Include="Views\RegMedicacion\Edit.cshtml" />
     <Content Include="Views\RegMedicacion\Index.cshtml" />
     <Content Include="Views\RegMedicacion\Create.cshtml" />
-    <Content Include="Views\RegMedicacion\_Create.cshtml" />
+    <Content Include="Views\RegMedicacion\_Medicinas.cshtml" />
     <Content Include="Views\RegControl\_Create.cshtml" />
     <Content Include="Views\RegControl\Create.cshtml" />
     <Content Include="Views\RegControl\Delete.cshtml" />

@@ -33,7 +33,7 @@
                         Gluten por Receta
                     </th>
                     <th>
-                        Imágen
+                        Imagen
                     </th>
                     <th></th>
                 </tr>
@@ -60,13 +60,7 @@
                             @Html.DisplayFor(modelItem => item.Receta.RecetaGluten)
                         </td>
                         <td>
-                            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
-                            @*<img src="../../Resources/Oficial/Imagenes/Recetas/papa.png" />*@
-                            @*<img src="@ViewBag.resUrl@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaTipo == "Portada").FirstOrDefault().MultimediaUrl)" alt="Alternate Text" />*@
-                            @*<img src="file:C:\Users\gcobu\Dropbox\Cobucci\Proyectos\Lucy\Backend\Resources\Oficial\Imagenes\Recetas\papa.png" alt="Alternate Text" />*@
-                            @*<img src="../../Lucy/Resources/Oficial/Imagenes/Recetas/papa.png" height="70" width="70" alt="Papas" title="Papas">*@
-                            @*<img src="@Href("../../Lucy/Resources/Oficial/Imagenes/bc9e65bc-9219-4ef4-ae72-d20d5c05f8d8.png")"/>*@
-                            @*<img src="@ViewBag.baseUrl../Lucy/Resources/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaTipo == "Portada").FirstOrDefault().MultimediaUrl)" />*@
+                            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />                           
                         </td>
                         <td>
                             @Html.ActionLink("Ver", "Details", new { id = item.ContenidoId }) |

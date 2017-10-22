@@ -49,11 +49,11 @@
         @foreach (var item in Model.Multimedia.OrderBy(m => m.MultimediaOrden))
         {
             @*<dt>
-                    @Html.Label("Imágen", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
                 </dt>*@
 
             <dd>
-                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
             </dd>
         }
 
