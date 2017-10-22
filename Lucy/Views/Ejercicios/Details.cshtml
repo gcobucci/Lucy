@@ -67,3 +67,20 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ContenidoId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div id="comentarios">
+    @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })
+</div>
+
+<div id="crear_comentario">
+    @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+
+        @Html.Action("_Create", "Comentarios", new { idContenido = Model.ContenidoId })
+
+    }
+    else
+    {
+        <a href="/login">Inicia sesión para comentar</a>
+    }
+</div>

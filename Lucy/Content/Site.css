@@ -42,6 +42,11 @@ header {
     padding-top: 7px;
 }
 
+#getPremiumIMG {
+    margin: -14.7px;
+    margin-bottom: 25px;
+}
+
 .btn i, .btn span {
     color: #737373;
 }
@@ -1622,6 +1627,7 @@ input.bordered-btn {
     position: relative;
     z-index: 99;
     float: left;
+    text-align: center;
     border: 3px solid #FFF;
     background-color: #999;
     -webkit-border-radius: 4px;
@@ -1633,15 +1639,24 @@ input.bordered-btn {
     overflow: hidden;
 }
 
-    .comments-list .comment-avatar img {
-        width: 100%;
-        height: 100%;
+    .comments-list .comment-avatar .comment-avatar-letter {
+        color: white;
+        font-size: 2em;
+        line-height: 59px;
+        text-shadow: 0 0 5px #000;
     }
 
 .reply-list .comment-avatar {
     width: 50px;
     height: 50px;
 }
+
+    .reply-list .comment-avatar .comment-avatar-letter {
+        color: white;
+        font-size: 1.5em;
+        line-height: 44px;
+        text-shadow: 0 0 5px #000;
+    }
 
 .comment-main-level:after {
     content: '';
@@ -1802,4 +1817,41 @@ input.bordered-btn {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s;
+}
+
+
+/********************************************** BTN GET PREMIUM ************************************************************/
+
+.btn-custom {
+    font-size: 14px;
+    padding: 7px 20px 7px 20px;
+    border: none;
+    background: #e4e4e4;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .btn-custom:hover, .btn-custom:focus, .btn-custom.focus {
+        text-decoration: none;
+    }
+
+.btn-info-custom {
+    background-color: #51b7a3;
+    color: #fff;
+}
+
+.btn-info-custom:hover, .btn-info-custom:focus, .btn-info-custom.focus, .btn-info-custom:active, .btn-info-custom.active, .open > .dropdown-toggle.btn-info-custom {
+    background-color: #5fbdab;
+    color: #fff;
+}
+
+.btn-rounded {
+    border-radius: 999px;
 }

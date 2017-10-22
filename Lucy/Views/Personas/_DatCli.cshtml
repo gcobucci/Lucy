@@ -82,7 +82,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PesoValor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PesoValor, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.EditorFor(model => model.PesoValor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PesoValor, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DatCliAltura, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DatCliAltura, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.EditorFor(model => model.DatCliAltura, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DatCliAltura, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -138,7 +138,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.DiabetesHidratosPorUniInsu, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DiabetesHidratosPorUniInsu, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    @Html.EditorFor(model => model.DiabetesHidratosPorUniInsu, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.DiabetesHidratosPorUniInsu, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -220,5 +220,5 @@
         //    //success: location.reload()
         //});
         //window. = "/personas/datos_clinicos";
-    }
+    } 
 </script>
