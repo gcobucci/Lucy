@@ -1,0 +1,49 @@
+﻿<h3>Datos generales</h3>
+<h5>Datos generales del cuerpo y metabolismo de la persona</h5>
+
+<br />
+
+<div class="datos row">
+    <div class="row tile_count">
+        <!-- Altura -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-resize-vertical"></i> Altura</span>
+            <div class="count">@ViewBag.Altura cm.</div>
+            <span class="count_bottom">Altura actual</span>
+        </div>
+        <!-- Peso -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-scale"></i> Peso</span>
+            <div class="count yellow">@ViewBag.Peso kg.</div>
+            <span class="count_bottom">Peso actual</span>
+        </div>
+        <!-- IMC -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-dashboard"></i> IMC</span>
+            <div class="count green">@ViewBag.IMC</div>
+            <span class="count_bottom">Valor IMC</span>
+        </div>
+        <!-- TMB -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-dashboard"></i> TMB</span>
+            <div class="count red">@ViewBag.TMB</div>
+            <span class="count_bottom">Valores TMB</span>
+        </div>
+    </div>
+
+    @*<div class="col-sm-12">
+        <b>Altura Actual</b>: @ViewBag.Altura cm.
+        <span class="datosGeneralesInLine">
+            <span><b>Peso Actual</b>: @ViewBag.Peso kg.</span>
+            <span><b>IMC (según datos registrados)</b>: @ViewBag.IMC</span>
+            <span><b>TMB (según datos registrados)</b>: @ViewBag.TMB</span>
+        </span>
+    </div>*@               
+</div>
+
+<br />
+
+<div class="graph-wrapper row">
+    <div id="grafica_peso" class="graph">
+    </div>
+</div>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -371,7 +371,7 @@
           <Property Name="ComidaId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="AlimentoId" Type="bigint" Nullable="false" />
-          <Property Name="ReComAliCantidad" Type="float" Nullable="false" />
+          <Property Name="RelComAliCantidad" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="RelComCom">
           <Key>
@@ -634,6 +634,7 @@
           <Property Name="UsuarioFchIng" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="varchar" MaxLength="50" />
           <Property Name="UsuarioLastLogin" Type="datetime" />
+          <Property Name="UsuarioRecibirEmails" Type="bit" Nullable="false" StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Valor">
           <Key>
@@ -2176,8 +2177,7 @@
             <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2631,7 +2631,7 @@
           <Property Name="ComidaId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="AlimentoId" Type="Int64" Nullable="false" />
-          <Property Name="ReComAliCantidad" Type="Double" Nullable="false" />
+          <Property Name="RelComAliCantidad" Type="Double" Nullable="false" />
           <NavigationProperty Name="Alimento" Relationship="Self.FK_RelComAli_AlimentoId" FromRole="RelComAli" ToRole="Alimento" />
           <NavigationProperty Name="Comida" Relationship="Self.FK_RelComAli_ComidaId_PersonaId" FromRole="RelComAli" ToRole="Comida" />
         </EntityType>
@@ -2779,6 +2779,7 @@
           <NavigationProperty Name="Contenidos" Relationship="Self.RelUsuCont" FromRole="Usuario" ToRole="Contenido" />
           <NavigationProperty Name="Enfermedad" Relationship="Self.RelUsuEnf" FromRole="Usuario" ToRole="Enfermedad" />
           <NavigationProperty Name="Medicina" Relationship="Self.RelUsuMed" FromRole="Usuario" ToRole="Medicina" />
+          <Property Name="UsuarioRecibirEmails" Type="Boolean" Nullable="false" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Valor">
           <Key>
@@ -4179,7 +4180,7 @@
                 <ScalarProperty Name="ComidaId" ColumnName="ComidaId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="AlimentoId" ColumnName="AlimentoId" />
-                <ScalarProperty Name="ReComAliCantidad" ColumnName="ReComAliCantidad" />
+                <ScalarProperty Name="RelComAliCantidad" ColumnName="RelComAliCantidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4286,6 +4287,7 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="AgustinaDBModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="UsuarioRecibirEmails" ColumnName="UsuarioRecibirEmails" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
                 <ScalarProperty Name="UsuarioEmail" ColumnName="UsuarioEmail" />

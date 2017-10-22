@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            List<ModelCL.Alimento> alimentos = db.Alimento.ToList();
+            List<ModelCL.Alimento> alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
 
             return View(alimentos);
         }

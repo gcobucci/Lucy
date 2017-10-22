@@ -1,19 +1,104 @@
 ﻿@{
-    ViewBag.Title = "Historial clínico";
+    var auxPeso = ViewBag.regPeso;
+    var auxDTipo1_bueno = ViewBag.ControlesCorrectosPorcentaje;
+    var auxDTipo1_regular = ViewBag.ControlesRegularesPorcentaje;
+    var auxDTipo1_malo = ViewBag.ControlesPeligrososPorcentaje;
+}
+
+@{
+    ViewBag.Title = "Historial Clínico";
 }
 
 <h2>Historial clínico</h2>
 <br />
 <p>Esta viendo el historial clínico de <b>@ViewBag.Persona</b>.</p>
 
-<br />
+<hr style="border: 1px solid #ccc;border-radius: 1px;">
 
-<div id="relacion_peso_altura">
-    @Html.Action("_RelacionPesoAltura", "HistorialClinico")
+<div class="datos_generales">
+    @Html.Action("_DatosGenerales", "HistorialClinico")
 </div>
 
-<br />
+<hr style="border: 1px solid #ccc;border-radius: 1px;">
 
 <div id="dieta">
     @Html.Action("_Dieta", "HistorialClinico")
 </div>
+
+@if (ViewBag.VerDiabeticoTipo1)
+{
+    <hr style="border: 1px solid #ccc;border-radius: 1px;">
+
+    <div id="diabetes_tipo_1">
+        @Html.Action("_DiabetesTipo1", "HistorialClinico")
+    </div>
+}
+
+
+@section scripts{
+    <!-- morris.js -->
+    <script src="~/Scripts/raphael.min.js"></script>
+    <script src="~/Scripts/morris.min.js"></script>
+    <!-- echarts -->
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/map/js/world.js"></script>
+    
+    <script>
+        //parseTime: false,
+        $('#grafica_peso').ready(function () {
+            if ($('#grafica_peso').length) {
+                Morris.Line({
+                    @if(auxPeso != null)
+                    {
+                        @Html.Raw("element: 'grafica_peso', xkey: 'Fch', ykeys: ['peso'], labels: ['Peso'], hideHover: 'auto', lineColors: ['#34495E'], data: [")
+                        foreach (var item in auxPeso)
+                        {
+                            @Html.Raw("{ Fch: '" + item.RegistroFchHora.Date.ToString("yyyy-MM-dd") + "', peso: " + item.Peso.PesoValor + " },")
+                        }
+                        @Html.Raw("], resize: true, xLabels: \"month\"")
+                    }
+                });
+            }
+        });
+
+        @if (auxPeso == null)
+        {
+            @Html.Raw("$('#grafica_peso').html('<h4 style=\"width: fit-content;margin: 0 auto;padding-top: 25px;font-weight: 300;\">Sin datos</h4>')")
+        }
+
+        @if (ViewBag.VerDiabeticoTipo1 && auxDTipo1_bueno != 0 && auxDTipo1_regular != 0 && auxDTipo1_malo != 0)
+        {
+            @Html.Raw("$('#grafica_dtipo1').ready(function() {"
+                            + "if ($('#grafica_dtipo1').length) {"
+                    + "Morris.Donut({"
+                        + "element: 'grafica_dtipo1',"
+                        + "data: ["
+                            + "{ label: 'Correctos', value: " + auxDTipo1_bueno + " },"
+                            + "{ label: 'Regulares', value: " + auxDTipo1_regular + " },"
+                            + "{ label: 'Peligrosos', value: " + auxDTipo1_malo + " }"
+                        + "],"
+                        + "colors: ['#26B99A', '#ffa500', '#dc143c'],"
+                        + "formatter: function(y) {"
+                            + "return y + '%';"
+                        + "},"
+                        + "resize: true"
+                    + "});"
+                + "}"
+            + "});")
+        }
+        else
+        {
+            @Html.Raw("$('#grafica_dtipo1').html('<h4 style=\"width: fit-content;margin: 0 auto;padding-top: 25px;font-weight: 300;\">Sin datos</h4>')")
+        }
+
+        @if (ViewBag.VerGraficaDieta == true)
+        {
+            @Html.Raw("$('#grafica_calorias').ready(function () {        var echartPie = echarts.init(document.getElementById('grafica_calorias'));        echartPie.setOption({            tooltip: {                trigger: 'item',                    formatter: '{a} <br/>{b} : {c} ({d}%)'                },               legend: {                x: 'center',                    y: 'bottom',                    data: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Ingestas/Colaciones/Aperitivos']                },                toolbox: {                show: true,                    feature: {                    magicType: {                        show: true,                            type: ['pie', 'funnel'],                            option: {                            funnel: {                                x: '25%',                                    width: '50%',                                    funnelAlign: 'left',                                    max: 1548                                }                        }                    },                        saveAsImage: {                        show: true,                            title: 'Guardar Imagen'                        }                }            },                calculable: true,                series: [{                name: 'Dieta',                    type: 'pie',                    radius: '55%',                    center: ['50%', '48%'],                    data: [{                    value: " + ViewBag.CaloriasDesayunoPorcentaje + ",                        name: 'Desayuno'                    }, {                    value: " + ViewBag.CaloriasAlmuerzoPorcentaje + ",                        name: 'Almuerzo'                    }, {                    value: " + ViewBag.CaloriasMeriendaPorcentaje + ",                        name: 'Merienda'                    }, {                    value: " + ViewBag.CaloriasCenaPorcentaje + ",                        name: 'Cena'                    }, {                    value: " + ViewBag.CaloriasIngestasPorcentaje + ",                        name: 'Ingestas/Colaciones/Aperitivos'                    }]                }]            });            var dataStyle = {                normal: {                    label: {                        show: false                    },                    labelLine: {                        show: false                    }                }            };            var placeHolderStyle = {                normal: {                    color: 'rgba(0,0,0,0)',                    label: {                        show: false                    },                    labelLine: {                        show: false                    }                },                emphasis: {                    color: 'rgba(0,0,0,0)'                }            };        window.onresize = function () {echartPie.resize();};});")
+        }
+        else
+        {
+            @Html.Raw("$('#grafica_calorias').html('<h4 style=\"width: fit-content;margin: 0 auto;padding-top: 25px;font-weight: 300;\">Sin datos</h4>')")
+        }
+        
+        </script>
+}

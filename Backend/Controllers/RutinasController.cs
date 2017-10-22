@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var rutinas = db.Contenido.Where(c => c.Rutina != null).ToList();
+            var rutinas = db.Contenido.Where(c => c.Rutina != null && c.UsuarioAutor == null).ToList();
 
             return View(rutinas);
         }
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.ToList();
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lEjercicios = lEjercicios;
 
             return View();
@@ -57,15 +57,21 @@ namespace Backend.Controllers
             {
                 contenido.Rutina = new ModelCL.Rutina();
 
-                foreach (var e in ejercicios)
+                if (ejercicios != null)
                 {
-                    contenido.Rutina.Ejercicio.Add(db.Ejercicio.Find(e));
+                    foreach (var e in ejercicios)
+                    {
+                        contenido.Rutina.Ejercicio.Add(db.Ejercicio.Find(e));
+                    }
                 }
 
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
+            ViewBag.lEjercicios = lEjercicios;
 
             return View(contenido);
         }
@@ -84,7 +90,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.ToList();
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lEjercicios = lEjercicios;
 
             return View(contRutina);
@@ -108,16 +114,21 @@ namespace Backend.Controllers
                 {
                     oldContenido.Rutina.Ejercicio.Remove(oldEjercicio);
                 }
-
-
-                foreach (var e in ejercicios)
+                
+                if (ejercicios != null)
                 {
-                    oldContenido.Rutina.Ejercicio.Add(db.Ejercicio.Find(e));
+                    foreach (var e in ejercicios)
+                    {
+                        oldContenido.Rutina.Ejercicio.Add(db.Ejercicio.Find(e));
+                    }
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<ModelCL.Ejercicio> lEjercicios = db.Ejercicio.Where(e => e.Contenido.UsuarioAutor == null).ToList();
+            ViewBag.lEjercicios = lEjercicios;
+
             return View(contenido);
         }
 

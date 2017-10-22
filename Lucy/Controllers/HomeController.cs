@@ -28,7 +28,7 @@ namespace Lucy.Controllers
 
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
                 List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -63,11 +63,11 @@ namespace Lucy.Controllers
         }
 
         // Guardar Persona a cargo en cookie
-        public ActionResult selPersona(int PerId)
+        public ActionResult selPersona(int PerId, string url)
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
                 ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
                 List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -96,7 +96,7 @@ namespace Lucy.Controllers
                 }
                 
             }
-            return null;
+            return Redirect(url);
         }
     }
 }

@@ -3,6 +3,7 @@ using ModelCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -10,16 +11,18 @@ using System.Web.Security;
 namespace Lucy.Controllers
 {
     [Authorize]
+    [RoutePrefix("personas")]
     public class PersonasController : Controller
     {
         private AgustinaEntities db = new AgustinaEntities();
 
         [HttpGet]
+        [Route("datos_clinicos")]
         public ActionResult Datos_Clinicos()
         {
             HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
+            long idUsu = Convert.ToInt32(usu.Name);
 
             ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
             List<ModelCL.RelUsuPer> lRelUsuPer = Usuario.RelUsuPer.ToList();
@@ -28,99 +31,147 @@ namespace Lucy.Controllers
             {
                 lPersonas.Add(rup.Persona);
             }
-            ModelCL.Persona Persona = new ModelCL.Persona();
-            Persona.PersonaId = 0;
-            Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
-            lPersonas.Add(Persona);
+
+            if (Fachada.Functions.es_premium(idUsu) == true)
+            {
+                if (lPersonas.Count() < 5)
+                {
+                    ModelCL.Persona Persona = new ModelCL.Persona();
+                    Persona.PersonaId = 0;
+                    Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
+                    lPersonas.Add(Persona);
+                }
+            }
+            else
+            {
+                if (lPersonas.Count() < 2)
+                {
+                    ModelCL.Persona Persona = new ModelCL.Persona();
+                    Persona.PersonaId = 0;
+                    Persona.PersonaNombre = ">> CREAR NUEVA PERSONA <<";
+                    lPersonas.Add(Persona);
+                }
+            }
+            
+            
             ViewBag.listaPersonas = new SelectList(lPersonas, "PersonaId", "nombreCompleto");
             return View();
         }
 
         [HttpGet]
+        [Route("_datcli")]
         public PartialViewResult _DatCli(long id)
         {
-            try
+            DatCliViewModel newDatCli = new DatCliViewModel();
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();
+            List<Fachada.ViewModelCheckBox> lEnf = new List<Fachada.ViewModelCheckBox>();
+            foreach (ModelCL.Enfermedad enf in lEnfermedades)
             {
-                DatCliViewModel newDatCli = new DatCliViewModel();
+                lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
+            }
 
-                List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();
-                List<Fachada.ViewModelCheckBox> lEnf = new List<Fachada.ViewModelCheckBox>();
-                foreach (ModelCL.Enfermedad enf in lEnfermedades)
+            newDatCli.Enfermedades = lEnf;
+
+
+            if (id != 0)
+            {
+                ModelCL.Persona Persona = db.Persona.Find(id);
+
+                newDatCli.PersonaNombre = Persona.PersonaNombre;
+                newDatCli.PersonaApellido = Persona.PersonaApellido;
+                newDatCli.PersonaFchNac = Persona.PersonaFchNac.ToString();
+                newDatCli.SexoId = Persona.SexoId;
+
+
+                ModelCL.Registro RegistroDatCliActividad = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliNivelActividad != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
+
+                if (RegistroDatCliActividad != null)
                 {
-                    lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
+                    newDatCli.DatCliNivelActividad = RegistroDatCliActividad.DatCli.DatCliNivelActividad;
                 }
 
-                newDatCli.Enfermedades = lEnf;
+                ModelCL.Registro RegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();                     
 
-
-                if (id != 0)
+                if (RegistroPeso != null)
                 {
-                    ModelCL.Persona Persona = db.Persona.Find(id);
+                    newDatCli.PesoValor = RegistroPeso.Peso.PesoValor;
+                }                    
 
-                    newDatCli.PersonaNombre = Persona.PersonaNombre;
-                    newDatCli.PersonaApellido = Persona.PersonaApellido;
-                    newDatCli.PersonaFchNac = Persona.PersonaFchNac.ToString();
-                    newDatCli.SexoId = Persona.SexoId;
+                ModelCL.Registro RegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();              
 
-
-                    ModelCL.Registro RegistroDatCliActividad = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliNivelActividad != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
-
-                    if (RegistroDatCliActividad != null)
-                    {
-                        newDatCli.DatCliNivelActividad = RegistroDatCliActividad.DatCli.DatCliNivelActividad;
-                    }
-
-                    ModelCL.Registro RegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();                     
-
-                    if (RegistroPeso != null)
-                    {
-                        newDatCli.PesoValor = RegistroPeso.Peso.PesoValor;
-                    }                    
-
-                    ModelCL.Registro RegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();              
-
-                    if (RegistroDatCliAltura != null)
-                    {
-                        newDatCli.DatCliAltura = RegistroDatCliAltura.DatCli.DatCliAltura;
-                    }
+                if (RegistroDatCliAltura != null)
+                {
+                    newDatCli.DatCliAltura = RegistroDatCliAltura.DatCli.DatCliAltura;
+                }
                     
                     
 
-                    for (int i = 0; i < newDatCli.Enfermedades.Count; i++)
+                for (int i = 0; i < newDatCli.Enfermedades.Count; i++)
+                {
+                    ModelCL.RelPerEnf rel = Persona.RelPerEnf.Where(rpe => rpe.EnfermedadId == newDatCli.Enfermedades[i].Id).FirstOrDefault();
+
+                    if (rel != null)
                     {
-                        ModelCL.RelPerEnf rel = Persona.RelPerEnf.Where(rpe => rpe.EnfermedadId == newDatCli.Enfermedades[i].Id).FirstOrDefault();
-
-                        if (rel != null)
-                        {
-                            newDatCli.Enfermedades[i].Checked = true;
-                        }
-                    }
-
-
-                    if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
-                    {
-                        ModelCL.Datos Datos = Persona.Datos.Where(v => v.Diabetes != null).FirstOrDefault();
-
-                        //if (Datos.Diabetes != null)
-                        //{
-                        newDatCli.DiabetesHidratosPorUniInsu = Datos.Diabetes.DiabetesHidratosPorUniInsu;
-                        //}
-
-                        //Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
-                        ModelCL.Medicina InsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Pasiva").FirstOrDefault().Medicina;
-                        newDatCli.InsulinaRetardadaId = InsulinaRetardada.MedicinaId;
-
-                        ModelCL.Medicina InsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
-                        newDatCli.InsulinaCorreccionId = InsulinaCorreccion.MedicinaId;
+                        newDatCli.Enfermedades[i].Checked = true;
                     }
                 }
 
-                ViewBag.idPersona = id;
 
-                List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
-                ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
+                if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+                {
+                    ModelCL.Datos Datos = Persona.Datos.Where(v => v.Diabetes != null).FirstOrDefault();
 
-                List<Fachada.ViewModelSelectListChk> lNivelesActividad = new List<Fachada.ViewModelSelectListChk>()
+                    //if (Datos.Diabetes != null)
+                    //{
+                    newDatCli.DiabetesHidratosPorUniInsu = Datos.Diabetes.DiabetesHidratosPorUniInsu;
+                    //}
+
+                    //Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
+                    ModelCL.Medicina InsulinaRetardada = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Pasiva").FirstOrDefault().Medicina;
+                    newDatCli.InsulinaRetardadaId = InsulinaRetardada.MedicinaId;
+
+                    ModelCL.Medicina InsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
+                    newDatCli.InsulinaCorreccionId = InsulinaCorreccion.MedicinaId;
+                }
+            }
+
+            ViewBag.idPersona = id;
+
+            List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
+            ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
+
+            List<Fachada.ViewModelSelectListChk> lNivelesActividad = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Sedentario", Valor = "Sedentario" },
+                new Fachada.ViewModelSelectListChk { Id = "Escasa", Valor = "Escasa" },
+                new Fachada.ViewModelSelectListChk { Id = "Moderada", Valor = "Moderada" },
+                new Fachada.ViewModelSelectListChk { Id = "Alta", Valor = "Alta" },
+                new Fachada.ViewModelSelectListChk { Id = "Muy alta", Valor = "Muy alta" },
+            };
+            ViewBag.lNivelesActividad = new SelectList(lNivelesActividad, "Id", "Valor");
+
+            //Lo mismo que antes - Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
+            List<ModelCL.Medicina> lInsulinasRetardadas = db.Medicina.Where(m => m.MedicinaTipo == "Pasiva" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
+            ViewBag.listaInsulinasRetardadas = new SelectList(lInsulinasRetardadas, "MedicinaId", "MedicinaNombre");
+
+            List<ModelCL.Medicina> lInsulinasCorreccion = db.Medicina.Where(m => m.MedicinaTipo == "Activa" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
+            ViewBag.listaInsulinasCorreccion = new SelectList(lInsulinasCorreccion, "MedicinaId", "MedicinaNombre");
+
+            return PartialView("_DatCli", newDatCli);
+        }
+        
+        [HttpPost]
+        [Route("_datcli")]
+        [ValidateAntiForgeryToken]
+        public ActionResult _DatCli(DatCliViewModel Datos, int id)
+        {            
+            ViewBag.idPersona = id;
+
+            List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
+            ViewBag.listaSexos = new SelectList(lSexos, "SexoId", "SexoNombre");
+
+            List<Fachada.ViewModelSelectListChk> lNivelesActividad = new List<Fachada.ViewModelSelectListChk>()
                 {
                     new Fachada.ViewModelSelectListChk { Id = "Sedentario", Valor = "Sedentario" },
                     new Fachada.ViewModelSelectListChk { Id = "Escasa", Valor = "Escasa" },
@@ -128,35 +179,17 @@ namespace Lucy.Controllers
                     new Fachada.ViewModelSelectListChk { Id = "Alta", Valor = "Alta" },
                     new Fachada.ViewModelSelectListChk { Id = "Muy alta", Valor = "Muy alta" },
                 };
-                ViewBag.lNivelesActividad = new SelectList(lNivelesActividad, "Id", "Valor");
+            ViewBag.lNivelesActividad = new SelectList(lNivelesActividad, "Id", "Valor");
 
-                //List<Fachada.ViewModelSelectList> lTiposDiabetes = new List<Fachada.ViewModelSelectList>()
-                //{
-                //    new Fachada.ViewModelSelectList { Id = 1, Valor = "1" },
-                //    new Fachada.ViewModelSelectList { Id = 2, Valor = "2" },
-                //};
-                //ViewBag.listaTiposDiabetes = new SelectList(lTiposDiabetes, "Id", "Valor");
+            //Lo mismo que antes - Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
+            List<ModelCL.Medicina> lInsulinasRetardadas = db.Medicina.Where(m => m.MedicinaTipo == "Pasiva" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
+            ViewBag.listaInsulinasRetardadas = new SelectList(lInsulinasRetardadas, "MedicinaId", "MedicinaNombre");
 
-                //Lo mismo que antes - Aca se podría agregar un filtro segun si la medicina es oficial o no a menos que queramos tener en cuenta medicinas registradas por el usuario//
-                List<ModelCL.Medicina> lInsulinasRetardadas = db.Medicina.Where(m => m.MedicinaTipo == "Pasiva" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
-                ViewBag.listaInsulinasRetardadas = new SelectList(lInsulinasRetardadas, "MedicinaId", "MedicinaNombre");
+            List<ModelCL.Medicina> lInsulinasCorreccion = db.Medicina.Where(m => m.MedicinaTipo == "Activa" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
+            ViewBag.listaInsulinasCorreccion = new SelectList(lInsulinasCorreccion, "MedicinaId", "MedicinaNombre");
 
-                List<ModelCL.Medicina> lInsulinasCorreccion = db.Medicina.Where(m => m.MedicinaTipo == "Activa" && m.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null).ToList();
-                ViewBag.listaInsulinasCorreccion = new SelectList(lInsulinasCorreccion, "MedicinaId", "MedicinaNombre");
 
-                return PartialView("_DatCli", newDatCli);
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult _DatCli(DatCliViewModel Datos, int id)
-        {
-            try
+            if (ModelState.IsValid)
             {
                 ModelCL.Persona Persona = new ModelCL.Persona();
                 if (id != 0)
@@ -176,7 +209,7 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroDatCliAltura = Persona.Registro.Where(reg => reg.DatCli != null && reg.DatCli.DatCliAltura != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroDatCli = new ModelCL.Registro();
-                    RegistroDatCli.RegistroFchHora = DateTime.Now;
+                    RegistroDatCli.RegistroFchHora = DateTime.Now.Date;
 
                     ModelCL.DatCli DatCli = new ModelCL.DatCli();
 
@@ -185,7 +218,7 @@ namespace Lucy.Controllers
                         if (oldRegistroDatCliNivelActividad.DatCli.DatCliNivelActividad != Datos.DatCliNivelActividad)
                         {
                             DatCli.DatCliNivelActividad = Datos.DatCliNivelActividad;
-                        }                            
+                        }
                     }
                     else
                     {
@@ -196,8 +229,15 @@ namespace Lucy.Controllers
                     {
                         if (oldRegistroDatCliAltura.DatCli.DatCliAltura != Datos.DatCliAltura)
                         {
-                            DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
-                        }                      
+                            if (oldRegistroDatCliAltura.RegistroFchHora.Date != DateTime.Now.Date)
+                            {
+                                DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                            }
+                            else
+                            {
+                                oldRegistroDatCliAltura.DatCli.DatCliAltura = Convert.ToInt16(Datos.DatCliAltura);
+                            }
+                        }
                     }
                     else
                     {
@@ -207,9 +247,9 @@ namespace Lucy.Controllers
                     RegistroDatCli.DatCli = DatCli;
 
 
-                    if (RegistroDatCli.DatCli.DatCliNivelActividad != null || RegistroDatCli.DatCli.DatCliAltura!= null)
+                    if (RegistroDatCli.DatCli.DatCliNivelActividad != null || RegistroDatCli.DatCli.DatCliAltura != null)
                     {
-                        Persona.Registro.Add(RegistroDatCli);                        
+                        Persona.Registro.Add(RegistroDatCli);
                     }
                 }
 
@@ -219,7 +259,7 @@ namespace Lucy.Controllers
                     ModelCL.Registro oldRegistroPeso = Persona.Registro.Where(reg => reg.Peso != null).OrderByDescending(reg => reg.RegistroFchHora).FirstOrDefault();
 
                     ModelCL.Registro RegistroPeso = new ModelCL.Registro();
-                    RegistroPeso.RegistroFchHora = DateTime.Now;
+                    RegistroPeso.RegistroFchHora = DateTime.Now.Date;
 
                     ModelCL.Peso Peso = new ModelCL.Peso();
                     Peso.PesoValor = Convert.ToDouble(Datos.PesoValor);
@@ -230,7 +270,14 @@ namespace Lucy.Controllers
                     {
                         if (oldRegistroPeso.Peso.PesoValor != Peso.PesoValor)
                         {
-                            Persona.Registro.Add(RegistroPeso);
+                            if (oldRegistroPeso.RegistroFchHora.Date != DateTime.Now.Date)
+                            {
+                                Persona.Registro.Add(RegistroPeso);
+                            }
+                            else
+                            {
+                                oldRegistroPeso.Peso.PesoValor = RegistroPeso.Peso.PesoValor;
+                            }
                         }
                     }
                     else
@@ -239,7 +286,20 @@ namespace Lucy.Controllers
                     }
                 }
 
-                
+
+                //Validacion para que no seleccione los 2 tipos de diabetes//
+                if (Datos.Enfermedades.Where(e => e.Nombre == "Diabetes tipo 1").FirstOrDefault().Checked == true && 
+                    Datos.Enfermedades.Where(e => e.Nombre == "Diabetes tipo 2").FirstOrDefault().Checked == true)
+                {
+                    //ViewBag.ErrorMessage = "No puede seleccionar los dos tipos de diabetes";
+                    //return PartialView("_DatCli", Datos);
+
+                    TempData["ErrorMessagePartial"] = "No puede seleccionar los dos tipos de diabetes";
+
+                    return RedirectToAction("Datos_Clinicos");
+                }
+                //
+
 
                 foreach (Fachada.ViewModelCheckBox enf in Datos.Enfermedades)
                 {
@@ -385,7 +445,7 @@ namespace Lucy.Controllers
                 {
                     HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
                     FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                    int idUsu = Convert.ToInt32(usu.Name);
+                    long idUsu = Convert.ToInt32(usu.Name);
 
                     ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
 
@@ -400,12 +460,60 @@ namespace Lucy.Controllers
 
                 db.SaveChanges();
 
+                //return Json(new { redirectTo = Url.Action("Evaluatorenlijst") });
                 return RedirectToAction("Datos_Clinicos");
             }
-            catch (Exception ex)
+
+            //ViewBag.ErrorMessage = "Error inesperado";
+            //return PartialView("_DatCli", Datos);
+
+            TempData["ErrorMessagePartial"] = "Error inesperado";
+
+            return RedirectToAction("Datos_Clinicos");
+        }
+
+        [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
             {
-                throw (ex);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ModelCL.Persona Persona = db.Persona.Find(id);
+            if (Persona == null)
+            {
+                return HttpNotFound();
+            }
+
+
+
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+            if (Usuario.RelUsuPer.Count() == 1)
+            {
+                TempData["ErrorMessage"] = "No puedes borrar todas tus personas.";
+            }
+            else
+            {                
+                if (Request.Cookies["cookiePer"] != null)
+                {
+                    if (Persona.PersonaId == Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]))
+                    {
+                        HttpCookie cookiePer = Request.Cookies["cookiePer"];
+                        cookiePer.Expires = DateTime.Now.AddDays(-1d);
+                        Response.Cookies.Add(cookiePer);
+                    }
+                }
+
+                db.Persona.Remove(Persona);
+                db.SaveChanges();
+            }           
+
+            return RedirectToAction("Datos_Clinicos", "Personas");
         }
     }
 }

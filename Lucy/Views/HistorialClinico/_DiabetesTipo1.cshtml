@@ -1,0 +1,90 @@
+﻿<h3>Diabetes Tipo 1</h3>
+<h5>Controles de glucosa registrados</h5>
+
+<br />
+
+<div id="datos_controles">
+    <div class="row tile_count">
+        <!-- Total -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-asterisk"></i> Controles</span>
+            <div class="count">@if (ViewBag.ControlesTotal != null) { 
+                @ViewBag.ControlesTotal
+            }
+            else
+            { 
+                @Html.Raw("0")
+            }</div>
+            <span class="count_bottom">Total de controles</span>
+        </div>
+        <!-- Correctos -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-ok"></i> Correctos</span>
+            <div class="count green">
+            @if (ViewBag.ControlesBuenos != null)
+            {
+                @ViewBag.ControlesBuenos
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
+            <span class="count_bottom">Valores correctos</span>
+        </div>
+        <!-- Regulares -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-minus"></i> Regulares</span>
+            <div class="count yellow">
+            @if (ViewBag.ControlesRegulares != null)
+            {
+                @ViewBag.ControlesRegulares
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
+            <span class="count_bottom">Valores aceptables</span>
+        </div>
+        <!-- Peligrosos -->
+        <div class="col-md-3 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-remove"></i> Peligrosos</span>
+            <div class="count red">
+            @if (ViewBag.ControlesPeligrosos != null)
+            {
+                @ViewBag.ControlesPeligrosos
+            }
+            else
+            {
+                @Html.Raw("0")
+            }</div>
+            <span class="count_bottom">Valores malos</span>
+        </div>
+    </div>
+    
+    @*<p><b>Total</b>: @ViewBag.ControlesTotal</p>
+
+    <p>Verde - <b>Resultados buenos</b>: @ViewBag.ControlesBuenos</p>
+    <p>Amarillo - <b>Resultados regulares</b>: @ViewBag.ControlesRegulares</p>
+    <p>Rojo - <b>Resultados peligrosos</b>: @ViewBag.ControlesPeligrosos</p>*@
+</div>
+
+@*<div class="row">
+    <div class="col-sm-offset-4 col-sm-3 col-xs-12">
+        <div id="grafica_dtipo1">
+
+        </div>
+    </div>
+</div>*@
+
+<br />
+
+<div class="graph-wrapper row">
+    <div id="grafica_dtipo1" class="graph">
+    </div>
+</div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Ir al listado de controles registrados", "Index", "RegControlDiabetico", null, null)
+</p>

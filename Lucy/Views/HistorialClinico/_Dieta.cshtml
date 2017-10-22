@@ -1,17 +1,98 @@
 ﻿<h3>Dieta</h3>
+<h5>Promedio de calorías aproximadas en sus comidas</h5>
 
 <br />
 
-<p>Promedio de calorías aproximadas en sus comidas:</p>
-
 <div id="listado_calorias">
-    <p><b>Desayuno</b>: @ViewBag.CaloriasDesayuno</p>
-    <p><b>Almuerzo</b>: @ViewBag.CaloriasAlmuerzo</p>
-    <p><b>Merienda</b>: @ViewBag.CaloriasCena</p>
-    <p><b>Cena</b>: @ViewBag.CaloriasCena</p>
-    <p><b>Ingestas/Colaciones/Aperitivos</b>: @ViewBag.CaloriasIngestas</p>
+    <div class="row tile_count">
+        <!-- Desayuno -->
+        <div class="col-md-offset-1 col-md-2 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-grain"></i> Desayuno</span>
+            <div class="count green">
+                @if (ViewBag.CaloriasDesayuno != null)
+                {
+                    @ViewBag.CaloriasDesayuno
+                }
+                else
+                {
+                    @Html.Raw("0")
+                }
+            </div>
+            <span class="count_bottom">Calorías por Desayuno</span>
+        </div>
+        <!-- Almuerzo -->
+        <div class="col-md-2 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-grain"></i> Almuerzo</span>
+            <div class="count yellow">
+                @if (ViewBag.CaloriasAlmuerzo != null)
+                {
+                    @ViewBag.CaloriasAlmuerzo
+                }
+                else
+                {
+                    @Html.Raw("0")
+                }
+            </div>
+            <span class="count_bottom">Calorías por Almuerzo</span>
+        </div>
+        <!-- Merienda -->
+        <div class="col-md-2 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-grain"></i> Merienda</span>
+            <div class="count red">
+                @if (ViewBag.CaloriasCena != null)
+                {
+                    @ViewBag.CaloriasCena
+                }
+                else
+                {
+                    @Html.Raw("0")
+                }
+            </div>
+            <span class="count_bottom">Calorías por Merienda</span>
+        </div>
+        <!-- Cena -->
+        <div class="col-md-2 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-grain"></i> Cena</span>
+            <div class="count cornflowerblue">
+                @if (ViewBag.CaloriasCena != null)
+                {
+                    @ViewBag.CaloriasCena
+                }
+                else
+                {
+                    @Html.Raw("0")
+                }
+            </div>
+            <span class="count_bottom">Calorías por Cena</span>
+        </div>
+        <!-- Ingestas -->
+        <div class="col-md-offset-0 col-md-2 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="glyphicon glyphicon-grain"></i> Ingestas</span>
+            <div class="count coral">
+                @if (ViewBag.CaloriasIngestas != null)
+            {
+                    @ViewBag.CaloriasIngestas
+                }
+                else
+                {
+                    @Html.Raw("0")
+                }
+            </div>
+            <span class="count_bottom">Calorías por Ingestas</span>
+        </div>
+    </div>
+
 </div>
 
-<div id="grafica_calorias">
+<br />
 
+<div class="graph-wrapper row">
+    <div id="grafica_calorias" class="graph">
+    </div>
 </div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Ir al listado de comidas registradas", "Index", "RegComida", null, null)
+</p>

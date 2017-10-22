@@ -23,7 +23,17 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index(int? page, string search, int? calMax, int? calMin ,byte? categoria, byte? tipo)
         {
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
+
             string cat = null;
             string tip = null;
             IPagedList ejercicios = null;
@@ -112,7 +122,16 @@ namespace Backend.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
 
             ModelCL.Contenido contEjercicio = db.Contenido.Find(id);
             if (contEjercicio.Ejercicio == null || (contEjercicio.UsuarioAutor != null && contEjercicio.UsuarioAutor.UsuarioId != idUsu))

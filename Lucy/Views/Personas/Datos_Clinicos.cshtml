@@ -1,6 +1,32 @@
 ﻿@{
-    ViewBag.Title = "Datos clínicos";
+    ViewBag.Title = "Datos Clínicos";
 }
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="modal fade" id="PopUpErrorMessage" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¡Atención!</h4>
+                </div>
+                <div class="modal-body">
+                    @TempData["ErrorMessage"]
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["ErrorMessagePartial"] != null)
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>¡Error!</strong> @TempData["ErrorMessagePartial"]
+    </div>
+}
+
 
 <h2>Datos Clinicos</h2>
 
@@ -14,11 +40,11 @@
             </div>
         </div>
         @*<div><button type="button" class="btn btn-default" onclick="nuevaPer()">+</button></div>*@
-        <hr style="border-top: 3px double #000000;">
+        <hr style="border: 1px solid #ccc;border-radius: 1px;">
         <br />
 
         <div id="DatCli">
-
+            @*@Html.Partial("_DatCli")*@
         </div>
     </div>
 </div>
@@ -35,7 +61,7 @@
             //    selectedID = 0;
             //}
 
-            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+            $.get('/personas/_datcli/?id=' + selectedID, function (data) {
 
                 $('#DatCli').html(data);
                 $('#DatCli').fadeIn('fast');
@@ -69,7 +95,7 @@
                 selectedID = 0;
             }
 
-            $.get('/Personas/_DatCli/' + selectedID, function (data) {
+            $.get('/personas/_datcli/?id=' + selectedID, function (data) {
 
                 $('#DatCli').html(data);
                 $('#DatCli').fadeIn('fast');
@@ -79,6 +105,11 @@
                 $.validator.unobtrusive.parse('form');
             });
 
+        });
+
+
+        $('#PopUpErrorMessage').modal({
+            show: 'true'
         });
     </script>
 }

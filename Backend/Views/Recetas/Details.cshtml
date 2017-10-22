@@ -30,7 +30,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ContenidoCuerpo)
+            @Html.Raw(Model.ContenidoCuerpo.Replace(Environment.NewLine, "<br/>"))
         </dd>
 
         <dt>
@@ -72,7 +72,7 @@
             </dt>*@
 
             <dd>
-                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
             </dd>
         }
         

@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var ejercicios = db.Contenido.Where(c => c.Ejercicio != null).ToList();
+            var ejercicios = db.Contenido.Where(c => c.Ejercicio != null && c.UsuarioAutor == null).ToList();
 
             return View(ejercicios);
         }
@@ -127,6 +127,23 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<Fachada.ViewModelSelectListChk> lEjTipos = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Ejercicio", Valor = "Ejercicio" },
+                new Fachada.ViewModelSelectListChk { Id = "Actividad", Valor = "Actividad" },
+            };
+            ViewBag.lEjTipos = new SelectList(lEjTipos, "Id", "Valor");
+
+            List<Fachada.ViewModelSelectListChk> lEjCategorias = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
+                new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
+                new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },
+            };
+            ViewBag.lEjCategorias = new SelectList(lEjCategorias, "Id", "Valor");
+
             return View(contenido);
         }
 
@@ -167,7 +184,7 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
+        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files, int[] checkBorrar)
         {
             if (ModelState.IsValid)
             {
@@ -227,7 +244,9 @@ namespace Backend.Controllers
                                 {
                                     var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
                                     if (System.IO.File.Exists(oldPath))
+                                    {
                                         System.IO.File.Delete(oldPath);
+                                    }
 
                                     //oldContenido.Multimedia.Remove(oldMult);
                                     oldMult.MultimediaUrl = newUrl;
@@ -251,9 +270,54 @@ namespace Backend.Controllers
                     }
                 }
 
+                //Eliminar multimedia
+                if (checkBorrar != null)
+                {
+                    foreach (int c in checkBorrar)
+                    {
+                        ModelCL.Multimedia oldM = db.Multimedia.Where(m => m.MultimediaId == c).FirstOrDefault();
+
+                        List<ModelCL.Multimedia> siguientesM = oldM.Contenido.Multimedia.Where(m => m.MultimediaOrden > oldM.MultimediaOrden).ToList();
+
+                        if (siguientesM.Count() != 0)
+                        {
+                            foreach (ModelCL.Multimedia sigM in siguientesM)
+                            {
+                                sigM.MultimediaOrden -= 1;
+                            }
+                        }
+
+                        var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldM.MultimediaUrl);
+                        if (System.IO.File.Exists(oldPath))
+                        {
+                            System.IO.File.Delete(oldPath);
+                        }
+
+                        db.Multimedia.Remove(oldM);
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<Fachada.ViewModelSelectListChk> lEjTipos = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Ejercicio", Valor = "Ejercicio" },
+                new Fachada.ViewModelSelectListChk { Id = "Actividad", Valor = "Actividad" },
+            };
+            ViewBag.lEjTipos = new SelectList(lEjTipos, "Id", "Valor");
+
+            List<Fachada.ViewModelSelectListChk> lEjCategorias = new List<Fachada.ViewModelSelectListChk>()
+            {
+                new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
+                new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
+                new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },
+            };
+            ViewBag.lEjCategorias = new SelectList(lEjCategorias, "Id", "Valor");
+
             return View(contenido);
         }
 

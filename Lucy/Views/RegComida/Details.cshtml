@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.Label("Fecha y hora")
+            @Html.Label("Fecha")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RegistroFchHora)
+            @Model.RegistroFchHora.ToString("dd MMM yyyy")
         </dd>
 
         <dt>
@@ -102,7 +102,7 @@
             <ul>
                 @foreach (var item in Model.Comida.RelComAli.OrderBy(rca => rca.Alimento.AlimentoNombre))
                 {
-                    <li>@item.ReComAliCantidad - @item.Alimento.AlimentoNombre)</li>
+                    <li>@item.RelComAliCantidad - @item.Alimento.AlimentoNombre)</li>
                 }
             </ul>
         </dd>

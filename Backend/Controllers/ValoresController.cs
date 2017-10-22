@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View();
@@ -55,9 +55,12 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var e in enfermedades)
+                if (enfermedades != null)
                 {
-                    valor.Enfermedad.Add(db.Enfermedad.Find(e));
+                    foreach (var e in enfermedades)
+                    {
+                        valor.Enfermedad.Add(db.Enfermedad.Find(e));
+                    }
                 }
 
                 db.Valor.Add(valor);
@@ -65,7 +68,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);
@@ -85,7 +88,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);
@@ -120,16 +123,19 @@ namespace Backend.Controllers
                     val.Enfermedad.Remove(oldEnfermedad);
                 }
 
-                foreach (var e in enfermedades)
+                if (enfermedades != null)
                 {
-                    val.Enfermedad.Add(db.Enfermedad.Find(e));
+                    foreach (var e in enfermedades)
+                    {
+                        val.Enfermedad.Add(db.Enfermedad.Find(e));
+                    }
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);

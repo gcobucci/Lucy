@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ModelCL.Comentario>
+
+<div class="comments-container">
+    <h3>Comentarios</h3>
+    <ul id="comments-list" class="comments-list">
+        @foreach (var comPadre in Model)
+        {
+            <li>
+                @Html.HiddenFor(modelItem => comPadre.ComentarioId)
+                <div class="comment-main-level">
+                    <!-- Avatar -->
+                    <div class="comment-avatar"><img src="" title=""></div>
+                    <!-- Contenedor del Comentario -->
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null && comPadre.UsuarioAutor.UsuarioNombre == Request.Cookies["cookieUsu"]["UsuNom"]) { @Html.Raw("by-author"); }">@comPadre.UsuarioAutor.UsuarioNombre</h6>
+                            <span>@comPadre.ComentarioFchHora.ToString("dd MMM yyyy HH:mm")</span>
+                            <i class="fa fa-reply" title="Responder" onclick="responder(@comPadre.ComentarioId, '@comPadre.UsuarioAutor.UsuarioNombre')"></i>
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="comment-content">
+                            @comPadre.ComentarioCuerpo
+                        </div>
+                    </div>
+                </div>
+                <!-- Respuestas de los comentarios -->
+                <ul class="comments-list reply-list">
+                    @foreach (var comHijo in comPadre.ComentariosHijos.OrderBy(modelItem => comPadre.ComentarioFchHora))
+                    {
+                        <li>
+                            @Html.HiddenFor(modelItem => comHijo.ComentarioId)
+                            <!-- Avatar -->
+                            <div class="comment-avatar"><img src="" title=""></div>
+                            <!-- Contenedor del Comentario -->
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null && comHijo.UsuarioAutor.UsuarioNombre == Request.Cookies["cookieUsu"]["UsuNom"]) { @Html.Raw("by-author"); }">@comHijo.UsuarioAutor.UsuarioNombre</h6>
+                                    <span>@comHijo.ComentarioFchHora.ToString("dd MMM yyyy HH:mm")</span>
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                                <div class="comment-content">
+                                    @comHijo.ComentarioCuerpo
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

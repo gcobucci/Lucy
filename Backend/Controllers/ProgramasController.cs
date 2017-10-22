@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var programas = db.Contenido.Where(c => c.Programa != null).ToList();
+            var programas = db.Contenido.Where(c => c.Programa != null && c.UsuarioAutor == null).ToList();
 
             return View(programas);
         }
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View();
@@ -57,15 +57,22 @@ namespace Backend.Controllers
             {
                 contenido.Programa = new ModelCL.Programa();
 
-                foreach (var r in rutinas)
+
+                if (rutinas != null)
                 {
-                    contenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    foreach (var r in rutinas)
+                    {
+                        contenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    }
                 }
 
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
+            ViewBag.lRutinas = lRutinas;
 
             return View(contenido);
         }
@@ -84,7 +91,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View(contPrograma);
@@ -109,15 +116,21 @@ namespace Backend.Controllers
                     oldContenido.Programa.Rutina.Remove(oldRutina);
                 }
 
-
-                foreach (var r in rutinas)
+                if (rutinas != null)
                 {
-                    oldContenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    foreach (var r in rutinas)
+                    {
+                        oldContenido.Programa.Rutina.Add(db.Rutina.Find(r));
+                    }
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
+            ViewBag.lRutinas = lRutinas;
+
             return View(contenido);
         }
 

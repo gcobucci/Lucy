@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            List<ModelCL.Enfermedad> enfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> enfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
 
             return View(enfermedades);
         }
@@ -31,6 +31,7 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ModelCL.Enfermedad enfermedad = db.Enfermedad.Find(id);
             if (enfermedad == null)
             {
@@ -45,7 +46,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View();
@@ -58,15 +59,21 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var v in valores)
+                if (valores != null)
                 {
-                    enfermedad.Valor.Add(db.Valor.Find(v));
+                    foreach (var v in valores)
+                    {
+                        enfermedad.Valor.Add(db.Valor.Find(v));
+                    }
                 }
 
-                foreach (var m in medicinas)
+                if (medicinas != null)
                 {
-                    enfermedad.Medicina.Add(db.Medicina.Find(m));
-                }
+                    foreach (var m in medicinas)
+                    {
+                        enfermedad.Medicina.Add(db.Medicina.Find(m));
+                    }
+                }                
 
                 db.Enfermedad.Add(enfermedad);
                 db.SaveChanges();
@@ -76,7 +83,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);
@@ -99,7 +106,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);
@@ -124,10 +131,14 @@ namespace Backend.Controllers
                     enf.Valor.Remove(oldValor);
                 }
 
-                foreach (var v in valores)
+                if (valores != null)
                 {
-                    enf.Valor.Add(db.Valor.Find(v));
+                    foreach (var v in valores)
+                    {
+                        enf.Valor.Add(db.Valor.Find(v));
+                    }
                 }
+                
 
                 List<ModelCL.Medicina> bkMedicinas = enf.Medicina.ToList();
                 foreach (ModelCL.Medicina oldMedicina in bkMedicinas)
@@ -135,10 +146,13 @@ namespace Backend.Controllers
                     enf.Medicina.Remove(oldMedicina);
                 }
 
-                foreach (var m in medicinas)
+                if (medicinas != null)
                 {
-                    enf.Medicina.Add(db.Medicina.Find(m));
-                }
+                    foreach (var m in medicinas)
+                    {
+                        enf.Medicina.Add(db.Medicina.Find(m));
+                    }
+                }               
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -147,7 +161,7 @@ namespace Backend.Controllers
             List<ModelCL.Valor> lValores = db.Valor.ToList();
             ViewBag.lValores = lValores;
 
-            List<ModelCL.Medicina> lMedicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
             ViewBag.lMedicinas = lMedicinas;
 
             return View(enfermedad);

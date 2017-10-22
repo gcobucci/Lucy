@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.Label("Cuerpo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContenidoCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.ContenidoCuerpo, 10, 0, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -79,7 +79,7 @@
             @Html.Label("Portada", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="editor-field">
-                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imágen no encontrada" />
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
                 </div>
             </div>
         </div>
@@ -97,10 +97,18 @@
             @Html.Label("Multimedia 2", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="editor-field">
-                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imagen" />
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -115,10 +123,18 @@
             @Html.Label("Multimedia 3", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="editor-field">
-                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imagen" />
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -133,10 +149,18 @@
             @Html.Label("Multimedia 4", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="editor-field">
-                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imagen" />
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -151,10 +175,18 @@
             @Html.Label("Multimedia 5", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="editor-field">
-                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imágen" />
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="No se ha registrado una imagen" />
                 </div>
             </div>
         </div>
+
+        @if (Model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault() != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault().MultimediaId" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
 
         <div class="form-group">
             @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })

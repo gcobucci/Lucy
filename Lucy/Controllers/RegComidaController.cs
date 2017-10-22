@@ -62,7 +62,7 @@ namespace Lucy.Controllers
             ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             newRegComida.Alimentos = new List<ComidaAlimentoViewModel>();
@@ -96,6 +96,13 @@ namespace Lucy.Controllers
 
             if (ModelState.IsValid)
             {
+                if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos un alimento.";
+
+                    return View(datos);
+                }
+
                 long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
@@ -125,7 +132,7 @@ namespace Lucy.Controllers
                 {
                     if (a.RelComAliCantidad != 0)
                     {
-                        comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                        comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                     }
                 }
 
@@ -175,7 +182,7 @@ namespace Lucy.Controllers
             ViewBag.lComidas = new SelectList(lComidas, "Id", "Valor");
 
 
-            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
             List<ModelCL.Alimento> lAlimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             vmRegComida.Alimentos = new List<ComidaAlimentoViewModel>();
@@ -194,7 +201,7 @@ namespace Lucy.Controllers
             foreach (ModelCL.RelComAli rca in regComida.Comida.RelComAli.ToList())
             {
                 ComidaAlimentoViewModel cavm = vmRegComida.Alimentos.Where(a => a.AlimentoId == rca.AlimentoId).FirstOrDefault();
-                cavm.RelComAliCantidad = rca.ReComAliCantidad;
+                cavm.RelComAliCantidad = rca.RelComAliCantidad;
             }
             vmRegComida.ComidaCalorias = regComida.Comida.ComidaCalorias;
             vmRegComida.ComidaCarbohidratos = regComida.Comida.ComidaCarbohidratos;
@@ -224,6 +231,13 @@ namespace Lucy.Controllers
             
             if (ModelState.IsValid)
             {
+                if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos un alimento.";
+
+                    return View(datos);
+                }
+
                 ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == datos.RegistroId).FirstOrDefault();
 
                 DateTime f = Convert.ToDateTime(datos.RegistroFchHora);
@@ -255,7 +269,7 @@ namespace Lucy.Controllers
                 {
                     if (a.RelComAliCantidad != 0)
                     {
-                        regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), ReComAliCantidad = a.RelComAliCantidad });
+                        regComida.Comida.RelComAli.Add(new ModelCL.RelComAli { Alimento = db.Alimento.Find(a.AlimentoId), RelComAliCantidad = a.RelComAliCantidad });
                     }
                 }
 

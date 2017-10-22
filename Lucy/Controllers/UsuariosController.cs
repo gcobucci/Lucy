@@ -15,12 +15,14 @@ using System.Security.Principal;
 
 namespace Lucy.Controllers
 {
+    [RoutePrefix("usuarios")]
     public class UsuariosController : Controller
     {
         //private AgustinaEntities db = new AgustinaEntities(); // MM - 18/07/2017 - Lo cambie por el using porque mejora rendimiento
 
         // Login
         [HttpGet]
+        [Route("login")]
         public ActionResult Login()
         {
             return View();
@@ -29,6 +31,7 @@ namespace Lucy.Controllers
         // Login POST
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Route("login")]
         public ActionResult Login(LoginViewModel login, string ReturnUrl = "")
         {
             string message = "";
@@ -56,7 +59,7 @@ namespace Lucy.Controllers
 
                             var cookiePer = new HttpCookie("cookiePer");
                             cookiePer.Expires = DateTime.Now.AddMinutes(timeout);
-                            int idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
                             cookiePer.Values["PerId"] = v.RelUsuPer.Where(u => u.UsuarioId == idUsu).FirstOrDefault().PersonaId.ToString();
                             Response.Cookies.Add(cookiePer);
 
@@ -91,6 +94,7 @@ namespace Lucy.Controllers
         // Logout
         [Authorize]
         //[HttpPost]
+        [Route("logout")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -110,6 +114,7 @@ namespace Lucy.Controllers
 
         // Registro
         [HttpGet]
+        [Route("registro")]
         public ActionResult Registro()
         {
             CargarPaises();
@@ -120,6 +125,7 @@ namespace Lucy.Controllers
         // Registro POST
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Route("registro")]
         public ActionResult Registro(RegistroViewModel reg)
         {
             bool Status = false;
@@ -158,6 +164,7 @@ namespace Lucy.Controllers
                     usu.UsuarioEmail = reg.UsuarioEmail;
                     usu.UsuarioPais = reg.UsuarioPais;
                     usu.UsuarioApp = "Web";
+                    usu.UsuarioRecibirEmails = true;
                     #endregion
 
                     #region Cargo Persona
@@ -470,7 +477,7 @@ namespace Lucy.Controllers
         [NonAction]
         public void SendVerificationLinkEmail(string email, string activationCode)
         {
-            var verifyUrl = "/Usuarios/VerifyAccount/" + activationCode;
+            var verifyUrl = "/Usuarios/VerifyAccount/?id=" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("mateswdv@gmail.com", "YoTeCuido");
@@ -502,18 +509,19 @@ namespace Lucy.Controllers
         }
 
         [HttpGet]
+        [Route("verifyaccount")]
         public ActionResult VerifyAccount(string id)
         {
             bool Status = false;
-            using (AgustinaEntities dc = new AgustinaEntities())
+            using (AgustinaEntities db = new AgustinaEntities())
             {
-                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid
+                db.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid
                                                                 // Confirm password does not match issue on save changes
-                var v = dc.Usuario.Where(a => a.UsuarioCodAct == new Guid(id)).FirstOrDefault();
+                var v = db.Usuario.Where(a => a.UsuarioCodAct == new Guid(id)).FirstOrDefault();
                 if (v != null)
                 {
                     v.UsuarioMailConf = true;
-                    dc.SaveChanges();
+                    db.SaveChanges();
                     Status = true;
                 }
                 else
@@ -524,82 +532,25 @@ namespace Lucy.Controllers
             ViewBag.Status = Status;
             return View();
         }
+
+        [Route("lastlogin")]
+        public ActionResult LastLogin()
+        {
+            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+                using (AgustinaEntities db = new AgustinaEntities())
+                {
+                    ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+
+                    Usuario.UsuarioLastLogin = DateTime.Now;
+
+                    db.SaveChanges();
+                }
+            }
+            
+            return null;
+        }
     }
 }
-
-#region OLD Registro
-//public ActionResult Registro(RegistroViewModel Registro)
-//{
-//try
-//{
-//    ModelCL.Usuario Usuario = new ModelCL.Usuario();
-//    Usuario.UsuarioNombre = Registro.UsuarioNombre;
-//    Usuario.UsuarioEmail = Registro.UsuarioEmail;
-//    Usuario.UsuarioPass = Registro.UsuarioPass;
-//    Usuario.UsuarioApp = "Web";
-
-//    ModelCL.Rol Rol = db.Rol.Find(2);//Free
-
-//    Usuario.Rol.Add(Rol);
-
-//    //db.Usuario.Add(Usuario);
-
-//    ModelCL.Persona Persona = new ModelCL.Persona();
-//    Persona.PersonaNombre = Registro.PersonaNombre;
-//    Persona.PersonaApellido = Registro.PersonaApellido;
-//    Persona.PersonaFchNac = Convert.ToDateTime(Registro.PersonaFchNac);
-//    Persona.SexoId = Registro.SexoId;
-
-//    //db.Persona.Add(Persona);
-
-//    Usuario.Persona.Add(Persona);
-//    Persona.Usuario.Add(Usuario);
-
-//    db.Usuario.Add(Usuario);
-//    db.Persona.Add(Persona);
-
-//    db.SaveChanges();
-
-//    // inicio la sesion con el usuario creado
-//    Session["UsuarioId"] = Usuario.UsuarioId;
-//    Session["UsuarioNombre"] = Usuario.UsuarioNombre;
-//    Session["UsuarioRol"] = Usuario.Rol;
-
-//    return View("~/Views/Home/Index");
-//}
-//catch (Exception ex)
-//{
-//    // cargo nuevamente la lista de sexos porque no pasa por el Get
-//    CargarSexo();
-
-//    ViewData["msgError"] = ex.GetBaseException();
-//    return View();
-//}
-//}
-#endregion
-
-#region OLD Login
-//public ActionResult Login(LoginViewModel Login)
-//{
-//    //var query = db.Usuario.Where(usu => (usu.UsuarioNombre == Login.LoginUsuario || usu.UsuarioEmail == Login.LoginUsuario) && usu.UsuarioPass == Login.LoginPass).FirstOrDefault();
-//    using (AgustinaEntities db = new AgustinaEntities())
-//    {
-//        Usuario query = db.Usuario.SingleOrDefault(usu => (usu.UsuarioNombre == Login.LoginUsuario || usu.UsuarioEmail == Login.LoginUsuario) && usu.UsuarioPass == Login.LoginPass);
-
-
-//        if (query != null)
-//        {
-//            // inicio la sesion con el usuario creado
-//            Session["UsuarioId"] = query.UsuarioId;
-//            Session["UsuarioNombre"] = query.UsuarioNombre;
-//            Session["UsuarioRol"] = query.Rol;
-
-//            return View("~/Views/Home/Index.cshtml");
-//        }
-//        else
-//        {
-//            return Content("No ingresaste");
-//        }
-//    }
-//}
-#endregion

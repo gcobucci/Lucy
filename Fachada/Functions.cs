@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelCL;
+using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -11,7 +13,7 @@ namespace Fachada
         //public static string encriptar(string original)
         //{
         //    MD5 md5 = new MD5CryptoServiceProvider();
-            
+
         //    return Convert.ToString(md5.ComputeHash(original));
         //}
 
@@ -45,10 +47,10 @@ namespace Fachada
         }
 
 
-        public static int get_idUsu(HttpCookie cookie)
+        public static long get_idUsu(HttpCookie cookie)
         {
             FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-            int idUsu = Convert.ToInt32(usu.Name);
+            long idUsu = Convert.ToInt32(usu.Name);
 
             return idUsu;
         }
@@ -57,10 +59,61 @@ namespace Fachada
         //{
 
         //    FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
-        //    int idPer = Convert.ToInt32(per.Name);
+        //    long idPer = Convert.ToInt32(per.Name);
 
         //    return idPer;
         //}
+        
+
+        public static bool es_premium(long idUsu)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
+                if (Usuario.RelUsuRol.Where(rur => rur.Rol.RolNombre == "Premium").FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool es_diabetico_tipo_1(long idPer)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+                if (Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool fue_diabetico_tipo_1(long idPer)
+        {
+            using (AgustinaEntities db = new AgustinaEntities())
+            {
+                long idDiabetes = db.Enfermedad.Where(e => e.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().EnfermedadId;
+
+                if (db.HisRelPerEnf.Where(hrpe => hrpe.EnfermedadId == idDiabetes && hrpe.PersonaId == idPer).FirstOrDefault() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         public static double calcular_IMC(double peso, short altura)
         {
