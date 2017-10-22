@@ -151,6 +151,13 @@ namespace Lucy.Controllers
 
                 if (datos.RegistrarComida == true)
                 {
+                    if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                    {
+                        ViewBag.ErrorMessage = "Si va a registrar una comida debe seleccionar al menos un alimento.";
+
+                        return View(datos);
+                    }
+
                     if (datos.ComidaComida != "Ingesta")
                     {
                         ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).FirstOrDefault();
@@ -338,6 +345,13 @@ namespace Lucy.Controllers
 
                 if (datos.RegistrarComida == true)
                 {
+                    if (datos.Alimentos.Where(a => a.RelComAliCantidad != 0).Count() == 0)
+                    {
+                        ViewBag.ErrorMessage = "Si va a registrar una comida debe seleccionar al menos un alimento.";
+
+                        return View(datos);
+                    }
+
                     regControlDiabetico.Comida.ComidaPlatillo = datos.ComidaPlatillo;
                     regControlDiabetico.Comida.ComidaComida = datos.ComidaComida;
 

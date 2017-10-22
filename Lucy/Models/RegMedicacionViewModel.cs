@@ -39,7 +39,7 @@ namespace Lucy.Models
 
         [Required]
         [Display(Name = "Cantidad")]
-        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a 0,1")]
+        [Range(typeof(double), "0,01", "1000000", ErrorMessage = "El valor debe ser mayor a 0,01")]
         public double MedicacionCantidad { get; set; }
     }
 }
