@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View();
@@ -68,7 +68,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);
@@ -88,7 +88,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);
@@ -135,7 +135,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             return View(valor);

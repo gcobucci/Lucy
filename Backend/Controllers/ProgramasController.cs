@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var programas = db.Contenido.Where(c => c.Programa != null).ToList();
+            var programas = db.Contenido.Where(c => c.Programa != null && c.UsuarioAutor == null).ToList();
 
             return View(programas);
         }
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View();
@@ -71,7 +71,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View(contenido);
@@ -91,7 +91,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View(contPrograma);
@@ -128,7 +128,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
+            List<ModelCL.Rutina> lRutinas = db.Rutina.Where(r => r.Contenido.UsuarioAutor == null).ToList();
             ViewBag.lRutinas = lRutinas;
 
             return View(contenido);

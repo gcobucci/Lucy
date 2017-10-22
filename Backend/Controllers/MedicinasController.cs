@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            List<ModelCL.Medicina> medicinas = db.Medicina.ToList();
+            List<ModelCL.Medicina> medicinas = db.Medicina.Where(m => m.Usuario == null).ToList();
 
             return View(medicinas);
         }
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [Route("crear")]
         public ActionResult Create()
         {
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
@@ -77,7 +77,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
@@ -104,7 +104,7 @@ namespace Backend.Controllers
                 return HttpNotFound();
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
@@ -148,7 +148,7 @@ namespace Backend.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.ToList();
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(e => e.Usuario == null).ToList();
             ViewBag.lEnfermedades = lEnfermedades;
 
             List<Fachada.ViewModelSelectListChk> lMedTipos = new List<Fachada.ViewModelSelectListChk>()
