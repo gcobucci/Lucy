@@ -228,38 +228,25 @@ namespace Lucy.Controllers
         //    return View(alimento);
         //}
 
-        //[Route("eliminar")]
-        //public ActionResult Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(alimento);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[Route("eliminar")]
+        [Route("eliminar")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(long id)
-        //{
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
+        public ActionResult Delete(long? id, string url)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Alimento alimento = db.Alimento.Where(r => r.AlimentoId == id).FirstOrDefault();
 
-        //    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", alimento.AlimentoImagen);
-        //    if (System.IO.File.Exists(path))
-        //        System.IO.File.Delete(path);
+            if (alimento == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    db.Alimento.Remove(alimento);
-        //    db.SaveChanges();
-
-        //    return RedirectToAction("Index");
-        //}
+            db.Alimento.Remove(alimento);
+            db.SaveChanges();
+            return Redirect(url);
+        }
 
         //protected override void Dispose(bool disposing)
         //{

@@ -56,13 +56,13 @@ namespace Lucy.Models
 
         [Range(5, 30, ErrorMessage = "El campo valor debe estar entre {1} y {2}")]
         [Display(Name = "Hidratos por unidad de insulina")]
-        public short DiabetesHidratosPorUniInsu { get; set; }
+        public Nullable<short> DiabetesHidratosPorUniInsu { get; set; }
 
         [Display(Name = "Insulina retardada")]
-        public long InsulinaRetardadaId { get; set; }
+        public Nullable<long> InsulinaRetardadaId { get; set; }
 
         [Display(Name = "Insulina de corrección")]
-        public long InsulinaCorreccionId { get; set; }
+        public Nullable<long> InsulinaCorreccionId { get; set; }
 
 
         /////Medicina/////

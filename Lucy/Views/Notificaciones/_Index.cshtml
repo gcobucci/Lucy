@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ModelCL.Notificacion>
+
+<table class="table">
+    <tr>
+        <th>
+            Imagen
+        </th>
+        <th>
+            Tema
+        </th>
+        <th>
+            Fecha y hora
+        </th>
+        <th>
+            Título
+        </th>
+        <th>
+            Descripcion
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.TemaNot.TemaNotImagen)" height="70" width="70" alt="Imagen no encontrada" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemaNot.TemaNotDescripcion)
+        </td>
+        <td>
+            @item.NotificacionFchHora.ToString("dd MMM yyyy - HH:mm")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotificacionTitulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotificacionDescripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.NotificacionId })
+        </td>
+    </tr>
+}
+
+</table>
