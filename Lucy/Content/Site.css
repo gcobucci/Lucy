@@ -1283,7 +1283,6 @@ input.custom-control-input {
 
 .morris-hover.morris-default-style {
     padding: 6px;
-    /*margin: 25px;*/
     color: #666;
     background: rgba(243,242,243,.8);
     border: 2px solid rgba(195,194,196,.8);
@@ -1854,4 +1853,15 @@ input.bordered-btn {
 
 .btn-rounded {
     border-radius: 999px;
+}
+
+/***************************************************************************************************************************/
+
+.tablaAlimentos {
+    overflow: auto;
+    height: 500px;
+    margin: 15px 0;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    padding: 0;
 }

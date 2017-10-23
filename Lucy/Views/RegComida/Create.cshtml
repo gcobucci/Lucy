@@ -23,92 +23,107 @@
             </div>
         }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RegistroFchHora, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="input-group date datetimepicker" style="max-width: 280px">
-                    @Html.EditorFor(model => model.RegistroFchHora, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RegistroFchHora, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="input-group date datetimepicker" style="max-width: 280px">
+                            @Html.EditorFor(model => model.RegistroFchHora, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.RegistroFchHora, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-                @Html.ValidationMessageFor(model => model.RegistroFchHora, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaPlatillo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaPlatillo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaPlatillo, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaComida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ComidaComida, ViewBag.lComidas as SelectList, "Seleccionar", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ComidaComida, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaPlatillo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ComidaPlatillo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaPlatillo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-
-        <div id="alimentos">
-            @Html.EditorFor(model => model.Alimentos)
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaCalorias, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaCalorias, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaCalorias, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaComida, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.ComidaComida, ViewBag.lComidas as SelectList, "Seleccionar", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ComidaComida, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaCarbohidratos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaCarbohidratos, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaCarbohidratos, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaAzucar, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaAzucar, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaAzucar, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="col-sm-12 tablaAlimentos">
+                    <div id="alimentos">
+                        @Html.EditorFor(model => model.Alimentos)
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaGrasa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaGrasa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaGrasa, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="col-sm-3 col-sm-offset-1 col-xs-offset-0" style="margin-top:15px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaCalorias, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ComidaCalorias, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaCalorias, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaSodio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaSodio, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaCarbohidratos, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ComidaCarbohidratos, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaCarbohidratos, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ComidaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ComidaGluten, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComidaGluten, "", new { @class = "text-danger" })
-            </div>
-        </div>              
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaAzucar, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ComidaAzucar, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaAzucar, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaGrasa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ComidaGrasa, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaGrasa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ComidaSodio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ComidaSodio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ComidaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        <select class="form-control list-box tri-state" id="ComidaGluten" name="ComidaGluten">
+                            <option selected="selected" value="">Sin establecer</option>
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.ComidaGluten, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
