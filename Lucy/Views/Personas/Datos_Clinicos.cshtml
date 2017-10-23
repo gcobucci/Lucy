@@ -30,21 +30,23 @@
 
 <h2>Datos Clinicos</h2>
 
-<div class="form-horizontal">
-    <div class="form-group">
+<div class="col-sm-12">
+    <div class="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-md-2">Personas</label>
-            <div class="col-md-10">
+            <div class="form-group">
+                <label class="control-label col-md-2">Personas</label>
+                <div class="col-md-10">
 
-                @Html.DropDownList("Personas", ViewBag.listaPersonas as SelectList, new { @class = "form-control" })
+                    @Html.DropDownList("Personas", ViewBag.listaPersonas as SelectList, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        @*<div><button type="button" class="btn btn-default" onclick="nuevaPer()">+</button></div>*@
-        <hr style="border: 1px solid #ccc;border-radius: 1px;">
-        <br />
+            @*<div><button type="button" class="btn btn-default" onclick="nuevaPer()">+</button></div>*@
+            <hr style="border: 1px solid #ccc;border-radius: 1px;">
+            <br />
 
-        <div id="DatCli">
-            @*@Html.Partial("_DatCli")*@
+            <div id="DatCli">
+                @*@Html.Partial("_DatCli")*@
+            </div>
         </div>
     </div>
 </div>
