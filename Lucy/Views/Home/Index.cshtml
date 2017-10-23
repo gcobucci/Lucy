@@ -5,12 +5,12 @@
 
 @if (TempData["PermisoDenegado"] != null)
 {
-    <div class="modal fade" id="PopUpPermisoDenegado" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div id="PopUpPermisoDenegado" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div id="WidthPermisoDenegado" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">¡Atención!</h4>
+                    <h4 class="modal-title">Descubre YoTeCuido Pro</h4>
                 </div>
                 <div class="modal-body">
                     @Html.Partial("_PermisoDenegado")
@@ -18,6 +18,9 @@
             </div>
         </div>
     </div>
+
+    <script>var x = document.getElementById("WidthPermisoDenegado").clientWidth;
+        document.getElementById("getPremiumIMG").width = x;</script>
 }
 
 @if (TempData["NoCumpleRequisitos"] != null)
@@ -77,7 +80,7 @@
         $('#PopUpPermisoDenegado').modal({
             show: 'true'
         });
-
+                
         $('#PopUpNoCumpleRequisitos').modal({
             show: 'true'
         });

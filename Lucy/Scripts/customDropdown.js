@@ -9,6 +9,21 @@
             $(this).toggleClass('open');
         }
     );
+
+    //$.validator.methods.number = function (value, element) {
+    //    value = floatValue(value);
+    //    return this.optional(element) || !isNaN(value);
+    //}
+    //$.validator.methods.range = function (value, element, param) {
+    //    value = floatValue(value);
+    //    return this.optional(element) || (value >= param[0] && value <= param[1]);
+    //}
+
+    //function floatValue(value) {
+    //    return parseFloat(value.replace(",", "."));
+    //}
+
+    poneleColorJC();
 });
 
 function getUsuPos() {
@@ -35,16 +50,19 @@ function getUsuPos() {
         type: 'POST',
         url: "/usuarios/lastlogin"
     }); 
+    
 }
 
 function responder(ComId, UsuNom) {
     $('#ComentarioPadreId').val(ComId);
     $("#ComentarioCuerpo").focus();
+    document.getElementById("ComentarioCuerpo").placeholder = "Responder a " + UsuNom + "...";
     document.getElementById("btn-CancelarRespuesta").style.display = "inline-block";
 }
 
 function cancelarRespuesta() {
     $('#ComentarioPadreId').val(null);
+    document.getElementById("ComentarioCuerpo").placeholder = "Escribe un comentario...";
     document.getElementById("btn-CancelarRespuesta").style.display = "none";
 }
 
@@ -66,6 +84,203 @@ function btnComentar(idContenido) {
             $("#comentarios").load("/_listado/?idContenido=" + idContenido);
             $("#crear_comentario").load("/_crear/?idContenido=" + idContenido);
         }
-    });
-    
+    });    
+}
+
+function poneleColorJC() {
+    var usuariosAvatar = document.getElementsByClassName("comment-avatar");
+    var usuariosNombre = document.getElementsByClassName("comment-name");
+    var usuariosLetra = document.getElementsByClassName("comment-avatar-letter");
+    for (var i = 0; i < usuariosAvatar.length; i++) {
+        var nombre = usuariosNombre[i].innerText;
+        var auxLetra = nombre.charAt(0);
+        var letra = auxLetra.toUpperCase();
+        switch (letra) {
+            case "A":
+                usuariosAvatar[i].style.backgroundColor = "#333333";
+                usuariosLetra[i].innerText = "A";
+                break;
+            case "B":
+                usuariosAvatar[i].style.backgroundColor = "#d3d3d3";
+                usuariosLetra[i].innerText = "B";
+                break;
+			case "C":
+                usuariosAvatar[i].style.backgroundColor = "#FF5733";
+                usuariosLetra[i].innerText = "C";
+                break;
+			case "D":
+                usuariosAvatar[i].style.backgroundColor = "#CD5C5C";
+                usuariosLetra[i].innerText = "D";
+                break;
+			case "E":
+                usuariosAvatar[i].style.backgroundColor = "#C0C0C0";
+                usuariosLetra[i].innerText = "E";
+                break;
+			case "F":
+                usuariosAvatar[i].style.backgroundColor = "#808080";
+                usuariosLetra[i].innerText = "F";
+                break;
+			case "G":
+                usuariosAvatar[i].style.backgroundColor = "#000000";
+                usuariosLetra[i].innerText = "G";
+                break;
+			case "H":
+                usuariosAvatar[i].style.backgroundColor = "#FF0000";
+                usuariosLetra[i].innerText = "H";
+                break;
+			case "I":
+                usuariosAvatar[i].style.backgroundColor = "#800000";
+                usuariosLetra[i].innerText = "I";
+                break;
+			case "J":
+                usuariosAvatar[i].style.backgroundColor = "#FFFF00";
+                usuariosLetra[i].innerText = "J";
+                break;
+			case "K":
+                usuariosAvatar[i].style.backgroundColor = "#808000";
+                usuariosLetra[i].innerText = "K";
+                break;
+			case "L":
+                usuariosAvatar[i].style.backgroundColor = "#00FF00";
+                usuariosLetra[i].innerText = "L";
+                break;
+			case "M":
+                usuariosAvatar[i].style.backgroundColor = "#008000";
+                usuariosLetra[i].innerText = "M";
+                break;
+			case "N":
+                usuariosAvatar[i].style.backgroundColor = "#00FFFF";
+                usuariosLetra[i].innerText = "N";
+                break;
+			case "Ñ":
+                usuariosAvatar[i].style.backgroundColor = "#008080";
+                usuariosLetra[i].innerText = "Ñ";
+                break;
+			case "O":
+                usuariosAvatar[i].style.backgroundColor = "#0000FF";
+                usuariosLetra[i].innerText = "O";
+                break;
+			case "P":
+                usuariosAvatar[i].style.backgroundColor = "#000080";
+                usuariosLetra[i].innerText = "P";
+                break;
+			case "Q":
+                usuariosAvatar[i].style.backgroundColor = "#FF00FF";
+                usuariosLetra[i].innerText = "Q";
+                break;
+			case "R":
+                usuariosAvatar[i].style.backgroundColor = "#800080";
+                usuariosLetra[i].innerText = "R";
+                break;
+			case "S":
+                usuariosAvatar[i].style.backgroundColor = "#581845";
+                usuariosLetra[i].innerText = "S";
+                break;
+			case "T":
+                usuariosAvatar[i].style.backgroundColor = "#900C3F";
+                usuariosLetra[i].innerText = "T";
+                break;
+			case "U":
+                usuariosAvatar[i].style.backgroundColor = "#C70039";
+                usuariosLetra[i].innerText = "U";
+                break;
+			case "V":
+                usuariosAvatar[i].style.backgroundColor = "#FF5733";
+                usuariosLetra[i].innerText = "V";
+                break;
+			case "W":
+                usuariosAvatar[i].style.backgroundColor = "#FFC300";
+                usuariosLetra[i].innerText = "W";
+                break;
+			case "X":
+                usuariosAvatar[i].style.backgroundColor = "#DAF7A6";
+                usuariosLetra[i].innerText = "X";
+                break;
+			case "Y":
+                usuariosAvatar[i].style.backgroundColor = "#00268C";
+                usuariosLetra[i].innerText = "Y";
+                break;
+			case "Z":
+                usuariosAvatar[i].style.backgroundColor = "#C90404";
+                usuariosLetra[i].innerText = "Z";
+                break;
+			case "1":
+                usuariosAvatar[i].style.backgroundColor = "#A23232";
+                usuariosLetra[i].innerText = "1";
+                break;
+			case "2":
+                usuariosAvatar[i].style.backgroundColor = "#34495E";
+                usuariosLetra[i].innerText = "2";
+                break;
+			case "3":
+                usuariosAvatar[i].style.backgroundColor = "#E67E22";
+                usuariosLetra[i].innerText = "3";
+                break;
+			case "4":
+                usuariosAvatar[i].style.backgroundColor = "#85C1E9";
+                usuariosLetra[i].innerText = "4";
+                break;
+			case "5":
+                usuariosAvatar[i].style.backgroundColor = "#45B39D";
+                usuariosLetra[i].innerText = "5";
+                break;
+			case "6":
+                usuariosAvatar[i].style.backgroundColor = "#A569BD";
+                usuariosLetra[i].innerText = "6";
+                break;
+			case "7":
+                usuariosAvatar[i].style.backgroundColor = "#084200";
+                usuariosLetra[i].innerText = "7";
+                break;
+			case "8":
+                usuariosAvatar[i].style.backgroundColor = "#F0A5A5";
+                usuariosLetra[i].innerText = "8";
+                break;
+			case "9":
+                usuariosAvatar[i].style.backgroundColor = "#0042FF";
+                usuariosLetra[i].innerText = "9";
+                break;
+			case "0":
+                usuariosAvatar[i].style.backgroundColor = "#00B6FF";
+                usuariosLetra[i].innerText = "0";
+                break;
+			case "@":
+                usuariosAvatar[i].style.backgroundColor = "#FF0059";
+                usuariosLetra[i].innerText = "@";
+                break;
+			case "Á":
+                usuariosAvatar[i].style.backgroundColor = "#CD5C5C";
+                usuariosLetra[i].innerText = "Á";
+                break;
+			case "É":
+                usuariosAvatar[i].style.backgroundColor = "#C0C0C0";
+                usuariosLetra[i].innerText = "É";
+                break;
+			case "Í":
+                usuariosAvatar[i].style.backgroundColor = "#00B6FF";
+                usuariosLetra[i].innerText = "Í";
+                break;
+			case "Ó":
+                usuariosAvatar[i].style.backgroundColor = "#C70039";
+                usuariosLetra[i].innerText = "Ó";
+                break;
+			case "Ú":
+                usuariosAvatar[i].style.backgroundColor = "#A23232";
+                usuariosLetra[i].innerText = "Ú";
+                break;
+			case ".":
+                usuariosAvatar[i].style.backgroundColor = "#C70039";
+                usuariosLetra[i].innerText = ".";
+                break;
+			case ",":
+                usuariosAvatar[i].style.backgroundColor = "#DAF7A6";
+                usuariosLetra[i].innerText = ",";
+                break;
+        }
+    }
+}
+
+function aComerla(cal, car, azucar, grasa, sodio, gluten) {
+    var a = $(this + " input").text();
+    alert(a);
 }

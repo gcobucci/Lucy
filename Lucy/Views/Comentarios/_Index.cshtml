@@ -9,7 +9,7 @@
                 @Html.HiddenFor(modelItem => comPadre.ComentarioId)
                 <div class="comment-main-level">
                     <!-- Avatar -->
-                    <div class="comment-avatar"><img src="" title=""></div>
+                    <div class="comment-avatar"><span class="comment-avatar-letter"></span></div>
                     <!-- Contenedor del Comentario -->
                     <div class="comment-box">
                         <div class="comment-head">
@@ -30,7 +30,7 @@
                         <li>
                             @Html.HiddenFor(modelItem => comHijo.ComentarioId)
                             <!-- Avatar -->
-                            <div class="comment-avatar"><img src="" title=""></div>
+                            <div class="comment-avatar"><span class="comment-avatar-letter"></span></div>
                             <!-- Contenedor del Comentario -->
                             <div class="comment-box">
                                 <div class="comment-head">
@@ -49,3 +49,7 @@
         }
     </ul>
 </div>
+
+<script>
+    poneleColorJC();
+</script>

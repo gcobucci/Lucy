@@ -1,6 +1,7 @@
 ﻿using ModelCL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,6 +31,13 @@ namespace Backend.Controllers
 
             ViewBag.TotalObesos = db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Obesidad").Count();
 
+            ViewBag.TotalEnfermedades = db.Enfermedad.GroupBy(p => p.EnfermedadNombre).Count();
+
+            ViewBag.TotalMedicina = db.Medicina.GroupBy(p => p.MedicinaNombre).Count();
+
+            ViewBag.TotalDailyConections = db.Usuario.Where(p => DbFunctions.TruncateTime(p.UsuarioLastLogin) == (DateTime.Today)).Count();
+
+
             //Porcentaje hombres
             ViewBag.PercentMales = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Hombre").Count())*100)/ db.Usuario.Count());
 
@@ -47,6 +55,7 @@ namespace Backend.Controllers
 
             //Porcentaje obesos
             ViewBag.PercentObesos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Obesidad").Count()) * 100) / db.Usuario.Count());
+
             return View();
         }
     }
