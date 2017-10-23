@@ -7,18 +7,20 @@
 <div class="form-horizontal">
     <h4>Medicina</h4>
     <hr />
-    <div class="form-group">
+    <div class="col-sm-12">
         <div class="form-group">
-            <label class="control-label col-md-2">Enfermedad</label>
-            <div class="col-md-10">
-                @Html.DropDownList("Enfermedades", ViewBag.lEnfermedades as SelectList, new { @class = "form-control" })
+            <div class="form-group">
+                <label class="control-label col-md-2">Enfermedad</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("Enfermedades", ViewBag.lEnfermedades as SelectList, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <hr style="border-top: 3px double #000000;">
-        <br />
+            <hr style="border-top: 3px double #000000;">
+            <br />
 
-        <div id="RegMed">
+            <div id="RegMed">
 
+            </div>
         </div>
     </div>
 </div>
