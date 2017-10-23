@@ -34,6 +34,16 @@ namespace Lucy.Controllers
             return PartialView(notificaciones);
         }
 
+        [HttpPost]
+        public ActionResult CountNot()
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            List<ModelCL.Notificacion> notificaciones = db.Notificacion.Where(n => n.UsuarioId == idUsu).OrderByDescending(r => r.NotificacionFchHora).ToList();
+            
+            return this.Content(notificaciones.Count().ToString());
+        }
+
         [Route("eliminar")]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(long? id/*, string url*/)

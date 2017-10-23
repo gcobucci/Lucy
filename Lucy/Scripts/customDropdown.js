@@ -7,7 +7,7 @@
         function () {
             $('.dropdown-menuS', this).stop(true, true).slideUp("fast");
             $(this).toggleClass('open');
-        }
+        },
     );
 
     //$.validator.methods.number = function (value, element) {
@@ -22,6 +22,24 @@
     //function floatValue(value) {
     //    return parseFloat(value.replace(",", "."));
     //}
+
+    function notificaciones() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: "/notificaciones/CountNot",
+            success: function (data) {
+                if (data > 0) {
+                    $("#btnNotificacion .badge").text(data);
+                } else {
+                    if (data < 1) {
+                        $("#btnNotificacion .badge").val();
+                    }
+                }
+            }
+        });
+    }
+    setInterval(notificaciones, 300000);
 
     poneleColorJC();
 });

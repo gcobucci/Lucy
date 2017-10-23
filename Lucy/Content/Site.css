@@ -27,6 +27,12 @@ table>tbody>tr>td {
 * {
     margin: 0;
     font-family: 'Roboto', sans-serif;
+
+    /* ojito con estos de abajo que no son de aca */
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -1548,14 +1554,6 @@ input.bordered-btn {
 /************************************************************* COMMENTARIOS ******************************************************************************/
 
 
-* {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
 /** ====================
  * Lista de Comentarios
  =======================*/
@@ -1864,4 +1862,32 @@ input.bordered-btn {
     border: 2px solid #ccc;
     border-radius: 3px;
     padding: 0;
+}
+
+.badge-info {
+    background-color: #5bc0de;
+}
+
+.close-custom {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: 0.7;
+}
+
+    .close-custom:focus, .close-custom:hover {
+        color: #dc143c;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: 0.9;
+    }
+
+.boxNot {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0;
 }
