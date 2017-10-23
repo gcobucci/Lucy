@@ -33,6 +33,7 @@ namespace Lucy.Models
         public Nullable<bool> AlimentoGluten { get; set; }
 
         [Display(Name = "Cantidad")]
+        [Range(typeof(double), "0,1", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public double RelComAliCantidad { get; set; } = 0;
     }
 }

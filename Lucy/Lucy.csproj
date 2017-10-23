@@ -1047,6 +1047,7 @@
     <Compile Include="Controllers\RegControlDiabeticoController.cs" />
     <Compile Include="Controllers\RegComidaController.cs" />
     <Compile Include="Controllers\RegControlController.cs" />
+    <Compile Include="Controllers\ContenidosController.cs" />
     <Compile Include="Controllers\RegMedicacionController.cs" />
     <Compile Include="Controllers\DietasController.cs" />
     <Compile Include="Controllers\EjerciciosController.cs" />
@@ -1115,7 +1116,6 @@
     <Content Include="Views\RegMedicacion\Edit.cshtml" />
     <Content Include="Views\RegMedicacion\Index.cshtml" />
     <Content Include="Views\RegMedicacion\Create.cshtml" />
-    <Content Include="Views\RegMedicacion\_Medicinas.cshtml" />
     <Content Include="Views\RegControl\_Create.cshtml" />
     <Content Include="Views\RegControl\Create.cshtml" />
     <Content Include="Views\RegControl\Delete.cshtml" />
@@ -1147,6 +1147,7 @@
     <Content Include="Views\Home\_PermisoDenegado.cshtml" />
     <Content Include="Views\Comentarios\_Index.cshtml" />
     <Content Include="Views\Comentarios\_Create.cshtml" />
+    <Content Include="Views\RegMedicacion\_Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

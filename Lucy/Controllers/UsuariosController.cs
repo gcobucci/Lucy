@@ -504,8 +504,7 @@ namespace Lucy.Controllers
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true
-            })
-                smtp.Send(message);
+            }) smtp.Send(message);
         }
 
         [HttpGet]
