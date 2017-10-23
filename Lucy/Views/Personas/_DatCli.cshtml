@@ -182,16 +182,68 @@
     $(document).ready(function () {
         if ($("#enfermedad_1").is(':checked')) {
             $("#info_diabetes").show();
+            
+            $('#DiabetesHidratosPorUniInsu').attr('required', 'required');
+            $('#DiabetesHidratosPorUniInsu').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+
+            $('#InsulinaRetardadaId').attr('required', 'required');
+            $('#InsulinaRetardadaId').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+
+            $('#InsulinaCorreccionId').attr('required', 'required');
+            $('#InsulinaCorreccionId').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+            
         } else {
             $("#info_diabetes").hide();
+
+            $('#DiabetesHidratosPorUniInsu').removeAttr('required');
+            $('#InsulinaRetardadaId').removeAttr('required');
+            $('#InsulinaCorreccionId').removeAttr('required');
         }
     });
 
     $("#enfermedad_1").change(function () {
         if ($("#enfermedad_1").is(':checked')) {
             $("#info_diabetes").show();
+
+            $('#DiabetesHidratosPorUniInsu').attr('required', 'required');
+            $('#DiabetesHidratosPorUniInsu').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+
+            $('#InsulinaRetardadaId').attr('required', 'required');
+            $('#InsulinaRetardadaId').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+
+            $('#InsulinaCorreccionId').attr('required', 'required');  
+            $('#InsulinaCorreccionId').rules("add", {
+                messages: {
+                    required: 'No puede dejar este campo en blanco.'
+                }
+            });
+
         } else {
             $("#info_diabetes").hide();
+
+            $('#DiabetesHidratosPorUniInsu').removeAttr('required');
+            $('#InsulinaRetardadaId').removeAttr('required');
+            $('#InsulinaCorreccionId').removeAttr('required');
         }
     });
 

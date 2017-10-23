@@ -1070,6 +1070,7 @@
     <Compile Include="Controllers\RegAguaController.cs" />
     <Compile Include="Controllers\RegActividadController.cs" />
     <Compile Include="Controllers\RegistrosController.cs" />
+    <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\RegPesoController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
@@ -1162,6 +1163,7 @@
     <Content Include="Views\Comentarios\_Index.cshtml" />
     <Content Include="Views\Comentarios\_Create.cshtml" />
     <Content Include="Views\RegMedicacion\_Create.cshtml" />
+    <Content Include="Views\Notificaciones\_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

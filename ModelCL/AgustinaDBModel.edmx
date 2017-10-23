@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AgustinaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Actividad">
           <Key>
             <PropertyRef Name="ActividadId" />
@@ -32,8 +32,8 @@
           <Property Name="AlimentoNombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AlimentoImagen" Type="varchar(max)" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AlimentoCalorias" Type="smallint" />
           <Property Name="AlimentoCarbohidratos" Type="smallint" />
+          <Property Name="AlimentoCalorias" Type="smallint" />
           <Property Name="AlimentoAzucar" Type="float" />
           <Property Name="AlimentoGrasa" Type="float" />
           <Property Name="AlimentoSodio" Type="float" />
@@ -284,14 +284,14 @@
           <Key>
             <PropertyRef Name="NotificacionId" />
             <PropertyRef Name="UsuarioId" />
-            <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="NotificacionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsuarioId" Type="bigint" Nullable="false" />
-          <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="TemaNotId" Type="smallint" Nullable="false" />
           <Property Name="NotificacionTitulo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="NotifiacionDescripcion" Type="varchar(max)" />
+          <Property Name="NotificacionDescripcion" Type="varchar(max)" />
+          <Property Name="NotificacionFchHora" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="NotificacionVista" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -560,6 +560,7 @@
           </Key>
           <Property Name="UsuarioId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
+          <Property Name="RelUsuPerFchEnable" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="RelUsuRol">
           <Key>
@@ -633,8 +634,8 @@
           <Property Name="UsuarioCodAct" Type="uniqueidentifier" />
           <Property Name="UsuarioFchIng" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="varchar" MaxLength="50" />
-          <Property Name="UsuarioLastLogin" Type="datetime" />
-          <Property Name="UsuarioRecibirEmails" Type="bit" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="UsuarioLastLogin" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UsuarioRecibirEmails" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Valor">
           <Key>
@@ -979,19 +980,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Notificacion_UsuarioId_PersonaId">
-          <End Role="RelUsuPer" Type="Self.RelUsuPer" Multiplicity="1">
+        <Association Name="FK_Notificacion_UsuarioId">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Notificacion" Type="Self.Notificacion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RelUsuPer">
+            <Principal Role="Usuario">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Notificacion">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1948,8 +1947,8 @@
             <End Role="TemaNot" EntitySet="TemaNot" />
             <End Role="Notificacion" EntitySet="Notificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Notificacion_UsuarioId_PersonaId" Association="Self.FK_Notificacion_UsuarioId_PersonaId">
-            <End Role="RelUsuPer" EntitySet="RelUsuPer" />
+          <AssociationSet Name="FK_Notificacion_UsuarioId" Association="Self.FK_Notificacion_UsuarioId">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Notificacion" EntitySet="Notificacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_SexoId" Association="Self.FK_Persona_SexoId">
@@ -2177,7 +2176,8 @@
             <End Role="Rutina" EntitySet="Rutina" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgustinaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2211,8 +2211,8 @@
           <Property Name="AlimentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AlimentoCalorias" Type="Int16" />
           <Property Name="AlimentoCarbohidratos" Type="Int16" />
+          <Property Name="AlimentoCalorias" Type="Int16" />
           <Property Name="AlimentoAzucar" Type="Double" />
           <Property Name="AlimentoGrasa" Type="Double" />
           <Property Name="AlimentoSodio" Type="Double" />
@@ -2515,16 +2515,16 @@
           <Key>
             <PropertyRef Name="NotificacionId" />
             <PropertyRef Name="UsuarioId" />
-            <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="NotificacionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsuarioId" Type="Int64" Nullable="false" />
-          <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="TemaNotId" Type="Int16" Nullable="false" />
           <Property Name="NotificacionTitulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NotifiacionDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NotificacionDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NotificacionFchHora" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="NotificacionVista" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TemaNot" Relationship="Self.FK_Notificacion_TemaNotId" FromRole="Notificacion" ToRole="TemaNot" />
-          <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_Notificacion_UsuarioId_PersonaId" FromRole="Notificacion" ToRole="RelUsuPer" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Notificacion_UsuarioId" FromRole="Notificacion" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -2680,7 +2680,7 @@
           </Key>
           <Property Name="UsuarioId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Notificacion" Relationship="Self.FK_Notificacion_UsuarioId_PersonaId" FromRole="RelUsuPer" ToRole="Notificacion" />
+          <Property Name="RelUsuPerFchEnable" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_RelUsuPer_PersonaId" FromRole="RelUsuPer" ToRole="Persona" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_RelUsuPer_UsuarioId" FromRole="RelUsuPer" ToRole="Usuario" />
         </EntityType>
@@ -2768,8 +2768,10 @@
           <Property Name="UsuarioCodAct" Type="Guid" />
           <Property Name="UsuarioFchIng" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UsuarioRecibirEmails" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Usuario" ToRole="Comentario" />
+          <NavigationProperty Name="Notificacion" Relationship="Self.FK_Notificacion_UsuarioId" FromRole="Usuario" ToRole="Notificacion" />
           <NavigationProperty Name="RelUsuPer" Relationship="Self.FK_RelUsuPer_UsuarioId" FromRole="Usuario" ToRole="RelUsuPer" />
           <NavigationProperty Name="RelUsuRol" Relationship="Self.FK_RelUsuRol_UsuarioId" FromRole="Usuario" ToRole="RelUsuRol" />
           <NavigationProperty Name="ComentariosFav" Relationship="Self.RelFavUsuCom" FromRole="Usuario" ToRole="Comentario" />
@@ -2779,7 +2781,6 @@
           <NavigationProperty Name="Contenidos" Relationship="Self.RelUsuCont" FromRole="Usuario" ToRole="Contenido" />
           <NavigationProperty Name="Enfermedad" Relationship="Self.RelUsuEnf" FromRole="Usuario" ToRole="Enfermedad" />
           <NavigationProperty Name="Medicina" Relationship="Self.RelUsuMed" FromRole="Usuario" ToRole="Medicina" />
-          <Property Name="UsuarioRecibirEmails" Type="Boolean" Nullable="false" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Valor">
           <Key>
@@ -3241,19 +3242,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Notificacion_UsuarioId_PersonaId">
-          <End Role="RelUsuPer" Type="Self.RelUsuPer" Multiplicity="1">
+        <Association Name="FK_Notificacion_UsuarioId">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Notificacion" Type="Self.Notificacion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RelUsuPer">
+            <Principal Role="Usuario">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
             </Principal>
             <Dependent Role="Notificacion">
               <PropertyRef Name="UsuarioId" />
-              <PropertyRef Name="PersonaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3670,8 +3669,8 @@
             <End Role="TemaNot" EntitySet="TemaNot" />
             <End Role="Notificacion" EntitySet="Notificacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Notificacion_UsuarioId_PersonaId" Association="Self.FK_Notificacion_UsuarioId_PersonaId">
-            <End Role="RelUsuPer" EntitySet="RelUsuPer" />
+          <AssociationSet Name="FK_Notificacion_UsuarioId" Association="Self.FK_Notificacion_UsuarioId">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Notificacion" EntitySet="Notificacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_SexoId" Association="Self.FK_Persona_SexoId">
@@ -3827,8 +3826,8 @@
                 <ScalarProperty Name="AlimentoNombre" ColumnName="AlimentoNombre" />
                 <ScalarProperty Name="AlimentoImagen" ColumnName="AlimentoImagen" />
                 <ScalarProperty Name="AlimentoPorcion" ColumnName="AlimentoPorcion" />
-                <ScalarProperty Name="AlimentoCalorias" ColumnName="AlimentoCalorias" />
                 <ScalarProperty Name="AlimentoCarbohidratos" ColumnName="AlimentoCarbohidratos" />
+                <ScalarProperty Name="AlimentoCalorias" ColumnName="AlimentoCalorias" />
                 <ScalarProperty Name="AlimentoAzucar" ColumnName="AlimentoAzucar" />
                 <ScalarProperty Name="AlimentoGrasa" ColumnName="AlimentoGrasa" />
                 <ScalarProperty Name="AlimentoSodio" ColumnName="AlimentoSodio" />
@@ -4094,10 +4093,11 @@
               <MappingFragment StoreEntitySet="Notificacion">
                 <ScalarProperty Name="NotificacionId" ColumnName="NotificacionId" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="TemaNotId" ColumnName="TemaNotId" />
                 <ScalarProperty Name="NotificacionTitulo" ColumnName="NotificacionTitulo" />
-                <ScalarProperty Name="NotifiacionDescripcion" ColumnName="NotifiacionDescripcion" />
+                <ScalarProperty Name="NotificacionDescripcion" ColumnName="NotificacionDescripcion" />
+                <ScalarProperty Name="NotificacionFchHora" ColumnName="NotificacionFchHora" />
+                <ScalarProperty Name="NotificacionVista" ColumnName="NotificacionVista" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4218,6 +4218,7 @@
               <MappingFragment StoreEntitySet="RelUsuPer">
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="RelUsuPerFchEnable" ColumnName="RelUsuPerFchEnable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4287,7 +4288,6 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="AgustinaDBModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="UsuarioRecibirEmails" ColumnName="UsuarioRecibirEmails" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
                 <ScalarProperty Name="UsuarioEmail" ColumnName="UsuarioEmail" />
@@ -4299,6 +4299,7 @@
                 <ScalarProperty Name="UsuarioFchIng" ColumnName="UsuarioFchIng" />
                 <ScalarProperty Name="UsuarioApp" ColumnName="UsuarioApp" />
                 <ScalarProperty Name="UsuarioLastLogin" ColumnName="UsuarioLastLogin" />
+                <ScalarProperty Name="UsuarioRecibirEmails" ColumnName="UsuarioRecibirEmails" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

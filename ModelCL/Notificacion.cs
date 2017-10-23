@@ -16,12 +16,13 @@ namespace ModelCL
     {
         public long NotificacionId { get; set; }
         public long UsuarioId { get; set; }
-        public long PersonaId { get; set; }
         public short TemaNotId { get; set; }
         public string NotificacionTitulo { get; set; }
-        public string NotifiacionDescripcion { get; set; }
+        public string NotificacionDescripcion { get; set; }
+        public System.DateTime NotificacionFchHora { get; set; }
+        public bool NotificacionVista { get; set; }
     
         public virtual TemaNot TemaNot { get; set; }
-        public virtual RelUsuPer RelUsuPer { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

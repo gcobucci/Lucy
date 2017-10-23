@@ -18,6 +18,7 @@ namespace ModelCL
         public Usuario()
         {
             this.Comentarios = new HashSet<Comentario>();
+            this.Notificacion = new HashSet<Notificacion>();
             this.RelUsuPer = new HashSet<RelUsuPer>();
             this.RelUsuRol = new HashSet<RelUsuRol>();
             this.ComentariosFav = new HashSet<Comentario>();
@@ -44,6 +45,8 @@ namespace ModelCL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notificacion> Notificacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RelUsuPer> RelUsuPer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

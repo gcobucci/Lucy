@@ -7,8 +7,8 @@
     {
         <div class="form-group">
             <div class="col-md-12">
-                <span onclick="$('#batman').trigger('click');">
-                    @Html.CheckBoxFor(model => model.UsuarioRecibirEmails, new { htmlAttributes = new { @class = "form-control" } })
+                <span>
+                    @Html.CheckBoxFor(model => model.UsuarioRecibirEmails, new { @onclick = "$('#batman').trigger('click');" })
                     Recibir emails de la aplicación
                 </span>
                 @Html.ValidationMessageFor(model => model.UsuarioRecibirEmails, "", new { @class = "text-danger" })

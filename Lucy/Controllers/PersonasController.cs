@@ -189,6 +189,11 @@ namespace Lucy.Controllers
             ViewBag.listaInsulinasCorreccion = new SelectList(lInsulinasCorreccion, "MedicinaId", "MedicinaNombre");
 
 
+            var errors = ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .Select(x => new { x.Key, x.Value.Errors })
+            .ToArray();
+
             if (ModelState.IsValid)
             {
                 ModelCL.Persona Persona = new ModelCL.Persona();
@@ -349,7 +354,7 @@ namespace Lucy.Controllers
 
                             ModelCL.Diabetes newDiabetes = new ModelCL.Diabetes();
                             newDiabetes.Datos = newDatos;
-                            newDiabetes.DiabetesHidratosPorUniInsu = Datos.DiabetesHidratosPorUniInsu;
+                            newDiabetes.DiabetesHidratosPorUniInsu = Convert.ToInt16(Datos.DiabetesHidratosPorUniInsu);
 
                             newDatos.Diabetes = newDiabetes;
                             Persona.Datos.Add(newDatos);
@@ -400,7 +405,7 @@ namespace Lucy.Controllers
 
                         ModelCL.Diabetes newDiabetes = new ModelCL.Diabetes();
                         newDiabetes.Datos = newDatos;
-                        newDiabetes.DiabetesHidratosPorUniInsu = Datos.DiabetesHidratosPorUniInsu;
+                        newDiabetes.DiabetesHidratosPorUniInsu = Convert.ToInt16(Datos.DiabetesHidratosPorUniInsu);
 
                         newDatos.Diabetes = newDiabetes;
                         Persona.Datos.Add(newDatos);

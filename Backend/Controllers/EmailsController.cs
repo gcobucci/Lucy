@@ -42,17 +42,31 @@ namespace Backend.Controllers
             {
                 List<ModelCL.Usuario> usuarios = db.Usuario.ToList();
 
-                if (datos.RespetarDecisión == true)
-                {
-                    usuarios = usuarios.Where(u => u.UsuarioRecibirEmails == true).ToList();
-                }
-
                 if (datos.EnfermedadId != 0)
                 {
                     usuarios = usuarios.Where(u => u.RelUsuPer.Where(rup => rup.Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadId == datos.EnfermedadId).FirstOrDefault() != null).FirstOrDefault() != null).ToList();
                 }
 
+                //Notificaciones
+                foreach (ModelCL.Usuario usu in usuarios)
+                {
+                    ModelCL.Notificacion notificacion = new ModelCL.Notificacion();
+                    notificacion.NotificacionTitulo = datos.Asunto;
+                    notificacion.NotificacionDescripcion = datos.Mensaje;
+                    notificacion.NotificacionVista = false;
+                    notificacion.TemaNot = db.TemaNot.Where(t => t.TemaNotDescripcion == "Varios").FirstOrDefault();
 
+                    usu.Notificacion.Add(notificacion);
+                }
+                db.SaveChanges();
+
+                
+                if (datos.RespetarDecisión == true)
+                {
+                    usuarios = usuarios.Where(u => u.UsuarioRecibirEmails == true).ToList();
+                }
+
+                //Emails
                 var fromEmail = new MailAddress("mateswdv@gmail.com", "YoTeCuido");
                 var fromEmailPassword = "mateSolutions07uy";
 

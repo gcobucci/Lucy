@@ -14,17 +14,10 @@ namespace ModelCL
     
     public partial class RelUsuPer
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RelUsuPer()
-        {
-            this.Notificacion = new HashSet<Notificacion>();
-        }
-    
         public long UsuarioId { get; set; }
         public long PersonaId { get; set; }
+        public System.DateTime RelUsuPerFchEnable { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notificacion> Notificacion { get; set; }
         public virtual Persona Persona { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
