@@ -61,6 +61,10 @@ namespace Backend.Controllers
             {
                 return HttpNotFound();
             }
+
+            contPrograma.ContenidoCantVisitas += 1;
+            db.SaveChanges();
+
             return View(contPrograma);
         }
 

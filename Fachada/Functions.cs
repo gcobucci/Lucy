@@ -10,30 +10,6 @@ namespace Fachada
 {
     public class Functions
     {
-        //public static string encriptar(string original)
-        //{
-        //    MD5 md5 = new MD5CryptoServiceProvider();
-
-        //    return Convert.ToString(md5.ComputeHash(original));
-        //}
-
-        //public static string encriptar(string valor)
-        //{
-        //    MD5 md5 = new MD5CryptoServiceProvider();
-        //    Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(valor);
-        //    Byte[] encodedBytes = md5.ComputeHash(originalBytes);
-
-        //    return BitConverter.ToString(encodedBytes);
-        //}
-
-        //public static string desencriptar(string valor)
-        //{
-        //    MD5 md5 = new MD5CryptoServiceProvider();
-
-
-        //    return md5.Hash(valor);
-        //}
-
         public static bool isValidContentType(string contentType)
         {
             return contentType.Equals("image/png") || contentType.Equals("image/gif") ||
@@ -55,15 +31,6 @@ namespace Fachada
             return idUsu;
         }
 
-        //public static int get_idPer(HttpCookie cookie)
-        //{
-
-        //    FormsAuthenticationTicket per = FormsAuthentication.Decrypt(cookie.Value);
-        //    long idPer = Convert.ToInt32(per.Name);
-
-        //    return idPer;
-        //}
-        
 
         public static bool es_premium(long idUsu)
         {
@@ -80,6 +47,7 @@ namespace Fachada
                 }
             }
         }
+
 
         public static bool es_diabetico_tipo_1(long idPer)
         {
@@ -171,5 +139,17 @@ namespace Fachada
 
             return calorias;
         }
+
+
+        //public static void sumar_visita(long idCont)
+        //{
+        //    using (AgustinaEntities db = new AgustinaEntities())
+        //    {
+        //        ModelCL.Contenido contenido = db.Contenido.Find(idCont);
+        //        contenido.ContenidoCantVisitas += 1;
+
+        //        db.SaveChanges();
+        //    }
+        //}
     }
 }
