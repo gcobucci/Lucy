@@ -2,137 +2,51 @@
 
 @{
     ViewBag.Title = "Dieta | Ver";
+    var i = 0;
 }
 
-<h2>Ver Dieta</h2>
+<div class="publicidadTop"><small>Publicidad</small></div>
 
-<div>
-    <h4>Dieta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("Título")
-        </dt>
+<div class="row" style="margin-bottom: 30px;">
+    <p>
+        @Html.ActionLink("Volver al listado", "Index")
+    </p>
+        
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="float: left;margin-right: 5px;">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
+            </div>
+        </div>
+        <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoTitulo)
-        </dd>
+        <p>@Model.ContenidoDescripcion</p>
+        <br />
 
-        <dt>
-            @Html.Label("Descripción")
-        </dt>
+        <h4>Desayuno <small>@Model.Dieta.DietaDesayunoCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaDesayunoDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
 
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoDescripcion)
-        </dd>
+        <h4>Almuerzo <small>@Model.Dieta.DietaAlmuerzoCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaAlmuerzoDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
 
-        <dt>
-            @Html.Label("Cuerpo")
-        </dt>
+        <h4>Merienda <small>@Model.Dieta.DietaMeriendaCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaMeriendaDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
 
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoCuerpo)
-        </dd>
+        <h4>Cena <small>@Model.Dieta.DietaCenaCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaCenaDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
 
-        <dt>
-            @Html.Label("Calorías en el desayuno")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaDesayunoCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción del desayuno")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaDesayunoDescripcion)
-        </dd>
-
-
-        <dt>
-            @Html.Label("Calorías en el almuerzo")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaAlmuerzoCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción del almuerzo")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaAlmuerzoDescripcion)
-        </dd>
-
-
-        <dt>
-           @Html.Label("Calorías en la merienda")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaMeriendaCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción de la merienda")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaMeriendaDescripcion)
-        </dd>
-
-
-        <dt>
-            @Html.Label("Calorías en la cena")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaCenaCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripcion de la cena")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaCenaDescripcion)
-        </dd>
-
-
-        <dt>
-            @Html.Label("Calorías en las ingestas")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaIngestasCalorias)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción de las ingestas")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dieta.DietaIngestasDescripcion)
-        </dd>
-
-
-        <dt>
-            @Html.Label("Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
-        </dt>
-
-        <dd>
-            <img src="/@Html.DisplayFor(model => model.Multimedia.First().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" />
-        </dd>        
-    </dl>
+        <h4>Ingesta <small>@Model.Dieta.DietaIngestasCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaIngestasDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br />
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
-    @Html.ActionLink("Volver al listado", "Index")
-</p>
 
+@*Comentario*@
 <div id="comentarios">
     @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })
 </div>
