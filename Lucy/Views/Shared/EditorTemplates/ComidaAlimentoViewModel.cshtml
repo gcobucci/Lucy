@@ -44,44 +44,51 @@
             @Html.DisplayFor(model => model[i].AlimentoPorcion)
         </td>
 
-        <td>
+        <td class="cal">
             @Html.HiddenFor(model => model[i].AlimentoCalorias)
             @Html.DisplayFor(model => model[i].AlimentoCalorias)
         </td>
 
-        <td>
+        <td class="car">
             @Html.HiddenFor(model => model[i].AlimentoCarbohidratos)
             @Html.DisplayFor(model => model[i].AlimentoCarbohidratos)
         </td>
 
-        <td>
+        <td class="azucar">
             @Html.HiddenFor(model => model[i].AlimentoAzucar)
             @Html.DisplayFor(model => model[i].AlimentoAzucar)
         </td>
 
-        <td>
+        <td class="grasa">
             @Html.HiddenFor(model => model[i].AlimentoGrasa)
             @Html.DisplayFor(model => model[i].AlimentoGrasa)
         </td>
 
-        <td>
+        <td class="sodio">
             @Html.HiddenFor(model => model[i].AlimentoSodio)
             @Html.DisplayFor(model => model[i].AlimentoSodio)
         </td>
         <td>
-            @if (Model[i].AlimentoGluten != null && Model[i].AlimentoGluten == true)
+            @if (Model[i].AlimentoGluten == true)
             {
-                <span>Si</span>
+                <span class="gluten">Si</span>
             }
             else
             {
-                <span>No</span>
+                if (Model[i].AlimentoGluten == false)
+                {
+                    <span class="gluten">No</span>
+                }
+                else
+                {
+                    <span class="gluten">Sin asignar</span>
+                }
             }
         </td>
         <td>
             <div class="form-group">
-                <div class="col-md-10" onkeyup="aComerla(@Model[i].AlimentoCalorias, @Model[i].AlimentoCarbohidratos, @Model[i].AlimentoAzucar, @Model[i].AlimentoGrasa, @Model[i].AlimentoSodio, @if (Model[i].AlimentoGluten != null && Model[i].AlimentoGluten == true){@Html.Raw("1")}else{@Html.Raw("0")})">
-                    @Html.EditorFor(model => model[i].RelComAliCantidad, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-md-10" onkeyup="aComerla()">
+                    @Html.EditorFor(model => model[i].RelComAliCantidad, new { htmlAttributes = new { @class = "form-control cant" } })
                     @Html.ValidationMessageFor(model => model[i].RelComAliCantidad, "", new { @class = "text-danger" })
                 </div>
             </div>

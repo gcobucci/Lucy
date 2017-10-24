@@ -7,7 +7,7 @@
         function () {
             $('.dropdown-menuS', this).stop(true, true).slideUp("fast");
             $(this).toggleClass('open');
-        }
+        },
     );
 
     //$.validator.methods.number = function (value, element) {
@@ -22,6 +22,24 @@
     //function floatValue(value) {
     //    return parseFloat(value.replace(",", "."));
     //}
+
+    function notificaciones() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: "/notificaciones/CountNot",
+            success: function (data) {
+                if (data > 0) {
+                    $("#btnNotificacion .badge").text(data);
+                } else {
+                    if (data < 1) {
+                        $("#btnNotificacion .badge").val();
+                    }
+                }
+            }
+        });
+    }
+    setInterval(notificaciones, 300000);
 
     poneleColorJC();
 });
@@ -280,7 +298,86 @@ function poneleColorJC() {
     }
 }
 
-function aComerla(cal, car, azucar, grasa, sodio, gluten) {
-    var a = $(this + " input").text();
-    alert(a);
+function aComerla() {
+    var cal = document.getElementsByClassName("cal");
+    var car = document.getElementsByClassName("car");
+    var azucar = document.getElementsByClassName("azucar");
+    var grasa = document.getElementsByClassName("grasa");
+    var sodio = document.getElementsByClassName("sodio");
+    var gluten = document.getElementsByClassName("gluten");
+    var cant = document.getElementsByClassName("cant");
+
+    var auxCal = "";
+    var auxCar = "";
+    var auxAzucar = "";
+    var auxGrasa = "";
+    var auxSodio = "";
+
+    var hayGluten = false;
+
+    document.getElementById("ComidaGluten").value = "";
+
+    for (var i = 0; i < cant.length; i++) {
+        if (cant[i].value > 0) {
+            if (auxCal != "") {
+                var papa = parseInt(cal[i].innerText) * cant[i].value;
+                auxCal = papa + parseInt(auxCal);
+            } else {
+                var papa = parseInt(cal[i].innerText) * cant[i].value;
+                auxCal = papa;
+            }
+
+            if (auxCar != "") {
+                var papa = parseInt(car[i].innerText) * cant[i].value;
+                auxCar = papa + parseInt(auxCar);
+            } else {
+                var papa = parseInt(car[i].innerText) * cant[i].value;
+                auxCar = papa;
+            }
+
+            if (auxAzucar != "") {
+                var papa = parseInt(azucar[i].innerText) * cant[i].value;
+                auxAzucar = papa + parseInt(auxAzucar);
+            } else {
+                var papa = parseInt(azucar[i].innerText) * cant[i].value;
+                auxAzucar = papa;
+            }
+
+            if (auxGrasa != "") {
+                var papa = parseInt(grasa[i].innerText) * cant[i].value;
+                auxGrasa = papa + parseInt(auxGrasa);
+            } else {
+                var papa = parseInt(grasa[i].innerText) * cant[i].value;
+                auxGrasa = papa;
+            }
+
+            if (auxSodio != "") {
+                var papa = parseInt(sodio[i].innerText) * cant[i].value;
+                auxSodio = papa + parseInt(auxSodio);
+            } else {
+                var papa = parseInt(sodio[i].innerText) * cant[i].value;
+                auxSodio = papa;
+            }
+
+            if (gluten[i].innerHTML == "Si") {
+                document.getElementById("ComidaGluten").value = "true";
+                hayGluten = true;
+            }
+        }
+    }
+
+    document.getElementById("ComidaCalorias").value = auxCal;
+    document.getElementById("ComidaCarbohidratos").value = auxCar;
+    document.getElementById("ComidaAzucar").value = auxAzucar;
+    document.getElementById("ComidaGrasa").value = auxGrasa;
+    document.getElementById("ComidaSodio").value = auxSodio;
+    for (var i = 0; i < gluten.length; i++) {
+        if (cant[i].value > 0) {
+            if (gluten[i].innerHTML != "Sin asignar") {
+                if (hayGluten == false) {
+                    document.getElementById("ComidaGluten").value = "false";
+                }
+            }
+        }
+    }
 }

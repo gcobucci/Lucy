@@ -200,11 +200,18 @@
                                 <li class="dropdown-submenu userLiSubMenu" id="leti"></li>
                             }
 
-                            <li class="userLi"><a href="#">Notificaciones</a></li>
+                            <li class="userLi"><a id="btnNotificacion" href="#" onclick="abrirNotificaciones()">Notificaciones <span class="badge badge-pill badge-info"></span></a>
+                                
+                            </li>
+
+                            <li class="userLi"><a href="#">Favoritos</a></li>
+
                             <li class="userLi">
                                 @Html.ActionLink("Datos Clínicos", "Datos_Clinicos", "Personas")
                             </li>
+
                             <li class="userLi"><a href="/configuracion">Configuración</a></li>
+
                             <li class="userLi">
                                 @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                                 {
@@ -351,6 +358,30 @@
         </footer>
     </div>
 
+    <!-- Modal Notificaciones -->
+    <div class="modal fade" id="PopUpNotificaciones" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Notificaciones</h4>
+                </div>
+                <div id="listaNot" class="modal-body" style="padding:0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function abrirNotificaciones() {
+            $('#PopUpNotificaciones').modal({
+                show: 'true'
+            });
+        }
+    </script>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/myScript")
@@ -375,13 +406,16 @@
         });
 
         function changePersona(PerId, PerNom, PerApe) {
-            //$('.userLiSubMenu ul').attr('style', 'display: none');
-            //$('.userLiSubMenu a.btn-default').text(PerNom + " " + PerApe);
             location.href = "/home/selPersona/?PerId=" + PerId + "&url=" + document.URL;     
         }
         
     </script>
 
+    <script type="text/javascript">
+        $("#btnNotificacion").on("click", function () {
+            $("#listaNot").load("/notificaciones/listado");
+        });
+    </script>
 
     @*@if (ViewBag.ReloadHome != null && ViewBag.ReloadHome == true)
     {
