@@ -138,6 +138,10 @@ namespace Backend.Controllers
             {
                 return HttpNotFound();
             }
+
+            contEjercicio.ContenidoCantVisitas += 1;
+            db.SaveChanges();
+
             return View(contEjercicio);
         }
 

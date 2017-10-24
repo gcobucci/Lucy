@@ -43,6 +43,10 @@ namespace Lucy.Controllers
             {
                 return HttpNotFound();
             }
+
+            contDieta.ContenidoCantVisitas += 1;
+            db.SaveChanges();
+
             return View(contDieta);
         }
 
