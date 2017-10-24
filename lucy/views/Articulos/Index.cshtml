@@ -79,7 +79,7 @@
 
         @foreach (var item in Model) {
 
-            @:articulo.push('<div id="@item.ContenidoId' + 'Div"><a href="ver?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
+            @:articulo.push('<div id="@item.ContenidoId' + 'Div">@if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null){<a id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart-o" aria-hidden="true"></a>}else{<a id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart" aria-hidden="true"></a>}<a href="ver?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
             @:articuloId.push('"@item.ContenidoId' + 'Div"');
             @:articuloImgId.push('\'#@item.ContenidoId' + 'Img\'');
 
@@ -103,6 +103,35 @@
                 loading = false;
             }
         }, 60);
+    </script>
+
+    <script>
+        function ActionFavorito(idFav, idCont, idUsu) {
+            var favClass = document.getElementById(idFav).className;
+            if (favClass != "fa fa-heart-o") {
+                $.ajax({
+                    dataType: 'json',
+                    data: {
+                        idCont: idCont,
+                        idUsu: idUsu
+                    },
+                    type: 'POST',
+                    url: "/favorito/deleteFav"
+                });
+                document.getElementById(idFav).className = "fa fa-heart-o";
+            } else {
+                $.ajax({
+                    dataType: 'json',
+                    data: {
+                        idCont: idCont,
+                        idUsu: idUsu
+                    },
+                    type: 'POST',
+                    url: "/favorito/saveFav"
+                });
+                document.getElementById(idFav).className = "fa fa-heart";
+            }
+        }
     </script>
 }
 
@@ -199,5 +228,16 @@
                     box-shadow: none;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 }
+
+        #waterfall > li > div > a.fa-heart, #waterfall > li > div > a.fa-heart-o {
+            position: absolute;
+            z-index: 1;
+            font-size: 20px;
+            right: 0;
+            padding-top: 12px;
+            color: #fff;
+            text-shadow: 0px 0px 5px #000;
+            cursor: pointer;
+        }
 </style>    
 }

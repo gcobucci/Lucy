@@ -39,7 +39,7 @@ namespace Lucy.Controllers
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-            List<ModelCL.Notificacion> notificaciones = db.Notificacion.Where(n => n.UsuarioId == idUsu).OrderByDescending(r => r.NotificacionFchHora).ToList();
+            List<ModelCL.Notificacion> notificaciones = db.Notificacion.Where(n => n.UsuarioId == idUsu && n.NotificacionVista == false).OrderByDescending(r => r.NotificacionFchHora).ToList();
             
             return this.Content(notificaciones.Count().ToString());
         }

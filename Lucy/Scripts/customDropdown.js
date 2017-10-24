@@ -23,23 +23,8 @@
     //    return parseFloat(value.replace(",", "."));
     //}
 
-    function notificaciones() {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: "/notificaciones/CountNot",
-            success: function (data) {
-                if (data > 0) {
-                    $("#btnNotificacion .badge").text(data);
-                } else {
-                    if (data < 1) {
-                        $("#btnNotificacion .badge").val();
-                    }
-                }
-            }
-        });
-    }
-    setInterval(notificaciones, 300000);
+    notificaciones();
+    setInterval(notificaciones, 120000);
 
     poneleColorJC();
 });
@@ -380,4 +365,37 @@ function aComerla() {
             }
         }
     }
+}
+
+function notificaciones() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: "/notificaciones/CountNot",
+        success: function (data) {
+            if (data > 0) {
+                $("#btnNotificacion .badge").text(data);
+            } else {
+                if (data < 1) {
+                    $("#btnNotificacion .badge").text("");
+                }
+            }
+        }
+    });
+}
+
+function eliminarNot(idPanel, idNot) {
+    document.getElementById(idPanel).style.left = "-1000px";
+    var x = setInterval(function () {
+        document.getElementById(idPanel).style.display = "none";
+        document.getElementById(idPanel).innerHTML = null;
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: { id: idNot },
+            url: "/notificaciones/eliminar"
+        });
+        clearInterval(x);
+    }, 400);
+
 }

@@ -366,7 +366,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Notificaciones</h4>
                 </div>
-                <div id="listaNot" class="modal-body" style="padding:0">
+                <div id="listaNot" class="modal-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Volver</button>
@@ -414,6 +414,7 @@
     <script type="text/javascript">
         $("#btnNotificacion").on("click", function () {
             $("#listaNot").load("/notificaciones/listado");
+            notificaciones();
         });
     </script>
 

@@ -1887,7 +1887,75 @@ input.bordered-btn {
     }
 
 .boxNot {
+    display: inline-block;
+    color: #333;
+}
+
+#listaNot {
+    padding: 3px;
+    max-height: 450px;
+    overflow: auto;
+}
+
+.panel {
+    transition: left 1s;
+    position: relative;
+    left: 0px;
+}
+
+/************************************************************** HOME ********************************************************************/
+
+h2.titulosH {
+    font-weight: lighter;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.textH{
+    font-size: 16px;
+    text-align: center;
+}
+
+.textHLeft {
+    font-size: 16px;
+    text-align: left;
+}
+
+.boxItemHome{
+    margin-bottom: 45px;
+}
+
+.listH{
+    margin-left: 45px;
+}
+
+.imgSlideCont {
+    width: 100%;
+    height: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.publicidadTop {
+    width: 468px;
+    height: 60px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin: 0;
+    margin: 15px auto 20px;
+    text-align: center;
+}
+
+@media screen and (max-width: 490px) {
+    .publicidadTop {
+        width: 392px;
+        height: 72px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .publicidadTop {
+        width: 234px;
+        height: 60px;
+    }
 }

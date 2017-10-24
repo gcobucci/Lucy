@@ -239,11 +239,13 @@
     <Content Include="Resources\Oficial\infnut.png" />
     <Content Include="Resources\Oficial\logoBanner.svg" />
     <Content Include="Resources\Oficial\mantel.jpg" />
+    <Content Include="Resources\Oficial\mate.jpg" />
     <Content Include="Resources\Oficial\medicina.png" />
     <Content Include="Resources\Oficial\merienda.jpg" />
     <Content Include="Resources\Oficial\peso.png" />
     <Content Include="Resources\Oficial\programa.png" />
     <Content Include="Resources\Oficial\receta.png" />
+    <Content Include="Resources\Oficial\responsive-screen.png" />
     <Content Include="Resources\Oficial\rutina.png" />
     <Content Include="Resources\Oficial\tmb.png" />
     <Content Include="Resources\Oficial\user.svg" />
