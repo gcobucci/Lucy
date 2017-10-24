@@ -75,7 +75,7 @@ namespace Backend.Controllers
                     var toEmail = new MailAddress(usu.UsuarioEmail);
 
                     string subject = datos.Asunto;
-                    string body = datos.Mensaje;
+                    string body = datos.Mensaje.Replace(Environment.NewLine, "<br/>");
 
                     var smtp = new SmtpClient
                     {
