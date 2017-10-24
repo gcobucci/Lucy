@@ -33,7 +33,7 @@ namespace Backend.Controllers
 
             ViewBag.TotalEnfermedades = db.Enfermedad.GroupBy(p => p.EnfermedadNombre).Count();
 
-            ViewBag.TotalMedicina = db.Medicina.GroupBy(p => p.MedicinaNombre).Count();
+            ViewBag.TotalMedicinas = db.Medicina.GroupBy(p => p.MedicinaNombre).Count();
 
             ViewBag.TotalDailyConections = db.Usuario.Where(p => DbFunctions.TruncateTime(p.UsuarioLastLogin) == (DateTime.Today)).Count();
 
