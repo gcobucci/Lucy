@@ -3,6 +3,9 @@
 <table class="table table-hover table-striped">
     <tr class="dl-horizontal">
         <th>
+            Imagen    
+        </th>
+        <th>
             Alimento
         </th>
         <th>
@@ -35,6 +38,10 @@
 {
 @Html.HiddenFor(model => model[i].AlimentoId)
     <tr>
+        <td>
+            @Html.HiddenFor(model => model[i].AlimentoImagen)
+            <img src="http://localhost:4181/@Html.DisplayFor(model => model[i].AlimentoImagen)" title="@Model[i].AlimentoNombre" height="70" width="70" alt="Imagen no encontrada" />
+        </td>
         <td>
             @Html.HiddenFor(model => model[i].AlimentoNombre)
             @Html.DisplayFor(model => model[i].AlimentoNombre)
