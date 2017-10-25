@@ -24,8 +24,8 @@ namespace ModelCL
         public string AlimentoNombre { get; set; }
         public string AlimentoImagen { get; set; }
         public string AlimentoPorcion { get; set; }
-        public Nullable<short> AlimentoCarbohidratos { get; set; }
         public Nullable<short> AlimentoCalorias { get; set; }
+        public Nullable<short> AlimentoCarbohidratos { get; set; }
         public Nullable<double> AlimentoAzucar { get; set; }
         public Nullable<double> AlimentoGrasa { get; set; }
         public Nullable<double> AlimentoSodio { get; set; }

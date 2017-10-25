@@ -1173,6 +1173,8 @@
     <Content Include="Views\Alimentos\Edit.cshtml" />
     <Content Include="Views\Enfermedades\Create.cshtml" />
     <Content Include="Views\Enfermedades\Edit.cshtml" />
+    <Content Include="Views\Dietas\Edit.cshtml" />
+    <Content Include="Views\Dietas\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

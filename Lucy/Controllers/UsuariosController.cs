@@ -541,15 +541,14 @@ namespace Lucy.Controllers
 
                 using (AgustinaEntities db = new AgustinaEntities())
                 {
-                    ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
-
-                    Usuario.UsuarioLastLogin = DateTime.Now;
+                    db.Usuario.Find(idUsu).UsuarioLastLogin = DateTime.Now;
 
                     db.SaveChanges();
                 }
             }
-            
+
             return null;
+            //RedirectToAction("Index", "Home");
         }
     }
 }

@@ -39,22 +39,22 @@ namespace Backend.Controllers
 
 
             //Porcentaje hombres
-            ViewBag.PercentMales = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Hombre").Count())*100)/ db.Usuario.Count());
+            ViewBag.PercentMales = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Hombre").Count())*100)/ db.Persona.Count());
 
             //Porcentaje mujeres
-            ViewBag.PercentFemales = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Mujer").Count()) * 100) / db.Usuario.Count());
+            ViewBag.PercentFemales = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Mujer").Count()) * 100) / db.Persona.Count());
 
             //Porcentaje inter
-            ViewBag.PercentInter = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Intersexual").Count()) * 100) / db.Usuario.Count());
+            ViewBag.PercentInter = (((db.Persona.Where(p => p.Sexo.SexoNombre == "Intersexual").Count()) * 100) / db.Persona.Count());
 
             //Porcentaje diabeticos
-            ViewBag.PercentDiabeticos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Diabetes tipo 1" || p.Enfermedad.EnfermedadNombre == "Diabetes tipo 2").Count()) * 100) / db.Usuario.Count());
+            ViewBag.PercentDiabeticos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Diabetes tipo 1" || p.Enfermedad.EnfermedadNombre == "Diabetes tipo 2").Count()) * 100) / db.Persona.Count());
 
             //Porcentaje celiacos
-            ViewBag.PercentCeliacos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Celiaquía").Count()) * 100) / db.Usuario.Count());
+            ViewBag.PercentCeliacos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Celiaquía").Count()) * 100) / db.Persona.Count());
 
             //Porcentaje obesos
-            ViewBag.PercentObesos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Obesidad").Count()) * 100) / db.Usuario.Count());
+            ViewBag.PercentObesos = (((db.RelPerEnf.Where(p => p.Enfermedad.EnfermedadNombre == "Obesidad").Count()) * 100) / db.Persona.Count());
 
             return View();
         }

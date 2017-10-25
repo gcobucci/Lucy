@@ -32,8 +32,8 @@
           <Property Name="AlimentoNombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AlimentoImagen" Type="varchar(max)" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AlimentoCarbohidratos" Type="smallint" />
           <Property Name="AlimentoCalorias" Type="smallint" />
+          <Property Name="AlimentoCarbohidratos" Type="smallint" />
           <Property Name="AlimentoAzucar" Type="float" />
           <Property Name="AlimentoGrasa" Type="float" />
           <Property Name="AlimentoSodio" Type="float" />
@@ -200,9 +200,6 @@
           <Property Name="DiabetesId" Type="bigint" Nullable="false" />
           <Property Name="PersonaId" Type="bigint" Nullable="false" />
           <Property Name="DatosFchEnable" Type="datetime" Nullable="false" />
-          <Property Name="DiabetesTipo" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="float" />
-          <Property Name="DiabetesGlicemiaAlta" Type="float" />
           <Property Name="DiabetesHidratosPorUniInsu" Type="smallint" />
           <Property Name="HisDatosDiabetesFchDisable" Type="datetime" Nullable="false" />
         </EntityType>
@@ -634,7 +631,7 @@
           <Property Name="UsuarioCodAct" Type="uniqueidentifier" />
           <Property Name="UsuarioFchIng" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="varchar" MaxLength="50" />
-          <Property Name="UsuarioLastLogin" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UsuarioLastLogin" Type="datetime" />
           <Property Name="UsuarioRecibirEmails" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Valor">
@@ -2211,8 +2208,8 @@
           <Property Name="AlimentoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AlimentoPorcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AlimentoCarbohidratos" Type="Int16" />
           <Property Name="AlimentoCalorias" Type="Int16" />
+          <Property Name="AlimentoCarbohidratos" Type="Int16" />
           <Property Name="AlimentoAzucar" Type="Double" />
           <Property Name="AlimentoGrasa" Type="Double" />
           <Property Name="AlimentoSodio" Type="Double" />
@@ -2419,9 +2416,6 @@
           <Property Name="DiabetesId" Type="Int64" Nullable="false" />
           <Property Name="PersonaId" Type="Int64" Nullable="false" />
           <Property Name="DatosFchEnable" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DiabetesTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DiabetesGlicemiaBaja" Type="Double" />
-          <Property Name="DiabetesGlicemiaAlta" Type="Double" />
           <Property Name="DiabetesHidratosPorUniInsu" Type="Int16" />
           <Property Name="HisDatosDiabetesFchDisable" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -2768,7 +2762,7 @@
           <Property Name="UsuarioCodAct" Type="Guid" />
           <Property Name="UsuarioFchIng" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="UsuarioApp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UsuarioLastLogin" Type="DateTime" Precision="3" />
           <Property Name="UsuarioRecibirEmails" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentario_UsuarioId" FromRole="Usuario" ToRole="Comentario" />
           <NavigationProperty Name="Notificacion" Relationship="Self.FK_Notificacion_UsuarioId" FromRole="Usuario" ToRole="Notificacion" />
@@ -3826,8 +3820,8 @@
                 <ScalarProperty Name="AlimentoNombre" ColumnName="AlimentoNombre" />
                 <ScalarProperty Name="AlimentoImagen" ColumnName="AlimentoImagen" />
                 <ScalarProperty Name="AlimentoPorcion" ColumnName="AlimentoPorcion" />
-                <ScalarProperty Name="AlimentoCarbohidratos" ColumnName="AlimentoCarbohidratos" />
                 <ScalarProperty Name="AlimentoCalorias" ColumnName="AlimentoCalorias" />
+                <ScalarProperty Name="AlimentoCarbohidratos" ColumnName="AlimentoCarbohidratos" />
                 <ScalarProperty Name="AlimentoAzucar" ColumnName="AlimentoAzucar" />
                 <ScalarProperty Name="AlimentoGrasa" ColumnName="AlimentoGrasa" />
                 <ScalarProperty Name="AlimentoSodio" ColumnName="AlimentoSodio" />
@@ -4001,9 +3995,6 @@
                 <ScalarProperty Name="DiabetesId" ColumnName="DiabetesId" />
                 <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
                 <ScalarProperty Name="DatosFchEnable" ColumnName="DatosFchEnable" />
-                <ScalarProperty Name="DiabetesTipo" ColumnName="DiabetesTipo" />
-                <ScalarProperty Name="DiabetesGlicemiaBaja" ColumnName="DiabetesGlicemiaBaja" />
-                <ScalarProperty Name="DiabetesGlicemiaAlta" ColumnName="DiabetesGlicemiaAlta" />
                 <ScalarProperty Name="DiabetesHidratosPorUniInsu" ColumnName="DiabetesHidratosPorUniInsu" />
                 <ScalarProperty Name="HisDatosDiabetesFchDisable" ColumnName="HisDatosDiabetesFchDisable" />
               </MappingFragment>

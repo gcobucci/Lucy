@@ -18,9 +18,6 @@ namespace ModelCL
         public long DiabetesId { get; set; }
         public long PersonaId { get; set; }
         public System.DateTime DatosFchEnable { get; set; }
-        public string DiabetesTipo { get; set; }
-        public Nullable<double> DiabetesGlicemiaBaja { get; set; }
-        public Nullable<double> DiabetesGlicemiaAlta { get; set; }
         public Nullable<short> DiabetesHidratosPorUniInsu { get; set; }
         public System.DateTime HisDatosDiabetesFchDisable { get; set; }
     }

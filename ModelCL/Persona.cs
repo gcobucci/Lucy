@@ -35,7 +35,6 @@ namespace ModelCL
 
         public short edad { get { return Convert.ToInt16(Math.Floor((((TimeSpan)(DateTime.Now - PersonaFchNac)).Days) / 365.25)); } }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Datos> Datos { get; set; }
         public virtual Sexo Sexo { get; set; }
