@@ -6,7 +6,7 @@
 
 
 @*@using (Ajax.BeginForm("_datcli", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "DatCli", InsertionMode = InsertionMode.Replace }))
-@using (Ajax.BeginForm("_datcli", "Personas", new { id = ViewBag.idPersona }, null))*@
+    @using (Ajax.BeginForm("_datcli", "Personas", new { id = ViewBag.idPersona }, null))*@
 @using (Html.BeginForm("_datcli", "Personas", new { id = ViewBag.idPersona }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -81,7 +81,7 @@
                 @Html.ValidationMessageFor(model => model.DatCliNivelActividad, "", new { @class = "text-danger" })
             </div>
         </div>
-                
+
         <div class="form-group">
             @Html.LabelFor(model => model.PesoValor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -97,47 +97,79 @@
                 @Html.ValidationMessageFor(model => model.DatCliAltura, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            <div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-0">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Enfermedades</div>
+                    <div class="panel-body">
+                        <a href="/enfermedades/crear">Crear nueva</a>
+                        <ul class="list-group">
+                            @for (int i = 0; i < Model.Enfermedades.Count; i++)
+                            {
+                                if (true) //Larissa
+                                {
+                                    @*<div class="form-group">
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Nombre)
+                                        @Html.Label(Model.Enfermedades[i].Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Id)
+                                        <div class="col-md-10">
+                                            @Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id })
+                                            <a href="/enfermedades/editar?id=@Model.Enfermedades[i].Id">Editar</a>
+                                            <span> | </span>
+                                            <a href="/enfermedades/eliminar?id=@Model.Enfermedades[i].Id">Eliminar</a>
+                                        </div>
+                                    </div>*@
 
-
-        @for (int i = 0; i < Model.Enfermedades.Count; i++)
-        {
-            <div class="form-group">
-                @Html.HiddenFor(model => model.Enfermedades[i].Nombre)
-                @Html.Label(Model.Enfermedades[i].Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.HiddenFor(model => model.Enfermedades[i].Id)
-                <div class="col-md-10">
-                    @Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id })
+                                    <li class="list-group-item">
+                                        <span>@Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id }) @Model.Enfermedades[i].Nombre</span>
+                                        <span style="float:right;">
+                                            <a href="/enfermedades/editar?id=@Model.Enfermedades[i].Id">Editar</a>
+                                            <span> | </span>
+                                            <a href="/enfermedades/eliminar?id=@Model.Enfermedades[i].Id">Eliminar</a>
+                                        </span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item">
+                                        <label>@Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id }) @Model.Enfermedades[i].Nombre</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        }
+        </div>
 
         <div id="info_diabetes">
             <h4>Diabetes</h4>
 
             @*<div class="form-group">
-                @Html.LabelFor(model => model.DiabetesTipo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.DiabetesTipo, ViewBag.listaTiposDiabetes as SelectList, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.DiabetesTipo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div id="diabetes_tipo_1">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DiabetesGlicemiaBaja, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.DiabetesTipo, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.DiabetesGlicemiaBaja, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                        @Html.ValidationMessageFor(model => model.DiabetesGlicemiaBaja, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.DiabetesTipo, ViewBag.listaTiposDiabetes as SelectList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DiabetesTipo, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DiabetesGlicemiaAlta, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DiabetesGlicemiaAlta, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                        @Html.ValidationMessageFor(model => model.DiabetesGlicemiaAlta, "", new { @class = "text-danger" })
+                <div id="diabetes_tipo_1">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DiabetesGlicemiaBaja, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DiabetesGlicemiaBaja, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.DiabetesGlicemiaBaja, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DiabetesGlicemiaAlta, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DiabetesGlicemiaAlta, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.DiabetesGlicemiaAlta, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.DiabetesHidratosPorUniInsu, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -162,7 +194,7 @@
                     @Html.ValidationMessageFor(model => model.InsulinaCorreccionId, "", new { @class = "text-danger" })
                 </div>
             </div>
-        @*</div>*@
+            @*</div>*@
         </div>
 
         <div class="form-group">
@@ -178,11 +210,11 @@
     </div>
 }
 
-<script type="text/javascript">
+                <script type="text/javascript">
     $(document).ready(function () {
         if ($("#enfermedad_1").is(':checked')) {
             $("#info_diabetes").show();
-            
+
             $('#DiabetesHidratosPorUniInsu').attr('required', 'required');
             $('#DiabetesHidratosPorUniInsu').rules("add", {
                 messages: {
@@ -203,7 +235,7 @@
                     required: 'No puede dejar este campo en blanco.'
                 }
             });
-            
+
         } else {
             $("#info_diabetes").hide();
 
@@ -231,7 +263,7 @@
                 }
             });
 
-            $('#InsulinaCorreccionId').attr('required', 'required');  
+            $('#InsulinaCorreccionId').attr('required', 'required');
             $('#InsulinaCorreccionId').rules("add", {
                 messages: {
                     required: 'No puede dejar este campo en blanco.'
@@ -257,7 +289,7 @@
             format: 'L'
         });
     });
-       
+
 
     function eliminarPersona() {
         $('#PopUpEliminarPersona').modal({
@@ -276,5 +308,5 @@
         //    //success: location.reload()
         //});
         //window. = "/personas/datos_clinicos";
-    } 
-</script>
+    }
+                </script>

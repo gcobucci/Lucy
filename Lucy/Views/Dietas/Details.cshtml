@@ -15,11 +15,22 @@
     <div class="col-sm-6 col-sm-offset-3">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="float: left;margin-right: 5px;">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
-                <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
+                <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                @if (ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId)
+                {
+                    <span style="float: left; margin: 27px 0 10px;">
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
+                    </span>
+                    <span style="float: left; margin: 27px 0 10px 5px;">
+                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ContenidoId })
+                    </span>
+                }
             </div>
         </div>
-        <br />
+
+        <small>@Model.ContenidoCantVisitas visitas</small>
+        
+        <br /><br />
 
         <p>@Model.ContenidoDescripcion</p>
         <br />

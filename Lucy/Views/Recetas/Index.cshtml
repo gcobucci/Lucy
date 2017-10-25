@@ -36,7 +36,7 @@
             @if (Request.QueryString["search"] != "" && Request.QueryString["search"] != null)
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search&enfermedad=@Request.QueryString["enfermedad"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search&enfermedad=@Request.QueryString["enfermedad"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     "@Request.QueryString["search"]"
                 </div>
             }
@@ -44,7 +44,7 @@
             @if (Request.QueryString["enfermedad"] == "1")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Diabetes
                 </div>
             }
@@ -52,7 +52,7 @@
             @if (Request.QueryString["enfermedad"] == "2")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Celiaquía
                 </div>
             }
@@ -60,7 +60,7 @@
             @if (Request.QueryString["enfermedad"] == "3")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Hipertensión
                 </div>
             }
@@ -68,7 +68,7 @@
             @if (Request.QueryString["enfermedad"] == "4")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Obesidad
                 </div>
             }
@@ -76,7 +76,7 @@
             @if (((Request.QueryString["calMax"] == "" || Request.QueryString["calMax"] == null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Más de @Request.QueryString["calMin"] kcal.
                 </div>
             }
@@ -84,7 +84,7 @@
             @if (((Request.QueryString["calMin"] == "" || Request.QueryString["calMin"] == null) && (Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Hasta @Request.QueryString["calMax"] kcal.
                 </div>
             }
@@ -92,7 +92,7 @@
             @if (((Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax&calMin&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax&calMin&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     @Request.QueryString["calMin"] kcal. a @Request.QueryString["calMax"] kcal.
                 </div>
             }
@@ -100,7 +100,7 @@
             @if (((Request.QueryString["carMax"] == "" || Request.QueryString["carMax"] == null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Más de @Request.QueryString["carMin"] g.
                 </div>
             }
@@ -108,7 +108,7 @@
             @if (((Request.QueryString["carMin"] == "" || Request.QueryString["carMin"] == null) && (Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Hasta @Request.QueryString["carMax"] g.
                 </div>
             }
@@ -116,7 +116,7 @@
             @if (((Request.QueryString["carMax"] != "" && Request.QueryString["carMax"] != null) && (Request.QueryString["carMin"] != "" && Request.QueryString["carMin"] != null)) && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax&carMin&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax&carMin&gluten=@Request.QueryString["gluten"]&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     @Request.QueryString["carMin"] g. a @Request.QueryString["carMax"] g.
                 </div>
             }
@@ -124,7 +124,7 @@
             @if ((Request.QueryString["gluten"] == "1") && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten&sodio=@Request.QueryString["sodio"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Sin Gluten
                 </div>
             }
@@ -132,7 +132,7 @@
             @if ((Request.QueryString["sodio"] == "1") && (Request.QueryString["enfermedad"] == null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&carMax=@Request.QueryString["carMax"]&carMin=@Request.QueryString["carMin"]&gluten=@Request.QueryString["gluten"]&sodio" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Sin Sodio
                 </div>
             }
@@ -143,7 +143,7 @@
     <!-- filtro buscador -->
     <div class="row MLitemFiltro">
         <div class="col-xs-9 col-sm-12">
-            @using (Html.BeginForm("Index", "Recetas", new
+            @using (Html.BeginForm("listado", "Recetas", new
             {
                 search = Request.QueryString["search"],
                 enfermedad = Request.QueryString["enfermedad"],
@@ -180,10 +180,10 @@
         <div class="col-sm-12">
             <dl class="dlFiltros">
                 <dt>Enfermedad</dt>
-                <dd><a href="./index?search=@Request.QueryString["search"]&enfermedad=1&carMax=50">Diabetes</a></dd>       
-                <dd><a href="./index?search=@Request.QueryString["search"]&enfermedad=2&gluten=1">Celiaquía</a></dd>
-                <dd><a href="./index?search=@Request.QueryString["search"]&enfermedad=3&sodio=1">Hipertensión</a></dd>
-                <dd><a href="./index?search=@Request.QueryString["search"]&enfermedad=4&calMax=550">Obesidad</a></dd>
+                <dd><a href="./listado?search=@Request.QueryString["search"]&enfermedad=1&carMax=50">Diabetes</a></dd>       
+                <dd><a href="./listado?search=@Request.QueryString["search"]&enfermedad=2&gluten=1">Celiaquía</a></dd>
+                <dd><a href="./listado?search=@Request.QueryString["search"]&enfermedad=3&sodio=1">Hipertensión</a></dd>
+                <dd><a href="./listado?search=@Request.QueryString["search"]&enfermedad=4&calMax=550">Obesidad</a></dd>
             </dl>
         </div>
     </div>
@@ -197,19 +197,19 @@
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=150&calMin" + "&carMax=" + Request.QueryString["carMax"] + "&carMin=" + Request.QueryString["carMin"]
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
                 
-                <dd><a href="./index?@cusUrl">Hasta 150 kcal.</a></dd>
+                <dd><a href="./listado?@cusUrl">Hasta 150 kcal.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=500&calMin=150" + "&carMax=" + Request.QueryString["carMax"] + "&carMin=" + Request.QueryString["carMin"]
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
                 
-                <dd><a href="./index?@cusUrl">150 kcal. a 500 kcal.</a></dd>
+                <dd><a href="./listado?@cusUrl">150 kcal. a 500 kcal.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax&calMin=500" + "&carMax=" + Request.QueryString["carMax"] + "&carMin=" + Request.QueryString["carMin"]
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
                 
-                <dd><a href="./index?@cusUrl">Más de 500 kcal.</a></dd>
+                <dd><a href="./listado?@cusUrl">Más de 500 kcal.</a></dd>
                 <dd>
-                    @using (Html.BeginForm("Index", "Recetas", new
+                    @using (Html.BeginForm("listado", "Recetas", new
                     {
                         search = Request.QueryString["search"],
                         calMax = Request.QueryString["calMax"],
@@ -256,19 +256,19 @@
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&carMax=50&carMin"
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
 
-                <dd><a href="./index?@cusUrl">Hasta 50 g.</a></dd>
+                <dd><a href="./listado?@cusUrl">Hasta 50 g.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&carMax=200&carMin=50"
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
 
-                <dd><a href="./index?@cusUrl">50 g. a 200 g.</a></dd>
+                <dd><a href="./listado?@cusUrl">50 g. a 200 g.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&carMax&carMin=200"
                         + "&gluten=" + Request.QueryString["gluten"] + "&sodio=" + Request.QueryString["sodio"]; }
 
-                <dd><a href="./index?@cusUrl">Más de 200 g.</a></dd>
+                <dd><a href="./listado?@cusUrl">Más de 200 g.</a></dd>
                 <dd>
-                    @using (Html.BeginForm("Index", "Recetas", new { search = Request.QueryString["search"], calMax = Request.QueryString["calMax"],
+                    @using (Html.BeginForm("listado", "Recetas", new { search = Request.QueryString["search"], calMax = Request.QueryString["calMax"],
                         calMin = Request.QueryString["calMin"], carMax = Request.QueryString["carMax"], carMin = Request.QueryString["carMin"],
                         gluten = Request.QueryString["gluten"], sodio = Request.QueryString["sodio"] }, FormMethod.Get))
                     {
@@ -313,7 +313,7 @@
                 <dd>
                     <div class="row">
                         <div class="col-xs-7">
-                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
+                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./listado?@cusUrl'">
                                 Sin Gluten
                                 @if (Request.QueryString["gluten"] == "1")
                                 { <input type="checkbox" class="custom-control-input"checked> }
@@ -333,7 +333,7 @@
                 <dd>
                     <div class="row">
                         <div class="col-xs-7">
-                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./index?@cusUrl'">
+                            <label class="custom-control custom-checkbox" onclick="javascript:location.href='./listado?@cusUrl'">
                                 Sin Sodio
                                 @if (Request.QueryString["sodio"] == "1")
                                 { <input type="checkbox" class="custom-control-input" checked> }
@@ -412,7 +412,14 @@
                         { <span>Con Gluten</span> }
                         else
                         {
-                            <span>Sin Gluten</span>
+                            if (item.Receta.RecetaGluten == false)
+                            {
+                                <span>Sin Gluten</span>
+                            }
+                            else
+                            {
+                                <span>Sin asignar</span>
+                            }
                         }
                     </div>
 
@@ -421,7 +428,14 @@
                         { <span>Con Sodio</span> }
                         else
                         {
-                            <span>Sin Sodio</span>
+                            if (item.Receta.RecetaSodio == false)
+                            {
+                                <span>Sin Sodio</span>
+                            }
+                            else
+                            {
+                                <span>Sin asignar</span>
+                            }
                         }
                     </div>
                 </div>
@@ -429,7 +443,7 @@
         </div>
     }
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }),
+    @Html.PagedListPager(Model, page => Url.Action("listado", new { page, search = Request.QueryString["search"] }),
     new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayLinkToNextPage = PagedListDisplayMode.Always,
         DisplayLinkToPreviousPage = PagedListDisplayMode.Always, LinkToPreviousPageFormat = "", LinkToNextPageFormat = "" })
 

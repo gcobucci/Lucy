@@ -38,7 +38,7 @@
             @if (Request.QueryString["search"] != "" && Request.QueryString["search"] != null)
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     "@Request.QueryString["search"]"
                 </div>
             }
@@ -46,7 +46,7 @@
             @if ((Request.QueryString["calMax"] == "" || Request.QueryString["calMax"] == null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Más de @Request.QueryString["calMin"] cal.
                 </div>
             }
@@ -54,7 +54,7 @@
             @if ((Request.QueryString["calMin"] == "" || Request.QueryString["calMin"] == null) && (Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Hasta @Request.QueryString["calMax"] cal.
                 </div>
             }
@@ -62,7 +62,7 @@
             @if ((Request.QueryString["calMax"] != "" && Request.QueryString["calMax"] != null) && (Request.QueryString["calMin"] != "" && Request.QueryString["calMin"] != null))
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&categoria=@Request.QueryString["categoria"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     @Request.QueryString["calMin"] cal. a @Request.QueryString["calMax"] cal.
                 </div>
             }
@@ -70,7 +70,7 @@
             @if (Request.QueryString["categoria"] == "1")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Cuerpo Completo
                 </div>
             }
@@ -78,7 +78,7 @@
             @if (Request.QueryString["categoria"] == "2")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Tren Superior
                 </div>
             }
@@ -86,7 +86,7 @@
             @if (Request.QueryString["categoria"] == "3")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Tren Inferior
                 </div>
             }
@@ -94,7 +94,7 @@
             @if (Request.QueryString["categoria"] == "4")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Abdominales
                 </div>
             }
@@ -102,7 +102,7 @@
             @if (Request.QueryString["categoria"] == "5")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Calentamiento
                 </div>
             }
@@ -110,7 +110,7 @@
             @if (Request.QueryString["categoria"] == "6")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&tipo=@Request.QueryString["tipo"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Estiramiento
                 </div>
             }
@@ -118,7 +118,7 @@
             @if (Request.QueryString["tipo"] == "1")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Actividad
                 </div>
             }
@@ -126,7 +126,7 @@
             @if (Request.QueryString["tipo"] == "2")
             {
                 <div class="alert alert-tags alert-dismissible" role="alert">
-                    <a href="index?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                    <a href="listado?search=@Request.QueryString["search"]&calMax=@Request.QueryString["calMax"]&calMin=@Request.QueryString["calMin"]&categoria=@Request.QueryString["categoria"]" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                     Ejercicio
                 </div>
             }
@@ -136,7 +136,7 @@
     <!-- filtro buscador -->
     <div class="row MLitemFiltro">
         <div class="col-xs-9 col-sm-12">
-            @using (Html.BeginForm("Index", "Ejercicios", new
+            @using (Html.BeginForm("listado", "Ejercicios", new
             {
                 search = Request.QueryString["search"],
                 calMax = Request.QueryString["calMax"],
@@ -170,17 +170,17 @@
                
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=100&calMin&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Hasta 100 cal.</a></dd>
+                <dd><a href="./listado?@cusUrl">Hasta 100 cal.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=250&calMin=100&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">100 cal. a 250 cal.</a></dd>
+                <dd><a href="./listado?@cusUrl">100 cal. a 250 cal.</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax&calMin=250&categoria=" + Request.QueryString["categoria"] + "&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Más de 250 cal.</a></dd>
+                <dd><a href="./listado?@cusUrl">Más de 250 cal.</a></dd>
                 <dd>
-                    @using (Html.BeginForm("Index", "Ejercicios", new
+                    @using (Html.BeginForm("listado", "Ejercicios", new
                     {
                         search = Request.QueryString["search"],
                         calMax = Request.QueryString["calMax"],
@@ -223,27 +223,27 @@
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=1&tipo=" + Request.QueryString["tipo"]; } 
 
-                <dd><a href="./index?@cusUrl">Cuerpo completo</a></dd>
+                <dd><a href="./listado?@cusUrl">Cuerpo completo</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=2&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Tren superior</a></dd>
+                <dd><a href="./listado?@cusUrl">Tren superior</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=3&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Tren inferior</a></dd>
+                <dd><a href="./listado?@cusUrl">Tren inferior</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=4&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Abdominales</a></dd>
+                <dd><a href="./listado?@cusUrl">Abdominales</a></dd>
 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=5&tipo=" + Request.QueryString["tipo"]; }
 
-                <dd><a href="./index?@cusUrl">Calentamiento</a></dd>
+                <dd><a href="./listado?@cusUrl">Calentamiento</a></dd>
 
                @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=6&tipo=" + Request.QueryString["tipo"]; }
                 
-                <dd><a href="./index?@cusUrl">Estiramiento</a></dd>
+                <dd><a href="./listado?@cusUrl">Estiramiento</a></dd>
 
                
             </dl>
@@ -258,12 +258,12 @@
               
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=" + Request.QueryString["categoria"] + "&tipo=1"; }
 
-                <dd><a href="./index?@cusUrl">Actividad</a></dd>
+                <dd><a href="./listado?@cusUrl">Actividad</a></dd>
 
                 
                 @{ cusUrl = "search=" + Request.QueryString["search"] + "&calMax=" + Request.QueryString["calMax"] + "&calMin=" + Request.QueryString["calMin"] + "&categoria=" + Request.QueryString["categoria"] + "&tipo=2"; }
 
-                <dd><a href="./index?@cusUrl">Ejercicio</a></dd>
+                <dd><a href="./listado?@cusUrl">Ejercicio</a></dd>
 
             </dl>
         </div>
@@ -335,7 +335,7 @@
         </div>
     }
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }),
+    @Html.PagedListPager(Model, page => Url.Action("listado", new { page, search = Request.QueryString["search"] }),
     new PagedListRenderOptions()
     {
         Display = PagedListDisplayMode.IfNeeded,

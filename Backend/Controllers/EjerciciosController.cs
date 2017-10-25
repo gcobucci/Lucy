@@ -53,6 +53,7 @@ namespace Backend.Controllers
             {
                 new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
                 new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren inferior", Valor = "Tren inferior" },
                 new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
                 new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
                 new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },
@@ -138,6 +139,7 @@ namespace Backend.Controllers
             {
                 new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
                 new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren inferior", Valor = "Tren inferior" },
                 new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
                 new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
                 new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },
@@ -172,6 +174,7 @@ namespace Backend.Controllers
             {
                 new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
                 new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren inferior", Valor = "Tren inferior" },
                 new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
                 new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
                 new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },
@@ -312,6 +315,7 @@ namespace Backend.Controllers
             {
                 new Fachada.ViewModelSelectListChk { Id = "Cuerpo completo", Valor = "Cuerpo completo" },
                 new Fachada.ViewModelSelectListChk { Id = "Tren superior", Valor = "Tren superior" },
+                new Fachada.ViewModelSelectListChk { Id = "Tren inferior", Valor = "Tren inferior" },
                 new Fachada.ViewModelSelectListChk { Id = "Abdominales", Valor = "Abdominales" },
                 new Fachada.ViewModelSelectListChk { Id = "Calentamiento", Valor = "Calentamiento" },
                 new Fachada.ViewModelSelectListChk { Id = "Estiramiento", Valor = "Estiramiento" },

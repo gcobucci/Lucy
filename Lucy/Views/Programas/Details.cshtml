@@ -15,10 +15,20 @@
     <div class="col-sm-6 col-sm-offset-3">
         <div class="row">
             <div class="col-sm-12">
-                <h3 style="float: left;margin-right: 5px;">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
-                <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
+                <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                @if (true@*ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId*@)
+                {
+                    <span style="float: left; margin: 27px 0 10px;">
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
+                    </span>
+                    <span style="float: left; margin: 27px 0 10px 5px;">
+                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ContenidoId })
+                    </span>
+                }
             </div>
         </div>
+
+        <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
         <br />
 
         <p>@Model.ContenidoDescripcion</p>
@@ -51,53 +61,13 @@
 
 
 
-<div>
-    <h4>Programa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("Nombre")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoTitulo)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoDescripcion)
-        </dd>
-
-        <dt>
-            @Html.Label("Contenido")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoCuerpo)
-        </dd>
-
-        <dt>
-            @Html.Label("Rutinas")
-        </dt>
-
-        <dd>
             <ul>
                 @foreach (var item in Model.Programa.Rutina.OrderBy(e => e.Contenido.ContenidoTitulo))
                 {
                     <li>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)</li> 
                 }
             </ul>
-        </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
-    @Html.ActionLink("Volver al listado", "Index")
-</p>
 
 <div id="comentarios">
     @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })

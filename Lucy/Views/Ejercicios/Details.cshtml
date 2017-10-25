@@ -12,6 +12,7 @@
         <p>
             @Html.ActionLink("Volver al listado", "Index")
         </p>
+
         <div id="myCarousel" class="carousel slide col-sm-12 sinPadding" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -65,19 +66,33 @@
     </div>
 
     <div class="col-sm-6">
-        <h3>@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                @if (ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId)
+                {
+                    <span style="float: left; margin: 27px 0 10px;">
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
+                    </span>
+                    <span style="float: left; margin: 27px 0 10px 5px;">
+                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ContenidoId })
+                    </span>
+                }
+            </div>
+        </div>
+
         <small>@Model.ContenidoCantVisitas Visitas</small>
         <br /><small>Tipo: @Model.Ejercicio.EjercicioTipo</small>
         <br /><small>Categoría: @Model.Ejercicio.EjercicioCategoria</small>
         <br /><br />
 
         <p>@Model.ContenidoDescripcion</p>
-        <br />
 
         <p>@Html.Raw(Model.ContenidoCuerpo.Replace(Environment.NewLine, "<br/>"))</p>
 
     </div>
 </div>
+
 
 <div id="comentarios">
     @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })
