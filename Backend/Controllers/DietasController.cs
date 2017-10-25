@@ -48,56 +48,56 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("crear")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase file)
+        public ActionResult Create(ModelCL.Contenido contenido/*, HttpPostedFileBase file*/)
         {
             if (ModelState.IsValid)
             {
-                if (file != null)
-                {
-                    if (!Fachada.Functions.isValidContentType(file.ContentType))
-                    {
-                        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-                        return View();
-                    }
-                    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-                    {
-                        ViewBag.ErrorMessage = "El archivo es muy pesado.";
-                        return View();
-                    }
-                    else
-                    {
+                //if (file != null)
+                //{
+                //    if (!Fachada.Functions.isValidContentType(file.ContentType))
+                //    {
+                //        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                //        return View();
+                //    }
+                //    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                //    {
+                //        ViewBag.ErrorMessage = "El archivo es muy pesado.";
+                //        return View();
+                //    }
+                //    else
+                //    {
                             
-                        if (file.ContentLength > 0)
-                        {
-                            //var fileName = Path.GetFileName(file.FileName);
-                            string tipoArchivo = "";
-                            if (file.ContentType.Split('/')[0] == "image")
-                            {
-                                tipoArchivo = "Imagenes";
-                            }
-                            else if (file.ContentType.Split('/')[0] == "video")
-                            {
-                                tipoArchivo = "Videos";
-                            }
-                            else
-                            {
-                                return View(); //Error inesperado
-                            }
+                //        if (file.ContentLength > 0)
+                //        {
+                //            //var fileName = Path.GetFileName(file.FileName);
+                //            string tipoArchivo = "";
+                //            if (file.ContentType.Split('/')[0] == "image")
+                //            {
+                //                tipoArchivo = "Imagenes";
+                //            }
+                //            else if (file.ContentType.Split('/')[0] == "video")
+                //            {
+                //                tipoArchivo = "Videos";
+                //            }
+                //            else
+                //            {
+                //                return View(); //Error inesperado
+                //            }
 
-                            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
+                //            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                //            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
 
-                            ModelCL.Multimedia m = new ModelCL.Multimedia();
-                            m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
-                            m.MultimediaTipo = file.ContentType.Split('/')[0];
-                            m.MultimediaOrden = 1;
+                //            ModelCL.Multimedia m = new ModelCL.Multimedia();
+                //            m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
+                //            m.MultimediaTipo = file.ContentType.Split('/')[0];
+                //            m.MultimediaOrden = 1;
 
-                            contenido.Multimedia.Add(m);
+                //            contenido.Multimedia.Add(m);
 
-                            file.SaveAs(path);
-                        }
-                    }
-                }            
+                //            file.SaveAs(path);
+                //        }
+                //    }
+                //}            
 
                 db.Contenido.Add(contenido);
                 db.SaveChanges();
@@ -127,7 +127,7 @@ namespace Backend.Controllers
         [HttpPost]
         [Route("editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase file)
+        public ActionResult Edit(ModelCL.Contenido contenido/*, HttpPostedFileBase file*/)
         {
             if (ModelState.IsValid)
             {
@@ -152,56 +152,56 @@ namespace Backend.Controllers
                 oldContenido.Dieta.DietaIngestasCalorias = contenido.Dieta.DietaIngestasCalorias;
                 oldContenido.Dieta.DietaIngestasDescripcion = contenido.Dieta.DietaIngestasDescripcion;
 
-                if (file != null)
-                {                      
-                    if (!Fachada.Functions.isValidContentType(file.ContentType))
-                    {
-                        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-                        return View();
-                    }
-                    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-                    {
-                        ViewBag.ErrorMessage = "El archivo es muy pesado.";
-                        return View();
-                    }
-                    else
-                    {
-                        if (file.ContentLength > 0)
-                        {
-                            //var fileName = Path.GetFileName(file.FileName);
-                            string tipoArchivo = "";
-                            if (file.ContentType.Split('/')[0] == "image")
-                            {
-                                tipoArchivo = "Imagenes";
-                            }
-                            else if (file.ContentType.Split('/')[0] == "video")
-                            {
-                                tipoArchivo = "Videos";
-                            }
-                            else
-                            {
-                                return View(); //Error inesperado
-                            }
+                //if (file != null)
+                //{                      
+                //    if (!Fachada.Functions.isValidContentType(file.ContentType))
+                //    {
+                //        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                //        return View();
+                //    }
+                //    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                //    {
+                //        ViewBag.ErrorMessage = "El archivo es muy pesado.";
+                //        return View();
+                //    }
+                //    else
+                //    {
+                //        if (file.ContentLength > 0)
+                //        {
+                //            //var fileName = Path.GetFileName(file.FileName);
+                //            string tipoArchivo = "";
+                //            if (file.ContentType.Split('/')[0] == "image")
+                //            {
+                //                tipoArchivo = "Imagenes";
+                //            }
+                //            else if (file.ContentType.Split('/')[0] == "video")
+                //            {
+                //                tipoArchivo = "Videos";
+                //            }
+                //            else
+                //            {
+                //                return View(); //Error inesperado
+                //            }
 
-                            ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault();
+                //            ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault();
 
-                            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
+                //            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                //            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
 
-                            string newUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
+                //            string newUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
 
-                            var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
-                            if (System.IO.File.Exists(oldPath))
-                                System.IO.File.Delete(oldPath);
+                //            var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
+                //            if (System.IO.File.Exists(oldPath))
+                //                System.IO.File.Delete(oldPath);
 
-                            //oldContenido.Multimedia.Remove(oldMult);
-                            oldMult.MultimediaUrl = newUrl;
-                            oldMult.MultimediaTipo = file.ContentType.Split('/')[0];                           
+                //            //oldContenido.Multimedia.Remove(oldMult);
+                //            oldMult.MultimediaUrl = newUrl;
+                //            oldMult.MultimediaTipo = file.ContentType.Split('/')[0];                           
 
-                            file.SaveAs(newPath);
-                        }
-                    }
-                }
+                //            file.SaveAs(newPath);
+                //        }
+                //    }
+                //}
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -232,12 +232,12 @@ namespace Backend.Controllers
             ModelCL.Contenido contDieta = db.Contenido.Find(id);
 
             //Solo hay una imagen para las dietas actualmente pero es lo mismo
-            foreach (ModelCL.Multimedia m in contDieta.Multimedia.ToList())
-            {
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
-                if (System.IO.File.Exists(path))
-                    System.IO.File.Delete(path);
-            }
+            //foreach (ModelCL.Multimedia m in contDieta.Multimedia.ToList())
+            //{
+            //    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
+            //    if (System.IO.File.Exists(path))
+            //        System.IO.File.Delete(path);
+            //}
 
             db.Contenido.Remove(contDieta);     
             db.SaveChanges();
