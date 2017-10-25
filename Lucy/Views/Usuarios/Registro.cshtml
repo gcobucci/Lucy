@@ -225,37 +225,20 @@ else
     @Html.ActionLink("¿Ya tienes cuenta? Inicia sesión.", "Login")
 </div>
 
-
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
 
     <script type="text/javascript">
 
-    // alternativa de guardado con ajax
-
-    //$(document).ready(function () {
-
-    //    $("#btnSave").click(function () {
-    //        debugger
-
-    //        var data = $("#formRegistro").serialize();
-
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/Usuarios/Registro",
-    //            data: data
-    //        })
-    //    })
-
-    //})
-
         $(function () {
+            var d = new Date();
+            d.setDate(d.getDate() - 6574);
             var ln = x = window.navigator.language || navigator.browserLanguage;
             $('.datetimepicker').datetimepicker({
                 viewMode: 'days',
                 locale: ln,
-                maxDate: 'now',
+                maxDate: d,
                 format: 'L'
             })
         })

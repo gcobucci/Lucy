@@ -2,9 +2,54 @@
 
 @{
     ViewBag.Title = "Programa | Ver";
+    var i = 0;
 }
 
-<h2>Ver Programa</h2>
+<div class="publicidadTop"><small>Publicidad</small></div>
+
+<div class="row" style="margin-bottom: 30px;">
+    <p>
+        @Html.ActionLink("Volver al listado", "Index")
+    </p>
+
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="float: left;margin-right: 5px;">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
+            </div>
+        </div>
+        <br />
+
+        <p>@Model.ContenidoDescripcion</p>
+        <br />
+
+        <h4>Desayuno <small>@Model.Dieta.DietaDesayunoCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaDesayunoDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
+
+        <h4>Almuerzo <small>@Model.Dieta.DietaAlmuerzoCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaAlmuerzoDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
+
+        <h4>Merienda <small>@Model.Dieta.DietaMeriendaCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaMeriendaDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
+
+        <h4>Cena <small>@Model.Dieta.DietaCenaCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaCenaDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br /><br />
+
+        <h4>Ingesta <small>@Model.Dieta.DietaIngestasCalorias cal.</small></h4>
+        @Html.Raw(Model.Dieta.DietaIngestasDescripcion.Replace(Environment.NewLine, "<br/>"))
+        <br />
+    </div>
+</div>
+
+
+
+
+
 
 <div>
     <h4>Programa</h4>
