@@ -90,8 +90,11 @@
                                 }
                             </td>
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.AlimentoId }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.AlimentoId })
+                                @if (ViewBag.idUsu != null && item.Usuario != null && item.Usuario.UsuarioId == ViewBag.idUsu)
+	                            {
+		                            @Html.ActionLink("Editar", "Edit", new { id = item.AlimentoId }) <text>|</text>
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.AlimentoId })
+	                            }                                
                             </td>
                         </tr>
                     }

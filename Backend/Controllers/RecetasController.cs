@@ -63,12 +63,12 @@ namespace Backend.Controllers
                         if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-                            return View();
+                            return View(contenido);
                         }
                         else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.ErrorMessage = "El archivo es muy pesado.";
-                            return View();
+                            return View(contenido);
                         }
                         else
                         {
@@ -87,7 +87,8 @@ namespace Backend.Controllers
                                 }
                                 else
                                 {
-                                    return View(); //Error inesperado
+                                    ViewBag.ErrorMessage = "Error inesperado";
+                                    return View(contenido); //Error inesperado
                                 }
 
                                 string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
@@ -176,12 +177,12 @@ namespace Backend.Controllers
                         if (!Fachada.Functions.isValidContentType(file.ContentType))
                         {
                             ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-                            return View();
+                            return View(contenido);
                         }
                         else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
                         {
                             ViewBag.ErrorMessage = "El archivo es muy pesado.";
-                            return View();
+                            return View(contenido);
                         }
                         else
                         {
@@ -199,7 +200,8 @@ namespace Backend.Controllers
                                 }
                                 else
                                 {
-                                    return View(); //Error inesperado
+                                    ViewBag.ErrorMessage = "Error inesperado";
+                                    return View(contenido); //Error inesperado
                                 }
 
                                 ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == cont).FirstOrDefault();

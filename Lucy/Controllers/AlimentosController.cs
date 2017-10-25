@@ -6,42 +6,14 @@ using System.Web.Mvc;
 using ModelCL;
 using System.Web.Security;
 using System.Net;
+using System.IO;
+using Lucy.Models;
 
 namespace Lucy.Controllers
 {
     [RoutePrefix("alimentos")]
     public class AlimentosController : Controller
     {
-        //    // GET: InfoNutricional
-        //    [AllowAnonymous]
-        //    [HttpGet]
-        //    public ActionResult InfNut()
-        //    {
-        //        List<ModelCL.Alimento> Alimentos = null;
-
-        //        #region UsuarioId por cookie
-        //        HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-        //        FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-        //        long idUsu = Convert.ToInt32(usu.Name);
-        //        #endregion
-
-        //        using (AgustinaEntities db = new AgustinaEntities())
-        //        {
-
-        //            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-        //            {
-        //                Alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
-        //            }
-        //            else
-        //            {
-        //                Alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
-        //            }
-
-        //        }
-
-        //        return View(Alimentos);
-        //    }
-
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("listado")]
@@ -52,6 +24,7 @@ namespace Lucy.Controllers
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
                 long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                ViewBag.idUsu = idUsu;
 
                 alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
             }
@@ -63,174 +36,203 @@ namespace Lucy.Controllers
             return View(alimentos);
         }
 
-        //[Route("ver")]
-        //public ActionResult Details(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(alimento);
-        //}
+        [Authorize]
+        [Route("crear")]
+        public ActionResult Create()
+        {
+            AlimentoViewModel newAlimento = new AlimentoViewModel();
+            
+            return View(newAlimento);
+        }
 
-        //[Route("crear")]
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Authorize]
+        [HttpPost]
+        [Route("crear")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(AlimentoViewModel datos, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                ModelCL.Alimento newAli = new ModelCL.Alimento();
+                newAli.AlimentoNombre = datos.AlimentoNombre;
+                newAli.AlimentoPorcion = datos.AlimentoPorcion;
+                newAli.AlimentoCalorias = datos.AlimentoCalorias;
+                newAli.AlimentoCarbohidratos = datos.AlimentoCarbohidratos;
+                newAli.AlimentoAzucar = datos.AlimentoAzucar;
+                newAli.AlimentoGrasa = datos.AlimentoGrasa;
+                newAli.AlimentoSodio = datos.AlimentoSodio;
+                newAli.AlimentoGluten = datos.AlimentoGluten;
 
-        //[HttpPost]
-        //[Route("crear")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(ModelCL.Alimento alimento, HttpPostedFileBase file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (file != null)
-        //        {
-        //            if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //            {
-        //                ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                return View();
-        //            }
-        //            else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //            {
-        //                ViewBag.Error = "El archivo es muy pesado.";
-        //                return View();
-        //            }
-        //            else
-        //            {
+                long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                newAli.Usuario = db.Usuario.Find(idUsu);
+                               
+                
+                if (file != null)
+                {
+                    if (!Fachada.Functions.isValidContentType(file.ContentType))
+                    {
+                        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                        return View(datos);
+                    }
+                    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                    {
+                        ViewBag.ErrorMessage = "El archivo es muy pesado.";
+                        return View(datos);
+                    }
+                    else
+                    {
+                        if (file.ContentLength > 0)
+                        {
+                            //var fileName = Path.GetFileName(file.FileName);
+                            string tipoArchivo = "";
+                            if (file.ContentType.Split('/')[0] == "image")
+                            {
+                                tipoArchivo = "Imagenes";
+                            }
+                            else if (file.ContentType.Split('/')[0] == "video")
+                            {
+                                tipoArchivo = "Videos";
+                            }
+                            else
+                            {
+                                ViewBag.ErrorMessage = "Error inesperado";
+                                return View(datos); //Error inesperado
+                            }
 
-        //                if (file.ContentLength > 0)
-        //                {
-        //                    //var fileName = Path.GetFileName(file.FileName);
-        //                    string tipoArchivo = "";
-        //                    if (file.ContentType.Split('/')[0] == "image")
-        //                    {
-        //                        tipoArchivo = "Imagenes";
-        //                    }
-        //                    else if (file.ContentType.Split('/')[0] == "video")
-        //                    {
-        //                        tipoArchivo = "Videos";
-        //                    }
-        //                    else
-        //                    {
-        //                        return View(); //Error inesperado
-        //                    }
+                            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
 
-        //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+                            newAli.AlimentoImagen = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
 
-        //                    alimento.AlimentoImagen = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+                            file.SaveAs(path);
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "La imagen del alimento es obligatoria.";
+                    return View(datos);
+                }
 
-        //                    file.SaveAs(path);
-        //                }
-        //            }
-        //        }
+                db.Alimento.Add(newAli);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        //        db.Alimento.Add(alimento);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
 
-        //    return View(alimento);
-        //}
+        [Authorize]
+        [Route("editar")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //[Route("editar")]
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+            ModelCL.Alimento oldAlimento = db.Alimento.Find(id);
+            if (oldAlimento == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    ModelCL.Alimento alimento = db.Alimento.Find(id);
-        //    if (alimento == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(alimento);
-        //}
+            AlimentoViewModel alimento = new AlimentoViewModel();
 
-        //[HttpPost]
-        //[Route("editar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(ModelCL.Alimento alimento, HttpPostedFileBase file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelCL.Alimento newAli = db.Alimento.Find(alimento.AlimentoId);
+            alimento.AlimentoId = oldAlimento.AlimentoId;
+            alimento.AlimentoNombre = oldAlimento.AlimentoNombre;
+            alimento.AlimentoImagen = oldAlimento.AlimentoImagen;
+            alimento.AlimentoPorcion = oldAlimento.AlimentoPorcion;
+            alimento.AlimentoCalorias = oldAlimento.AlimentoCarbohidratos;
+            alimento.AlimentoCarbohidratos = oldAlimento.AlimentoCarbohidratos;
+            alimento.AlimentoGrasa = oldAlimento.AlimentoGrasa;
+            alimento.AlimentoAzucar = oldAlimento.AlimentoAzucar;
+            alimento.AlimentoSodio = oldAlimento.AlimentoSodio;
+            alimento.AlimentoGluten = oldAlimento.AlimentoGluten;
 
-        //        newAli.AlimentoNombre = alimento.AlimentoNombre;
-        //        newAli.AlimentoPorcion = alimento.AlimentoPorcion;
-        //        newAli.AlimentoCalorias = alimento.AlimentoCalorias;
-        //        newAli.AlimentoCarbohidratos = alimento.AlimentoCarbohidratos;
-        //        newAli.AlimentoAzucar = alimento.AlimentoAzucar;
-        //        newAli.AlimentoGrasa = alimento.AlimentoGrasa;
-        //        newAli.AlimentoSodio = alimento.AlimentoSodio;
-        //        newAli.AlimentoGluten = alimento.AlimentoGluten;
+            return View(alimento);
+        }
 
-        //        if (file != null)
-        //        {
-        //            if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //            {
-        //                ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                return View();
-        //            }
-        //            else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //            {
-        //                ViewBag.Error = "El archivo es muy pesado.";
-        //                return View();
-        //            }
-        //            else
-        //            {
-        //                if (file.ContentLength > 0)
-        //                {
-        //                    //var fileName = Path.GetFileName(file.FileName);
-        //                    string tipoArchivo = "";
-        //                    if (file.ContentType.Split('/')[0] == "image")
-        //                    {
-        //                        tipoArchivo = "Imagenes";
-        //                    }
-        //                    else if (file.ContentType.Split('/')[0] == "video")
-        //                    {
-        //                        tipoArchivo = "Videos";
-        //                    }
-        //                    else
-        //                    {
-        //                        return View(); //Error inesperado
-        //                    }
+        [Authorize]
+        [HttpPost]
+        [Route("editar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AlimentoViewModel datos, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                ModelCL.Alimento alimento = db.Alimento.Find(datos.AlimentoId);
 
-        //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+                alimento.AlimentoNombre = datos.AlimentoNombre;
+                alimento.AlimentoPorcion = datos.AlimentoPorcion;
+                alimento.AlimentoCalorias = datos.AlimentoCalorias;
+                alimento.AlimentoCarbohidratos = datos.AlimentoCarbohidratos;
+                alimento.AlimentoAzucar = datos.AlimentoAzucar;
+                alimento.AlimentoGrasa = datos.AlimentoGrasa;
+                alimento.AlimentoSodio = datos.AlimentoSodio;
+                alimento.AlimentoGluten = datos.AlimentoGluten;
 
-        //                    string newUrl = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+                if (file != null)
+                {
+                    if (!Fachada.Functions.isValidContentType(file.ContentType))
+                    {
+                        ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                        return View(datos);
+                    }
+                    else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                    {
+                        ViewBag.ErrorMessage = "El archivo es muy pesado.";
+                        return View(datos);
+                    }
+                    else
+                    {
+                        if (file.ContentLength > 0)
+                        {
+                            //var fileName = Path.GetFileName(file.FileName);
+                            string tipoArchivo = "";
+                            if (file.ContentType.Split('/')[0] == "image")
+                            {
+                                tipoArchivo = "Imagenes";
+                            }
+                            else if (file.ContentType.Split('/')[0] == "video")
+                            {
+                                tipoArchivo = "Videos";
+                            }
+                            else
+                            {
+                                ViewBag.ErrorMessage = "Error inesperado";
+                                return View(datos); //Error inesperado
+                            }
 
-        //                    var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", newAli.AlimentoImagen);
-        //                    if (System.IO.File.Exists(oldPath))
-        //                        System.IO.File.Delete(oldPath);
+                            string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
 
-        //                    newAli.AlimentoImagen = newUrl;
+                            string newUrl = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
 
-        //                    file.SaveAs(newPath);
-        //                }
-        //            }
-        //        }
+                            var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", alimento.AlimentoImagen);
+                            if (System.IO.File.Exists(oldPath))
+                                System.IO.File.Delete(oldPath);
 
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(alimento);
-        //}
+                            alimento.AlimentoImagen = newUrl;
 
+                            file.SaveAs(newPath);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
+
+        [Authorize]
         [Route("eliminar")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(long? id, string url)
+        public ActionResult Delete(long? id/*, string url*/)
         {
             if (id == null)
             {
@@ -245,16 +247,17 @@ namespace Lucy.Controllers
 
             db.Alimento.Remove(alimento);
             db.SaveChanges();
-            return Redirect(url);
+            //return Redirect(url);
+            return RedirectToAction("Index");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
