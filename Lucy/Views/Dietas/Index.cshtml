@@ -2,7 +2,36 @@
 
 @{
     ViewBag.Title = "Dietas";
+    var favId = "";
 }
+
+
+
+<div class="col-sm-8 col-sm-offset-2">
+    @foreach (var item in Model)
+    {
+        <div class="MLitem" style="cursor: pointer;" onclick="location.href = '/dietas/ver?id=@item.ContenidoId';">
+            <div class="MLitemLeft col-lg-9 col-md-8 col-sm-7">
+                <div class="MLitemTitulo col-sm-12">@item.ContenidoTitulo</div>
+                <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
+            </div>
+
+            @{ favId = "fav" + item.ContenidoId; }
+
+            <div class="MLitemRight col-lg-3 col-md-4 col-sm-5">
+                <div>
+                    <div class="col-sm-12" title="Desayuno">Desayuno @item.Dieta.DietaDesayunoCalorias cal.</div>
+                    <div class="col-sm-12" title="Almuerzo">Almuerzo @item.Dieta.DietaAlmuerzoCalorias cal.</div>
+                    <div class="col-sm-12" title="Merienda">Merienda @item.Dieta.DietaMeriendaCalorias cal.</div>
+                    <div class="col-sm-12" title="Cena">Cena @item.Dieta.DietaMeriendaCalorias cal.</div>
+                    <div class="col-sm-12" title="Ingesta">Ingesta @item.Dieta.DietaIngestasCalorias cal.</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
 
 <h2>Dietas</h2>
 

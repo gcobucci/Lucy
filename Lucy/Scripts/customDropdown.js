@@ -23,6 +23,8 @@
     //    return parseFloat(value.replace(",", "."));
     //}
 
+    lastlogin();
+
     notificaciones();
     setInterval(notificaciones, 120000);
 
@@ -46,14 +48,7 @@ function getUsuPos() {
         document.getElementById("ulUsu").style.marginLeft = "0";
         document.getElementById("ulUsu").style.left = "0";
         document.getElementById("ulUsu").style.width = "100%";
-    }
-
-    $.ajax({
-        dataType: 'json',
-        type: 'POST',
-        url: "/usuarios/lastlogin"
-    }); 
-    
+    }    
 }
 
 function responder(ComId, UsuNom) {
@@ -398,4 +393,12 @@ function eliminarNot(idPanel, idNot) {
         clearInterval(x);
     }, 400);
 
+}
+
+function lastlogin() {
+    $.ajax({
+        dataType: 'json',
+        type: 'POST',
+        url: "/usuarios/lastlogin"
+    }); 
 }
