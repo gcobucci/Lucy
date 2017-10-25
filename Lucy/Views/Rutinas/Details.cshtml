@@ -2,57 +2,54 @@
 
 @{
     ViewBag.Title = "Rutina | Ver";
+    var i = 0;
 }
 
-<h2>Ver Rutina</h2>
+<div class="publicidadTop"><small>Publicidad</small></div>
 
-<div>
-    <h4>Rutina</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("Nombre")
-        </dt>
+<div class="row" style="margin-bottom: 30px;">
+    <p>
+        @Html.ActionLink("Volver al listado", "Index")
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoTitulo)
-        </dd>
-
-        <dt>
-            @Html.Label("Descripción")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoDescripcion)
-        </dd>
-
-        <dt>
-            @Html.Label("Contenido")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoCuerpo)
-        </dd>
-
-        <dt>
-            @Html.Label("Ejercicios")
-        </dt>
-
-        <dd>
-            <ul>
-                @foreach (var item in Model.Rutina.Ejercicio.OrderBy(e => e.Contenido.ContenidoTitulo))
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
+                @if (ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId)
                 {
-                    <li>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)</li> 
+                    <span style="float: left; margin: 27px 0 10px;">
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
+                    </span>
+                    <span style="float: left; margin: 27px 0 10px 5px;">
+                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ContenidoId })
+                    </span>
                 }
-            </ul>
-        </dd>
+            </div>
+        </div>
 
-    </dl>
+        <small>@Model.ContenidoCantVisitas visitas</small>
+
+        <br /><br />
+
+        <p>@Model.ContenidoDescripcion</p>
+        <br />
+
+        @foreach (var item in Model.Rutina.Ejercicio.OrderBy(e => e.Contenido.ContenidoTitulo))
+        {
+            <h4>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)</h4>
+            <p>@Html.Raw(item.Contenido.ContenidoCuerpo.Replace(Environment.NewLine, "<br/>"))</p>
+            <h5>Detalles:</h5>
+            <ul style="margin-left: 50px;">
+                <li>@item.EjercicioTipo</li>
+                <li>@item.EjercicioCategoria</li>
+                <li>@item.EjercicioCaloriasPorMinuto Calorías por minuto</li>
+            </ul>
+            <br />
+        }
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
-    @Html.ActionLink("Volver al listado", "Index")
-</p>
 
 <div id="comentarios">
     @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })

@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
-                @if (true@*ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId*@)
+                @if (ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId)
                 {
                     <span style="float: left; margin: 27px 0 10px;">
                         @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
@@ -28,46 +28,28 @@
             </div>
         </div>
 
-        <small style="float: left; margin: 29px 0 10px;">@Model.ContenidoCantVisitas visitas</small>
-        <br />
+        <small>@Model.ContenidoCantVisitas visitas</small>
+
+        <br /><br />
 
         <p>@Model.ContenidoDescripcion</p>
         <br />
 
-        <h4>Desayuno <small>@Model.Dieta.DietaDesayunoCalorias cal.</small></h4>
-        @Html.Raw(Model.Dieta.DietaDesayunoDescripcion.Replace(Environment.NewLine, "<br/>"))
-        <br /><br />
+        @foreach (var item in Model.Programa.Rutina.OrderBy(e => e.Contenido.ContenidoTitulo))
+        {
+            <h4>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo) <small>(@item.Ejercicio.Count() Ejercicios)</small></h4>
+            <p>@Html.Raw(item.Contenido.ContenidoCuerpo.Replace(Environment.NewLine, "<br/>"))</p>
+            <h5>Ejercicios:</h5>
+            <ul style="margin-left: 50px;">
+            @foreach (var item2 in item.Ejercicio)
+            {
+		         <li><a href="/ejercicios/ver?id=@item2.Contenido.ContenidoId" target="_blank">@item2.Contenido.ContenidoTitulo</a></li>
+	        }
+            </ul>
+        }
 
-        <h4>Almuerzo <small>@Model.Dieta.DietaAlmuerzoCalorias cal.</small></h4>
-        @Html.Raw(Model.Dieta.DietaAlmuerzoDescripcion.Replace(Environment.NewLine, "<br/>"))
-        <br /><br />
-
-        <h4>Merienda <small>@Model.Dieta.DietaMeriendaCalorias cal.</small></h4>
-        @Html.Raw(Model.Dieta.DietaMeriendaDescripcion.Replace(Environment.NewLine, "<br/>"))
-        <br /><br />
-
-        <h4>Cena <small>@Model.Dieta.DietaCenaCalorias cal.</small></h4>
-        @Html.Raw(Model.Dieta.DietaCenaDescripcion.Replace(Environment.NewLine, "<br/>"))
-        <br /><br />
-
-        <h4>Ingesta <small>@Model.Dieta.DietaIngestasCalorias cal.</small></h4>
-        @Html.Raw(Model.Dieta.DietaIngestasDescripcion.Replace(Environment.NewLine, "<br/>"))
-        <br />
     </div>
 </div>
-
-
-
-
-
-
-            <ul>
-                @foreach (var item in Model.Programa.Rutina.OrderBy(e => e.Contenido.ContenidoTitulo))
-                {
-                    <li>@Html.DisplayFor(modelItem => item.Contenido.ContenidoTitulo)</li> 
-                }
-            </ul>
-
 
 <div id="comentarios">
     @Html.Action("_Index", "Comentarios", new { idContenido = Model.ContenidoId })
