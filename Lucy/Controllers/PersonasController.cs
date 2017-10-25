@@ -64,11 +64,22 @@ namespace Lucy.Controllers
         {
             DatCliViewModel newDatCli = new DatCliViewModel();
 
-            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null).ToList();
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            ViewBag.idUsu = idUsu;
+
+            List<ModelCL.Enfermedad> lEnfermedades = db.Enfermedad.Where(enf => enf.Usuario == null || (enf.Usuario != null && enf.Usuario.UsuarioId == idUsu)).ToList();
             List<Fachada.ViewModelCheckBox> lEnf = new List<Fachada.ViewModelCheckBox>();
             foreach (ModelCL.Enfermedad enf in lEnfermedades)
             {
-                lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
+                if (enf.Usuario != null)
+                {
+                    lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre, UsuarioId = enf.Usuario.UsuarioId });
+                }
+                else
+                {
+                    lEnf.Add(new Fachada.ViewModelCheckBox() { Id = enf.EnfermedadId, Nombre = enf.EnfermedadNombre });
+                }
             }
 
             newDatCli.Enfermedades = lEnf;
@@ -165,7 +176,10 @@ namespace Lucy.Controllers
         [Route("_datcli")]
         [ValidateAntiForgeryToken]
         public ActionResult _DatCli(DatCliViewModel Datos, int id)
-        {            
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ViewBag.idUsu = idUsu;
+
             ViewBag.idPersona = id;
 
             List<ModelCL.Sexo> lSexos = db.Sexo.ToList();
@@ -448,10 +462,6 @@ namespace Lucy.Controllers
 
                 if (id == 0)
                 {
-                    HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                    FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-                    long idUsu = Convert.ToInt32(usu.Name);
-
                     ModelCL.Usuario Usuario = db.Usuario.Find(idUsu);
 
                     db.Persona.Add(Persona);

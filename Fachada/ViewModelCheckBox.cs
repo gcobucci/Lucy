@@ -11,5 +11,8 @@ namespace Fachada
         public long Id { get; set; }
         public string Nombre { get; set; }
         public bool Checked { get; set; } = false;
+
+        //Enfermedad
+        public Nullable<long> UsuarioId { get; set; } = null;
     }
 }
