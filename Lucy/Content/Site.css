@@ -934,20 +934,25 @@ nav#mySidenav::-webkit-scrollbar {
 }
 
 .MLitemTitulo {
-    margin: 35px 0 10px;
+    margin: 20px 0 10px;
     font-size: 18pt;
     font-weight: 300;
 }
 
 @media (max-width: 767px) {
     .MLitemTitulo {
-        margin: 58px 0;
+        margin: 41px 0;
     }
 }
 
-.MLitemCont {
-    max-height: 62px;
+.MLitemContenido {
+    max-height: 141px;
     overflow: hidden;
+}
+
+.MLitemCont {
+    /*max-height: 62px;
+    overflow: hidden;*/
     font-weight: 300;
 }
 

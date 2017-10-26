@@ -25,24 +25,32 @@ namespace Lucy.Controllers
         public ActionResult Index(int? page, string search, int? calMax, int? calMin ,byte? categoria, byte? tipo)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
+            ViewBag.idUsu = idUsu;
 
             if (Fachada.Functions.es_premium(idUsu) == false)
             {
                 TempData["PermisoDenegado"] = true;
                 return RedirectToAction("Index", "Home");
             }
-
-
-
+            
             string cat = null;
             string tip = null;
             IPagedList ejercicios = null;
 
             if ((categoria == null && tipo == null) || (categoria == 0 && tipo == 0))
             {
-                ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 1)) && (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                if (calMax != null || calMin != null)
+                {
+                    ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                }
+                else
+                {
+                    ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && ((c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) || c.Ejercicio.EjercicioCaloriasPorMinuto == null) 
+                    && ((c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) || c.Ejercicio.EjercicioCaloriasPorMinuto == null)).ToList().ToPagedList(page ?? 1, 10);
+                }
             }
             else
             {
@@ -92,10 +100,21 @@ namespace Lucy.Controllers
                     }
                 }
 
-                ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 1)) && 
-                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) && 
+                if (calMax != null || calMin != null)
+                {
+                    ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) &&
                     (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).ToList().ToPagedList(page ?? 1, 10);
+                }
+                else
+                {
+                    ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (((c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))) || c.Ejercicio.EjercicioCaloriasPorMinuto == null) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) &&
+                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).ToList().ToPagedList(page ?? 1, 10);
+                }
+                
             }
 
             // Valido si esta vacio

@@ -379,7 +379,7 @@
                 <div class="sinPadding col-xs-6 col-sm-4">
                     <a href="/recetas/ver?id=@item.ContenidoId"><img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" title="@item.ContenidoTitulo" /></a>
                 </div>
-                <div class="sinPadding col-xs-6 col-sm-8">
+                <div class="MLitemContenido sinPadding col-xs-6 col-sm-8">
                     <div class="MLitemTitulo col-sm-12"><a href="/recetas/ver?id=@item.ContenidoId" class="buttonText">@item.ContenidoTitulo</a></div>
                     <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
                 </div>
@@ -399,7 +399,7 @@
                     }
                     else
                     {
-                        <a onclick="deleteFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart" aria-hidden="true"></a>
+                        <a onclick="deleteFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart" aria-hidden="true" style="display: inline-block;"></a>
                     }
 
                     <div class="col-sm-12" title="Calorías">@item.Receta.RecetaCalorias Calorías</div>

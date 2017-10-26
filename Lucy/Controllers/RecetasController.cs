@@ -25,7 +25,7 @@ namespace Lucy.Controllers
         public ActionResult Index(int? page, string search, byte? enfermedad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
+            ViewBag.idUsu = idUsu;
 
             if (Fachada.Functions.es_premium(idUsu) == false)
             {
@@ -33,15 +33,24 @@ namespace Lucy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
-
             IPagedList recetas = null;
 
             if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0) || (gluten == 0 && sodio == null) || (gluten == null && sodio == 0))
             {
-                recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
-                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                if (calMax != null || calMin != null || carMax != null || carMin != null)
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 0))
+                    && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) && (c.Receta.RecetaHidratos >= (carMin ?? 0))
+                    && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                }
+                else
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && ((c.Receta.RecetaCalorias >= (calMin ?? 0)) || c.Receta.RecetaCalorias == null)
+                    && ((c.Receta.RecetaCalorias <= (calMax ?? 1000000)) || c.Receta.RecetaCalorias == null) && ((c.Receta.RecetaHidratos >= (carMin ?? 0)) || c.Receta.RecetaHidratos == null)
+                    && ((c.Receta.RecetaHidratos <= (carMax ?? 1000000)) || c.Receta.RecetaHidratos == null)).ToList().ToPagedList(page ?? 1, 10);
+                }
             }
             else
             {
