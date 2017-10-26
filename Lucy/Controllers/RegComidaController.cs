@@ -288,28 +288,21 @@ namespace Lucy.Controllers
         }
 
         [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (regComida.Comida == null)
+            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id && r.Comida != null).FirstOrDefault();
+
+            if (registro == null)
             {
                 return HttpNotFound();
             }
 
-            return View(regComida);
-        }
-
-        [Route("eliminar")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
-        {
-            ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            db.Registro.Remove(regComida);
+            db.Registro.Remove(registro);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -33,7 +33,7 @@ namespace Lucy.Controllers
 
 
 
-            var programas = db.Contenido.Where(c => c.Programa != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).ToList();
+            var programas = db.Contenido.Where(c => c.Programa != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).OrderBy(c => c.ContenidoTitulo).ToList();
 
             return View(programas);
         }
@@ -241,6 +241,26 @@ namespace Lucy.Controllers
 
             ViewBag.ErrorMessage = "Error inesperado";
             return View(datos);
+        }
+
+        [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Programa != null).FirstOrDefault();
+
+            if (contenido == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Contenido.Remove(contenido);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

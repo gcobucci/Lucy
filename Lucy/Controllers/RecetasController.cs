@@ -42,14 +42,14 @@ namespace Lucy.Controllers
                     recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 0))
                     && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) && (c.Receta.RecetaHidratos >= (carMin ?? 0))
-                    && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                    && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 else
                 {
                     recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && ((c.Receta.RecetaCalorias >= (calMin ?? 0)) || c.Receta.RecetaCalorias == null)
                     && ((c.Receta.RecetaCalorias <= (calMax ?? 1000000)) || c.Receta.RecetaCalorias == null) && ((c.Receta.RecetaHidratos >= (carMin ?? 0)) || c.Receta.RecetaHidratos == null)
-                    && ((c.Receta.RecetaHidratos <= (carMax ?? 1000000)) || c.Receta.RecetaHidratos == null)).ToList().ToPagedList(page ?? 1, 10);
+                    && ((c.Receta.RecetaHidratos <= (carMax ?? 1000000)) || c.Receta.RecetaHidratos == null)).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
             }
             else
@@ -59,21 +59,21 @@ namespace Lucy.Controllers
                     recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
                     (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaGluten == false) &&
-                    (c.Receta.RecetaSodio == false)).ToList().ToPagedList(page ?? 1, 10);
+                    (c.Receta.RecetaSodio == false)).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 else if (gluten == 1 && (sodio == 0 || sodio == null))
                 {
                     recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
                     (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaGluten == false))
-                    .ToList().ToPagedList(page ?? 1, 10);
+                    .OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 else if ((gluten == 0 || gluten == null) && sodio == 1)
                 {
                     recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
                     (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000)) && (c.Receta.RecetaSodio == false))
-                    .ToList().ToPagedList(page ?? 1, 10);
+                    .OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
             }
 
@@ -451,6 +451,26 @@ namespace Lucy.Controllers
 
             ViewBag.ErrorMessage = "Error inesperado";
             return View(datos);
+        }
+
+        [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Receta != null).FirstOrDefault();
+
+            if (contenido == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Contenido.Remove(contenido);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

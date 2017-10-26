@@ -97,7 +97,7 @@ namespace Lucy.Controllers
         [Authorize]
         [Route("eliminar")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(long? id/*, string url*/)
+        public ActionResult Delete(long? id)
         {
             if (id == null)
             {
@@ -112,7 +112,7 @@ namespace Lucy.Controllers
 
             db.Enfermedad.Remove(enfermedad);
             db.SaveChanges();
-            //return Redirect(url);
+
             return RedirectToAction("Datos_Clinicos", "Personas");
         }
 

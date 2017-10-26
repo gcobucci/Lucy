@@ -20,7 +20,7 @@ namespace Lucy.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var articulos = db.Contenido.Where(c => c.Articulo != null).ToList();
+            var articulos = db.Contenido.Where(c => c.Articulo != null).OrderByDescending(a => a.ContenidoFchHora).ToList();
 
             return View(articulos);
         }

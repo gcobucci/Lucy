@@ -26,11 +26,11 @@ namespace Lucy.Controllers
                 long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
                 ViewBag.idUsu = idUsu;
 
-                alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).ToList();
+                alimentos = db.Alimento.Where(a => a.Usuario == null || a.Usuario.UsuarioId == idUsu).OrderBy(a => a.AlimentoNombre).ToList();
             }
             else
             {
-                alimentos = db.Alimento.Where(a => a.Usuario == null).ToList();
+                alimentos = db.Alimento.Where(a => a.Usuario == null).OrderBy(a => a.AlimentoNombre).ToList();
             }
 
             return View(alimentos);
@@ -232,7 +232,7 @@ namespace Lucy.Controllers
         [Authorize]
         [Route("eliminar")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(long? id/*, string url*/)
+        public ActionResult Delete(long? id)
         {
             if (id == null)
             {
@@ -247,7 +247,7 @@ namespace Lucy.Controllers
 
             db.Alimento.Remove(alimento);
             db.SaveChanges();
-            //return Redirect(url);
+
             return RedirectToAction("Index");
         }
 

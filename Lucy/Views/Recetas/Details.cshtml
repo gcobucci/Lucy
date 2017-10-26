@@ -74,7 +74,7 @@
                         @Html.ActionLink("Editar", "Edit", new { id = Model.ContenidoId }) |
                     </span>
                     <span style="float: left; margin: 27px 0 10px 5px;">
-                        @Html.ActionLink("Eliminar", "Delete", new { id = Model.ContenidoId })
+                        <a href="#" onclick="abrirModalDelete(@Model.ContenidoId)">Eliminar</a>
                     </span>
                 }
             </div>
@@ -108,3 +108,40 @@
         <a href="/login">Inicia sesión para comentar</a>
     }
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="PopUpConfirmationDeleteMsg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¡Atención!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta receta?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="confDel()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <span id="idCont"></span>
+</div>
+
+@section scripts{
+    <script>
+        function abrirModalDelete(idCont) {
+            $('#PopUpConfirmationDeleteMsg').modal({
+                show: 'true'
+            });
+            $("#idCont").text(idCont);
+        }
+
+        function confDel() {
+            location.href = "/recetas/eliminar?id=" + $("#idCont").text();
+        }
+    </script>
+}

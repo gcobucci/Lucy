@@ -43,13 +43,13 @@ namespace Lucy.Controllers
                 {
                     ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
-                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                    (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 else
                 {
                     ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && ((c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) || c.Ejercicio.EjercicioCaloriasPorMinuto == null) 
-                    && ((c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) || c.Ejercicio.EjercicioCaloriasPorMinuto == null)).ToList().ToPagedList(page ?? 1, 10);
+                    && ((c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) || c.Ejercicio.EjercicioCaloriasPorMinuto == null)).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
             }
             else
@@ -105,14 +105,14 @@ namespace Lucy.Controllers
                     ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
                     (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000)) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) &&
-                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).ToList().ToPagedList(page ?? 1, 10);
+                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 else
                 {
                     ejercicios = db.Contenido.Where(c => c.Ejercicio != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
                     (c.ContenidoTitulo.Contains(search) || search == null) && (((c.Ejercicio.EjercicioCaloriasPorMinuto >= (calMin ?? 0)) &&
                     (c.Ejercicio.EjercicioCaloriasPorMinuto <= (calMax ?? 1000000))) || c.Ejercicio.EjercicioCaloriasPorMinuto == null) && (c.Ejercicio.EjercicioCategoria.Contains(cat) || cat == null) &&
-                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).ToList().ToPagedList(page ?? 1, 10);
+                    (c.Ejercicio.EjercicioTipo.Contains(tip) || tip == null)).OrderBy(c => c.ContenidoTitulo).ToList().ToPagedList(page ?? 1, 10);
                 }
                 
             }
@@ -565,6 +565,26 @@ namespace Lucy.Controllers
 
             ViewBag.ErrorMessage = "Error inesperado";
             return View(datos);
+        }
+
+        [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Ejercicio != null).FirstOrDefault();
+
+            if (contenido == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Contenido.Remove(contenido);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

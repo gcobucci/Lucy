@@ -399,42 +399,24 @@ namespace Lucy.Controllers
         }
 
         [Route("eliminar")]
+        //[ValidateAntiForgeryToken]
         public ActionResult Delete(long? id)
         {
-            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
-
-            if (Fachada.Functions.es_diabetico_tipo_1(idPer) == false && Fachada.Functions.fue_diabetico_tipo_1(idPer) == false)
-            {
-                ModelCL.Persona Persona = db.Persona.Find(idPer);
-
-                TempData["NoCumpleRequisitos"] = "La persona -" + Persona.nombreCompleto + "- no tiene la enfermedad -Diabetes tipo 1- y por lo tanto no puede acceder a este registro.";
-                return RedirectToAction("Index", "Home");
-            }
-
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (!(regControlDiabetico.Control != null && (regControlDiabetico.Control.Valor.ValorNombre == "Glucosa")))
+
+            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
+            if (!(registro.Control != null && (registro.Control.Valor.ValorNombre == "Glucosa")))
             {
                 return HttpNotFound();
             }
 
-            return View(regControlDiabetico);
-        }
-
-        [Route("eliminar")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
-        {
-            ModelCL.Registro regControlDiabetico = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            db.Registro.Remove(regControlDiabetico);
+            db.Registro.Remove(registro);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
+        }        
 
         protected override void Dispose(bool disposing)
         {

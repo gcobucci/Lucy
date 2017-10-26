@@ -95,16 +95,85 @@
                 @if (item.Control != null)
                 {
                     @Html.ActionLink("Ver", "Details", new { id = item.RegistroId }) <text>|</text>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.RegistroId }) <text>|</text>                    
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.RegistroId })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.RegistroId }) <text>|</text>
+                    <a href="#" onclick="abrirModalCDDelete(@item.RegistroId)">Eliminar</a>
                 }
                 else
                 {
                     @Html.ActionLink("Ver", "Details", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
-                    @Html.ActionLink("Editar", "Edit", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>                    
-                    @Html.ActionLink("Eliminar", "Delete", "regMedicacion", new { id = item.RegistroId }, null)
+                    @Html.ActionLink("Editar", "Edit", "regMedicacion", new { id = item.RegistroId }, null) <text>|</text>
+                    <a href="#" onclick="abrirModalIRDelete(@item.RegistroId)">Eliminar</a>
                 }
             </td>
         </tr>
     }
 </table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="PopUpConfirmationCDDeleteMsg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¡Atención!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este registro de control diabetico?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="confCDDel()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <span id="idReg"></span>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="PopUpConfirmationIRDeleteMsg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¡Atención!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este registro de insulina retardada?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="confIRDel()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <span id="idReg"></span>
+</div>
+
+@section scripts{
+    <script>
+        function abrirModalCDDelete(idReg) {
+            $('#PopUpConfirmationCDDeleteMsg').modal({
+                show: 'true'
+            });
+            $("#idReg").text(idReg);
+        }
+
+        function confCDDel() {
+            location.href = "/registros/control_diabetico/eliminar?id=" + $("#idReg").text();
+        }
+
+
+        function abrirModalIRDelete(idReg) {
+            $('#PopUpConfirmationIRDeleteMsg').modal({
+                show: 'true'
+            });
+            $("#idReg").text(idReg);
+        }
+
+        function confIRDel() {
+            location.href = "/registros/medicacion/eliminar?id=" + $("#idReg").text();
+        }
+    </script>
+}
