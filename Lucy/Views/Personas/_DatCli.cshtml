@@ -122,6 +122,9 @@
                                     </div>*@
 
                                     <li class="list-group-item">
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Id)
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Nombre)
+                                        @Html.HiddenFor(model => model.Enfermedades[i].UsuarioId)
                                         <span>@Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id }) @Model.Enfermedades[i].Nombre</span>
                                         <span style="float:right;">
                                             <a href="/enfermedades/editar?id=@Model.Enfermedades[i].Id">Editar</a>
@@ -133,6 +136,8 @@
                                 else
                                 {
                                     <li class="list-group-item">
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Id)
+                                        @Html.HiddenFor(model => model.Enfermedades[i].Nombre)
                                         <label>@Html.CheckBoxFor(model => model.Enfermedades[i].Checked, new { id = "enfermedad_" + Model.Enfermedades[i].Id }) @Model.Enfermedades[i].Nombre</label>
                                     </li>
                                 }
@@ -144,7 +149,7 @@
         </div>
 
         <div id="info_diabetes">
-            <h4>Diabetes</h4>
+            <h4>Diabetes tipo 1</h4>
 
             @*<div class="form-group">
                     @Html.LabelFor(model => model.DiabetesTipo, htmlAttributes: new { @class = "control-label col-md-2" })

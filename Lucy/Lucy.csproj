@@ -1083,6 +1083,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecetaViewModel.cs" />
+    <Compile Include="Models\DietaViewModel.cs" />
     <Compile Include="Models\EnfermedadViewModel.cs" />
     <Compile Include="Models\CalcIMCViewModel.cs" />
     <Compile Include="Models\CalcTMBViewModel.cs" />
@@ -1173,8 +1175,10 @@
     <Content Include="Views\Alimentos\Edit.cshtml" />
     <Content Include="Views\Enfermedades\Create.cshtml" />
     <Content Include="Views\Enfermedades\Edit.cshtml" />
-    <Content Include="Views\Dietas\Edit.cshtml" />
     <Content Include="Views\Dietas\Create.cshtml" />
+    <Content Include="Views\Dietas\Edit.cshtml" />
+    <Content Include="Views\Recetas\Create.cshtml" />
+    <Content Include="Views\Recetas\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -100,9 +100,9 @@ namespace Lucy.Controllers
                             }
 
                             string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+                            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Users", tipoArchivo, "Alimentos", nombreArchivo);
 
-                            newAli.AlimentoImagen = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+                            newAli.AlimentoImagen = "Resources/Users/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
 
                             file.SaveAs(path);
                         }
@@ -206,9 +206,9 @@ namespace Lucy.Controllers
                             }
 
                             string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-                            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Alimentos", nombreArchivo);
+                            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Users", tipoArchivo, "Alimentos", nombreArchivo);
 
-                            string newUrl = "Resources/Oficial/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
+                            string newUrl = "Resources/Users/" + tipoArchivo + "/Alimentos/" + nombreArchivo;
 
                             var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", alimento.AlimentoImagen);
                             if (System.IO.File.Exists(oldPath))

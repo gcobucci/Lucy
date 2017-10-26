@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ModelCL;
 using System.IO;
 using System.Web.Security;
+using Lucy.Models;
 
 namespace Lucy.Controllers
 {
@@ -38,8 +39,11 @@ namespace Lucy.Controllers
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
+            ViewBag.idUsu = idUsu;
+
+
             ModelCL.Contenido contDieta = db.Contenido.Find(id);
-            if (contDieta.Dieta == null || (contDieta.UsuarioAutor != null && contDieta.UsuarioAutor.UsuarioId != idUsu))
+            if (contDieta == null || contDieta.Dieta == null || (contDieta.UsuarioAutor != null && contDieta.UsuarioAutor.UsuarioId != idUsu))
             {
                 return HttpNotFound();
             }
@@ -50,219 +54,161 @@ namespace Lucy.Controllers
             return View(contDieta);
         }
 
-        //[Route("crear")]
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Route("crear")]
+        public ActionResult Create()
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //[HttpPost]
-        //[Route("crear")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (file != null)
-        //        {
-        //            if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //            {
-        //                ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                return View();
-        //            }
-        //            else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //            {
-        //                ViewBag.Error = "El archivo es muy pesado.";
-        //                return View();
-        //            }
-        //            else
-        //            {
-
-        //                if (file.ContentLength > 0)
-        //                {
-        //                    //var fileName = Path.GetFileName(file.FileName);
-        //                    string tipoArchivo = "";
-        //                    if (file.ContentType.Split('/')[0] == "image")
-        //                    {
-        //                        tipoArchivo = "Imagenes";
-        //                    }
-        //                    else if (file.ContentType.Split('/')[0] == "video")
-        //                    {
-        //                        tipoArchivo = "Videos";
-        //                    }
-        //                    else
-        //                    {
-        //                        return View(); //Error inesperado
-        //                    }
-
-        //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
-
-        //                    ModelCL.Multimedia m = new ModelCL.Multimedia();
-        //                    m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
-        //                    m.MultimediaTipo = file.ContentType.Split('/')[0];
-        //                    m.MultimediaOrden = 1;
-
-        //                    contenido.Multimedia.Add(m);
-
-        //                    file.SaveAs(path);
-        //                }
-        //            }
-        //        }            
-
-        //        db.Contenido.Add(contenido);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(contenido);
-        //}
-
-        //[Route("editar")]
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
-        //    if (contDieta.Dieta == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    return View(contDieta);
-        //}
-
-        //[HttpPost]
-        //[Route("editar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelCL.Contenido oldContenido = db.Contenido.Find(contenido.ContenidoId);
-        //        oldContenido.ContenidoTitulo = contenido.ContenidoTitulo;
-        //        oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
-        //        oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
 
-        //        oldContenido.Dieta.DietaDesayunoCalorias = contenido.Dieta.DietaDesayunoCalorias;
-        //        oldContenido.Dieta.DietaDesayunoDescripcion = contenido.Dieta.DietaDesayunoDescripcion;
+            DietaViewModel newDieta = new DietaViewModel();
 
-        //        oldContenido.Dieta.DietaAlmuerzoCalorias = contenido.Dieta.DietaAlmuerzoCalorias;
-        //        oldContenido.Dieta.DietaAlmuerzoDescripcion = contenido.Dieta.DietaAlmuerzoDescripcion;
+            return View(newDieta);
+        }
 
-        //        oldContenido.Dieta.DietaMeriendaCalorias= contenido.Dieta.DietaMeriendaCalorias;
-        //        oldContenido.Dieta.DietaMeriendaDescripcion = contenido.Dieta.DietaMeriendaDescripcion;
+        [HttpPost]
+        [Route("crear")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(DietaViewModel datos)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
-        //        oldContenido.Dieta.DietaCenaCalorias = contenido.Dieta.DietaCenaCalorias;
-        //        oldContenido.Dieta.DietaCenaDescripcion = contenido.Dieta.DietaCenaDescripcion;
 
-        //        oldContenido.Dieta.DietaIngestasCalorias = contenido.Dieta.DietaIngestasCalorias;
-        //        oldContenido.Dieta.DietaIngestasDescripcion = contenido.Dieta.DietaIngestasDescripcion;
+            if (ModelState.IsValid)
+            {
+                ModelCL.Contenido newContDie = new ModelCL.Contenido();
+                newContDie.ContenidoTitulo = datos.ContenidoTitulo;
+                newContDie.ContenidoDescripcion = datos.ContenidoDescripcion;
+                newContDie.ContenidoCuerpo = datos.ContenidoCuerpo;
 
-        //        if (file != null)
-        //        {                      
-        //            if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //            {
-        //                ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                return View();
-        //            }
-        //            else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //            {
-        //                ViewBag.Error = "El archivo es muy pesado.";
-        //                return View();
-        //            }
-        //            else
-        //            {
-        //                if (file.ContentLength > 0)
-        //                {
-        //                    //var fileName = Path.GetFileName(file.FileName);
-        //                    string tipoArchivo = "";
-        //                    if (file.ContentType.Split('/')[0] == "image")
-        //                    {
-        //                        tipoArchivo = "Imagenes";
-        //                    }
-        //                    else if (file.ContentType.Split('/')[0] == "video")
-        //                    {
-        //                        tipoArchivo = "Videos";
-        //                    }
-        //                    else
-        //                    {
-        //                        return View(); //Error inesperado
-        //                    }
+                ModelCL.Dieta dieta = new ModelCL.Dieta();
+                dieta.DietaDesayunoCalorias = datos.DietaDesayunoCalorias;
+                dieta.DietaDesayunoDescripcion = datos.DietaDesayunoDescripcion;
+                dieta.DietaAlmuerzoCalorias = datos.DietaAlmuerzoCalorias;
+                dieta.DietaAlmuerzoDescripcion = datos.DietaAlmuerzoDescripcion;
+                dieta.DietaMeriendaCalorias = datos.DietaMeriendaCalorias;
+                dieta.DietaMeriendaDescripcion = datos.DietaMeriendaDescripcion;
+                dieta.DietaCenaCalorias = datos.DietaCenaCalorias;
+                dieta.DietaCenaDescripcion = datos.DietaCenaDescripcion;
+                dieta.DietaIngestasCalorias = datos.DietaIngestasCalorias;
+                dieta.DietaIngestasDescripcion = datos.DietaIngestasDescripcion;
 
-        //                    ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault();
+                newContDie.Dieta = dieta;
 
-        //                    string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                    var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Dietas", nombreArchivo);
+                newContDie.UsuarioAutor = db.Usuario.Find(idUsu);
 
-        //                    string newUrl = "Resources/Oficial/" + tipoArchivo + "/Dietas/" + nombreArchivo;
 
-        //                    var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
-        //                    if (System.IO.File.Exists(oldPath))
-        //                        System.IO.File.Delete(oldPath);
+                db.Contenido.Add(newContDie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        //                    //oldContenido.Multimedia.Remove(oldMult);
-        //                    oldMult.MultimediaUrl = newUrl;
-        //                    oldMult.MultimediaTipo = file.ContentType.Split('/')[0];                           
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
 
-        //                    file.SaveAs(newPath);
-        //                }
-        //            }
-        //        }
+        [Route("editar")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contenido);
-        //}
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
-        //[Route("eliminar")]
-        //public ActionResult Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
-        //    if (contDieta.Dieta == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(contDieta);
-        //}
+            ModelCL.Contenido oldContDieta = db.Contenido.Find(id);
+            if (oldContDieta == null || oldContDieta.Dieta == null)
+            {
+                return HttpNotFound();
+            }
 
-        //[HttpPost, ActionName("Delete")]
-        //[Route("eliminar")]        
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(long id)
-        //{
-        //    ModelCL.Contenido contDieta = db.Contenido.Find(id);
+            DietaViewModel dieta = new DietaViewModel();
 
-        //    //Solo hay una imagen para las dietas actualmente pero es lo mismo
-        //    foreach (ModelCL.Multimedia m in contDieta.Multimedia.ToList())
-        //    {
-        //        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
-        //        if (System.IO.File.Exists(path))
-        //            System.IO.File.Delete(path);
-        //    }
+            dieta.ContenidoId = oldContDieta.ContenidoId;
+            dieta.ContenidoTitulo = oldContDieta.ContenidoTitulo;
+            dieta.ContenidoDescripcion = oldContDieta.ContenidoDescripcion;
+            dieta.ContenidoCuerpo = oldContDieta.ContenidoCuerpo;
 
-        //    db.Contenido.Remove(contDieta);     
-        //    db.SaveChanges();
+            dieta.DietaDesayunoCalorias = oldContDieta.Dieta.DietaDesayunoCalorias;
+            dieta.DietaDesayunoDescripcion = oldContDieta.Dieta.DietaDesayunoDescripcion;
+            dieta.DietaAlmuerzoCalorias = oldContDieta.Dieta.DietaAlmuerzoCalorias;
+            dieta.DietaAlmuerzoDescripcion = oldContDieta.Dieta.DietaAlmuerzoDescripcion;
+            dieta.DietaMeriendaCalorias = oldContDieta.Dieta.DietaMeriendaCalorias;
+            dieta.DietaMeriendaDescripcion = oldContDieta.Dieta.DietaMeriendaDescripcion;
+            dieta.DietaCenaCalorias = oldContDieta.Dieta.DietaCenaCalorias;
+            dieta.DietaCenaDescripcion = oldContDieta.Dieta.DietaCenaDescripcion;
+            dieta.DietaIngestasCalorias = oldContDieta.Dieta.DietaIngestasCalorias;
+            dieta.DietaIngestasDescripcion = oldContDieta.Dieta.DietaIngestasDescripcion;
 
-        //    return RedirectToAction("Index");
-        //}
+            return View(dieta);
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        [HttpPost]
+        [Route("editar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(DietaViewModel datos)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                ModelCL.Contenido contDieta = db.Contenido.Find(datos.ContenidoId);
+
+                contDieta.ContenidoTitulo = datos.ContenidoTitulo;
+                contDieta.ContenidoDescripcion = datos.ContenidoDescripcion;
+                contDieta.ContenidoCuerpo = datos.ContenidoCuerpo;
+
+                contDieta.Dieta.DietaDesayunoCalorias = datos.DietaDesayunoCalorias;
+                contDieta.Dieta.DietaDesayunoDescripcion = datos.DietaDesayunoDescripcion;
+                contDieta.Dieta.DietaAlmuerzoCalorias = datos.DietaAlmuerzoCalorias;
+                contDieta.Dieta.DietaAlmuerzoDescripcion = datos.DietaAlmuerzoDescripcion;
+                contDieta.Dieta.DietaMeriendaCalorias = datos.DietaMeriendaCalorias;
+                contDieta.Dieta.DietaMeriendaDescripcion = datos.DietaMeriendaDescripcion;
+                contDieta.Dieta.DietaCenaCalorias = datos.DietaCenaCalorias;
+                contDieta.Dieta.DietaCenaDescripcion = datos.DietaCenaDescripcion;
+                contDieta.Dieta.DietaIngestasCalorias = datos.DietaIngestasCalorias;
+                contDieta.Dieta.DietaIngestasDescripcion = datos.DietaIngestasDescripcion;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

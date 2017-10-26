@@ -94,6 +94,11 @@ namespace Backend.Controllers
                         }
                     }
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = "El alimento debe tener una imagen.";
+                    return View(alimento);
+                }
 
                 db.Alimento.Add(alimento);
                 db.SaveChanges();

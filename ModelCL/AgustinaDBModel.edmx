@@ -144,15 +144,15 @@
             <PropertyRef Name="DietaId" />
           </Key>
           <Property Name="DietaId" Type="bigint" Nullable="false" />
-          <Property Name="DietaDesayunoCalorias" Type="float" Nullable="false" />
+          <Property Name="DietaDesayunoCalorias" Type="smallint" Nullable="false" />
           <Property Name="DietaDesayunoDescripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="DietaAlmuerzoCalorias" Type="float" Nullable="false" />
+          <Property Name="DietaAlmuerzoCalorias" Type="smallint" Nullable="false" />
           <Property Name="DietaAlmuerzoDescripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="DietaMeriendaCalorias" Type="float" Nullable="false" />
+          <Property Name="DietaMeriendaCalorias" Type="smallint" Nullable="false" />
           <Property Name="DietaMeriendaDescripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="DietaCenaCalorias" Type="float" Nullable="false" />
+          <Property Name="DietaCenaCalorias" Type="smallint" Nullable="false" />
           <Property Name="DietaCenaDescripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="DietaIngestasCalorias" Type="float" Nullable="false" />
+          <Property Name="DietaIngestasCalorias" Type="smallint" Nullable="false" />
           <Property Name="DietaIngestasDescripcion" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Dosis">
@@ -175,7 +175,7 @@
           <Property Name="EjercicioId" Type="bigint" Nullable="false" />
           <Property Name="EjercicioTipo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="EjercicioCategoria" Type="varchar" MaxLength="100" />
-          <Property Name="EjercicioCaloriasPorMinuto" Type="int" />
+          <Property Name="EjercicioCaloriasPorMinuto" Type="smallint" />
         </EntityType>
         <EntityType Name="Enfermedad">
           <Key>
@@ -328,8 +328,8 @@
             <PropertyRef Name="RecetaId" />
           </Key>
           <Property Name="RecetaId" Type="bigint" Nullable="false" />
-          <Property Name="RecetaCalorias" Type="float" />
-          <Property Name="RecetaHidratos" Type="float" />
+          <Property Name="RecetaCalorias" Type="smallint" />
+          <Property Name="RecetaHidratos" Type="smallint" />
           <Property Name="RecetaSodio" Type="bit" />
           <Property Name="RecetaGluten" Type="bit" />
         </EntityType>
@@ -2348,15 +2348,15 @@
             <PropertyRef Name="DietaId" />
           </Key>
           <Property Name="DietaId" Type="Int64" Nullable="false" />
-          <Property Name="DietaDesayunoCalorias" Type="Double" Nullable="false" />
+          <Property Name="DietaDesayunoCalorias" Type="Int16" Nullable="false" />
           <Property Name="DietaDesayunoDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DietaAlmuerzoCalorias" Type="Double" Nullable="false" />
+          <Property Name="DietaAlmuerzoCalorias" Type="Int16" Nullable="false" />
           <Property Name="DietaAlmuerzoDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DietaMeriendaCalorias" Type="Double" Nullable="false" />
+          <Property Name="DietaMeriendaCalorias" Type="Int16" Nullable="false" />
           <Property Name="DietaMeriendaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DietaCenaCalorias" Type="Double" Nullable="false" />
+          <Property Name="DietaCenaCalorias" Type="Int16" Nullable="false" />
           <Property Name="DietaCenaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DietaIngestasCalorias" Type="Double" Nullable="false" />
+          <Property Name="DietaIngestasCalorias" Type="Int16" Nullable="false" />
           <Property Name="DietaIngestasDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Dieta_DietaId" FromRole="Dieta" ToRole="Contenido" />
           <NavigationProperty Name="Persona" Relationship="Self.RelPerDie" FromRole="Dieta" ToRole="Persona" />
@@ -2383,7 +2383,7 @@
           <Property Name="EjercicioId" Type="Int64" Nullable="false" />
           <Property Name="EjercicioTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EjercicioCategoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EjercicioCaloriasPorMinuto" Type="Int32" />
+          <Property Name="EjercicioCaloriasPorMinuto" Type="Int16" />
           <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_EjercicioId" FromRole="Ejercicio" ToRole="Actividad" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Ejercicio_EjercicioId" FromRole="Ejercicio" ToRole="Contenido" />
           <NavigationProperty Name="Rutina" Relationship="Self.RelRutEje" FromRole="Ejercicio" ToRole="Rutina" />
@@ -2572,8 +2572,8 @@
             <PropertyRef Name="RecetaId" />
           </Key>
           <Property Name="RecetaId" Type="Int64" Nullable="false" />
-          <Property Name="RecetaCalorias" Type="Double" />
-          <Property Name="RecetaHidratos" Type="Double" />
+          <Property Name="RecetaCalorias" Type="Int16" />
+          <Property Name="RecetaHidratos" Type="Int16" />
           <Property Name="RecetaSodio" Type="Boolean" />
           <Property Name="RecetaGluten" Type="Boolean" />
           <NavigationProperty Name="Contenido" Relationship="Self.FK_Receta_RecetaId" FromRole="Receta" ToRole="Contenido" />

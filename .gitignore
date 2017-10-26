@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Lucy/Resources/Oficial/Imagenes/Recetas/2a036552-3add-48cb-baef-651f606ec702.png

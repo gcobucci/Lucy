@@ -22,9 +22,6 @@ namespace Lucy.Controllers
         {
             var articulos = db.Contenido.Where(c => c.Articulo != null).ToList();
 
-            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-            ViewBag.idUsu = idUsu;
-
             return View(articulos);
         }
 
