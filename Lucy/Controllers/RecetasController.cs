@@ -25,15 +25,13 @@ namespace Lucy.Controllers
         public ActionResult Index(int? page, string search, byte? enfermedad, int? calMax, int? calMin, int? carMax, int? carMin, byte? gluten, byte? sodio)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
+            ViewBag.idUsu = idUsu;
 
             if (Fachada.Functions.es_premium(idUsu) == false)
             {
                 TempData["PermisoDenegado"] = true;
                 return RedirectToAction("Index", "Home");
             }
-
-
 
             IPagedList recetas = null;
 
