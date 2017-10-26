@@ -39,9 +39,20 @@ namespace Lucy.Controllers
 
             if ((gluten == null && sodio == null) || (gluten == 0 && sodio == 0) || (gluten == 0 && sodio == null) || (gluten == null && sodio == 0))
             {
-                recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
-                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 1)) && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) &&
-                    (c.Receta.RecetaHidratos >= (carMin ?? 0)) && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                if (calMax != null || calMin != null || carMax != null || carMin != null)
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && (c.Receta.RecetaCalorias >= (calMin ?? 0))
+                    && (c.Receta.RecetaCalorias <= (calMax ?? 1000000)) && (c.Receta.RecetaHidratos >= (carMin ?? 0))
+                    && (c.Receta.RecetaHidratos <= (carMax ?? 1000000))).ToList().ToPagedList(page ?? 1, 10);
+                }
+                else
+                {
+                    recetas = db.Contenido.Where(c => c.Receta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu) &&
+                    (c.ContenidoTitulo.Contains(search) || search == null) && ((c.Receta.RecetaCalorias >= (calMin ?? 0)) || c.Receta.RecetaCalorias == null)
+                    && ((c.Receta.RecetaCalorias <= (calMax ?? 1000000)) || c.Receta.RecetaCalorias == null) && ((c.Receta.RecetaHidratos >= (carMin ?? 0)) || c.Receta.RecetaHidratos == null)
+                    && ((c.Receta.RecetaHidratos <= (carMax ?? 1000000)) || c.Receta.RecetaHidratos == null)).ToList().ToPagedList(page ?? 1, 10);
+                }
             }
             else
             {
