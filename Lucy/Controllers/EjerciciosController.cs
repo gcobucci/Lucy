@@ -110,7 +110,6 @@ namespace Backend.Controllers
                 }
             }
 
-            ViewBag.idUsu = idUsu;
             return View(ejercicios);
         }
 
@@ -123,7 +122,9 @@ namespace Backend.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
             ViewBag.idUsu = idUsu;
+
 
             if (Fachada.Functions.es_premium(idUsu) == false)
             {

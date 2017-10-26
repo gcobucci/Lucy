@@ -24,7 +24,7 @@ namespace ModelCL
         public long EjercicioId { get; set; }
         public string EjercicioTipo { get; set; }
         public string EjercicioCategoria { get; set; }
-        public Nullable<int> EjercicioCaloriasPorMinuto { get; set; }
+        public Nullable<short> EjercicioCaloriasPorMinuto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actividad> Actividad { get; set; }

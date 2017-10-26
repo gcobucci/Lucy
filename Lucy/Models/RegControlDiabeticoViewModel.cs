@@ -52,18 +52,23 @@ namespace Lucy.Models
         public List<ComidaAlimentoViewModel> Alimentos { get; set; } = new List<ComidaAlimentoViewModel>();
 
         [Display(Name = "Calorías")]
+        [Range(0, 10000, ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<short> ComidaCalorias { get; set; }
 
         [Display(Name = "Carbohidratos")]
+        [Range(0, 1000, ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<short> ComidaCarbohidratos { get; set; }
 
         [Display(Name = "Azucares")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaAzucar { get; set; }
 
         [Display(Name = "Grasas")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaGrasa { get; set; }
 
         [Display(Name = "Sodio")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaSodio { get; set; }
 
         [Display(Name = "Gluten")]
@@ -79,7 +84,7 @@ namespace Lucy.Models
 
         public string ResultadoTotalMensaje { get; set; }
 
-        [Range(typeof(double), "0,1", "20", ErrorMessage = "El valor debe estar entre {1} y {2}.")]
+        [Range(typeof(double), "0", "20", ErrorMessage = "El valor debe estar entre {1} y {2}.")]
         public Nullable<double> ResultadoTotalInsulinaCorreccion { get; set; } //La presentacion siempre va a ser en unidades a travez de inyección en este caso
     }
 }

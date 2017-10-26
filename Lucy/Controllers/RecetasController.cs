@@ -11,6 +11,7 @@ using System.IO;
 using System.Web.Security;
 using PagedList;
 using PagedList.Mvc;
+using Lucy.Models;
 
 namespace Lucy.Controllers
 {
@@ -18,24 +19,6 @@ namespace Lucy.Controllers
     [RoutePrefix("recetas")]
     public class RecetasController : Controller
     {
-        //[HttpGet]
-        //[Route("")]
-        //public ActionResult List()
-        //{
-        //    using (AgustinaEntities db = new AgustinaEntities())
-        //    {
-        //        #region UsuarioId por cookie
-        //        HttpCookie cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-        //        FormsAuthenticationTicket usu = FormsAuthentication.Decrypt(cookie.Value);
-        //        long idUsu = Convert.ToInt32(usu.Name);
-        //        #endregion
-
-        //        List<ModelCL.Receta> recetas = db.Receta.Where(r => r.Contenido.UsuarioAutor == null || r.Contenido.UsuarioAutor.UsuarioId == idUsu).ToList();
-
-        //        return View(recetas);
-        //    }
-        //}
-
         private AgustinaEntities db = new AgustinaEntities();
 
         [Route("listado")]
@@ -45,11 +28,11 @@ namespace Lucy.Controllers
 
 
             if (Fachada.Functions.es_premium(idUsu) == false)
-            {               
+            {
                 TempData["PermisoDenegado"] = true;
                 return RedirectToAction("Index", "Home");
             }
-            
+
 
 
             IPagedList recetas = null;
@@ -85,17 +68,18 @@ namespace Lucy.Controllers
                 }
             }
 
-            if (recetas.TotalItemCount < 1) {
+            if (recetas.TotalItemCount < 1)
+            {
                 if (search != null)
                 {
                     ViewBag.Message = "No encontramos recetas con ese nombre.";
-                } else
+                }
+                else
                 {
                     ViewBag.Message = "No encontramos recetas con estos filtros.";
                 }
             }
-            
-            ViewBag.idUsu = idUsu;
+
             return View(recetas);
         }
 
@@ -109,6 +93,8 @@ namespace Lucy.Controllers
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
+            ViewBag.idUsu = idUsu;
+
 
             if (Fachada.Functions.es_premium(idUsu) == false)
             {
@@ -119,7 +105,7 @@ namespace Lucy.Controllers
 
 
             ModelCL.Contenido contReceta = db.Contenido.Find(id);
-            if (contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))
+            if (contReceta == null || contReceta.Receta == null || (contReceta.UsuarioAutor != null && contReceta.UsuarioAutor.UsuarioId != idUsu))
             {
                 return HttpNotFound();
             }
@@ -130,251 +116,341 @@ namespace Lucy.Controllers
             return View(contReceta);
         }
 
-        //[Route("crear")]
-        //public ActionResult Create()
-        //{
-        //    //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo");
-        //    return View();
-        //}
+        [Route("crear")]
+        public ActionResult Create()
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //[HttpPost]
-        //[Route("crear")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        short cont = 0;
-        //        foreach (var file in files)
-        //        {
-        //            if (file != null)
-        //            {
-        //                cont += 1;
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
-        //                if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //                {
-        //                    ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                    return View();
-        //                }
-        //                else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //                {
-        //                    ViewBag.Error = "El archivo es muy pesado.";
-        //                    return View();
-        //                }
-        //                else
-        //                {
 
-        //                    if (file.ContentLength > 0)
-        //                    {
-        //                        //var fileName = Path.GetFileName(file.FileName);
-        //                        string tipoArchivo = "";
-        //                        if (file.ContentType.Split('/')[0] == "image")
-        //                        {
-        //                            tipoArchivo = "Imagenes";
-        //                        }
-        //                        else if (file.ContentType.Split('/')[0] == "video")
-        //                        {
-        //                            tipoArchivo = "Videos";
-        //                        }
-        //                        else
-        //                        {
-        //                            return View(); //Error inesperado
-        //                        }
+            RecetaViewModel newReceta = new RecetaViewModel();
 
-        //                        string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Recetas", nombreArchivo);
+            return View(newReceta);
+        }
 
-        //                        ModelCL.Multimedia m = new ModelCL.Multimedia();
-        //                        //m.MultimediaUrl = Path.Combine("Oficial", tipoArchivo, "Recetas", nombreArchivo);
-        //                        m.MultimediaUrl = "Resources/Oficial/" + tipoArchivo + "/Recetas/" + nombreArchivo; //Ver cual es mejor entre estos 2
-        //                        m.MultimediaTipo = file.ContentType.Split('/')[0];
-        //                        m.MultimediaOrden = cont;
+        [HttpPost]
+        [Route("crear")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(RecetaViewModel datos, HttpPostedFileBase[] files)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //                        contenido.Multimedia.Add(m);
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
-        //                        file.SaveAs(path);
-        //                    }
-        //                }
-        //            }
-        //        }
 
-        //        //ModelCL.Contenido newContenido = new ModelCL.Contenido();
-        //        //newContenido.ContenidoTitulo = contenido.ContenidoTitulo;
-        //        //newContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
+            if (ModelState.IsValid)
+            {
+                if (files.Where(f => f != null).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Las recetas deben tener al menos una imagen.";
+                    return View(datos);
+                }
 
-        //        //ModelCL.Receta newReceta = new ModelCL.Receta();
+                ModelCL.Contenido newContRec = new ModelCL.Contenido();
+                newContRec.ContenidoTitulo = datos.ContenidoTitulo;
+                newContRec.ContenidoDescripcion = datos.ContenidoDescripcion;
+                newContRec.ContenidoCuerpo = datos.ContenidoCuerpo;
 
-        //        //newReceta.RecetaCalorias = contenido.Receta.RecetaCalorias;
-        //        //newReceta.RecetaHidratos = contenido.Receta.RecetaHidratos;
-        //        //newReceta.RecetaGluten = contenido.Receta.RecetaGluten;
-        //        //newReceta.RecetaSodio = contenido.Receta.RecetaSodio;              
+                ModelCL.Receta receta = new ModelCL.Receta();
+                receta.RecetaCalorias = datos.RecetaCalorias;
+                receta.RecetaHidratos = datos.RecetaHidratos;
+                receta.RecetaSodio = datos.RecetaSodio;
+                receta.RecetaGluten = datos.RecetaGluten;
 
-        //        //newContenido.Receta
+                newContRec.Receta = receta;
 
-        //        db.Contenido.Add(contenido);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+                newContRec.UsuarioAutor = db.Usuario.Find(idUsu);
 
-        //    //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo", receta.RecetaId);
-        //    return View(contenido);
-        //}
 
-        //[Route("editar")]
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+                short cont = 0;
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        cont += 1;
 
-        //    ModelCL.Contenido contReceta = db.Contenido.Find(id);
-        //    if (contReceta.Receta == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    //ViewBag.RecetaId = new SelectList(db.Contenido, "ContenidoId", "ContenidoTitulo", receta.RecetaId);
-        //    return View(contReceta);
-        //}
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
+                        {
+                            ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                            return View(datos);
+                        }
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                        {
+                            ViewBag.ErrorMessage = "Una o varias imágenes se pasan del tamaño máximo admitido.";
+                            return View(datos);
+                        }
+                        else
+                        {
 
-        //[HttpPost]
-        //[Route("editar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(ModelCL.Contenido contenido, HttpPostedFileBase[] files)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelCL.Contenido oldContenido = db.Contenido.Find(contenido.ContenidoId);
-        //        oldContenido.ContenidoTitulo = contenido.ContenidoTitulo;
-        //        oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
-        //        oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
+                            if (file.ContentLength > 0)
+                            {
+                                //var fileName = Path.GetFileName(file.FileName);
+                                string tipoArchivo = "";
+                                if (file.ContentType.Split('/')[0] == "image")
+                                {
+                                    tipoArchivo = "Imagenes";
+                                }
+                                else if (file.ContentType.Split('/')[0] == "video")
+                                {
+                                    tipoArchivo = "Videos";
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMessage = "Error inesperado";
+                                    return View(datos); //Error inesperado
+                                }
 
-        //        oldContenido.Receta.RecetaCalorias = contenido.Receta.RecetaCalorias;
-        //        oldContenido.Receta.RecetaHidratos = contenido.Receta.RecetaHidratos;
-        //        oldContenido.Receta.RecetaGluten = contenido.Receta.RecetaGluten;
-        //        oldContenido.Receta.RecetaSodio = contenido.Receta.RecetaSodio;
+                                string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Users", tipoArchivo, "Recetas", nombreArchivo);
 
-        //        //db.Entry(contenido).State = EntityState.Modified;
-        //        //db.Entry(contenido.Receta).State = EntityState.Modified;
+                                ModelCL.Multimedia m = new ModelCL.Multimedia();
+                                m.MultimediaUrl = "Resources/Users/" + tipoArchivo + "/Recetas/" + nombreArchivo; //Ver cual es mejor entre estos 2
+                                m.MultimediaTipo = file.ContentType.Split('/')[0];
+                                m.MultimediaOrden = cont;
 
-        //        short cont = 0;
-        //        foreach (var file in files)
-        //        {
-        //            cont += 1;
+                                newContRec.Multimedia.Add(m);
 
-        //            if (file != null)
-        //            {
-        //                if (!Fachada.Functions.isValidContentType(file.ContentType))
-        //                {
-        //                    ViewBag.Error = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
-        //                    return View();
-        //                }
-        //                else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
-        //                {
-        //                    ViewBag.Error = "El archivo es muy pesado.";
-        //                    return View();
-        //                }
-        //                else
-        //                {
-        //                    if (file.ContentLength > 0)
-        //                    {
-        //                        //var fileName = Path.GetFileName(file.FileName);
-        //                        string tipoArchivo = "";
-        //                        if (file.ContentType.Split('/')[0] == "image")
-        //                        {
-        //                            tipoArchivo = "Imagenes";
-        //                        }
-        //                        else if (file.ContentType.Split('/')[0] == "video")
-        //                        {
-        //                            tipoArchivo = "Videos";
-        //                        }
-        //                        else
-        //                        {
-        //                            return View(); //Error inesperado
-        //                        }
+                                file.SaveAs(path);
+                            }
+                        }
+                    }
+                }
 
-        //                        ModelCL.Multimedia oldMult = oldContenido.Multimedia.Where(m => m.MultimediaOrden == cont).FirstOrDefault();
 
-        //                        string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
-        //                        var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Oficial", tipoArchivo, "Recetas", nombreArchivo);
+                db.Contenido.Add(newContRec);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        //                        string newUrl = "Resources/Oficial/" + tipoArchivo + "/Recetas/" + nombreArchivo;
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
 
-        //                        if (oldMult != null)
-        //                        {
-        //                            var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
-        //                            if (System.IO.File.Exists(oldPath))
-        //                                System.IO.File.Delete(oldPath);
+        [Route("editar")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //                            //oldContenido.Multimedia.Remove(oldMult);
-        //                            oldMult.MultimediaUrl = newUrl;
-        //                            oldMult.MultimediaTipo = file.ContentType.Split('/')[0];
-        //                        }
-        //                        else
-        //                        {
-        //                            ModelCL.Multimedia newMult = new ModelCL.Multimedia();
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //                            newMult.MultimediaUrl = newUrl;
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
-        //                            newMult.MultimediaTipo = file.ContentType.Split('/')[0];
-        //                            newMult.MultimediaOrden = Convert.ToInt16(oldContenido.Multimedia.Count() + 1);
+            ModelCL.Contenido oldContReceta = db.Contenido.Find(id);
+            if (oldContReceta == null || oldContReceta.Receta == null)
+            {
+                return HttpNotFound();
+            }
 
-        //                            oldContenido.Multimedia.Add(newMult);
-        //                        }
+            RecetaViewModel receta = new RecetaViewModel();
 
-        //                        file.SaveAs(newPath);
-        //                    }
-        //                }
-        //            }
-        //        }
+            receta.ContenidoId = oldContReceta.ContenidoId;
+            receta.ContenidoTitulo = oldContReceta.ContenidoTitulo;
+            receta.ContenidoDescripcion = oldContReceta.ContenidoDescripcion;
+            receta.ContenidoCuerpo = oldContReceta.ContenidoCuerpo;
 
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contenido);
-        //}
+            receta.RecetaCalorias = oldContReceta.Receta.RecetaCalorias;
+            receta.RecetaHidratos = oldContReceta.Receta.RecetaHidratos;
+            receta.RecetaSodio = oldContReceta.Receta.RecetaSodio;
+            receta.RecetaGluten = oldContReceta.Receta.RecetaGluten;
 
-        //[Route("eliminar")]
-        //public ActionResult Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ModelCL.Contenido contReceta = db.Contenido.Find(id);
-        //    if (contReceta.Receta == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(contReceta);
-        //}
+            ModelCL.Multimedia m1 = oldContReceta.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault();
+            if (m1 != null)
+            {
+                receta.RecetaImagen1Id = m1.MultimediaId;
+                receta.RecetaImagen1Url = m1.MultimediaUrl;
+            }
 
-        //[HttpPost, ActionName("Delete")]
-        //[Route("eliminar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(long id)
-        //{
-        //    ModelCL.Contenido contReceta = db.Contenido.Find(id);
-        //    foreach (ModelCL.Multimedia m in contReceta.Multimedia.ToList())
-        //    {
-        //        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", m.MultimediaUrl);
-        //        if (System.IO.File.Exists(path))
-        //            System.IO.File.Delete(path);
-        //    }
+            ModelCL.Multimedia m2 = oldContReceta.Multimedia.Where(m => m.MultimediaOrden == 2).FirstOrDefault();
+            if (m2 != null)
+            {
+                receta.RecetaImagen2Id = m2.MultimediaId;
+                receta.RecetaImagen2Url = m2.MultimediaUrl;
+            }
 
-        //    db.Contenido.Remove(contReceta);
-        //    db.SaveChanges();
+            ModelCL.Multimedia m3 = oldContReceta.Multimedia.Where(m => m.MultimediaOrden == 3).FirstOrDefault();
+            if (m3 != null)
+            {
+                receta.RecetaImagen3Id = m3.MultimediaId;
+                receta.RecetaImagen3Url = m3.MultimediaUrl;
+            }
 
-        //    return RedirectToAction("Index");
-        //}
+            ModelCL.Multimedia m4 = oldContReceta.Multimedia.Where(m => m.MultimediaOrden == 4).FirstOrDefault();
+            if (m4 != null)
+            {
+                receta.RecetaImagen4Id = m4.MultimediaId;
+                receta.RecetaImagen4Url = m4.MultimediaUrl;
+            }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+            ModelCL.Multimedia m5 = oldContReceta.Multimedia.Where(m => m.MultimediaOrden == 5).FirstOrDefault();
+            if (m5 != null)
+            {
+                receta.RecetaImagen5Id = m5.MultimediaId;
+                receta.RecetaImagen5Url = m5.MultimediaUrl;
+            }
+
+            return View(receta);
+        }
+
+        [HttpPost]
+        [Route("editar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(RecetaViewModel datos, HttpPostedFileBase[] files, int[] checkBorrar)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                ModelCL.Contenido contReceta = db.Contenido.Find(datos.ContenidoId);
+
+                contReceta.ContenidoTitulo = datos.ContenidoTitulo;
+                contReceta.ContenidoDescripcion = datos.ContenidoDescripcion;
+                contReceta.ContenidoCuerpo = datos.ContenidoCuerpo;
+
+                contReceta.Receta.RecetaCalorias = datos.RecetaCalorias;
+                contReceta.Receta.RecetaHidratos = datos.RecetaHidratos;
+                contReceta.Receta.RecetaSodio = datos.RecetaSodio;
+                contReceta.Receta.RecetaGluten = datos.RecetaGluten;
+
+
+                short cont = 0;
+                foreach (var file in files)
+                {
+                    cont += 1;
+
+                    if (file != null)
+                    {
+                        if (!Fachada.Functions.isValidContentType(file.ContentType))
+                        {
+                            ViewBag.ErrorMessage = "Solo se aceptan formatos de archivos JPG, JPEG, PNG y GIF.";
+                            return View(datos);
+                        }
+                        else if (!Fachada.Functions.isValidContentLength(file.ContentLength))
+                        {
+                            ViewBag.ErrorMessage = "Una o varias imágenes se pasan del tamaño máximo admitido.";
+                            return View(datos);
+                        }
+                        else
+                        {
+                            if (file.ContentLength > 0)
+                            {
+                                //var fileName = Path.GetFileName(file.FileName);
+                                string tipoArchivo = "";
+                                if (file.ContentType.Split('/')[0] == "image")
+                                {
+                                    tipoArchivo = "Imagenes";
+                                }
+                                else if (file.ContentType.Split('/')[0] == "video")
+                                {
+                                    tipoArchivo = "Videos";
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMessage = "Error inesperado";
+                                    return View(datos); //Error inesperado
+                                }
+
+                                ModelCL.Multimedia oldMult = contReceta.Multimedia.Where(m => m.MultimediaOrden == cont).FirstOrDefault();
+
+                                string nombreArchivo = Guid.NewGuid().ToString() + "." + file.ContentType.Split('/')[1];
+                                var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/Resources/Users", tipoArchivo, "Recetas", nombreArchivo);
+
+                                string newUrl = "Resources/Users/" + tipoArchivo + "/Recetas/" + nombreArchivo;
+
+                                if (oldMult != null)
+                                {
+                                    var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldMult.MultimediaUrl);
+                                    if (System.IO.File.Exists(oldPath))
+                                    {
+                                        System.IO.File.Delete(oldPath);
+                                    }
+
+                                    //oldContenido.Multimedia.Remove(oldMult);
+                                    oldMult.MultimediaUrl = newUrl;
+                                    oldMult.MultimediaTipo = file.ContentType.Split('/')[0];
+                                }
+                                else
+                                {
+                                    ModelCL.Multimedia newMult = new ModelCL.Multimedia();
+
+                                    newMult.MultimediaUrl = newUrl;
+
+                                    newMult.MultimediaTipo = file.ContentType.Split('/')[0];
+                                    newMult.MultimediaOrden = Convert.ToInt16(contReceta.Multimedia.Count() + 1);
+
+                                    contReceta.Multimedia.Add(newMult);
+                                }
+
+                                file.SaveAs(newPath);
+                            }
+                        }
+                    }
+                }
+
+                //Eliminar multimedia
+                if (checkBorrar != null)
+                {
+                    foreach (int c in checkBorrar)
+                    {
+                        ModelCL.Multimedia oldM = db.Multimedia.Where(m => m.MultimediaId == c).FirstOrDefault();
+
+                        List<ModelCL.Multimedia> siguientesM = oldM.Contenido.Multimedia.Where(m => m.MultimediaOrden > oldM.MultimediaOrden).ToList();
+
+                        if (siguientesM.Count() != 0)
+                        {
+                            foreach (ModelCL.Multimedia sigM in siguientesM)
+                            {
+                                sigM.MultimediaOrden -= 1;
+                            }
+                        }
+
+                        var oldPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Lucy/", oldM.MultimediaUrl);
+                        if (System.IO.File.Exists(oldPath))
+                        {
+                            System.IO.File.Delete(oldPath);
+                        }
+
+                        db.Multimedia.Remove(oldM);
+                    }
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

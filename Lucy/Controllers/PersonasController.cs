@@ -178,6 +178,7 @@ namespace Lucy.Controllers
         public ActionResult _DatCli(DatCliViewModel Datos, int id)
         {
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
             ViewBag.idUsu = idUsu;
 
             ViewBag.idPersona = id;

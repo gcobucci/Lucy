@@ -21,15 +21,15 @@ namespace ModelCL
         }
     
         public long DietaId { get; set; }
-        public double DietaDesayunoCalorias { get; set; }
+        public short DietaDesayunoCalorias { get; set; }
         public string DietaDesayunoDescripcion { get; set; }
-        public double DietaAlmuerzoCalorias { get; set; }
+        public short DietaAlmuerzoCalorias { get; set; }
         public string DietaAlmuerzoDescripcion { get; set; }
-        public double DietaMeriendaCalorias { get; set; }
+        public short DietaMeriendaCalorias { get; set; }
         public string DietaMeriendaDescripcion { get; set; }
-        public double DietaCenaCalorias { get; set; }
+        public short DietaCenaCalorias { get; set; }
         public string DietaCenaDescripcion { get; set; }
-        public double DietaIngestasCalorias { get; set; }
+        public short DietaIngestasCalorias { get; set; }
         public string DietaIngestasDescripcion { get; set; }
     
         public virtual Contenido Contenido { get; set; }

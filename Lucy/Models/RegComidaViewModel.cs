@@ -42,23 +42,23 @@ namespace Lucy.Models
         public List<ComidaAlimentoViewModel> Alimentos { get; set; } = new List<ComidaAlimentoViewModel>();
 
         [Display(Name = "Calorías")]
-        [Range(1, 10000, ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(0, 10000, ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<short> ComidaCalorias { get; set; }
 
         [Display(Name = "Carbohidratos")]
-        [Range(typeof(double), "0,1", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(0, 1000, ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<short> ComidaCarbohidratos { get; set; }
 
         [Display(Name = "Azucares")]
-        [Range(typeof(double), "0,1", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaAzucar { get; set; }
 
         [Display(Name = "Grasas")]
-        [Range(typeof(double), "0,1", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaGrasa { get; set; }
 
         [Display(Name = "Sodio")]
-        [Range(typeof(double), "0,1", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
+        [Range(typeof(double), "0", "1000", ErrorMessage = "El valor debe ser mayor a {1}")]
         public Nullable<double> ComidaSodio { get; set; }
 
         [Display(Name = "Gluten")]        

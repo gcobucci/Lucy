@@ -53,6 +53,12 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (files.Where(f => f != null).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Las recetas deben tener al menos una imagen.";
+                    return View(contenido);
+                }
+
                 short cont = 0;
                 foreach (var file in files)
                 {

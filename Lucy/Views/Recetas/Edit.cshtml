@@ -1,0 +1,224 @@
+﻿@model Lucy.Models.RecetaViewModel
+
+@{
+    ViewBag.Title = "Editar receta";
+}
+
+<h2>Editar</h2>
+
+
+@using (Html.BeginForm("Edit", "Recetas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>¡Error!</strong> @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="form-horizontal">
+        <h4>Receta</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContenidoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoTitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoTitulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoTitulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecetaCalorias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecetaCalorias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecetaCalorias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecetaHidratos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecetaHidratos, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecetaHidratos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecetaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.RecetaSodio)
+                    @Html.ValidationMessageFor(model => model.RecetaSodio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecetaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.RecetaGluten)
+                    @Html.ValidationMessageFor(model => model.RecetaGluten, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Portada", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.RecetaImagen1Url)" height="70" width="70" alt="Imagen no encontrada" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 2", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.RecetaImagen2Url)" height="70" width="70" alt="No se ha registrado una imagen" />
+                </div>
+            </div>
+        </div>
+
+        @if (Model.RecetaImagen2Id != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.RecetaImagen2Id" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 3", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.RecetaImagen3Url)" height="70" width="70" alt="No se ha registrado una imagen" />
+                </div>
+            </div>
+        </div>
+
+        @if (Model.RecetaImagen3Id != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.RecetaImagen3Id" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 4", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.RecetaImagen4Url)" height="70" width="70" alt="No se ha registrado una imagen" />
+                </div>
+            </div>
+        </div>
+
+        @if (Model.RecetaImagen4Id != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.RecetaImagen4Id" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Multimedia 5", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <img src="http://localhost:4181/@Html.DisplayFor(model => model.RecetaImagen5Url)" height="70" width="70" alt="No se ha registrado una imagen" />
+                </div>
+            </div>
+        </div>
+
+        @if (Model.RecetaImagen5Id != null)
+        {
+            <div class="form-group">
+                <input type="checkbox" name="checkBorrar" value="@Model.RecetaImagen5Id" />
+                @Html.Label("Eliminar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.Label("Agregar/Cambiar archivo multimedia", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
