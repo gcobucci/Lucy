@@ -395,11 +395,11 @@
                     @{ favId = "fav" + item.ContenidoId; }
                     @if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null)
                     {
-                        <a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart-o" aria-hidden="true"></a>
+                        <a onclick="saveFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart-o" data-toggle="popover" data-trigger="hover" data-content="@item.UsuariosFav.Count() Me gusta" data-placement="left" aria-hidden="true"></a>
                     }
                     else
                     {
-                        <a onclick="deleteFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart" aria-hidden="true" style="display: inline-block;"></a>
+                        <a onclick="deleteFav(@item.ContenidoId, @ViewBag.idUsu, '@favId')" class="fa fa-heart" data-toggle="popover" data-trigger="hover" data-content="@item.UsuariosFav.Count() Me gusta" data-placement="left" aria-hidden="true" style="display: inline-block;"></a>
                     }
 
                     <div class="col-sm-12" title="Calorías">@item.Receta.RecetaCalorias Calorías</div>

@@ -200,11 +200,13 @@
                                 <li class="dropdown-submenu userLiSubMenu" id="leti"></li>
                             }
 
-                            <li class="userLi"><a id="btnNotificacion" href="#" onclick="abrirNotificaciones()">Notificaciones <span class="badge badge-pill badge-info"></span></a>
-                                
+                            <li class="userLi">
+                                <a id="btnNotificacion" href="#" onclick="abrirNotificaciones()">Notificaciones <span class="badge badge-pill badge-info"></span></a>
                             </li>
 
-                            <li class="userLi"><a href="#">Favoritos</a></li>
+                            <li class="userLi">
+                                <a id="btnFavorito" href="#" onclick="abrirFavoritos()">Favoritos</a>
+                            </li>
 
                             <li class="userLi">
                                 @Html.ActionLink("Datos Clínicos", "Datos_Clinicos", "Personas")
@@ -376,9 +378,33 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Favoritos -->
+    <div class="modal fade" id="PopUpFavoritos" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Favoritos</h4>
+                </div>
+                <div id="listaFav" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function abrirNotificaciones() {
             $('#PopUpNotificaciones').modal({
+                show: 'true'
+            });
+        }
+
+        function abrirFavoritos() {
+            $('#PopUpFavoritos').modal({
                 show: 'true'
             });
         }
@@ -417,6 +443,10 @@
         $("#btnNotificacion").on("click", function () {
             $("#listaNot").load("/notificaciones/listado");
             notificaciones();
+        });
+
+        $("#btnFavorito").on("click", function () {
+            $("#listaFav").load("/Favorito/_Index");
         });
     </script>
 

@@ -10,6 +10,8 @@
         },
     );
 
+    $('[data-toggle="popover"]').popover();
+
     //$.validator.methods.number = function (value, element) {
     //    value = floatValue(value);
     //    return this.optional(element) || !isNaN(value);
@@ -392,7 +394,6 @@ function eliminarNot(idPanel, idNot) {
         });
         clearInterval(x);
     }, 400);
-
 }
 
 function lastlogin() {
@@ -401,4 +402,22 @@ function lastlogin() {
         type: 'POST',
         url: "/usuarios/lastlogin"
     }); 
+}
+
+function eliminarFav(idPanel, idCont, idUsu) {
+    document.getElementById(idPanel).style.left = "-1000px";
+    var x = setInterval(function () {
+        document.getElementById(idPanel).style.display = "none";
+        document.getElementById(idPanel).innerHTML = null;
+        $.ajax({
+            dataType: 'json',
+            data: {
+                idCont: idCont,
+                idUsu: idUsu
+            },
+            type: 'POST',
+            url: "/favorito/deleteFav"
+        });
+        clearInterval(x);
+    }, 400);
 }
