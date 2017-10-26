@@ -79,7 +79,7 @@
 
         @foreach (var item in Model) {
 
-            @:articulo.push('<div id="@item.ContenidoId' + 'Div">@if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null){<a id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart-o" aria-hidden="true"></a>}else{<a id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart" aria-hidden="true"></a>}<a href="ver?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
+            @:articulo.push('<div id="@item.ContenidoId' + 'Div">@if (item.UsuariosFav.Where(u => u.UsuarioId == ViewBag.idUsu).FirstOrDefault() == null){<a href="#" id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart-o" aria-hidden="true"></a>}else{<a id="fav-@item.ContenidoId" onclick="ActionFavorito(\'fav-@item.ContenidoId\', @item.ContenidoId, @ViewBag.idUsu)" class="fa fa-heart" aria-hidden="true"></a>}<a href="ver?id=@item.ContenidoId"><img src="/@item.Multimedia.FirstOrDefault().MultimediaUrl" id="@item.ContenidoId' + 'Img" /><div><h4>@item.ContenidoTitulo.ToString()</h4><p>@Html.Raw(item.ContenidoDescripcion.ToString())</p></div></a></div>');
             @:articuloId.push('"@item.ContenidoId' + 'Div"');
             @:articuloImgId.push('\'#@item.ContenidoId' + 'Img\'');
 

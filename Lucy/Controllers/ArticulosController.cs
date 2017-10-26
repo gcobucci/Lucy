@@ -20,6 +20,9 @@ namespace Lucy.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ViewBag.idUsu = idUsu;
+
             var articulos = db.Contenido.Where(c => c.Articulo != null).ToList();
 
             return View(articulos);

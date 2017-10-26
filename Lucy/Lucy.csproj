@@ -1182,6 +1182,7 @@
     <Content Include="Views\Recetas\Edit.cshtml" />
     <Content Include="Views\Ejercicios\Create.cshtml" />
     <Content Include="Views\Ejercicios\Edit.cshtml" />
+    <Content Include="Views\Favorito\_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1195,7 +1196,6 @@
     <Folder Include="Resources\Oficial\Imagenes\Recetas\" />
     <Folder Include="Resources\Oficial\Videos\" />
     <Folder Include="Resources\Users\" />
-    <Folder Include="Views\Favorito\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fachada\Fachada.csproj">

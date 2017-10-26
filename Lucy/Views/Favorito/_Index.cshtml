@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ModelCL.Contenido>
+@{ 
+    var i = 0;
+    var url = "";
+}
+
+@if (Model.Count() > 0)
+{
+    <div class="panel-group" id="accordion">
+        @foreach (var item in Model)
+        {
+            { i += 1; }
+            <div id="panel-@item.ContenidoId" class="panel panel-default">
+                @if (item.Receta != null){ url = "recetas"; } else { if (item.Ejercicio != null){ url = "ejercicios"; } else { if (item.Articulo != null) { url = "articulos"; } } }
+                <div class="panel-heading">
+                    <a href="#" onclick="eliminarFav('panel-@item.ContenidoId', @item.ContenidoId, @ViewBag.idUsu)" class="close-custom red" title="Eliminar">&times;</a>
+                    <a href="/@url/ver?id=@item.ContenidoId" style="text-decoration:none !important">
+                        <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" style="margin: 5px 15px 5px 0;" />
+                        <div class="boxNot">
+                            <small>@item.ContenidoFchHora.ToString("dd MMM yyyy - HH:mm")</small>
+                            <br /><h4 class="panel-title"><strong>@Html.DisplayFor(modelItem => item.ContenidoTitulo)</strong></h4>
+                        </div>
+                    </a>
+                </div>
+                @*<div id="collapse-@i" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Html.Raw(item.ContenidoDescripcion.Replace(Environment.NewLine, "<br/>"))
+                    </div>
+                </div>*@
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h3 style="text-align: center;margin-bottom: 20px;"><small>No tienes favoritos</small></h3>
+}
