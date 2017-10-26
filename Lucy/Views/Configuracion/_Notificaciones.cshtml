@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <span>
                     @Html.CheckBoxFor(model => model.UsuarioRecibirEmails, new { @onclick = "$('#batman').trigger('click');" })
-                    Recibir emails de la aplicación
+                    Recibir e-mails de la aplicación
                 </span>
                 @Html.ValidationMessageFor(model => model.UsuarioRecibirEmails, "", new { @class = "text-danger" })
             </div>

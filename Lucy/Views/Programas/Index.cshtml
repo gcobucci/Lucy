@@ -2,46 +2,39 @@
 
 @{
     ViewBag.Title = "Programas";
+    var favId = "";
 }
 
-<h2>Programas</h2>
+@section subnav{
+
+    <div id="subTopNav" style="background-image:url(/Resources/Oficial/bannerProgramas.jpg);">
+        <div class="container body-content">
+            <h3>Programas</h3>
+        </div>
+    </div>
+
+}
 
 <p>
-    @Html.ActionLink("Crear nuevo programa", "Create")
+    @Html.ActionLink("Crear programa", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Nombre")
-        </th>
-        <th>
-            @Html.Label("Descripción")
-        </th>
-        <th>
-            @Html.Label("Cantidad de rutinas")
-        </th>
-        <th>
-        </th>
-    </tr>
 
+<div class="col-sm-8 col-sm-offset-2">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContenidoTitulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContenidoDescripcion)
-            </td>
-            <td>
-                @item.Programa.Rutina.Count().ToString()
-            </td>
-            <td>
-                @Html.ActionLink("Ver", "Details", new { id = item.ContenidoId }) |
-                @Html.ActionLink("Editar", "Edit", new { id = item.ContenidoId }) |                
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.ContenidoId })
-            </td>
-        </tr>
-    }
+        <div class="MLitem" style="cursor: pointer;" onclick="location.href = '/dietas/ver?id=@item.ContenidoId';">
+            <div class="MLitemLeft col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                <div class="MLitemTitulo col-sm-12">@item.ContenidoTitulo</div>
+                <div class="MLitemCont hidden-xs col-sm-12">@item.ContenidoDescripcion</div>
+            </div>
 
-</table>
+            @{ favId = "fav" + item.ContenidoId; }
+
+            <div class="MLitemRight col-lg-3 col-md-4 col-sm-5 hidden-xs" style="margin: 35px 0;height: 80px;">
+                <div>
+                    <div class="col-sm-12" title="Cantidad de rutinas" style="margin: 32px 0;">@item.Programa.Rutina.Count().ToString() Rutinas</div>
+                </div>
+            </div>
+        </div>
+                }
+</div>

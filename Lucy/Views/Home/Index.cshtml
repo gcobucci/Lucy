@@ -18,9 +18,6 @@
             </div>
         </div>
     </div>
-
-    <script>var x = document.getElementById("WidthPermisoDenegado").clientWidth;
-        document.getElementById("getPremiumIMG").width = x;</script>
 }
 
 @if (TempData["NoCumpleRequisitos"] != null)
@@ -148,6 +145,19 @@
                 
         $('#PopUpNoCumpleRequisitos').modal({
             show: 'true'
+        });
+    </script>
+
+    <script>
+        function ajustarImg(){
+            var x = $("#WidthPermisoDenegado").width();
+            document.getElementById("getPremiumIMG").style.width = x + "px";
+        }
+
+        ajustarImg();
+
+        $(window).resize(function () {
+            ajustarImg();
         });
     </script>
 }
