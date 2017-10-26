@@ -9,8 +9,9 @@ using System.Web.Mvc;
 using ModelCL;
 using System.IO;
 using System.Web.Security;
+using Lucy.Models;
 
-namespace Backend.Controllers
+namespace Lucy.Controllers
 {
     [Authorize]
     [RoutePrefix("programas")]
@@ -46,6 +47,7 @@ namespace Backend.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ViewBag.idUsu = idUsu;
 
 
             if (Fachada.Functions.es_premium(idUsu) == false)
@@ -68,115 +70,178 @@ namespace Backend.Controllers
             return View(contPrograma);
         }
 
-        //[Route("crear")]
-        //public ActionResult Create()
-        //{
-        //    List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
-        //    ViewBag.lRutinas = lRutinas;
+        [Route("crear")]
+        public ActionResult Create()
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
 
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[Route("crear")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(ModelCL.Contenido contenido, int[] rutinas)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        contenido.Programa = new ModelCL.Programa();
-
-        //        foreach (var r in rutinas)
-        //        {
-        //            contenido.Programa.Rutina.Add(db.Rutina.Find(r));
-        //        }
-
-        //        db.Contenido.Add(contenido);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(contenido);
-        //}
-
-        //[Route("editar")]
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    ModelCL.Contenido contPrograma = db.Contenido.Find(id);
-        //    if (contPrograma.Programa == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    List<ModelCL.Rutina> lRutinas = db.Rutina.ToList();
-        //    ViewBag.lRutinas = lRutinas;
-
-        //    return View(contPrograma);
-        //}
-
-        //[HttpPost]
-        //[Route("editar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(ModelCL.Contenido contenido, int[] rutinas)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelCL.Contenido oldContenido = db.Contenido.Find(contenido.ContenidoId);
-        //        oldContenido.ContenidoTitulo = contenido.ContenidoTitulo;
-        //        oldContenido.ContenidoDescripcion = contenido.ContenidoDescripcion;
-        //        oldContenido.ContenidoCuerpo = contenido.ContenidoCuerpo;
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
 
-        //        List<ModelCL.Rutina> bkRutinas = oldContenido.Programa.Rutina.ToList();
-        //        foreach (ModelCL.Rutina oldRutina in bkRutinas)
-        //        {
-        //            oldContenido.Programa.Rutina.Remove(oldRutina);
-        //        }
+            ProgramaViewModel newPrograma = new ProgramaViewModel();
+
+            List<ModelCL.Contenido> lContRutinas = db.Contenido.Where(c => c.Rutina != null && (c.UsuarioAutor == null || (c.UsuarioAutor != null && c.UsuarioAutor.UsuarioId == idUsu))).ToList();
+            List<Fachada.ViewModelCheckBox> lRut = new List<Fachada.ViewModelCheckBox>();
+            foreach (ModelCL.Contenido contRut in lContRutinas)
+            {
+                lRut.Add(new Fachada.ViewModelCheckBox() { Id = contRut.ContenidoId, Nombre = contRut.ContenidoTitulo });
+            }
+
+            newPrograma.Rutinas = lRut;
+
+            return View(newPrograma);
+        }
+
+        [HttpPost]
+        [Route("crear")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ProgramaViewModel datos)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
 
 
-        //        foreach (var r in rutinas)
-        //        {
-        //            oldContenido.Programa.Rutina.Add(db.Rutina.Find(r));
-        //        }
+            if (ModelState.IsValid)
+            {
+                if (datos.Rutinas.Where(e => e.Checked == true).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos una rutina";
+                    return View(datos);
+                }
 
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contenido);
-        //}
+                ModelCL.Contenido newContProg = new ModelCL.Contenido();
+                newContProg.ContenidoTitulo = datos.ContenidoTitulo;
+                newContProg.ContenidoDescripcion = datos.ContenidoDescripcion;
+                newContProg.ContenidoCuerpo = datos.ContenidoCuerpo;
 
-        //[Route("eliminar")]
-        //public ActionResult Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ModelCL.Contenido contPrograma = db.Contenido.Find(id);
-        //    if (contPrograma.Programa == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(contPrograma);
-        //}
+                ModelCL.Programa programa = new ModelCL.Programa();
 
-        //[HttpPost, ActionName("Delete")]
-        //[Route("eliminar")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(long id)
-        //{
-        //    ModelCL.Contenido contPrograma = db.Contenido.Find(id);
+                foreach (var rut in datos.Rutinas.Where(e => e.Checked == true))
+                {
+                    programa.Rutina.Add(db.Rutina.Find(rut.Id));
+                }
 
-        //    db.Contenido.Remove(contPrograma);
-        //    db.SaveChanges();
+                newContProg.Programa = programa;
+                newContProg.UsuarioAutor = db.Usuario.Find(idUsu);
 
-        //    return RedirectToAction("Index");
-        //}
+                db.Contenido.Add(newContProg);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
+
+        [Route("editar")]
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelCL.Contenido oldContPrograma = db.Contenido.Find(id);
+            if (oldContPrograma == null || oldContPrograma.Programa == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            ProgramaViewModel programa = new ProgramaViewModel();
+
+            programa.ContenidoId = oldContPrograma.ContenidoId;
+            programa.ContenidoTitulo = oldContPrograma.ContenidoTitulo;
+            programa.ContenidoDescripcion = oldContPrograma.ContenidoDescripcion;
+            programa.ContenidoCuerpo = oldContPrograma.ContenidoCuerpo;
+
+
+            List<ModelCL.Contenido> lContRutinas = db.Contenido.Where(c => c.Rutina != null && (c.UsuarioAutor == null || (c.UsuarioAutor != null && c.UsuarioAutor.UsuarioId == idUsu))).ToList();
+            List<Fachada.ViewModelCheckBox> lRut = new List<Fachada.ViewModelCheckBox>();
+            foreach (ModelCL.Contenido contRut in lContRutinas)
+            {
+                lRut.Add(new Fachada.ViewModelCheckBox() { Id = contRut.ContenidoId, Nombre = contRut.ContenidoTitulo });
+            }
+
+            foreach (Fachada.ViewModelCheckBox rut in lRut)
+            {
+                ModelCL.Rutina ru = oldContPrograma.Programa.Rutina.Where(e => e.RutinaId == rut.Id).FirstOrDefault();
+
+                if (ru != null)
+                {
+                    rut.Checked = true;
+                }
+            }
+
+            programa.Rutinas = lRut;
+
+            return View(programa);
+        }
+
+        [HttpPost]
+        [Route("editar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ProgramaViewModel datos)
+        {
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+
+            if (Fachada.Functions.es_premium(idUsu) == false)
+            {
+                TempData["PermisoDenegado"] = true;
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                if (datos.Rutinas.Where(e => e.Checked == true).Count() == 0)
+                {
+                    ViewBag.ErrorMessage = "Debe seleccionar al menos una rutina";
+                    return View(datos);
+                }
+
+                ModelCL.Contenido contPrograma = db.Contenido.Find(datos.ContenidoId);
+
+                contPrograma.ContenidoTitulo = datos.ContenidoTitulo;
+                contPrograma.ContenidoDescripcion = datos.ContenidoDescripcion;
+                contPrograma.ContenidoCuerpo = datos.ContenidoCuerpo;
+
+                List<ModelCL.Rutina> bkRutinas = contPrograma.Programa.Rutina.ToList();
+                foreach (ModelCL.Rutina oldRutina in bkRutinas)
+                {
+                    contPrograma.Programa.Rutina.Remove(oldRutina);
+                }
+
+                foreach (var eje in datos.Rutinas.Where(e => e.Checked == true))
+                {
+                    contPrograma.Programa.Rutina.Add(db.Rutina.Where(e => e.RutinaId == eje.Id).FirstOrDefault());
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ErrorMessage = "Error inesperado";
+            return View(datos);
+        }
 
         protected override void Dispose(bool disposing)
         {

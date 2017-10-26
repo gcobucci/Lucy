@@ -13,7 +13,7 @@ using System.IO;
 using System.Web.Security;
 using Lucy.Models;
 
-namespace Backend.Controllers
+namespace Lucy.Controllers
 {
     [Authorize]
     [RoutePrefix("ejercicios")]
@@ -123,7 +123,6 @@ namespace Backend.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
             ViewBag.idUsu = idUsu;
 
 
