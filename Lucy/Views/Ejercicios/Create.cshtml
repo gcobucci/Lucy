@@ -1,0 +1,117 @@
+﻿@model Lucy.Models.EjercicioViewModel
+
+@{
+    ViewBag.Title = "Nuevo ejercicio";
+}
+
+<h2>Nueva</h2>
+
+
+@using (Html.BeginForm("Create", "Ejercicios", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>¡Error!</strong> @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="form-horizontal">
+        <h4>Ejercicio</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoTitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoTitulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoTitulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContenidoCuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContenidoCuerpo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoCuerpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EjercicioTipo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EjercicioTipo, ViewBag.lEjTipos as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EjercicioTipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EjercicioCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EjercicioCategoria, ViewBag.lEjCategorias as SelectList, "Seleccionar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EjercicioCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EjercicioCaloriasPorMinuto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.EjercicioCaloriasPorMinuto)
+                    @Html.ValidationMessageFor(model => model.EjercicioCaloriasPorMinuto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Imagen de portada", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Otras imagenes", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+                <div class="editor-field">
+                    <input type="file" name="files" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
