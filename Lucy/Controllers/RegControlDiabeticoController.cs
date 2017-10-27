@@ -715,6 +715,7 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
+        [Route("calcularResultado")]
         public ActionResult calcularResultado(double valorControl, short? hidratos)
         {
             //Nullable<short> hidratos = datos.ComidaCarbohidratos;
@@ -818,7 +819,7 @@ namespace Lucy.Controllers
             
 
             //return null;
-            return Json(new { resultadoInsulinaMensaje = resultadoInsulinaMensaje, totalInsulina = totalInsulina });
+            return Json(new { resultadoInsulinaMensaje = resultadoInsulinaMensaje, totalInsulina = totalInsulina }, JsonRequestBehavior.AllowGet);
             //return this.Content(notificaciones.Count().ToString());
         }
 
