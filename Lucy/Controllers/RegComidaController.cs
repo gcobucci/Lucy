@@ -144,9 +144,6 @@ namespace Lucy.Controllers
                 comida.ComidaGluten = datos.ComidaGluten;
                                 
                 regComida.Comida  = comida;
-                Persona.Registro.Add(regComida);
-                
-                db.SaveChanges();
 
 
                 ModelCL.Dieta dietaPer = Persona.Dieta;
@@ -297,8 +294,13 @@ namespace Lucy.Controllers
                                 TempData["PostMessage"] = "Excelente, hasta ahora las calorías de tus ingestas concuerdan con tu dieta. Aún puedes consumir " + caloriasFaltantes + " calorías más este día.";
                             }
                         }
-                    }                                       
+                    }
                 }
+
+
+                Persona.Registro.Add(regComida);
+                
+                db.SaveChanges();                
 
                 return RedirectToAction("Index");
             }
@@ -546,7 +548,7 @@ namespace Lucy.Controllers
                     }
                     else //Ingestas
                     {
-                        List<ModelCL.Registro> regIngestasEx = db.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).ToList();
+                        List<ModelCL.Registro> regIngestasEx = db.Registro.Where(r => r.RegistroId != datos.RegistroId && r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).ToList();
 
                         if (regIngestasEx.Count() > 0)
                         {
