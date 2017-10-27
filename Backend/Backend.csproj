@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicinasController.cs" />
     <Compile Include="Controllers\DosisController.cs" />
+    <Compile Include="Controllers\SexosController.cs" />
     <Compile Include="Controllers\ValoresController.cs" />
     <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
@@ -257,6 +258,10 @@
     <Content Include="Views\Dosis\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Emails\EnviarEmails.cshtml" />
+    <Content Include="Views\Sexos\Index.cshtml" />
+    <Content Include="Views\Sexos\Edit.cshtml" />
+    <Content Include="Views\Sexos\Delete.cshtml" />
+    <Content Include="Views\Sexos\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

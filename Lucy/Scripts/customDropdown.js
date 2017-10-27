@@ -395,7 +395,10 @@ function calcularResultado(valorControl, hidratos) {
             //alert(data.totalInsulina);
             document.getElementById("msgResultadoControl").style.display = "block";
             $("#msgResultadoControl").text(data.resultadoInsulinaMensaje);
-            $("#ResultadoTotalInsulinaCorreccion").val(data.totalInsulina);
+
+            var str = (data.totalInsulina).toString();
+            var res = str.replace(".", ",");
+            $("#ResultadoTotalInsulinaCorreccion").val(res);
         }
     });
 }
