@@ -100,6 +100,104 @@ namespace Lucy.Controllers
                 Persona.Registro.Add(regControl);
 
                 db.SaveChanges();
+
+
+                ModelCL.Valor valor = db.Valor.Find(datos.ValorId);
+
+                string mensaje = "";
+                if (valor.ValorBajoMinimo != null && valor.ValorAltoMaximo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor >= valor.ValorBajoMinimo && datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }else if (datos.ControlValor <= valor.ValorAltoMaximo && datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }else if (datos.ControlValor < valor.ValorBajoMinimo)
+                    {
+                        mensaje = valor.ValorMsgMuyBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorAltoMaximo)
+                    {
+                        mensaje = valor.ValorMsgMuyAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else if (valor.ValorBajoMinimo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor >= valor.ValorBajoMinimo && datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor < valor.ValorBajoMinimo)
+                    {
+                        mensaje = valor.ValorMsgMuyBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else if (valor.ValorAltoMaximo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor <= valor.ValorAltoMaximo && datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else if (datos.ControlValor > valor.ValorAltoMaximo)
+                    {
+                        mensaje = valor.ValorMsgMuyAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }                
+
+                TempData["PostMessage"] = mensaje;
+
                 return RedirectToAction("Index");
             }
 
@@ -114,7 +212,9 @@ namespace Lucy.Controllers
                 ViewBag.lValores = new SelectList(lValores, "ValorId", "ValorNombre");
             }
 
-            return View(datos);
+            TempData["ErrorMessagePartial"] = "Error inesperado";
+
+            return RedirectToAction("Create");
         }
 
         [Route("editar")]
@@ -154,6 +254,106 @@ namespace Lucy.Controllers
                 regControl.Control.ControlValor = datos.ControlValor;
 
                 db.SaveChanges();
+
+
+                ModelCL.Valor valor = db.Valor.Find(datos.ValorId);
+
+                string mensaje = "";
+                if (valor.ValorBajoMinimo != null && valor.ValorAltoMaximo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor >= valor.ValorBajoMinimo && datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor <= valor.ValorAltoMaximo && datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else if (datos.ControlValor < valor.ValorBajoMinimo)
+                    {
+                        mensaje = valor.ValorMsgMuyBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorAltoMaximo)
+                    {
+                        mensaje = valor.ValorMsgMuyAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else if (valor.ValorBajoMinimo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor >= valor.ValorBajoMinimo && datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor < valor.ValorBajoMinimo)
+                    {
+                        mensaje = valor.ValorMsgMuyBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else if (valor.ValorAltoMaximo != null)
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor <= valor.ValorAltoMaximo && datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else if (datos.ControlValor > valor.ValorAltoMaximo)
+                    {
+                        mensaje = valor.ValorMsgMuyAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+                else
+                {
+                    if (datos.ControlValor >= valor.ValorNormalMinimo && datos.ControlValor <= valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgNormal;
+                    }
+                    else if (datos.ControlValor < valor.ValorNormalMinimo)
+                    {
+                        mensaje = valor.ValorMsgBajo;
+                    }
+                    else if (datos.ControlValor > valor.ValorNormalMaximo)
+                    {
+                        mensaje = valor.ValorMsgAlto;
+                    }
+                    else
+                    {
+                        mensaje = "Error inesperado.";
+                    }
+                }
+
+                TempData["PostMessage"] = mensaje;
+
                 return RedirectToAction("Index");
             }
 

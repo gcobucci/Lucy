@@ -4,6 +4,24 @@
     ViewBag.Title = "Registros de actividades";
 }
 
+@if (TempData["PostMessage"] != null)
+{
+    <div id="PopUpPostMessage" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Calorías quemadas</h4>
+                </div>
+                <div class="modal-body">
+                    @TempData["PostMessage"]
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
 <h2>Registros de Actividades</h2>
 
 <p>
@@ -67,6 +85,10 @@
 
 @section scripts{
     <script>
+        $('#PopUpPostMessage').modal({
+            show: 'true'
+        });
+
         function abrirModalDelete(idReg) {
             $('#PopUpConfirmationDeleteMsg').modal({
                 show: 'true'

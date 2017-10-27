@@ -91,6 +91,16 @@ namespace Lucy.Controllers
                 Persona.Registro.Add(regActividad);
 
                 db.SaveChanges();
+
+
+                Nullable<short> caloriasPorMinuto = db.Ejercicio.Find(datos.EjercicioId).EjercicioCaloriasPorMinuto;
+                if (caloriasPorMinuto != null)
+                {
+                    int caloriasConsumidas = Convert.ToInt16(caloriasPorMinuto) * datos.ActividadTiempo;
+
+                    TempData["PostMessage"] = "Se han quemado aproximadamente " + caloriasConsumidas + " calorías.";
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -165,6 +175,16 @@ namespace Lucy.Controllers
                 regActividad.Actividad.ActividadTiempo = datos.ActividadTiempo;
 
                 db.SaveChanges();
+
+
+                Nullable<short> caloriasPorMinuto = db.Ejercicio.Find(datos.EjercicioId).EjercicioCaloriasPorMinuto;
+                if (caloriasPorMinuto != null)
+                {
+                    int caloriasConsumidas = Convert.ToInt16(caloriasPorMinuto) * datos.ActividadTiempo;
+
+                    TempData["PostMessage"] = "Se han quemado aproximadamente " + caloriasConsumidas + " calorías.";
+                }
+
                 return RedirectToAction("Index");
             }
 

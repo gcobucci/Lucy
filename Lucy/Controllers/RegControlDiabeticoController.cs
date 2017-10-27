@@ -160,7 +160,7 @@ namespace Lucy.Controllers
 
                     if (datos.ComidaComida != "Ingesta")
                     {
-                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).FirstOrDefault();
+                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).FirstOrDefault();
 
                         if (regComidaEx != null)
                         {
@@ -208,6 +208,159 @@ namespace Lucy.Controllers
                 Persona.Registro.Add(regControl);                            
                 
                 db.SaveChanges();
+
+
+                ModelCL.Dieta dietaPer = Persona.Dieta;
+                if (dietaPer != null)
+                {
+                    Nullable<bool> sePaso = null;
+
+                    if (datos.ComidaComida == "Desayuno")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaDesayunoCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Almuerzo")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaAlmuerzoCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Merienda")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaMeriendaCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Cena")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaCenaCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else //Ingestas
+                    {
+                        List<ModelCL.Registro> regIngestasEx = db.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).ToList();
+
+                        if (regIngestasEx.Count() > 0)
+                        {
+                            short caloriasIngestas = 0;
+
+                            foreach (var i in regIngestasEx)
+                            {
+                                caloriasIngestas += Convert.ToInt16(i.Comida.ComidaCalorias);
+                            }
+
+                            caloriasIngestas += Convert.ToInt16(datos.ComidaCalorias);
+
+
+                            if (caloriasIngestas > dietaPer.DietaIngestasCalorias)
+                            {
+                                TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para las ingestas, pero no te preocupes esta bien darse un gustito!";
+                            }
+                            else
+                            {
+                                int caloriasFaltantes = dietaPer.DietaIngestasCalorias - caloriasIngestas;
+
+                                TempData["PostMessage"] = "Excelente, hasta ahora las calorías de tus ingestas concuerdan con tu dieta. Aún puedes consumir " + caloriasFaltantes + " calorías más este día.";
+                            }
+                        }
+                        else
+                        {
+                            short caloriasIngestas = Convert.ToInt16(datos.ComidaCalorias);
+
+
+                            if (caloriasIngestas > dietaPer.DietaIngestasCalorias)
+                            {
+                                TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para las ingestas, pero no te preocupes esta bien darse un gustito!";
+                            }
+                            else
+                            {
+                                int caloriasFaltantes = dietaPer.DietaIngestasCalorias - caloriasIngestas;
+
+                                TempData["PostMessage"] = "Excelente, hasta ahora las calorías de tus ingestas concuerdan con tu dieta. Aún puedes consumir " + caloriasFaltantes + " calorías más este día.";
+                            }
+                        }
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -328,7 +481,7 @@ namespace Lucy.Controllers
                 {
                     if (regControlDiabetico.RegistroFchHora != f)
                     {
-                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Persona.PersonaId == regControlDiabetico.PersonaId && r.RegistroFchHora == f).FirstOrDefault();
+                        ModelCL.Registro regComidaEx = db.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == regControlDiabetico.PersonaId && r.RegistroFchHora == f).FirstOrDefault();
 
                         if (regComidaEx != null)
                         {
@@ -392,6 +545,162 @@ namespace Lucy.Controllers
                 }
 
                 db.SaveChanges();
+
+
+                long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+                ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+                ModelCL.Dieta dietaPer = Persona.Dieta;
+                if (dietaPer != null)
+                {
+                    Nullable<bool> sePaso = null;
+
+                    if (datos.ComidaComida == "Desayuno")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaDesayunoCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Almuerzo")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaAlmuerzoCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Merienda")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaMeriendaCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else if (datos.ComidaComida == "Cena")
+                    {
+                        if (datos.ComidaCalorias > dietaPer.DietaCenaCalorias)
+                        {
+                            sePaso = true;
+                        }
+                        else
+                        {
+                            sePaso = false;
+                        }
+
+
+                        if (sePaso == true)
+                        {
+                            TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para esta comida, pero no te preocupes esta bien darse un gustito!";
+                        }
+                        else if (sePaso == false)
+                        {
+                            TempData["PostMessage"] = "Excelente, las calorías de esta comida concuerdan con tu dieta.";
+                        }
+                        else
+                        {
+                            TempData["PostMessage"] = "Error inesperado.";
+                        }
+                    }
+                    else //Ingestas
+                    {
+                        List<ModelCL.Registro> regIngestasEx = db.Registro.Where(r => r.Comida != null && r.Comida.ComidaComida == datos.ComidaComida && r.Persona.PersonaId == idPer && r.RegistroFchHora/*.Date*/ == f/*.Date*/).ToList();
+
+                        if (regIngestasEx.Count() > 0)
+                        {
+                            short caloriasIngestas = 0;
+
+                            foreach (var i in regIngestasEx)
+                            {
+                                caloriasIngestas += Convert.ToInt16(i.Comida.ComidaCalorias);
+                            }
+
+                            caloriasIngestas += Convert.ToInt16(datos.ComidaCalorias);
+
+
+                            if (caloriasIngestas > dietaPer.DietaIngestasCalorias)
+                            {
+                                TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para las ingestas, pero no te preocupes esta bien darse un gustito!";
+                            }
+                            else
+                            {
+                                int caloriasFaltantes = dietaPer.DietaIngestasCalorias - caloriasIngestas;
+
+                                TempData["PostMessage"] = "Excelente, hasta ahora las calorías de tus ingestas concuerdan con tu dieta. Aún puedes consumir " + caloriasFaltantes + " calorías más este día.";
+                            }
+                        }
+                        else
+                        {
+                            short caloriasIngestas = Convert.ToInt16(datos.ComidaCalorias);
+
+
+                            if (caloriasIngestas > dietaPer.DietaIngestasCalorias)
+                            {
+                                TempData["PostMessage"] = "Según tu dieta te pasaste de las calorías especificadas para las ingestas, pero no te preocupes esta bien darse un gustito!";
+                            }
+                            else
+                            {
+                                int caloriasFaltantes = dietaPer.DietaIngestasCalorias - caloriasIngestas;
+
+                                TempData["PostMessage"] = "Excelente, hasta ahora las calorías de tus ingestas concuerdan con tu dieta. Aún puedes consumir " + caloriasFaltantes + " calorías más este día.";
+                            }
+                        }
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
