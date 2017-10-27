@@ -1,0 +1,39 @@
+﻿@model ModelCL.Sexo
+
+@{
+    ViewBag.Title = "Eliminar Sexo";
+}
+
+
+<h3>¿Está seguro de que desea eliminar este sexo?</h3>
+<div>
+    <h4>Sexo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SexoNombre)
+        </dd>
+
+        <dt>
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SexoDesc)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver al listado", "Index")
+        </div>
+    }
+</div>
