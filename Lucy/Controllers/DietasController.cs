@@ -41,9 +41,10 @@ namespace Lucy.Controllers
             }
 
             long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
-
             ViewBag.idUsu = idUsu;
 
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ViewBag.idPer = idPer;
 
             ModelCL.Contenido contDieta = db.Contenido.Find(id);
             if (contDieta == null || contDieta.Dieta == null || (contDieta.UsuarioAutor != null && contDieta.UsuarioAutor.UsuarioId != idUsu))
@@ -86,8 +87,7 @@ namespace Lucy.Controllers
                 TempData["PermisoDenegado"] = true;
                 return RedirectToAction("Index", "Home");
             }
-
-
+            
             if (ModelState.IsValid)
             {
                 ModelCL.Contenido newContDie = new ModelCL.Contenido();
