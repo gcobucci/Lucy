@@ -216,10 +216,10 @@ namespace Lucy.Controllers
             Persona.Dieta = Dieta;
             db.SaveChanges();
 
-            return null;
+            return RedirectToAction("Details", idDieta);
         }
 
-        public ActionResult abandonarDieta()
+        public ActionResult abandonarDieta(long idDieta)
         {
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
             ModelCL.Persona Persona = db.Persona.Find(idPer);
@@ -228,7 +228,7 @@ namespace Lucy.Controllers
 
             db.SaveChanges();
 
-            return null;
+            return RedirectToAction("Details", idDieta);
         }
 
         [Route("eliminar")]
