@@ -222,6 +222,7 @@ namespace Lucy.Controllers
             ModelCL.Persona Persona = db.Persona.Find(idPer);
 
             Persona.Dieta = null;
+
             db.SaveChanges();
 
             return null;

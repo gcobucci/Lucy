@@ -707,6 +707,42 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
+        public ActionResult calcularResultado(double valorControl, short? hidratos)
+        {
+            double insulinaPorCorreccion = 0;
+
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ModelCL.Persona Persona = db.Persona.Find(idPer);
+
+            ModelCL.Medicina insuCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
+
+            ModelCL.Dosis dosisInsu = insuCorreccion.RelMedVal.Where(rmv => rmv.Valor.ValorNombre == "Glucosa").FirstOrDefault().Dosis.FirstOrDefault();
+
+
+            ModelCL.Valor valorGlucosa = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
+
+
+            if (hidratos == null)
+            {
+                if (valorControl > valorGlucosa.ValorNormalMaximo)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+
+            return null;
+            //return Json();
+            //return this.Content(notificaciones.Count().ToString());
+        }
+
         [Route("eliminar")]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(long? id)
