@@ -18,7 +18,7 @@
 
                 @if (Model.Dieta.Persona.Where(d => d.PersonaId == ViewBag.idPer).FirstOrDefault() != null)
                 {
-                    <a href="/dietas/abandonarDieta" class="btn btn-info" role="button" style="position: absolute;right: 10px;top: -20px;font-weight: 400;font-size: 12px;">Abandonar dieta</a>
+                    <a href="/dietas/abandonarDieta?idDieta=@Model.Dieta.DietaId" class="btn btn-info" role="button" style="position: absolute;right: 10px;top: -20px;font-weight: 400;font-size: 12px;">Abandonar dieta</a>
                 }
                 else
                 {
