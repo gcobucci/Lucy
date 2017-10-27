@@ -258,6 +258,12 @@ namespace Lucy.Controllers
                 return HttpNotFound();
             }
 
+            List<ModelCL.Programa> bkProgramas = contenido.Rutina.Programa.ToList();
+            foreach (ModelCL.Programa oldPrograma in bkProgramas)
+            {
+                contenido.Rutina.Programa.Remove(oldPrograma);
+            }
+
             db.Contenido.Remove(contenido);
             db.SaveChanges();
             return RedirectToAction("Index");

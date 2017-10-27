@@ -361,6 +361,12 @@ namespace Backend.Controllers
                     System.IO.File.Delete(path);
             }
 
+            List<ModelCL.Rutina> bkRutinas = contEjercicio.Ejercicio.Rutina.ToList();
+            foreach (ModelCL.Rutina oldRutina in bkRutinas)
+            {
+                contEjercicio.Ejercicio.Rutina.Remove(oldRutina);
+            }
+
             db.Contenido.Remove(contEjercicio);     
             db.SaveChanges();
 
