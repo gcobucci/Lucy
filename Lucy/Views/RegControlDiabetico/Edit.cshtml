@@ -222,5 +222,21 @@
                 //format: 'L'
             });
         });
+
+        $(document).ready(function () {
+            if ($("#RegistrarComida").is(':checked')) {
+                $("#registro_comida").show();
+            } else {
+                $("#registro_comida").hide();
+            }
+        });
+
+        $("#RegistrarComida").change(function () {
+            if ($("#RegistrarComida").is(':checked')) {
+                $("#registro_comida").show();
+            } else {
+                $("#registro_comida").hide();
+            }
+        });
     </script>
 }
