@@ -13,6 +13,9 @@
     
     <div class="form-horizontal">
         <h4>Peso</h4>
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (ViewBag.ErrorMessage != null)
@@ -52,9 +55,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Volver al listado", "Index")
-</div>
 
 @section style {
     @Styles.Render("~/Content/bootstrap-datetimepicker")

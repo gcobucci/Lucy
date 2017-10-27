@@ -13,6 +13,9 @@
     
     <div class="form-horizontal">
         <h4>Control Diabético</h4>
+        <div>
+            @Html.ActionLink("Volver al listado", "Index")
+        </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (ViewBag.ErrorMessage != null)
@@ -158,19 +161,8 @@
                 <div id="resultados">
                     <h4>Resultados</h4>
 
-                    <p>
-                        @Html.LabelFor(model => Model.ResultadoInsulinaPorCorreccion):
-
-                        @Html.HiddenFor(model => Model.ResultadoInsulinaPorCorreccion)
-                        @Html.DisplayFor(model => Model.ResultadoInsulinaPorCorreccion)
-                    </p>
-
-                    <p>
-                        @Html.LabelFor(model => Model.ResultadoInsulinaPorHidratos):
-
-                        @Html.HiddenFor(model => Model.ResultadoInsulinaPorHidratos)
-                        @Html.DisplayFor(model => Model.ResultadoInsulinaPorHidratos)
-                    </p>
+                    <div id="msgResultadoControl" class="alert alert-info" style="display:none;max-width: 500px;">
+                    </div>
                 </div>
 
                 <div id="resultado_final">
@@ -198,10 +190,6 @@
     </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Volver al listado", "Index")
-</div>
 
 @section style {
     @Styles.Render("~/Content/bootstrap-datetimepicker")
@@ -237,6 +225,22 @@
             } else {
                 $("#registro_comida").hide();
             }
+        });
+
+        function preCalcResultado() {
+            var x = $("#ControlValor").val();
+            var y = $("#ComidaCarbohidratos").val();
+            calcularResultado(x, y);
+        }
+
+        preCalcResultado();
+
+        $("#ControlValor").keyup(function () {
+            preCalcResultado();
+        });
+
+        $("#ComidaCarbohidratos").keyup(function () {
+            preCalcResultado();
         });
     </script>
 }
