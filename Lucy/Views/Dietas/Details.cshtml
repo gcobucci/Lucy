@@ -15,6 +15,16 @@
     <div class="col-sm-6 col-sm-offset-3">
         <div class="row">
             <div class="col-sm-12">
+
+                @if (Model.Dieta.Persona.Where(d => d.PersonaId == ViewBag.idPer).FirstOrDefault() != null)
+                {
+                    <a href="/dietas/abandonarDieta" class="btn btn-info" role="button" style="position: absolute;right: 10px;top: -20px;font-weight: 400;font-size: 12px;">Abandonar dieta</a>
+                }
+                else
+                {
+                    <a href="/dietas/comenzarDieta?idDieta=@Model.Dieta.DietaId" class="btn btn-default" role="button" style="position: absolute;right: 10px;top: -20px;font-weight: 400;font-size: 12px;">Seguir dieta</a>
+                }
+
                 <h3 style="float: left; margin-right: 5px">@Html.DisplayFor(model => model.ContenidoTitulo)</h3>
                 @if (ViewBag.idUsu != null && Model.UsuarioAutor != null && ViewBag.idUsu == Model.UsuarioAutor.UsuarioId)
                 {
