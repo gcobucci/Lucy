@@ -132,11 +132,11 @@ namespace Lucy.Controllers
             {
                 ViewBag.VerGraficaDieta = true;
 
-                ViewBag.CaloriasDesayunoPorcentaje = promedioCaloriasDesayuno / totalPromedioCalorias;
-                ViewBag.CaloriasAlmuerzoPorcentaje = promedioCaloriasAlmuerzo / totalPromedioCalorias;
-                ViewBag.CaloriasMeriendaPorcentaje = promedioCaloriasMerienda / totalPromedioCalorias;
-                ViewBag.CaloriasCenaPorcentaje = promedioCaloriasCena / totalPromedioCalorias;
-                ViewBag.CaloriasIngestasPorcentaje = promedioCaloriasIngestas / totalPromedioCalorias;
+                ViewBag.CaloriasDesayunoPorcentaje = (promedioCaloriasDesayuno * 100) / totalPromedioCalorias;
+                ViewBag.CaloriasAlmuerzoPorcentaje = (promedioCaloriasAlmuerzo * 100) / totalPromedioCalorias;
+                ViewBag.CaloriasMeriendaPorcentaje = (promedioCaloriasMerienda * 100) / totalPromedioCalorias;
+                ViewBag.CaloriasCenaPorcentaje = (promedioCaloriasCena * 100) / totalPromedioCalorias;
+                ViewBag.CaloriasIngestasPorcentaje = (promedioCaloriasIngestas * 100) / totalPromedioCalorias;
             }            
 
 
