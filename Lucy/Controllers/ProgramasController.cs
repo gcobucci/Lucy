@@ -230,9 +230,9 @@ namespace Lucy.Controllers
                     contPrograma.Programa.Rutina.Remove(oldRutina);
                 }
 
-                foreach (var eje in datos.Rutinas.Where(e => e.Checked == true))
+                foreach (var rut in datos.Rutinas.Where(e => e.Checked == true))
                 {
-                    contPrograma.Programa.Rutina.Add(db.Rutina.Where(e => e.RutinaId == eje.Id).FirstOrDefault());
+                    contPrograma.Programa.Rutina.Add(db.Rutina.Where(e => e.RutinaId == rut.Id).FirstOrDefault());
                 }
 
                 db.SaveChanges();

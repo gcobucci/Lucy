@@ -85,6 +85,16 @@ namespace Lucy.Controllers
             newDatCli.Enfermedades = lEnf;
 
 
+            List<ModelCL.Medicina> lMedicinas = db.Medicina.Where(m => m.Usuario == null || (m.Usuario != null && m.Usuario.UsuarioId == idUsu)).ToList();
+            List<Fachada.ViewModelCheckBox> lMed = new List<Fachada.ViewModelCheckBox>();
+            foreach (ModelCL.Medicina med in lMedicinas)
+            {
+                lMed.Add(new Fachada.ViewModelCheckBox() { Id = med.MedicinaId, Nombre = med.MedicinaNombre});
+            }
+
+            newDatCli.Medicinas = lMed;
+
+
             if (id != 0)
             {
                 ModelCL.Persona Persona = db.Persona.Find(id);
@@ -145,6 +155,18 @@ namespace Lucy.Controllers
                     ModelCL.Medicina InsulinaCorreccion = Persona.RelPerEnf.Where(rpe => rpe.Enfermedad.EnfermedadNombre == "Diabetes tipo 1").FirstOrDefault().RelMedRelPerEnf.Where(rmrpe => rmrpe.Medicina.MedicinaTipo == "Activa").FirstOrDefault().Medicina;
                     newDatCli.InsulinaCorreccionId = InsulinaCorreccion.MedicinaId;
                 }
+
+
+
+                //foreach (var m in newDatCli.Medicinas)
+                //{
+                //    ModelCL.RelMedRelPerEnf rmrpe = Persona..Where(rpe => rpe.EnfermedadId == newDatCli.Enfermedades[i].Id).FirstOrDefault();
+
+                //    if (rel != null)
+                //    {
+                //        newDatCli.Enfermedades[i].Checked = true;
+                //    }
+                //}
             }
 
             ViewBag.idPersona = id;

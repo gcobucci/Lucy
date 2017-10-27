@@ -19,7 +19,7 @@ namespace Lucy.Models
         [Display(Name = "Nombre")]
         public string EnfermedadNombre { get; set; }
 
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         public string EnfermedadDesc { get; set; }
     }
 }

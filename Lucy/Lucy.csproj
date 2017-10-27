@@ -1035,6 +1035,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
+    <Compile Include="Controllers\MedicinasController.cs" />
     <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\AlimentosController.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
@@ -1064,6 +1065,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MedicinaViewModel.cs" />
     <Compile Include="Models\ProgramaViewModel.cs" />
     <Compile Include="Models\RutinaViewModel.cs" />
     <Compile Include="Models\EjercicioViewModel.cs" />
@@ -1163,6 +1165,9 @@
     <Content Include="Views\Programas\Create.cshtml" />
     <Content Include="Views\Programas\Edit.cshtml" />
     <Content Include="Views\Favorito\_Index.cshtml" />
+    <Content Include="Views\Medicinas\Create.cshtml" />
+    <Content Include="Views\Medicinas\Edit.cshtml" />
+    <Content Include="Views\Medicinas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

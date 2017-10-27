@@ -129,6 +129,7 @@ namespace Backend.Controllers
                 med.MedicinaNombre = medicina.MedicinaNombre;
                 med.MedicinaTipo = medicina.MedicinaTipo;
                 med.MedicinaDesc = medicina.MedicinaDesc;
+                med.MedicinaGeneral = medicina.MedicinaGeneral;
 
                 List<ModelCL.Enfermedad> bkEnfermedades = med.Enfermedad.ToList();
                 foreach (ModelCL.Enfermedad oldEnfermedad in bkEnfermedades)

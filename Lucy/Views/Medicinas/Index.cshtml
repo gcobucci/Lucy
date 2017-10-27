@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ModelCL.Medicina>
+
+@{
+    ViewBag.Title = "Medicinas";
+}
+
+<h2>Medicinas</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            "Nombre"
+        </th>
+        <th>
+            "Descripción"
+        </th>
+        <th>
+            Tipo
+        </th>
+        <th>
+            Medicina general
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicinaTipo)
+        </td>
+        <td>
+            @if (item.MedicinaGeneral == true)
+            {
+                <text>Si</text>
+            }
+            else
+            {
+                <text>No</text>
+}
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.MedicinaId })
+            <span> | </span>
+            <a href="#" onclick="abrirModalDelete(@item.MedicinaId)">Eliminar</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="PopUpConfirmationDeleteMsg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¡Atención!</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta medicina?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="confDel()" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <span id="idMed"></span>
+</div>
+
+
+@section scripts{
+    <script>
+        function abrirModalDelete(idMed) {
+            $('#PopUpConfirmationDeleteMsg').modal({
+                show: 'true'
+            });
+            $("#idMed").text(idMed);
+        }
+
+        function confDel() {
+            location.href = "/medicinas/eliminar?id=" + $("#idMed").text();
+        }
+    </script>
+}

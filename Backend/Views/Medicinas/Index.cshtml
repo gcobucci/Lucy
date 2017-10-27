@@ -23,6 +23,9 @@
                         Descripción Medicina
                     </th>
                     <th>
+                        Medicina general
+                    </th>
+                    <th>
                         Cantidad de enfermedades asociadas
                     </th>
                     <th>
@@ -42,6 +45,16 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.MedicinaDesc)
+                        </td>
+                        <td>
+                            @if (item.MedicinaGeneral == true)
+                            {
+                                <text>Si</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
                         </td>
                         <td>
                             @item.Enfermedad.Count().ToString()

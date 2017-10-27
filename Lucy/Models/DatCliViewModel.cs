@@ -66,5 +66,6 @@ namespace Lucy.Models
 
 
         /////Medicina/////
+        public List<Fachada.ViewModelCheckBox> Medicinas { get; set; }
     }
 }

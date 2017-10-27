@@ -30,6 +30,21 @@
            @Html.Label("Descripción")
         </dt>
 
+        <dt>
+            @Html.Label("Medicina general")
+        </dt>
+
+        <dd>
+            @if (Model.MedicinaGeneral == true)
+            {
+                <text>Si</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
+        </dd>
+
         <dd>
             @Html.DisplayFor(model => model.MedicinaDesc)
         </dd>
