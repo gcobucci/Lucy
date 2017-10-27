@@ -381,6 +381,25 @@ function notificaciones() {
     });
 }
 
+function calcularResultado(valorControl, hidratos) {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            valorControl: valorControl,
+            hidratos: hidratos
+        },
+        url: "/registros/control_diabetico/calcularResultado",
+        success: function (data) {
+            //alert(JSON.stringify(data));
+            //alert(data.totalInsulina);
+            document.getElementById("msgResultadoControl").style.display = "block";
+            $("#msgResultadoControl").text(data.resultadoInsulinaMensaje);
+            $("#ResultadoTotalInsulinaCorreccion").val(data.totalInsulina);
+        }
+    });
+}
+
 function eliminarNot(idPanel, idNot) {
     document.getElementById(idPanel).style.left = "-1000px";
     var x = setInterval(function () {

@@ -715,9 +715,16 @@ namespace Lucy.Controllers
             return View(datos);
         }
 
+        [Route("calcularResultado")]
         public ActionResult calcularResultado(double valorControl, short? hidratos)
         {
+            //Nullable<short> hidratos = datos.ComidaCarbohidratos;
+            //double valorControl = datos.ControlValor;
+
+            string resultadoInsulinaMensaje = null;
             double insulinaPorCorreccion = 0;
+            double insulinaPorHidratos = 0;
+            double totalInsulina = 0;
 
             long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
             ModelCL.Persona Persona = db.Persona.Find(idPer);
@@ -729,25 +736,90 @@ namespace Lucy.Controllers
 
             ModelCL.Valor valorGlucosa = db.Valor.Where(v => v.ValorNombre == "Glucosa").FirstOrDefault();
 
+            //double puntoMedioNormalGlucosa = valorGlucosa.ValorNormalMinimo + ((valorGlucosa.ValorNormalMaximo - valorGlucosa.ValorNormalMinimo) / 2);
 
-            if (hidratos == null)
+
+
+            if (valorControl > valorGlucosa.ValorNormalMaximo)
             {
-                if (valorControl > valorGlucosa.ValorNormalMaximo)
-                {
+                double difGlucosa = valorControl - valorGlucosa.ValorNormalMaximo;
 
+                double cantidadDeMinimas = difGlucosa / Math.Abs(dosisInsu.DosisEfecto);
+
+                insulinaPorCorreccion = dosisInsu.DosisCantidadMin * Math.Ceiling(cantidadDeMinimas);
+            }
+
+
+            if (hidratos != null && hidratos != 0)
+            {
+                short hidratosPorUniInsu = Persona.Datos.Where(d => d.Diabetes != null).OrderByDescending(d => d.DatosFchEnable).FirstOrDefault().Diabetes.DiabetesHidratosPorUniInsu;
+
+                double UnidadesFijasPorHidratos = Convert.ToDouble(hidratos / hidratosPorUniInsu);
+
+                double cantidadDeMinimas = UnidadesFijasPorHidratos / dosisInsu.DosisCantidadMin;
+
+                insulinaPorHidratos = dosisInsu.DosisCantidadMin * Math.Round(cantidadDeMinimas);
+            }
+
+
+
+            if (insulinaPorCorreccion == 0)
+            {
+                if (insulinaPorHidratos == 0)
+                {
+                    if (valorControl >= valorGlucosa.ValorNormalMinimo && valorControl <= valorGlucosa.ValorNormalMaximo)
+                    {
+                        resultadoInsulinaMensaje = "No es necesario que te inyectes.";
+                    }
+                    else if (valorControl < valorGlucosa.ValorNormalMinimo && valorControl >= valorGlucosa.ValorBajoMinimo)
+                    {
+                        resultadoInsulinaMensaje = "Será necesario que consumas alimentos con carbohidratos o un poco de azucar para volver a tus valores normales.";
+                    }
+                    else
+                    {
+                        resultadoInsulinaMensaje = "Debes ingerir azucar lo antes posible!";
+                    }
                 }
                 else
                 {
+                    double glucosaGeneradaPorHidratos = insulinaPorHidratos * Math.Abs(dosisInsu.DosisEfecto);
 
+                    double sumaGlucosaConHidratos = valorControl + glucosaGeneradaPorHidratos;
+
+
+                    if (sumaGlucosaConHidratos > valorGlucosa.ValorNormalMaximo)
+                    {
+                        double difGlucosa = sumaGlucosaConHidratos - valorGlucosa.ValorNormalMaximo;
+
+                        double cantidadDeMinimas = difGlucosa / Math.Abs(dosisInsu.DosisEfecto);
+
+                        totalInsulina = dosisInsu.DosisCantidadMin * Math.Ceiling(cantidadDeMinimas);
+
+                        resultadoInsulinaMensaje = "Según los valores proporcionados deberías inyectarte.";
+                    }
+                    else if (sumaGlucosaConHidratos >= valorGlucosa.ValorNormalMinimo && sumaGlucosaConHidratos <= valorGlucosa.ValorNormalMaximo)
+                    {
+                        resultadoInsulinaMensaje = "No es necesario que te inyectes.";
+                    }
+                    else if (sumaGlucosaConHidratos >= valorGlucosa.ValorBajoMinimo)
+                    {
+                        resultadoInsulinaMensaje = "Será necesario que consumas más alimentos con carbohidratos o un poco de azucar para volver a tus valores normales.";
+                    }
+                    else
+                    {
+                        resultadoInsulinaMensaje = "Debes ingerir azucar lo antes posible!";
+                    }
                 }
             }
             else
             {
-
+                resultadoInsulinaMensaje = "Según los valores proporcionados deberías inyectarte.";
+                totalInsulina = insulinaPorCorreccion + insulinaPorHidratos;
             }
+            
 
-            return null;
-            //return Json();
+            //return null;
+            return Json(new { resultadoInsulinaMensaje = resultadoInsulinaMensaje, totalInsulina = totalInsulina }, JsonRequestBehavior.AllowGet);
             //return this.Content(notificaciones.Count().ToString());
         }
 
