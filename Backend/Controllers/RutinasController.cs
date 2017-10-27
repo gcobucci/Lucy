@@ -154,6 +154,12 @@ namespace Backend.Controllers
         {
             ModelCL.Contenido contRutina = db.Contenido.Find(id);
 
+            List<ModelCL.Programa> bkProgramas = contRutina.Rutina.Programa.ToList();
+            foreach (ModelCL.Programa oldPrograma in bkProgramas)
+            {
+                contRutina.Rutina.Programa.Remove(oldPrograma);
+            }
+
             db.Contenido.Remove(contRutina);
             db.SaveChanges();
 
