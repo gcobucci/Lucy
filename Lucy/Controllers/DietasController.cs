@@ -26,6 +26,9 @@ namespace Lucy.Controllers
 
             var dietas = db.Contenido.Where(c => c.Dieta != null && (c.UsuarioAutor == null || c.UsuarioAutor.UsuarioId == idUsu)).OrderBy(c => c.ContenidoTitulo).ToList();
 
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ViewBag.idPer = idPer;
+
             return View(dietas);
         }
 
