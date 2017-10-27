@@ -58,8 +58,9 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
             ModelCL.Enfermedad oldEnfermedad = db.Enfermedad.Find(id);
-            if (oldEnfermedad == null)
+            if (oldEnfermedad == null || oldEnfermedad.Usuario.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }
@@ -103,9 +104,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Enfermedad enfermedad = db.Enfermedad.Where(r => r.EnfermedadId == id).FirstOrDefault();
 
-            if (enfermedad == null)
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ModelCL.Enfermedad enfermedad = db.Enfermedad.Where(r => r.EnfermedadId == id).FirstOrDefault();
+            if (enfermedad == null || enfermedad.Usuario.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }

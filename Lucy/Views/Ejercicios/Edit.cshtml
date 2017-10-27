@@ -68,7 +68,7 @@
             @Html.LabelFor(model => model.EjercicioCaloriasPorMinuto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.EjercicioCaloriasPorMinuto)
+                    @Html.EditorFor(model => model.EjercicioCaloriasPorMinuto, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.EjercicioCaloriasPorMinuto, "", new { @class = "text-danger" })
                 </div>
             </div>

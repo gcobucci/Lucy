@@ -59,7 +59,7 @@ namespace Lucy.Controllers
 
 
             ModelCL.Contenido contPrograma = db.Contenido.Find(id);
-            if (contPrograma.Programa == null || (contPrograma.UsuarioAutor != null && contPrograma.UsuarioAutor.UsuarioId != idUsu))
+            if (contPrograma == null || contPrograma.Programa == null || (contPrograma.UsuarioAutor != null && contPrograma.UsuarioAutor.UsuarioId != idUsu))
             {
                 return HttpNotFound();
             }
@@ -160,7 +160,7 @@ namespace Lucy.Controllers
             }
 
             ModelCL.Contenido oldContPrograma = db.Contenido.Find(id);
-            if (oldContPrograma == null || oldContPrograma.Programa == null)
+            if (oldContPrograma == null || oldContPrograma.Programa == null || oldContPrograma.UsuarioAutor.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }
@@ -251,9 +251,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Programa != null).FirstOrDefault();
 
-            if (contenido == null)
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Programa != null).FirstOrDefault();
+            if (contenido == null || contenido.Programa == null || contenido.UsuarioAutor.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }

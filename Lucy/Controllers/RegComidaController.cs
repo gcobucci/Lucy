@@ -35,9 +35,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-                        
+
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
             ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (regComida.Comida == null)
+            if (regComida == null || regComida.Comida == null || regComida.Persona.PersonaId != idPer)
             {
                 return HttpNotFound();
             }
@@ -316,8 +317,9 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
             ModelCL.Registro regComida = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (regComida.Comida == null)
+            if (regComida == null || regComida.Comida == null || regComida.Persona.PersonaId != idPer)
             {
                 return HttpNotFound();
             }
@@ -606,9 +608,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id && r.Comida != null).FirstOrDefault();
 
-            if (registro == null)
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id && r.Comida != null).FirstOrDefault();
+            if (registro == null || registro.Comida == null || registro.Persona.PersonaId != idPer)
             {
                 return HttpNotFound();
             }

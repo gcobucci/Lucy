@@ -97,10 +97,13 @@ namespace Lucy.Controllers
         [Route("logout")]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
-            HttpCookie cookieUsu = Request.Cookies["cookieUsu"];
-            cookieUsu.Expires = DateTime.Now.AddDays(-1d);
-            Response.Cookies.Add(cookieUsu);
+            if (Request.Cookies["cookieUsu"] != null)
+            {
+                FormsAuthentication.SignOut();
+                HttpCookie cookieUsu = Request.Cookies["cookieUsu"];
+                cookieUsu.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookieUsu);
+            }
 
             if (Request.Cookies["cookiePer"] != null)
             {

@@ -66,7 +66,7 @@
             @Html.LabelFor(model => model.RecetaSodio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.RecetaSodio)
+                    @Html.EditorFor(model => model.RecetaSodio, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.RecetaSodio, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -76,7 +76,7 @@
             @Html.LabelFor(model => model.RecetaGluten, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.RecetaGluten)
+                    @Html.EditorFor(model => model.RecetaGluten, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.RecetaGluten, "", new { @class = "text-danger" })
                 </div>
             </div>
