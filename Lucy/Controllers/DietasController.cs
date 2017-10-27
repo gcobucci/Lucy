@@ -138,7 +138,7 @@ namespace Lucy.Controllers
             }
 
             ModelCL.Contenido oldContDieta = db.Contenido.Find(id);
-            if (oldContDieta == null || oldContDieta.Dieta == null)
+            if (oldContDieta == null || oldContDieta.Dieta == null || oldContDieta.UsuarioAutor.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }
@@ -242,9 +242,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Dieta != null).FirstOrDefault();
 
-            if (contenido == null)
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ModelCL.Contenido contenido = db.Contenido.Where(c => c.ContenidoId == id && c.Dieta != null).FirstOrDefault();
+            if (contenido == null || contenido.Dieta == null || contenido.UsuarioAutor.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }

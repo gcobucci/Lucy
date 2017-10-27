@@ -114,8 +114,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
             ModelCL.Registro regActividad = db.Registro.Where(r => r.RegistroId == id).FirstOrDefault();
-            if (regActividad.Actividad == null)
+            if (regActividad == null || regActividad.Actividad == null || regActividad.Persona.PersonaId != idPer)
             {
                 return HttpNotFound();
             }
@@ -199,9 +201,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id && r.Actividad != null).FirstOrDefault();
 
-            if (registro == null)
+            long idPer = Convert.ToInt64(Request.Cookies["cookiePer"]["PerId"]);
+            ModelCL.Registro registro = db.Registro.Where(r => r.RegistroId == id && r.Actividad != null).FirstOrDefault();
+            if (registro == null || registro.Actividad == null || registro.Persona.PersonaId != idPer)
             {
                 return HttpNotFound();
             }

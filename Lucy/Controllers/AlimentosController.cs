@@ -132,8 +132,9 @@ namespace Lucy.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
             ModelCL.Alimento oldAlimento = db.Alimento.Find(id);
-            if (oldAlimento == null)
+            if (oldAlimento == null || oldAlimento.Usuario.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }
@@ -238,9 +239,10 @@ namespace Lucy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ModelCL.Alimento alimento = db.Alimento.Where(r => r.AlimentoId == id).FirstOrDefault();
 
-            if (alimento == null)
+            long idUsu = Fachada.Functions.get_idUsu(Request.Cookies[FormsAuthentication.FormsCookieName]);
+            ModelCL.Alimento alimento = db.Alimento.Where(r => r.AlimentoId == id).FirstOrDefault();            
+            if (alimento == null || alimento.Usuario.UsuarioId != idUsu)
             {
                 return HttpNotFound();
             }
