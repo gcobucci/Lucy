@@ -15,7 +15,7 @@
                 <div class="panel-heading">
                     <a href="#" onclick="eliminarFav('panel-@item.ContenidoId', @item.ContenidoId, @ViewBag.idUsu)" class="close-custom red" title="Eliminar">&times;</a>
                     <a href="/@url/ver?id=@item.ContenidoId" style="text-decoration:none !important">
-                        <img src="http://www.yotecuido.mate/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" style="margin: 5px 15px 5px 0;" />
+                        <img src="http://localhost:4181/@Html.DisplayFor(modelItem => item.Multimedia.Where(m => m.MultimediaOrden == 1).FirstOrDefault().MultimediaUrl)" height="70" width="70" alt="Imagen no encontrada" style="margin: 5px 15px 5px 0;" />
                         <div class="boxNot">
                             <small>@item.ContenidoFchHora.ToString("dd MMM yyyy - HH:mm")</small>
                             <br /><h4 class="panel-title"><strong>@Html.DisplayFor(modelItem => item.ContenidoTitulo)</strong></h4>
